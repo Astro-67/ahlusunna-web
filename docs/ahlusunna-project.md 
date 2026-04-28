@@ -1,0 +1,503 @@
+roject_md = """# Ahlusunna — Islamic Learning Platform: Project Specification
+
+## Agent Role
+
+You are a senior React frontend engineer specializing in TanStack Router, Tailwind CSS, and educational platform UI/UX. You build production-grade SPAs with file-based routing, multilingual support, and accessibility-first design. You write clean TypeScript with explicit types, never use `any`, and follow component composition patterns.
+
+## Project Identity
+
+**Name:** Ahlusunna
+**Domain:** ahlusunna.info
+**Purpose:** Multi-level Islamic learning platform for Swahili-speaking Muslims
+**Phase:** 1 (Beginner level public, Intermediate/Advanced locked)
+**Language:** UI in Swahili, content in Swahili/Arabic/English with language switching
+
+## System Constraints
+
+```
+Framework: React 18 + Vite + TypeScript
+Router: TanStack Router (file-based routing via @tanstack/router-plugin)
+Styling: Tailwind CSS 3.4
+State: React Context (no external state library)
+i18n: react-i18next with i18next-browser-languagedetector
+Icons: lucide-react
+Rich Text: @tiptap/react + @tiptap/starter-kit + @tiptap/extension-text-align
+Audio: Native HTML5 Audio API
+Fonts: Inter (400/500/600/700), Amiri (400/700), Scheherazade New (400/700) via Google Fonts
+```
+
+## Mandatory Rules
+
+1. **All code comments, variable names, function names, file names in English**
+2. **All user-facing text in Swahili by default** — Arabic and English content loaded via i18n when user switches
+3. **No rounded corners by default** — sharp edges everywhere except functional circular elements (play buttons, avatars, progress bar ends, loading spinners)
+4. **Big, visual, bold components** — minimum heights enforced, generous padding, prominent typography
+5. **Mobile-first responsive** — all layouts work on 320px width, enhance at md (768px) and lg (1024px)
+6. **RTL full support** — when Arabic selected, `dir="rtl"` on `<html>`, logical CSS properties (`ms-`, `me-`, `ps-`, `pe-`)
+7. **Accessibility:** WCAG 2.1 AA minimum — focus indicators 2px solid `#C9A84C`, alt text on all images, `aria-label` on icon-only buttons
+
+## Color Palette (Exact Hex Values)
+
+| Token | Hex | Tailwind Class | Usage |
+|-------|-----|---------------|-------|
+| Primary | `#1B4332` | `bg-[#1B4332]` | Navbar, primary buttons, headings, footer |
+| Primary Dark | `#143828` | `bg-[#143828]` | Hover states, active nav items |
+| Accent | `#C9A84C` | `bg-[#C9A84C]` | Links, icons, borders, CTAs, hover borders |
+| Accent Dark | `#B8973A` | `bg-[#B8973A]` | Accent hover states |
+| Background Primary | `#FAF7F0` | `bg-[#FAF7F0]` | Page backgrounds |
+| Background Surface | `#FFFFFF` | `bg-white` | Cards, modals, inputs |
+| Text Primary | `#1C1C1C` | `text-[#1C1C1C]` | Body text, headings on light |
+| Text Inverse | `#FAF7F0` | `text-[#FAF7F0]` | Text on dark backgrounds |
+| Text Muted | `#6B7280` | `text-[#6B7280]` | Captions, placeholders, secondary |
+| Border | `#E5E0D8` | `border-[#E5E0D8]` | Dividers, card borders, input borders |
+| Success | `#2D6A4F` | `text-[#2D6A4F]` | Completion checkmarks |
+| Error | `#9B2335` | `text-[#9B2335]` | Validation errors |
+
+## Typography Scale (Exact)
+
+| Token | Mobile | Desktop (lg+) | Line Height | Weight | Usage |
+|-------|--------|---------------|-------------|--------|-------|
+| Hero | 32px | 48px | 1.2 | 700 | Home hero title |
+| H1 | 28px | 36px | 1.3 | 700 | Page titles |
+| H2 | 24px | 28px | 1.3 | 700 | Section headings |
+| H3 | 20px | 22px | 1.4 | 600 | Card titles, subject names |
+| Body | 16px | 16px | 1.6 | 400 | Paragraphs, lesson content |
+| Small | 14px | 14px | 1.5 | 400 | Captions, metadata |
+| XS | 12px | 12px | 1.4 | 500 | Tags, badges |
+
+Font classes:
+- Swahili/English UI: `font-sans` (Inter, system-ui)
+- Arabic content: `font-arabic` (Amiri, Scheherazade New)
+- Quranic verses: `font-decorative` (Amiri italic)
+
+## Spacing Scale (Exact Tailwind)
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| xs | 4px (`p-1`) | Tight gaps |
+| sm | 8px (`p-2`) | Icon gaps |
+| md | 16px (`p-4`) | Component padding |
+| lg | 24px (`p-6`) | Section gaps |
+| xl | 32px (`p-8`) | Card padding |
+| 2xl | 48px (`p-12`) | Page section spacing |
+| 3xl | 64px (`p-16`) | Major section breaks |
+| 4xl | 96px (`p-24`) | Hero spacing |
+
+## Folder Structure (Exact — Create These)
+
+```
+ahlusunna-web/
+├── public/
+│   └── locales/
+│       ├── sw.json          (Swahili UI translations)
+│       ├── ar.json          (Arabic UI translations)
+│       └── en.json          (English UI translations)
+├── src/
+│   ├── routes/              (TanStack Router file-based)
+│   │   ├── __root.tsx       (Root layout: Navbar + Outlet + AudioPlayer + Footer)
+│   │   ├── index.tsx        (Home /)
+│   │   ├── subjects.tsx     (Subjects /subjects)
+│   │   ├── lesson.$slug.tsx (Lesson /lesson/:slug)
+│   │   ├── about.tsx        (About /about)
+│   │   ├── contact.tsx      (Contact /contact)
+│   │   ├── login.tsx        (Login /login)
+│   │   ├── register.tsx     (Register /register)
+│   │   ├── (learner)/
+│   │   │   ├── _layout.tsx  (Protected: checks auth)
+│   │   │   ├── subjects.intermediate.tsx (/subjects/intermediate)
+│   │   │   ├── subjects.advanced.tsx (/subjects/advanced)
+│   │   │   └── progress.tsx (/progress)
+│   │   └── (admin)/
+│   │       ├── _layout.tsx  (Admin: checks auth + admin role)
+│   │       ├── admin.index.tsx (/admin)
+│   │       └── admin.content.tsx (/admin/content)
+│   ├── components/
+│   │   ├── layout/
+│   │   │   ├── Navbar.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   └── MasjidPattern.tsx
+│   │   ├── home/
+│   │   │   ├── HeroSection.tsx
+│   │   │   └── LevelCard.tsx
+│   │   ├── subjects/
+│   │   │   ├── SubjectCard.tsx
+│   │   │   └── LessonCard.tsx
+│   │   ├── lesson/
+│   │   │   ├── LessonHeader.tsx
+│   │   │   ├── ContentTabs.tsx
+│   │   │   ├── WrittenContent.tsx
+│   │   │   ├── VideoEmbed.tsx
+│   │   │   └── AudioTrigger.tsx
+│   │   ├── auth/
+│   │   │   ├── LoginForm.tsx
+│   │   │   └── RegisterForm.tsx
+│   │   ├── audio/
+│   │   │   └── PersistentAudioPlayer.tsx
+│   │   ├── admin/
+│   │   │   ├── AdminSidebar.tsx
+│   │   │   ├── DashboardStats.tsx
+│   │   │   ├── ContentManager.tsx
+│   │   │   ├── ContentEditor.tsx
+│   │   │   └── ContentForm.tsx
+│   │   └── shared/
+│   │       ├── LanguageToggle.tsx
+│   │       ├── ProgressBar.tsx
+│   │       ├── LockOverlay.tsx
+│   │       ├── CompletionCheckmark.tsx
+│   │       ├── Breadcrumb.tsx
+│   │       ├── EmptyState.tsx
+│   │       └── LoadingSpinner.tsx
+│   ├── contexts/
+│   │   ├── AuthContext.tsx
+│   │   ├── LanguageContext.tsx
+│   │   └── AudioPlayerContext.tsx
+│   ├── data/
+│   │   └── seed.ts           (All mock data: levels, subjects, lessons, users)
+│   ├── hooks/
+│   │   ├── useAuth.ts
+│   │   ├── useLanguage.ts
+│   │   └── useAudioPlayer.ts
+│   ├── i18n/
+│   │   └── config.ts         (i18next initialization)
+│   ├── lib/
+│   │   └── utils.ts          (cn() helper using clsx + tailwind-merge)
+│   ├── types/
+│   │   └── index.ts          (All TypeScript interfaces)
+│   ├── styles/
+│   │   └── index.css         (Global styles + Tailwind directives + font imports)
+│   └── main.tsx              (App entry: render router + providers)
+├── index.html
+├── vite.config.ts            (Vite + TanStack Router plugin)
+├── tailwind.config.js        (Extended theme with exact tokens)
+├── tsconfig.json
+└── package.json
+```
+
+## Route Configuration (Exact)
+
+TanStack Router file-based routing conventions [web:79]:
+- `index.tsx` → `/`
+- `subjects.tsx` → `/subjects`
+- `lesson.$slug.tsx` → `/lesson/$slug`
+- `about.tsx` → `/about`
+- `contact.tsx` → `/contact`
+- `login.tsx` → `/login`
+- `register.tsx` → `/register`
+- `(learner)/_layout.tsx` → layout for `/subjects/intermediate`, `/subjects/advanced`, `/progress`
+- `(learner)/subjects.intermediate.tsx` → `/subjects/intermediate`
+- `(learner)/subjects.advanced.tsx` → `/subjects/advanced`
+- `(learner)/progress.tsx` → `/progress`
+- `(admin)/_layout.tsx` → layout for `/admin`, `/admin/content`
+- `(admin)/admin.index.tsx` → `/admin`
+- `(admin)/admin.content.tsx` → `/admin/content`
+
+Route guards implemented via `beforeLoad` on layout routes.
+
+## Access Control Matrix
+
+| Route | Auth Required | Role | Behavior if Unauthenticated |
+|-------|--------------|------|----------------------------|
+| `/` | No | Any | Full access |
+| `/subjects` | No | Any | Shows Beginner subjects only |
+| `/lesson/:slug` | No for Beginner | Any | Public if level=awali, redirect to `/login` if level=kati/endelea |
+| `/about` | No | Any | Full access |
+| `/contact` | No | Any | Full access |
+| `/login` | No (redirect if auth) | Any | Redirect to `/` if already logged in |
+| `/register` | No (redirect if auth) | Any | Redirect to `/` if already logged in |
+| `/subjects/intermediate` | Yes | learner, admin | Redirect to `/login?redirect=/subjects/intermediate` |
+| `/subjects/advanced` | Yes | learner, admin | Redirect to `/login?redirect=/subjects/advanced` |
+| `/progress` | Yes | learner, admin | Redirect to `/login?redirect=/progress` |
+| `/admin` | Yes | admin only | Redirect to `/` if not admin |
+| `/admin/content` | Yes | admin only | Redirect to `/` if not admin |
+
+## Implementation Order (Strict — Do Not Skip)
+
+1. **Project scaffolding** — `npm create vite@latest ahlusunna-web -- --template react-ts`, install all dependencies
+2. **Configure TanStack Router** — add `@tanstack/router-plugin` to vite.config.ts, create `src/routes` directory
+3. **Configure Tailwind** — create tailwind.config.js with exact color tokens, typography, spacing
+4. **Configure TypeScript** — strict mode, path aliases for `@/components`, `@/contexts`, etc.
+5. **Add Google Fonts** — import Inter, Amiri, Scheherazade New in index.css
+6. **Create types** — `src/types/index.ts` with all interfaces
+7. **Create mock data** — `src/data/seed.ts` with levels, subjects, 15 lessons, 3 users
+8. **Configure i18n** — `src/i18n/config.ts` + `public/locales/sw.json`, `ar.json`, `en.json`
+9. **Create utils** — `src/lib/utils.ts` with `cn()` helper
+10. **Create contexts** — AuthContext, LanguageContext, AudioPlayerContext
+11. **Create root layout** — `src/routes/__root.tsx` with Navbar + Outlet + PersistentAudioPlayer + Footer
+12. **Create public routes** — index.tsx, subjects.tsx, lesson.$slug.tsx, about.tsx, contact.tsx
+13. **Create auth routes** — login.tsx, register.tsx
+14. **Create protected learner routes** — (learner)/_layout.tsx with beforeLoad guard, subjects.intermediate.tsx, subjects.advanced.tsx, progress.tsx
+15. **Create admin routes** — (admin)/_layout.tsx with role guard, admin.index.tsx, admin.content.tsx
+16. **Create all components** — in order: layout → shared → home → subjects → lesson → auth → audio → admin
+17. **Add progress tracking** — localStorage persistence for completed lessons
+18. **Test all routes** — verify public access, auth guards, admin guards, RTL switching
+19. **Polish responsive** — test at 320px, 768px, 1024px, 1280px
+20. **Final accessibility audit** — keyboard navigation, focus states, aria labels
+
+## Dependencies (Exact package.json)
+
+```json
+{
+  "name": "ahlusunna-web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@tanstack/react-router": "^1.91.0",
+    "tailwindcss": "^3.4.17",
+    "react-i18next": "^15.4.0",
+    "i18next": "^24.2.0",
+    "i18next-browser-languagedetector": "^8.0.2",
+    "i18next-http-backend": "^3.0.1",
+    "lucide-react": "^0.469.0",
+    "@tiptap/react": "^2.11.0",
+    "@tiptap/starter-kit": "^2.11.0",
+    "@tiptap/extension-text-align": "^2.11.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@tanstack/router-plugin": "^1.91.0",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49"
+  }
+}
+```
+
+## vite.config.ts (Exact)
+
+```typescript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
+import path from 'path'
+
+export default defineConfig({
+  plugins: [
+    TanStackRouterVite({ target: 'react', autoCodeSplitting: true }),
+    react(),
+  ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
+})
+```
+
+## tailwind.config.js (Exact)
+
+```javascript
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: '#1B4332',
+        'primary-dark': '#143828',
+        accent: '#C9A84C',
+        'accent-dark': '#B8973A',
+        'bg-primary': '#FAF7F0',
+        'bg-surface': '#FFFFFF',
+        'text-primary': '#1C1C1C',
+        'text-inverse': '#FAF7F0',
+        'text-muted': '#6B7280',
+        'border-color': '#E5E0D8',
+        success: '#2D6A4F',
+        error: '#9B2335',
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        arabic: ['Amiri', 'Scheherazade New', 'Noto Naskh Arabic', 'serif'],
+        decorative: ['Amiri', 'serif'],
+      },
+      fontSize: {
+        'hero': ['clamp(2rem, 5vw, 3rem)', { lineHeight: '1.2', fontWeight: '700' }],
+        'h1': ['clamp(1.75rem, 4vw, 2.25rem)', { lineHeight: '1.3', fontWeight: '700' }],
+        'h2': ['clamp(1.5rem, 3vw, 1.75rem)', { lineHeight: '1.3', fontWeight: '700' }],
+        'h3': ['clamp(1.25rem, 2.5vw, 1.375rem)', { lineHeight: '1.4', fontWeight: '600' }],
+        'body': ['1rem', { lineHeight: '1.6', fontWeight: '400' }],
+        'small': ['0.875rem', { lineHeight: '1.5', fontWeight: '400' }],
+        'xs': ['0.75rem', { lineHeight: '1.4', fontWeight: '500' }],
+      },
+      spacing: {
+        '18': '4.5rem',
+        '22': '5.5rem',
+      },
+      borderRadius: {
+        'none': '0',
+        'sm': '2px',
+      },
+      boxShadow: {
+        'card': '0 1px 3px rgba(0,0,0,0.08)',
+        'card-hover': '0 4px 12px rgba(0,0,0,0.12)',
+        'elevated': '0 8px 24px rgba(0,0,0,0.15)',
+      },
+    },
+  },
+  plugins: [],
+}
+```
+
+## index.css (Exact)
+
+```css
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #FAF7F0;
+    color: #1C1C1C;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  html[dir="rtl"] body {
+    font-family: 'Amiri', 'Scheherazade New', serif;
+  }
+  
+  /* Focus styles */
+  *:focus-visible {
+    outline: 2px solid #C9A84C;
+    outline-offset: 2px;
+  }
+  
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-main {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+```
+
+## tsconfig.json (Exact — Path Aliases)
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
+```
+
+## main.tsx (Exact)
+
+```typescript
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { RouterProvider, createRouter } from '@tanstack/react-router'
+import { routeTree } from './routeTree.gen'
+import { AuthProvider } from './contexts/AuthContext'
+import { LanguageProvider } from './contexts/LanguageContext'
+import { AudioPlayerProvider } from './contexts/AudioPlayerContext'
+import './i18n/config'
+import './styles/index.css'
+
+const router = createRouter({
+  routeTree,
+  defaultPreload: 'intent',
+})
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
+}
+
+const rootElement = document.getElementById('root')
+if (rootElement && !rootElement.innerHTML) {
+  const root = ReactDOM.createRoot(rootElement)
+  root.render(
+    <React.StrictMode>
+      <LanguageProvider>
+        <AuthProvider>
+          <AudioPlayerProvider>
+            <RouterProvider router={router} />
+          </AudioPlayerProvider>
+        </AuthProvider>
+      </LanguageProvider>
+    </React.StrictMode>
+  )
+}
+```
+
+## index.html (Exact)
+
+```html
+<!DOCTYPE html>
+<html lang="sw" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Jifunze Uislamu kwa Mpangilio — Ahlusunna" />
+    <title>Ahlusunna — Jifunze Uislamu</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+```
+
+## References to Skill Files
+
+For detailed component specifications, see:
+- `ahlusunna-design-system.md` — Visual specifications, color tokens, typography, spacing, RTL rules
+- `ahlusunna-components.md` — Every component with exact props, state, handlers, JSX structure, Tailwind classes
+- `ahlusunna-content-schema.md` — TypeScript types, mock data with 15 lessons in Swahili/Arabic/English
+- `ahlusunna-auth.md` — AuthContext, login/register forms, route guards, JWT mock
+- `ahlusunna-admin.md` — Admin dashboard, content manager, Tiptap editor
+"""
