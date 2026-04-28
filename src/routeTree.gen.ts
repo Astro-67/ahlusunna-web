@@ -9,38 +9,221 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SubjectsRouteImport } from './routes/subjects'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LessonSlugRouteImport } from './routes/lesson.$slug'
+import { Route as learnerProgressRouteImport } from './routes/(learner)/progress'
+import { Route as adminAdminIndexRouteImport } from './routes/(admin)/admin.index'
+import { Route as learnerSubjectsIntermediateRouteImport } from './routes/(learner)/subjects.intermediate'
+import { Route as learnerSubjectsAdvancedRouteImport } from './routes/(learner)/subjects.advanced'
+import { Route as adminAdminContentRouteImport } from './routes/(admin)/admin.content'
 
+const SubjectsRoute = SubjectsRouteImport.update({
+  id: '/subjects',
+  path: '/subjects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LessonSlugRoute = LessonSlugRouteImport.update({
+  id: '/lesson/$slug',
+  path: '/lesson/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const learnerProgressRoute = learnerProgressRouteImport.update({
+  id: '/(learner)/progress',
+  path: '/progress',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const adminAdminIndexRoute = adminAdminIndexRouteImport.update({
+  id: '/(admin)/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const learnerSubjectsIntermediateRoute =
+  learnerSubjectsIntermediateRouteImport.update({
+    id: '/(learner)/subjects/intermediate',
+    path: '/subjects/intermediate',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const learnerSubjectsAdvancedRoute = learnerSubjectsAdvancedRouteImport.update({
+  id: '/(learner)/subjects/advanced',
+  path: '/subjects/advanced',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const adminAdminContentRoute = adminAdminContentRouteImport.update({
+  id: '/(admin)/admin/content',
+  path: '/admin/content',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/subjects': typeof SubjectsRoute
+  '/progress': typeof learnerProgressRoute
+  '/lesson/$slug': typeof LessonSlugRoute
+  '/admin/content': typeof adminAdminContentRoute
+  '/subjects/advanced': typeof learnerSubjectsAdvancedRoute
+  '/subjects/intermediate': typeof learnerSubjectsIntermediateRoute
+  '/admin/': typeof adminAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/subjects': typeof SubjectsRoute
+  '/progress': typeof learnerProgressRoute
+  '/lesson/$slug': typeof LessonSlugRoute
+  '/admin/content': typeof adminAdminContentRoute
+  '/subjects/advanced': typeof learnerSubjectsAdvancedRoute
+  '/subjects/intermediate': typeof learnerSubjectsIntermediateRoute
+  '/admin': typeof adminAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/subjects': typeof SubjectsRoute
+  '/(learner)/progress': typeof learnerProgressRoute
+  '/lesson/$slug': typeof LessonSlugRoute
+  '/(admin)/admin/content': typeof adminAdminContentRoute
+  '/(learner)/subjects/advanced': typeof learnerSubjectsAdvancedRoute
+  '/(learner)/subjects/intermediate': typeof learnerSubjectsIntermediateRoute
+  '/(admin)/admin/': typeof adminAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/login'
+    | '/register'
+    | '/subjects'
+    | '/progress'
+    | '/lesson/$slug'
+    | '/admin/content'
+    | '/subjects/advanced'
+    | '/subjects/intermediate'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/login'
+    | '/register'
+    | '/subjects'
+    | '/progress'
+    | '/lesson/$slug'
+    | '/admin/content'
+    | '/subjects/advanced'
+    | '/subjects/intermediate'
+    | '/admin'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/login'
+    | '/register'
+    | '/subjects'
+    | '/(learner)/progress'
+    | '/lesson/$slug'
+    | '/(admin)/admin/content'
+    | '/(learner)/subjects/advanced'
+    | '/(learner)/subjects/intermediate'
+    | '/(admin)/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
+  LoginRoute: typeof LoginRoute
+  RegisterRoute: typeof RegisterRoute
+  SubjectsRoute: typeof SubjectsRoute
+  learnerProgressRoute: typeof learnerProgressRoute
+  LessonSlugRoute: typeof LessonSlugRoute
+  adminAdminContentRoute: typeof adminAdminContentRoute
+  learnerSubjectsAdvancedRoute: typeof learnerSubjectsAdvancedRoute
+  learnerSubjectsIntermediateRoute: typeof learnerSubjectsIntermediateRoute
+  adminAdminIndexRoute: typeof adminAdminIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/subjects': {
+      id: '/subjects'
+      path: '/subjects'
+      fullPath: '/subjects'
+      preLoaderRoute: typeof SubjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +231,64 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lesson/$slug': {
+      id: '/lesson/$slug'
+      path: '/lesson/$slug'
+      fullPath: '/lesson/$slug'
+      preLoaderRoute: typeof LessonSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(learner)/progress': {
+      id: '/(learner)/progress'
+      path: '/progress'
+      fullPath: '/progress'
+      preLoaderRoute: typeof learnerProgressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(admin)/admin/': {
+      id: '/(admin)/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof adminAdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(learner)/subjects/intermediate': {
+      id: '/(learner)/subjects/intermediate'
+      path: '/subjects/intermediate'
+      fullPath: '/subjects/intermediate'
+      preLoaderRoute: typeof learnerSubjectsIntermediateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(learner)/subjects/advanced': {
+      id: '/(learner)/subjects/advanced'
+      path: '/subjects/advanced'
+      fullPath: '/subjects/advanced'
+      preLoaderRoute: typeof learnerSubjectsAdvancedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(admin)/admin/content': {
+      id: '/(admin)/admin/content'
+      path: '/admin/content'
+      fullPath: '/admin/content'
+      preLoaderRoute: typeof adminAdminContentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
+  LoginRoute: LoginRoute,
+  RegisterRoute: RegisterRoute,
+  SubjectsRoute: SubjectsRoute,
+  learnerProgressRoute: learnerProgressRoute,
+  LessonSlugRoute: LessonSlugRoute,
+  adminAdminContentRoute: adminAdminContentRoute,
+  learnerSubjectsAdvancedRoute: learnerSubjectsAdvancedRoute,
+  learnerSubjectsIntermediateRoute: learnerSubjectsIntermediateRoute,
+  adminAdminIndexRoute: adminAdminIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

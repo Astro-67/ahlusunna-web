@@ -1,28 +1,34 @@
-import { Outlet, createRootRoute } from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import { TanStackDevtools } from '@tanstack/react-devtools'
+import { Outlet, createRootRouteWithContext, useRouterState  } from '@tanstack/react-router'
 
-import '../styles.css'
+import { PersistentAudioPlayer } from '#/components/audio/PersistentAudioPlayer'
+import { Footer } from '#/components/layout/Footer'
+import { Navbar } from '#/components/layout/Navbar'
+import type { AuthContextValue } from '#/contexts/AuthContext'
 
-export const Route = createRootRoute({
+interface RouterContext {
+  auth: AuthContextValue
+}
+
+export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootComponent,
 })
 
 function RootComponent() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname })
+  const isAdminRoute = pathname.startsWith('/admin')
+
+  if (isAdminRoute) {
+    return <Outlet />
+  }
+
   return (
-    <>
-      <Outlet />
-      <TanStackDevtools
-        config={{
-          position: 'bottom-right',
-        }}
-        plugins={[
-          {
-            name: 'TanStack Router',
-            render: <TanStackRouterDevtoolsPanel />,
-          },
-        ]}
-      />
-    </>
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
+      <Navbar />
+      <main className="flex-1 pt-14 lg:pt-16">
+        <Outlet />
+      </main>
+      <PersistentAudioPlayer />
+      <Footer />
+    </div>
   )
 }
