@@ -2,6 +2,7 @@
   "navigation": {
     "home": "Nyumbani",
     "subjects": "Masomo",
+    "courses": "Kursi",
     "about": "Kuhusu",
     "contact": "Wasiliana",
     "login": "Ingia",
@@ -12,27 +13,43 @@
     "content": "Maudhui"
   },
   "home": {
-    "hero_title": "Jifunze Uislamu kwa Mpangilio",
-    "hero_subtitle": "Ahlusunna ni jukwaa la kujifunza dini ya Kisilamu kwa hatua. Anza na mafunzo ya awali ya Qur'an, Hadith, Fiqhi, Tawhidi, na Sira.",
-    "cta_start": "Anza Sasa",
-    "cta_learn_more": "Soma Zaidi",
+    "hero_title": "Kujifunza Uislamu kwa Mpangilio kwa Kila Muislamu",
+    "hero_subtitle": "Jifunze Qur'an, Hadith, Fiqhi, Tawhidi, na Sira kupitia masomo mengi, video, na sauti.",
+    "cta_start": "Anza Kujifunza",
+    "cta_learn_more": "Gundua Masomo",
     "levels_title": "Viwango vya Kujifunza",
-    "public_label": "Hatua ya umma",
+    "public_label": "Umma",
     "support_title": "Masomo ya awali yako wazi",
-    "support_body": "Masomo 15 yamepangwa kwa somo na yana maandishi, video, na sauti ili mwanafunzi aanze kwa utaratibu."
+    "support_body": "Masomo 15 yamepangwa kwa somo na yana maandishi, video, na sauti kwa ajili ya kujifunza kwa utaratibu.",
+    "intro_title": "Karibu Ahlusunna",
+    "intro_subtitle": "Safari yako ya maarifa ya Kiislamu inaanza hapa",
+    "featured_courses": "Kursi Zinazokua",
+    "featured_lessons": "Masomo Mapya",
+    "why_ahlusunna": "Kwa Nini Ahlusunna?",
+    "cta_title": "Uko Tayari Kuanza Safari Yako?",
+    "cta_subtitle": "Jiunge na mamia ya Waislamu wanaojifunza dini yao kwa utaratibu."
   },
   "subjects": {
     "title": "Masomo Yote",
     "beginner_title": "Hatua ya Awali",
     "beginner_description": "Mafunzo ya kwanza kwa wanaoanza",
     "lessons_count": "masomo {{count}}",
+    "courses_count": "kursi {{count}}",
     "progress": "Maendeleo",
     "open_subject": "Fungua somo",
     "available_lessons": "Masomo Yanayopatikana",
     "intermediate_title": "Hatua ya Kati",
     "advanced_title": "Kuendelea",
-    "locked_body": "Ingia ili kufungua masomo ya kiwango hiki.",
-    "subject_label": "Somo"
+    "locked_body": "Inakuja hivi punde",
+    "subject_label": "Somo",
+    "coming_soon": "Inakuja Hivi Punde"
+  },
+  "courses": {
+    "title": "Kursi",
+    "featured": "Kursi Zinazokua",
+    "view_course": "Tazama Kursi",
+    "lessons_count": "masomo {{count}}",
+    "duration": "{{duration}}"
   },
   "lesson": {
     "written_tab": "Maandishi",
@@ -44,45 +61,23 @@
     "completed": "Imekamilika",
     "not_available": "Hakuna",
     "video_title": "Video ya somo",
-    "audio_intro": "Bonyeza kuanza kusikiliza somo hili kwenye kicheza sauti cha chini.",
-    "not_found": "Somo halijapatikana"
-  },
-  "auth": {
-    "login_title": "Ingia",
-    "register_title": "Sajili Akaunti",
-    "email_label": "Barua pepe",
-    "password_label": "Nenosiri",
-    "name_label": "Jina",
-    "confirm_password_label": "Thibitisha nenosiri",
-    "remember_me": "Nikumbuke",
-    "submit_login": "Ingia",
-    "submit_register": "Sajili",
-    "no_account": "Huna akaunti?",
-    "has_account": "Tayari una akaunti?",
-    "error_invalid_credentials": "Barua pepe au nenosiri si sahihi",
-    "error_email_exists": "Barua pepe tayari imesajiliwa",
-    "error_password_match": "Nenosiri hazilingani",
-    "error_password_length": "Nenosiri lazima iwe na herufi 6 au zaidi",
-    "error_name_required": "Jina linahitajika",
-    "error_name_length": "Jina lazima liwe na herufi 2 au zaidi",
-    "error_email_required": "Barua pepe inahitajika",
-    "error_email_invalid": "Barua pepe si sahihi",
-    "error_password_required": "Nenosiri inahitajika",
-    "show_password": "Onyesha nenosiri",
-    "hide_password": "Ficha nenosiri",
-    "demo_accounts": "Akaunti za majaribio",
-    "email_placeholder": "jina@mfano.com",
-    "name_placeholder": "Jina lako"
+    "audio_intro": "Bonyeza kuanza kusikiliza somo hili kwenye kicheza sauti.",
+    "not_found": "Somo halijapatikana",
+    "duration": "Muda"
   },
   "levels": {
-    "beginner": "Hatua ya Awali",
-    "intermediate": "Hatua ya Kati",
-    "advanced": "Kuendelea",
-    "locked": "Ingia kujiunga",
+    "beginner": "Awali",
+    "intermediate": "Kati",
+    "advanced": "Endelea",
+    "locked": "Inakuja Hivi Punde",
     "login_to_access": "Ingia kujiunga",
+    "complete_intermediate_to_unlock": "Maliza masomo yote ya Hatua ya Kati kufungua kiwango hiki.",
+    "go_to_intermediate": "Nenda Hatua ya Kati",
     "awali": "Awali",
     "kati": "Kati",
-    "endelea": "Endelea"
+    "endelea": "Endelea",
+    "active": "Hai",
+    "level_status": "{{status}}"
   },
   "progress": {
     "title": "Maendeleo Yangu",
@@ -97,6 +92,7 @@
     "content_manager": "Msimamizi wa Maudhui",
     "total_lessons": "Jumla ya Masomo",
     "total_subjects": "Jumla ya Masomo",
+    "total_courses": "Jumla ya Kursi",
     "users": "Watumiaji",
     "new_content": "Maudhui Mapya",
     "recent_content": "Maudhui ya Hivi Karibuni",
@@ -130,6 +126,30 @@
     "delete": "Futa",
     "search": "Tafuta",
     "no_results": "Hakuna matokeo",
-    "back": "Rudi"
+    "back": "Rudi",
+    "view_all": "Tazama Zote",
+    "learn_more": "Jifunze Zaidi"
+  },
+  "features": {
+    "structured_path": {
+      "title": "Safu ya Kujifunza Iliyopangwa",
+      "description": "Endelea kutoka awali hadi juu kupitia mtaala ulioundwa kwa uangalifu."
+    },
+    "multilingual": {
+      "title": "Msaada wa Lugha Nyingi",
+      "description": "Maudhui yapatikanapo kwa Kiingereza, Kiswahili, na Kiarabu."
+    },
+    "multimedia": {
+      "title": "Makala, Video & Sauti",
+      "description": "Jifunze kupitia maandishi, masomo ya video, na kusikiliza matamshi."
+    },
+    "mobile": {
+      "title": "Rahisi Kwa Simu",
+      "description": "Jifunze popote kwenye kifua chema chochote na usanifu wetu wa kujibu."
+    },
+    "reviewed": {
+      "title": "Maudhui Yaliyokaguliwa na Msimamizi",
+      "description": "Maudhui yote yanakaguliwa na wasomi wa Kiislamu wenye sifa."
+    }
   }
 }

@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import { BookOpen, LayoutDashboard, LogOut } from 'lucide-react'
 
+import { LogoAdmin } from '#/components/common/Logo'
 import { useLanguage } from '#/hooks/useLanguage'
 
 interface AdminSidebarProps {
@@ -12,9 +13,9 @@ export function AdminSidebar({ onLogout }: AdminSidebarProps) {
 
   return (
     <>
-      <div className="flex h-16 items-center border-b border-accent/20 px-4">
-        <span className="text-lg font-bold">Ahlusunna</span>
-        <span className="ms-2 bg-accent px-2 py-0.5 text-xs text-accent-foreground">
+      <div className="flex h-16 items-center gap-2 border-b border-accent/20 px-4">
+        <LogoAdmin />
+        <span className="bg-accent px-2 py-0.5 text-xs font-medium text-accent-foreground">
           {t('admin.badge')}
         </span>
       </div>

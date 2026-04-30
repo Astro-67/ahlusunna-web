@@ -2,6 +2,7 @@
   "navigation": {
     "home": "Home",
     "subjects": "Subjects",
+    "courses": "Courses",
     "about": "About",
     "contact": "Contact",
     "login": "Login",
@@ -12,27 +13,43 @@
     "content": "Content"
   },
   "home": {
-    "hero_title": "Learn Islam Systematically",
-    "hero_subtitle": "Ahlusunna is a platform for learning Islam in stages. Start with beginner lessons in Quran, Hadith, Fiqh, Tawhid, and Sira.",
-    "cta_start": "Start Now",
-    "cta_learn_more": "Learn More",
+    "hero_title": "Structured Islamic Learning for Every Muslim",
+    "hero_subtitle": "Study Qur'an, Hadith, Fiqh, Tawhid, and Sirah through organized lessons, videos, and audio.",
+    "cta_start": "Start Learning",
+    "cta_learn_more": "Explore Subjects",
     "levels_title": "Learning Levels",
-    "public_label": "Public level",
+    "public_label": "Public",
     "support_title": "Beginner lessons are open",
-    "support_body": "15 lessons are arranged by subject with written, video, and audio material for structured learning."
+    "support_body": "15 lessons are arranged by subject with written, video, and audio material for structured learning.",
+    "intro_title": "Welcome to Ahlusunna",
+    "intro_subtitle": "Your journey to Islamic knowledge begins here",
+    "featured_courses": "Featured Courses",
+    "featured_lessons": "Latest Lessons",
+    "why_ahlusunna": "Why Ahlusunna?",
+    "cta_title": "Ready to Begin Your Journey?",
+    "cta_subtitle": "Join thousands of Muslims learning their religion systematically."
   },
   "subjects": {
     "title": "All Subjects",
     "beginner_title": "Beginner Level",
     "beginner_description": "First lessons for beginners",
     "lessons_count": "{{count}} lessons",
+    "courses_count": "{{count}} courses",
     "progress": "Progress",
     "open_subject": "Open subject",
     "available_lessons": "Available Lessons",
     "intermediate_title": "Intermediate Level",
     "advanced_title": "Advanced Level",
-    "locked_body": "Login to unlock this level.",
-    "subject_label": "Subject"
+    "locked_body": "Coming soon",
+    "subject_label": "Subject",
+    "coming_soon": "Coming Soon"
+  },
+  "courses": {
+    "title": "Courses",
+    "featured": "Featured Courses",
+    "view_course": "View Course",
+    "lessons_count": "{{count}} lessons",
+    "duration": "{{duration}}"
   },
   "lesson": {
     "written_tab": "Written",
@@ -45,44 +62,22 @@
     "not_available": "Not Available",
     "video_title": "Lesson video",
     "audio_intro": "Press play to start this lesson in the persistent audio player.",
-    "not_found": "Lesson not found"
-  },
-  "auth": {
-    "login_title": "Login",
-    "register_title": "Create Account",
-    "email_label": "Email",
-    "password_label": "Password",
-    "name_label": "Name",
-    "confirm_password_label": "Confirm password",
-    "remember_me": "Remember me",
-    "submit_login": "Login",
-    "submit_register": "Register",
-    "no_account": "Do not have an account?",
-    "has_account": "Already have an account?",
-    "error_invalid_credentials": "Invalid email or password",
-    "error_email_exists": "Email already registered",
-    "error_password_match": "Passwords do not match",
-    "error_password_length": "Password must be at least 6 characters",
-    "error_name_required": "Name is required",
-    "error_name_length": "Name must be at least 2 characters",
-    "error_email_required": "Email is required",
-    "error_email_invalid": "Email is invalid",
-    "error_password_required": "Password is required",
-    "show_password": "Show password",
-    "hide_password": "Hide password",
-    "demo_accounts": "Demo accounts",
-    "email_placeholder": "name@example.com",
-    "name_placeholder": "Your name"
+    "not_found": "Lesson not found",
+    "duration": "Duration"
   },
   "levels": {
     "beginner": "Beginner",
     "intermediate": "Intermediate",
     "advanced": "Advanced",
-    "locked": "Login to access",
+    "locked": "Coming Soon",
     "login_to_access": "Login to access",
+    "complete_intermediate_to_unlock": "Complete all Intermediate lessons to unlock this level.",
+    "go_to_intermediate": "Go to Intermediate",
     "awali": "Beginner",
     "kati": "Intermediate",
-    "endelea": "Advanced"
+    "endelea": "Advanced",
+    "active": "Active",
+    "level_status": "{{status}}"
   },
   "progress": {
     "title": "My Progress",
@@ -97,6 +92,7 @@
     "content_manager": "Content Manager",
     "total_lessons": "Total Lessons",
     "total_subjects": "Total Subjects",
+    "total_courses": "Total Courses",
     "users": "Users",
     "new_content": "New Content",
     "recent_content": "Recent Content",
@@ -130,6 +126,30 @@
     "delete": "Delete",
     "search": "Search",
     "no_results": "No results found",
-    "back": "Back"
+    "back": "Back",
+    "view_all": "View All",
+    "learn_more": "Learn More"
+  },
+  "features": {
+    "structured_path": {
+      "title": "Structured Learning Path",
+      "description": "Progress from beginner to advanced through carefully designed curriculum."
+    },
+    "multilingual": {
+      "title": "Multilingual Support",
+      "description": "Content available in English, Swahili, and Arabic."
+    },
+    "multimedia": {
+      "title": "Articles, Video & Audio",
+      "description": "Learn through written content, video lessons, and audio recitations."
+    },
+    "mobile": {
+      "title": "Mobile-Friendly",
+      "description": "Study anywhere on any device with our responsive design."
+    },
+    "reviewed": {
+      "title": "Admin-Reviewed Content",
+      "description": "All content is reviewed by qualified Islamic scholars."
+    }
   }
 }

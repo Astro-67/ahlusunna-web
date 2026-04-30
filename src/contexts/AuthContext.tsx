@@ -8,7 +8,7 @@ import {
 } from 'react'
 import type {ReactNode} from 'react';
 
-import { mockCredentials, mockUsers } from '#/data/seed'
+import { lessons, mockCredentials, mockUsers } from '#/data/seed'
 import type { LevelId, User } from '#/types'
 
 export interface AuthContextValue {
@@ -65,6 +65,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const saveSession = useCallback((nextUser: User) => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ user: nextUser }))
+  }, [])
+
+  const checkAndUnlockLevels = useCallback((currentUser: User): User => {
+    const intermediateLessons = lessons.filter((lesson) => lesson.levelId === 'kati')
+    const completedIntermediate = intermediateLessons.filter((lesson) =>
+      currentUser.progress.includes(lesson.slug),
+    ).length
+
+    const allIntermediateDone = completedIntermediate === intermediateLessons.length
+    const hasAdvanced = currentUser.levelAccess.includes('endelea')
+
+    if (allIntermediateDone && !hasAdvanced && intermediateLessons.length > 0) {
+      return {
+        ...currentUser,
+        levelAccess: [...currentUser.levelAccess, 'endelea'],
+      }
+    }
+
+    return currentUser
   }, [])
 
   const login = useCallback(
@@ -137,19 +156,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     (lessonSlug: string) => {
       if (!user) return
 
-      const updatedUser: User = user.progress.includes(lessonSlug)
-        ? { ...user, progress: user.progress.filter((slug) => slug !== lessonSlug) }
-        : { ...user, progress: [...user.progress, lessonSlug] }
+      let updated: User
 
-      setUser(updatedUser)
-      saveSession(updatedUser)
-      saveUsers(
-        getAllUsers().map((storedUser) =>
-          storedUser.id === updatedUser.id ? updatedUser : storedUser,
-        ),
-      )
+      if (user.progress.includes(lessonSlug)) {
+        updated = {
+          ...user,
+          progress: user.progress.filter((progressSlug) => progressSlug !== lessonSlug),
+        }
+      } else {
+        updated = {
+          ...user,
+          progress: [...user.progress, lessonSlug],
+        }
+      }
+
+      updated = checkAndUnlockLevels(updated)
+
+      setUser(updated)
+      saveSession(updated)
+
+      const users = getAllUsers()
+      const updatedUsers = users.map((storedUser) => (storedUser.id === user.id ? updated : storedUser))
+      saveUsers(updatedUsers)
     },
-    [getAllUsers, saveSession, saveUsers, user],
+    [checkAndUnlockLevels, getAllUsers, saveSession, saveUsers, user],
   )
 
   const value = useMemo<AuthContextValue>(

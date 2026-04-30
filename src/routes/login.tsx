@@ -23,7 +23,7 @@ function LoginPage() {
   const search = Route.useSearch()
 
   return (
-    <div className="flex min-h-[calc(100svh-3.5rem)] items-center justify-center bg-background px-4 py-12 lg:min-h-[calc(100svh-4rem)]">
+    <div className="flex min-h-[calc(100svh-4rem)] items-center justify-center bg-gray-50 px-4 py-12">
       <LoginForm onSuccess={() => void navigate({ to: search.redirect ?? '/' })} />
     </div>
   )

@@ -2,6 +2,7 @@
   "navigation": {
     "home": "الرئيسية",
     "subjects": "الدروس",
+    "courses": "الدورات",
     "about": "عن المنصة",
     "contact": "تواصل معنا",
     "login": "تسجيل الدخول",
@@ -12,27 +13,43 @@
     "content": "المحتوى"
   },
   "home": {
-    "hero_title": "تعلم الإسلام بشكل منهجي",
-    "hero_subtitle": "أهل السنة منصة لتعلم الإسلام على مراحل. ابدأ بدروس المبتدئين في القرآن والحديث والفقه والتوحيد والسيرة.",
-    "cta_start": "ابدأ الآن",
-    "cta_learn_more": "اقرأ المزيد",
+    "hero_title": "تعلم الإسلام بشكل منظم لكل مسلم",
+    "hero_subtitle": "ادرس القرآن والحديث والفقه والتوحيد والسيرة من خلال دروس منظمة وفيديو وصوت.",
+    "cta_start": "ابدأ التعلم",
+    "cta_learn_more": "استكشف الدروس",
     "levels_title": "مستويات التعلم",
-    "public_label": "مستوى عام",
+    "public_label": "عام",
     "support_title": "دروس المبتدئين متاحة",
-    "support_body": "تم ترتيب 15 درسًا حسب المادة مع محتوى مكتوب وفيديو وصوت للتعلم المنظم."
+    "support_body": "تم ترتيب 15 درسًا حسب المادة مع محتوى مكتوب وفيديو وصوت للتعلم المنظم.",
+    "intro_title": "مرحبًا في أهل السنة",
+    "intro_subtitle": "رحلتك في العلوم الإسلامية تبدأ هنا",
+    "featured_courses": "دورات مميزة",
+    "featured_lessons": "أحدث الدروس",
+    "why_ahlusunna": "لماذا أهل السنة؟",
+    "cta_title": "هل أنت مستعد لبدء رحلتك؟",
+    "cta_subtitle": "انضم إلى آلاف المسلمين الذين يتعلمون دينهم بشكل منظم."
   },
   "subjects": {
     "title": "جميع الدروس",
     "beginner_title": "المستوى المبتدئ",
     "beginner_description": "الدروس الأولى للمبتدئين",
     "lessons_count": "{{count}} دروس",
+    "courses_count": "{{count}} دورات",
     "progress": "التقدم",
     "open_subject": "فتح المادة",
     "available_lessons": "الدروس المتاحة",
     "intermediate_title": "المستوى المتوسط",
     "advanced_title": "المستوى المتقدم",
-    "locked_body": "سجل الدخول لفتح هذا المستوى.",
-    "subject_label": "المادة"
+    "locked_body": "قريبًا",
+    "subject_label": "المادة",
+    "coming_soon": "قريبًا"
+  },
+  "courses": {
+    "title": "الدورات",
+    "featured": "الدورات المميزة",
+    "view_course": "عرض الدورة",
+    "lessons_count": "{{count}} دروس",
+    "duration": "{{duration}}"
   },
   "lesson": {
     "written_tab": "المحتوى المكتوب",
@@ -45,44 +62,22 @@
     "not_available": "غير متوفر",
     "video_title": "فيديو الدرس",
     "audio_intro": "اضغط للتشغيل في مشغل الصوت السفلي.",
-    "not_found": "الدرس غير موجود"
-  },
-  "auth": {
-    "login_title": "تسجيل الدخول",
-    "register_title": "إنشاء حساب جديد",
-    "email_label": "البريد الإلكتروني",
-    "password_label": "كلمة المرور",
-    "name_label": "الاسم",
-    "confirm_password_label": "تأكيد كلمة المرور",
-    "remember_me": "تذكرني",
-    "submit_login": "دخول",
-    "submit_register": "إنشاء حساب",
-    "no_account": "ليس لديك حساب؟",
-    "has_account": "لديك حساب بالفعل؟",
-    "error_invalid_credentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
-    "error_email_exists": "البريد الإلكتروني مسجل بالفعل",
-    "error_password_match": "كلمتا المرور غير متطابقتين",
-    "error_password_length": "كلمة المرور يجب أن تكون 6 أحرف على الأقل",
-    "error_name_required": "الاسم مطلوب",
-    "error_name_length": "الاسم يجب أن يكون حرفين على الأقل",
-    "error_email_required": "البريد الإلكتروني مطلوب",
-    "error_email_invalid": "البريد الإلكتروني غير صحيح",
-    "error_password_required": "كلمة المرور مطلوبة",
-    "show_password": "إظهار كلمة المرور",
-    "hide_password": "إخفاء كلمة المرور",
-    "demo_accounts": "حسابات تجريبية",
-    "email_placeholder": "name@example.com",
-    "name_placeholder": "اسمك"
+    "not_found": "الدرس غير موجود",
+    "duration": "المدة"
   },
   "levels": {
-    "beginner": "المستوى المبتدئ",
-    "intermediate": "المستوى المتوسط",
-    "advanced": "المستوى المتقدم",
-    "locked": "سجل الدخول للوصول",
+    "beginner": "مبتدئ",
+    "intermediate": "متوسط",
+    "advanced": "متقدم",
+    "locked": "قريبًا",
     "login_to_access": "سجل الدخول للوصول",
+    "complete_intermediate_to_unlock": "أكمل جميع دروس المستوى المتوسط لفتح هذا المستوى.",
+    "go_to_intermediate": "اذهب إلى المتوسط",
     "awali": "مبتدئ",
     "kati": "متوسط",
-    "endelea": "متقدم"
+    "endelea": "متقدم",
+    "active": "نشط",
+    "level_status": "{{status}}"
   },
   "progress": {
     "title": "تقدمي",
@@ -97,6 +92,7 @@
     "content_manager": "إدارة المحتوى",
     "total_lessons": "إجمالي الدروس",
     "total_subjects": "إجمالي المواد",
+    "total_courses": "إجمالي الدورات",
     "users": "المستخدمون",
     "new_content": "محتوى جديد",
     "recent_content": "المحتوى الأخير",
@@ -130,6 +126,30 @@
     "delete": "حذف",
     "search": "بحث",
     "no_results": "لا توجد نتائج",
-    "back": "رجوع"
+    "back": "رجوع",
+    "view_all": "عرض الكل",
+    "learn_more": "تعلم المزيد"
+  },
+  "features": {
+    "structured_path": {
+      "title": "مسار تعلم منظم",
+      "description": "تقدم من المبتدئ إلى المتقدم من خلال منهج مصمم بعناية."
+    },
+    "multilingual": {
+      "title": "دعم متعدد اللغات",
+      "description": "محتوى متاح بالإنجليزية والسواحيلية والعربية."
+    },
+    "multimedia": {
+      "title": "مقالات وفيديو وصوت",
+      "description": "تعلم من خلال المحتوى المكتوب ودروس الفيديو والتلاوات الصوتية."
+    },
+    "mobile": {
+      "title": "مناسب للجوال",
+      "description": "ادرس في أي مكان وعلى أي جهاز بتصميم متجاوب."
+    },
+    "reviewed": {
+      "title": "محتوى مراجع من الإدارة",
+      "description": "جميع المحتوى تتم مراجعته من قبل علماء إسلاميين مؤهلين."
+    }
   }
 }

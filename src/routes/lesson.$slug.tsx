@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { AudioTrigger } from '#/components/lesson/AudioTrigger'
 import { ContentTabs } from '#/components/lesson/ContentTabs'
@@ -7,7 +7,13 @@ import { LessonHeader } from '#/components/lesson/LessonHeader'
 import { VideoEmbed } from '#/components/lesson/VideoEmbed'
 import { WrittenContent } from '#/components/lesson/WrittenContent'
 import { Button } from '#/components/ui/button'
-import { checkLessonAccess, getLessonBySlug, getSubjectById, isLessonCompleted } from '#/data/seed'
+import {
+  checkLessonAccess,
+  getLessonBySlug,
+  getSubjectById,
+  isLessonCompleted,
+  lessons,
+} from '#/data/seed'
 import { useAudioPlayer } from '#/hooks/useAudioPlayer'
 import { useAuth } from '#/hooks/useAuth'
 import { useLanguage } from '#/hooks/useLanguage'
@@ -34,7 +40,15 @@ function LessonPage() {
   const { currentLang, t } = useLanguage()
   const { currentTrack, isPlaying, playTrack, togglePlay } = useAudioPlayer()
   const [activeTab, setActiveTab] = useState<LessonTab>('text')
+  const [showUnlockToast, setShowUnlockToast] = useState(false)
   const lesson = getLessonBySlug(slug)
+
+  useEffect(() => {
+    if (!showUnlockToast) return
+
+    const timeout = window.setTimeout(() => setShowUnlockToast(false), 5000)
+    return () => window.clearTimeout(timeout)
+  }, [showUnlockToast])
 
   if (!lesson) {
     return (
@@ -46,6 +60,27 @@ function LessonPage() {
 
   const subject = getSubjectById(lesson.subjectId)
   const completed = isLessonCompleted(user, lesson.slug)
+  const handleToggleComplete = () => {
+    const hadAdvancedBefore = Boolean(user?.levelAccess.includes('endelea'))
+    const isCompletingLesson = !completed
+    const intermediateLessons = lessons.filter((candidate) => candidate.levelId === 'kati')
+    const completedIntermediateAfter = intermediateLessons.filter((candidate) =>
+      candidate.slug === lesson.slug
+        ? isCompletingLesson
+        : Boolean(user?.progress.includes(candidate.slug)),
+    ).length
+    const unlocksAdvanced =
+      !hadAdvancedBefore &&
+      isCompletingLesson &&
+      intermediateLessons.length > 0 &&
+      completedIntermediateAfter === intermediateLessons.length
+
+    updateProgress(lesson.slug)
+
+    if (unlocksAdvanced) {
+      setShowUnlockToast(true)
+    }
+  }
   const track = lesson.audioSrc
     ? {
         id: lesson.id,
@@ -60,6 +95,14 @@ function LessonPage() {
 
   return (
     <div className="bg-background pb-20">
+      {showUnlockToast && (
+        <div className="fixed left-1/2 top-4 z-50 -translate-x-1/2 bg-[#2D6A4F] px-6 py-3 text-[#FAF7F0] shadow-[0_8px_24px_rgba(0,0,0,0.15)]">
+          <p className="text-sm font-medium">
+            Hongera! Umeufungua kiwango cha Kuendelea (Advanced).
+          </p>
+        </div>
+      )}
+
       <LessonHeader
         lesson={{
           title: lesson.title[currentLang],
@@ -69,7 +112,7 @@ function LessonPage() {
         }}
         subjectName={subject?.name[currentLang] ?? ''}
         completed={completed}
-        onToggleComplete={() => updateProgress(lesson.slug)}
+        onToggleComplete={handleToggleComplete}
       />
 
       <ContentTabs

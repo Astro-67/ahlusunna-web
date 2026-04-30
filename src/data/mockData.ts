@@ -1,0 +1,897 @@
+import type {
+  Level,
+  Subject,
+  Course,
+  Module,
+  Lesson,
+  Tag,
+  Media,
+  User,
+  ContactMessage,
+  AdminStats,
+  MultilingualText,
+  TiptapDocument,
+} from '#/types'
+
+const doc = (enText: string, quote?: string): TiptapDocument => ({
+  type: 'doc',
+  content: [
+    {
+      type: 'heading',
+      attrs: { level: 2 },
+      content: [{ type: 'text', text: enText }],
+    },
+    {
+      type: 'paragraph',
+      content: [{ type: 'text', text: enText }],
+    },
+    ...(quote
+      ? [
+          {
+            type: 'blockquote',
+            content: [
+              {
+                type: 'paragraph',
+                content: [{ type: 'text', text: quote }],
+              },
+            ],
+          },
+        ]
+      : []),
+  ],
+})
+
+const content = (
+  enHeading: string,
+  enBody: string,
+  quote?: string,
+): { en: TiptapDocument; sw: TiptapDocument; ar: TiptapDocument } => ({
+  en: doc(enHeading + '. ' + enBody, quote),
+  sw: doc(enHeading + '. ' + enBody, quote),
+  ar: doc(enHeading + '. ' + enBody, quote),
+})
+
+const mt = (en: string, sw: string, ar: string): MultilingualText => ({ en, sw, ar })
+
+export const levels: Level[] = [
+  {
+    id: 'beginner',
+    slug: 'beginner',
+    name: mt('Beginner', 'Awali', 'المستوى المبتدئ'),
+    description: mt(
+      'Foundation lessons for those beginning their journey in Islamic knowledge. Start with the basics of Quran, Hadith, Fiqh, Tawhid, and Sirah.',
+      'Mafunzo ya msingi kwa wanaoanza safari yao katika maarifa ya Kiislamu. Anza na misingi ya Qur\'an, Hadith, Fiqhi, Tawhidi, na Sira.',
+      'دروس أساسية لمن يبدأ رحلة في العلوم الإسلامية. ابدأ بأساسيات القرآن والحديث والفقه والتوحيد والسيرة.'
+    ),
+    order: 1,
+    isPublic: true,
+    status: 'active',
+  },
+  {
+    id: 'intermediate',
+    slug: 'intermediate',
+    name: mt('Intermediate', 'Kati', 'المستوى المتوسط'),
+    description: mt(
+      'Deeper studies for learners who have completed the beginner level and wish to expand their understanding.',
+      'Masomo marefu kwa wanafunzi ambao wamekamilisha kiwango cha awali na wanataka kupanua uelewa wao.',
+      'دراسات أعمق للمتعلمين الذين أكملوا المستوى المبتدئ ويريدون توسيع فهمهم.'
+    ),
+    order: 2,
+    isPublic: false,
+    status: 'inactive',
+  },
+  {
+    id: 'advanced',
+    slug: 'advanced',
+    name: mt('Advanced', 'Endelea', 'المستوى المتقدم'),
+    description: mt(
+      'Advanced studies for serious students of Islamic knowledge seeking specialized understanding.',
+      'Masomo ya juu kwa wanafunzi wak sério wa maarifa ya Kiislamu wanaotafuta uelewa maalum.',
+      'دراسات متقدمة للطلاب الجادين في العلوم الإسلامية يبحثون عن فهم متخصص.'
+    ),
+    order: 3,
+    isPublic: false,
+    status: 'inactive',
+  },
+]
+
+export const subjects: Subject[] = [
+  {
+    id: 'quran',
+    slug: 'quran',
+    name: mt("Qur'an", "Qur'an", 'القرآن الكريم'),
+    description: mt(
+      'Study the holy Quran with tajweed rules, tafsir, and understanding of its meaning.',
+      'Jifunze Qur\'an mtakatifu na kanuni za tajwid, tafsiri, na uelewa wa maana yake.',
+      'ادرس القرآن الكريم مع قواعد التجويد والتفسير وفهم معانيه.'
+    ),
+    icon: 'book-open',
+    levelId: 'beginner',
+    order: 1,
+    status: 'active',
+  },
+  {
+    id: 'hadith',
+    slug: 'hadith',
+    name: mt('Hadith', 'Hadith', 'الحديث الشريف'),
+    description: mt(
+      'Learn the sayings and practices of Prophet Muhammad (PBUH) and their application in daily life.',
+      'Jifunze maneno na matendo ya Mtume Muhammad (SAW) na matumizi yake katika maisha ya kila siku.',
+      'تعلم أقوال وأفعال النبي محمد ﷺ وتطبيقها في الحياة اليومية.'
+    ),
+    icon: 'scroll',
+    levelId: 'beginner',
+    order: 2,
+    status: 'active',
+  },
+  {
+    id: 'fiqh',
+    slug: 'fiqh',
+    name: mt('Fiqh', 'Fiqhi', 'الفقه الإسلامي'),
+    description: mt(
+      'Understand Islamic jurisprudence covering purification, prayer, fasting, and other acts of worship.',
+      'Elewa fikhulu ya Kiislamu inayohusu utakaso, sala, saumu, na ibada nyinginezo.',
+      'افهم الفقه الإسلامي الذي يشمل الطهارة والصلاة والصيام وغيرها من العبادات.'
+    ),
+    icon: 'mosque',
+    levelId: 'beginner',
+    order: 3,
+    status: 'active',
+  },
+  {
+    id: 'tawhid',
+    slug: 'tawhid',
+    name: mt('Tawhid', 'Tawhidi', 'التوحيد'),
+    description: mt(
+      'Study the fundamental concept of Islamic monotheism and its implications for worship.',
+      'Jifunze dhana ya msingi ya tauhid ya Kiislamu na madhara yake kwa ibada.',
+      'ادرس المفهوم الأساسي للتوحيد الإسلامي وآثاره في العبادة.'
+    ),
+    icon: 'star',
+    levelId: 'beginner',
+    order: 4,
+    status: 'active',
+  },
+  {
+    id: 'sirah',
+    slug: 'sirah',
+    name: mt("Sirah", 'Sira', 'السيرة النبوية'),
+    description: mt(
+      'Explore the life of Prophet Muhammad (PBUH) from birth to death and his legacy.',
+      'Chunguza maisha ya Mtume Muhammad (SAW) kutoka kuzaliwa hadi kufa na urithi wake.',
+      'استكشف حياة النبي محمد ﷺ من الولادة إلى الوفاة وتراثه.'
+    ),
+    icon: 'heart',
+    levelId: 'beginner',
+    order: 5,
+    status: 'active',
+  },
+]
+
+export const courses: Course[] = [
+  {
+    id: 'quran-intro',
+    slug: 'introduction-to-quran',
+    title: mt('Introduction to the Quran', 'Utangulizi wa Qur\'an', 'مقدمة في القرآن الكريم'),
+    description: mt(
+      'A foundational course covering the basics of Quranic study, revelation, and compilation.',
+      'Kursi ya msingi inayohusu misingi ya masomo ya Qur\'an, uvio, na makusanyo.',
+      'دورة أساسية تغطي أساسيات دراسة القرآن والنزول والتدوين.'
+    ),
+    subjectId: 'quran',
+    levelId: 'beginner',
+    order: 1,
+    thumbnail: '/thumbnails/quran-intro.jpg',
+    status: 'active',
+  },
+  {
+    id: 'quran-tajweed',
+    slug: 'quranic-tajweed',
+    title: mt('Quranic Tajweed', 'Makosa ya Tajwid', 'أحكام التجويد'),
+    description: mt(
+      'Master the rules of proper Quranic recitation with tajweed principles.',
+      'Master kanuni sahihi za kusoma Qur\'an na kanuni za tajwid.',
+      'أتقن القواعد الصحيحة لتلاوة القرآن مع مبادئ التجويد.'
+    ),
+    subjectId: 'quran',
+    levelId: 'beginner',
+    order: 2,
+    thumbnail: '/thumbnails/tajweed.jpg',
+    status: 'active',
+  },
+  {
+    id: 'quran-memorization',
+    slug: 'quran-memorization',
+    title: mt('Quran Memorization Basics', 'Misingi ya Hifadhi', 'أساسيات حفظ القرآن'),
+    description: mt(
+      'Learn effective techniques for memorizing Quranic verses and surahs.',
+      'Jifunze teknolojia za kazi za kuhifadhi aya na sura za Qur\'an.',
+      'تعلم تقنيات فعالة لحفظ آيات وسور القرآن.'
+    ),
+    subjectId: 'quran',
+    levelId: 'beginner',
+    order: 3,
+    thumbnail: '/thumbnails/memorization.jpg',
+    status: 'active',
+  },
+  {
+    id: 'hadith-intro',
+    slug: 'introduction-to-hadith',
+    title: mt('Introduction to Hadith', 'Utangulizi wa Hadith', 'مقدمة في الحديث'),
+    description: mt(
+      'Learn the basics of Hadith sciences, their collection, and classification.',
+      'Jifunze misingi ya sayansi za Hadith, makusanyo yao, na uainishaji.',
+      'تعلم أساسيات علوم الحديث، تجميعه، وتصنيفه.'
+    ),
+    subjectId: 'hadith',
+    levelId: 'beginner',
+    order: 1,
+    thumbnail: '/thumbnails/hadith-intro.jpg',
+    status: 'active',
+  },
+  {
+    id: 'hadith-nawawi',
+    slug: 'forty-hadith-nawawi',
+    title: mt('The 40 Hadith of Imam Nawawi', 'Hadith 40 za Nawawi', 'الأربعون النووية'),
+    description: mt(
+      'Study the forty essential hadith selected by Imam Nawawi with explanations.',
+      'Jifunze hadith 40 muhimu zilizochaguliwa na Imam Nawawi na maelezo.',
+      'ادرس الأربعين حديثاً الأساسية التي اختارها الإمام النووي مع الشروحات.'
+    ),
+    subjectId: 'hadith',
+    levelId: 'beginner',
+    order: 2,
+    thumbnail: '/thumbnails/nawawi.jpg',
+    status: 'active',
+  },
+  {
+    id: 'hadith-morality',
+    slug: 'hadith-on-morality',
+    title: mt('Hadith on Islamic Morality', 'Hadith za Maadili', 'أحاديث الأخلاق'),
+    description: mt(
+      'Explore hadith that teach Islamic ethics and moral conduct.',
+      'Chunguza hadith zinazofundisha maadili ya Kiislamu na tabia mema.',
+      'استكشف الأحاديث التي تعلم أخلاقيات الإسلام والسلوك الحسن.'
+    ),
+    subjectId: 'hadith',
+    levelId: 'beginner',
+    order: 3,
+    thumbnail: '/thumbnails/morality.jpg',
+    status: 'active',
+  },
+  {
+    id: 'fiqh-purification',
+    slug: 'rules-of-purification',
+    title: mt('Rules of Purification', 'Sheria za Tahara', 'أحكام الطهارة'),
+    description: mt(
+      'Learn the essential rules of wudu, ghusl, and tahara in Islam.',
+      'Jifunze kanuni muhimu za wudu, ghusl, na tahara katika Uislamu.',
+      'تعلم القواعد الأساسية للوضوء والغسل والطهارة في الإسلام.'
+    ),
+    subjectId: 'fiqh',
+    levelId: 'beginner',
+    order: 1,
+    thumbnail: '/thumbnails/tahara.jpg',
+    status: 'active',
+  },
+  {
+    id: 'fiqh-prayer',
+    slug: 'rules-of-prayer',
+    title: mt('Rules of Prayer', 'Sheria za Sala', 'أحكام الصلاة'),
+    description: mt(
+      'Master the rulings of Salah including conditions, pillars, and sunnahs.',
+      'Master sheriamali ya Sala ikiwa ni masharti, nguzo, na sunnah.',
+      'أتقن أحكام الصلاة بما فيها الشروط والأركان والسنن.'
+    ),
+    subjectId: 'fiqh',
+    levelId: 'beginner',
+    order: 2,
+    thumbnail: '/thumbnails/sala.jpg',
+    status: 'active',
+  },
+  {
+    id: 'fiqh-fasting',
+    slug: 'rules-of-fasting',
+    title: mt('Rules of Fasting', 'Sheria za Saumu', 'أحكام الصيام'),
+    description: mt(
+      'Understand the rulings of Ramadan fasting and voluntary fasting.',
+      'Elewa sheriamali za saumu ya Ramadhani na saumu ya hiari.',
+      'افهم أحكام صيام رمضان والصيام التطوعي.'
+    ),
+    subjectId: 'fiqh',
+    levelId: 'beginner',
+    order: 3,
+    thumbnail: '/thumbnails/saumu.jpg',
+    status: 'active',
+  },
+  {
+    id: 'tawhid-meaning',
+    slug: 'meaning-of-tawhid',
+    title: mt('Meaning of Tawhid', 'Maana ya Tawhid', 'معنى التوحيد'),
+    description: mt(
+      'Understand the fundamental concept of Islamic monotheism and its importance.',
+      'Elewa dhana ya msingi ya tauhid ya Kiislamu na umuhimu wake.',
+      'افهم المفهوم الأساسي للتوحيد الإسلامي وأهميته.'
+    ),
+    subjectId: 'tawhid',
+    levelId: 'beginner',
+    order: 1,
+    thumbnail: '/thumbnails/tawhid-intro.jpg',
+    status: 'active',
+  },
+  {
+    id: 'tawhid-types',
+    slug: 'types-of-tawhid',
+    title: mt('Types of Tawhid', 'Aina za Tawhid', 'أنواع التوحيد'),
+    description: mt(
+      'Learn about Tawhid al-Rububiyyah, al-Uluhiyyah, and al-Asma wa Sifat.',
+      'Jifunze kuhusu Tauhid al-Rububiyyah, al-Uluhiyyah, na al-Asma wa Sifat.',
+      'تعلم عن توحيد الربوبية والألوهية والأسماء والصفات.'
+    ),
+    subjectId: 'tawhid',
+    levelId: 'beginner',
+    order: 2,
+    thumbnail: '/thumbnails/tawhid-types.jpg',
+    status: 'active',
+  },
+  {
+    id: 'tawhid-shirk',
+    slug: 'shirk-and-its-forms',
+    title: mt('Shirk and Its Forms', 'Shirk na Mifumo Yake', 'الشرك وأشكاله'),
+    description: mt(
+      'Understand shirk (polytheism) and how to avoid it in worship.',
+      'Elewa shirk (ubatilishirikina) na jinsi ya kuepuka katika ibada.',
+      'افهم الشرك وكيفية تجنبه في العبادة.'
+    ),
+    subjectId: 'tawhid',
+    levelId: 'beginner',
+    order: 3,
+    thumbnail: '/thumbnails/shirk.jpg',
+    status: 'active',
+  },
+  {
+    id: 'sirah-birth',
+    slug: 'birth-of-prophet',
+    title: mt('Birth of the Prophet', 'Kuzaliwa kwa Mtume', 'مولد النبي'),
+    description: mt(
+      'Study the blessed birth of Prophet Muhammad (PBUH) and his early life.',
+      'Jifunze kuzaliwa kwake baraka cha Mtume Muhammad (SAW) na maisha yake ya awali.',
+      'ادرس الميلاد المبارك للنبي محمد ﷺ وحياته المبكرة.'
+    ),
+    subjectId: 'sirah',
+    levelId: 'beginner',
+    order: 1,
+    thumbnail: '/thumbnails/birth.jpg',
+    status: 'active',
+  },
+  {
+    id: 'sirah-mission',
+    slug: 'prophetic-mission',
+    title: mt('The Prophetic Mission', 'Utume wa Mtume', 'بعثة النبي'),
+    description: mt(
+      'Learn about the beginning of revelation and the call to Islam.',
+      'Jifunze kuhusu mwanzo wa uvio na wito kwa Uislamu.',
+      'تعلم عن بداية الوحي والدعوة إلى الإسلام.'
+    ),
+    subjectId: 'sirah',
+    levelId: 'beginner',
+    order: 2,
+    thumbnail: '/thumbnails/mission.jpg',
+    status: 'active',
+  },
+  {
+    id: 'sirah-hijra',
+    slug: 'hijra-to-madinah',
+    title: mt('The Hijra to Madinah', 'Hijra kwenda Madina', 'الهجرة إلى المدينة'),
+    description: mt(
+      'Explore the migration to Madinah and the establishment of the first Muslim community.',
+      'Chunguza uhamiaji kwenda Madina na uanzishwaji wa jamii ya kwanza ya Kiislamu.',
+      'استكشف الهجرة إلى المدينة وتأسيس أول مجتمع مسلم.'
+    ),
+    subjectId: 'sirah',
+    levelId: 'beginner',
+    order: 3,
+    thumbnail: '/thumbnails/hijra.jpg',
+    status: 'active',
+  },
+]
+
+export const modules: Module[] = [
+  {
+    id: 'quran-intro-m1',
+    slug: 'what-is-quran',
+    title: mt('What is the Quran?', 'Qur\'an Ni Nini?', 'ما هو القرآن؟'),
+    description: mt('Introduction to understanding the Holy Quran.', 'Utangulizi wa uelewa wa Qur\'an Mtakatifu.', 'مقدمة في فهم القرآن الكريم.'),
+    courseId: 'quran-intro',
+    order: 1,
+    status: 'active',
+  },
+  {
+    id: 'quran-intro-m2',
+    slug: 'revelation-of-quran',
+    title: mt('Revelation of the Quran', 'Uvio wa Qur\'an', 'نزول القرآن'),
+    description: mt('How the Quran was revealed to Prophet Muhammad (PBUH).', 'Jinsi Qur\'an ilivyoteremshwa kwa Mtume Muhammad (SAW).', 'كيف نزل القرآن على النبي محمد ﷺ.'),
+    courseId: 'quran-intro',
+    order: 2,
+    status: 'active',
+  },
+  {
+    id: 'quran-tajweed-m1',
+    slug: 'basics-of-tajweed',
+    title: mt('Basics of Tajweed', 'Misingi ya Tajwid', 'أساسيات التجويد'),
+    description: mt('Learn the fundamental rules of Quranic recitation.', 'Jifunze kanuni za msingi za kusoma Qur\'an.', 'تعلم القواعد الأساسية لتلاوة القرآن.'),
+    courseId: 'quran-tajweed',
+    order: 1,
+    status: 'active',
+  },
+  {
+    id: 'hadith-intro-m1',
+    slug: 'what-is-hadith',
+    title: mt('What is Hadith?', 'Hadith Ni Nini?', 'ما هو الحديث؟'),
+    description: mt('Introduction to the science of Hadith.', 'Utangulizi wa sayansi ya Hadith.', 'مقدمة في علم الحديث.'),
+    courseId: 'hadith-intro',
+    order: 1,
+    status: 'active',
+  },
+  {
+    id: 'fiqh-purification-m1',
+    slug: 'types-of-water',
+    title: mt('Types of Water', 'Aina za Maji', 'أنواع المياه'),
+    description: mt('Pure and impure water in Islamic law.', 'Maji safi na najisi katika sheria ya Kiislamu.', 'المياه الطاهرة والنجسة في الشريعة الإسلامية.'),
+    courseId: 'fiqh-purification',
+    order: 1,
+    status: 'active',
+  },
+  {
+    id: 'tawhid-meaning-m1',
+    slug: 'concept-of-oneness',
+    title: mt('Concept of Oneness of God', 'Dhana ya Umunduka wa Mungu', 'مفهوم التوحيد'),
+    description: mt('Understanding the fundamental belief in one God.', 'Kuelewa imani ya msingi katika Mungu mmoja.', 'فهم الإيمان الأساسي بإله واحد.'),
+    courseId: 'tawhid-meaning',
+    order: 1,
+    status: 'active',
+  },
+  {
+    id: 'sirah-birth-m1',
+    slug: 'pre-prophetic-era',
+    title: mt('Pre-Prophetic Era', 'Kipindi Kabla ya Utume', 'العصر قبل النبوة'),
+    description: mt('The state of Arabia before the prophethood.', 'Hali ya Uarabuni kabla ya utume.', 'حال شبه الجزيرة العربية قبل البعثة.'),
+    courseId: 'sirah-birth',
+    order: 1,
+    status: 'active',
+  },
+]
+
+export const lessons: Lesson[] = [
+  {
+    id: 'quran-intro-1',
+    slug: 'what-is-the-quran',
+    title: mt('What is the Quran?', 'Qur\'an Ni Nini?', 'ما هو القرآن؟'),
+    subjectId: 'quran',
+    levelId: 'beginner',
+    courseId: 'quran-intro',
+    moduleId: 'quran-intro-m1',
+    order: 1,
+    content: content(
+      'The Quran is the literal word of Allah revealed to Prophet Muhammad (PBUH) through the Angel Gabriel.',
+      'The Quran is the holy book of Islam, the literal word of Allah revealed to Prophet Muhammad (PBUH) through the Angel Gabriel over 23 years. It contains 114 chapters (surahs) and over 6,000 verses (ayat).'
+    ),
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    audioType: 'lecture',
+    duration: '15:00',
+    thumbnail: '/thumbnails/quran-intro-1.jpg',
+    status: 'published',
+    tags: ['quran', 'basics', 'introduction'],
+    createdAt: '2024-01-15',
+    updatedAt: '2024-01-15',
+  },
+  {
+    id: 'quran-intro-2',
+    slug: 'revelation-of-the-quran',
+    title: mt('Revelation of the Quran', 'Uvio wa Qur\'an', 'نزول القرآن'),
+    subjectId: 'quran',
+    levelId: 'beginner',
+    courseId: 'quran-intro',
+    moduleId: 'quran-intro-m2',
+    order: 1,
+    content: content(
+      'The Quran was revealed in portions over 23 years during the lifetime of Prophet Muhammad (PBUH).',
+      'The Quran was revealed in portions over 23 years during the lifetime of Prophet Muhammad (PBUH). The revelation began in the cave of Hira with the command "Iqra" (Read) and concluded shortly before the Prophets passing.'
+    ),
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+    audioType: 'lecture',
+    duration: '18:30',
+    thumbnail: '/thumbnails/quran-revelation.jpg',
+    status: 'published',
+    tags: ['quran', 'revelation', 'history'],
+    createdAt: '2024-01-20',
+    updatedAt: '2024-01-20',
+  },
+  {
+    id: 'quran-intro-3',
+    slug: 'quranic-terminology',
+    title: mt('Quranic Terminology', 'Istilahi za Qur\'an', 'مصطلحات قرآنية'),
+    subjectId: 'quran',
+    levelId: 'beginner',
+    courseId: 'quran-intro',
+    order: 2,
+    content: content(
+      'Learn important terms used when studying the Quran.',
+      'Learn important terms used when studying the Quran including Ayah (verse), Surah (chapter), Juz (part), Para (section), and Manzil (stage).'
+    ),
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+    audioType: 'lecture',
+    duration: '12:00',
+    thumbnail: '/thumbnails/quran-terms.jpg',
+    status: 'published',
+    tags: ['quran', 'terminology', 'basics'],
+    createdAt: '2024-01-25',
+    updatedAt: '2024-01-25',
+  },
+  {
+    id: 'quran-tajweed-1',
+    slug: 'basics-of-tajweed',
+    title: mt('Basics of Tajweed', 'Misingi ya Tajwid', 'أساسيات التجويد'),
+    subjectId: 'quran',
+    levelId: 'beginner',
+    courseId: 'quran-tajweed',
+    moduleId: 'quran-tajweed-m1',
+    order: 1,
+    content: content(
+      'Tajweed means to recite beautifully and apply the rules of recitation correctly.',
+      'Tajweed means to recite beautifully and apply the rules of recitation correctly. It is derived from the Arabic word "ijaz" meaning "making better." Learning tajweed ensures we recite the Quran as it was revealed.'
+    ),
+    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+    audioType: 'recitation',
+    duration: '22:00',
+    thumbnail: '/thumbnails/tajweed-basics.jpg',
+    status: 'published',
+    tags: ['quran', 'tajweed', 'recitation'],
+    createdAt: '2024-02-01',
+    updatedAt: '2024-02-01',
+  },
+  {
+    id: 'hadith-intro-1',
+    slug: 'what-is-hadith',
+    title: mt('What is Hadith?', 'Hadith Ni Nini?', 'ما هو الحديث؟'),
+    subjectId: 'hadith',
+    levelId: 'beginner',
+    courseId: 'hadith-intro',
+    moduleId: 'hadith-intro-m1',
+    order: 1,
+    content: content(
+      'Hadith refers to the sayings, actions, and approvals of Prophet Muhammad (PBUH).',
+      'Hadith refers to the sayings, actions, and approvals of Prophet Muhammad (PBUH). It is the second source of Islamic law after the Quran. Together, they form the primary sources of guidance for Muslims.'
+    ),
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+    audioType: 'lecture',
+    duration: '20:00',
+    thumbnail: '/thumbnails/hadith-intro-1.jpg',
+    status: 'published',
+    tags: ['hadith', 'basics', 'introduction'],
+    createdAt: '2024-02-05',
+    updatedAt: '2024-02-05',
+  },
+  {
+    id: 'hadith-nawawi-1',
+    slug: 'first-hadith-intention',
+    title: mt('Hadith on Intention', 'Hadith ya Nia', 'حديث النية'),
+    subjectId: 'hadith',
+    levelId: 'beginner',
+    courseId: 'hadith-nawawi',
+    order: 1,
+    content: content(
+      'Actions are judged by intentions.',
+      'Actions are judged by intentions. The first hadith of Imam Nawawi teaches us that every action is based on intention. This fundamental principle guides all aspects of Islamic worship and practice.',
+      'إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ'
+    ),
+    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+    audioType: 'lecture',
+    duration: '16:00',
+    thumbnail: '/thumbnails/intention.jpg',
+    status: 'published',
+    tags: ['hadith', 'nawawi', 'intention', 'foundations'],
+    createdAt: '2024-02-10',
+    updatedAt: '2024-02-10',
+  },
+  {
+    id: 'fiqh-purification-1',
+    slug: 'importance-of-purification',
+    title: mt('Importance of Purification', 'Umuhimu wa Tahara', 'أهمية الطهارة'),
+    subjectId: 'fiqh',
+    levelId: 'beginner',
+    courseId: 'fiqh-purification',
+    moduleId: 'fiqh-purification-m1',
+    order: 1,
+    content: content(
+      'Purification is the foundation of all worship in Islam.',
+      'Purification is the foundation of all worship in Islam. Without proper purification, our prayers are not accepted. This course covers the essential rulings of tahara (purification) including wudu (ablution) and ghusl (ritual bath).'
+    ),
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
+    audioType: 'lecture',
+    duration: '21:30',
+    thumbnail: '/thumbnails/purification.jpg',
+    status: 'published',
+    tags: ['fiqh', 'purification', 'tahara', 'wudu'],
+    createdAt: '2024-02-15',
+    updatedAt: '2024-02-15',
+  },
+  {
+    id: 'fiqh-prayer-1',
+    slug: 'pillars-of-salah',
+    title: mt('Pillars of Salah', 'Nguzo za Sala', 'أركان الصلاة'),
+    subjectId: 'fiqh',
+    levelId: 'beginner',
+    courseId: 'fiqh-prayer',
+    order: 1,
+    content: content(
+      'Learn the 14 pillars of prayer according to Sunni Islam.',
+      'Learn the 14 pillars of prayer according to Sunni Islam. From standing (qiyam) to the final Tashahhud and Salam, each pillar is essential for a valid prayer.'
+    ),
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+    audioType: 'lecture',
+    duration: '28:00',
+    thumbnail: '/thumbnails/salah.jpg',
+    status: 'published',
+    tags: ['fiqh', 'prayer', 'salah', 'pillars'],
+    createdAt: '2024-02-20',
+    updatedAt: '2024-02-20',
+  },
+  {
+    id: 'tawhid-meaning-1',
+    slug: 'meaning-of-tawhid',
+    title: mt('Meaning of Tawhid', 'Maana ya Tawhid', 'معنى التوحيد'),
+    subjectId: 'tawhid',
+    levelId: 'beginner',
+    courseId: 'tawhid-meaning',
+    moduleId: 'tawhid-meaning-m1',
+    order: 1,
+    content: content(
+      'Tawhid is the fundamental belief in the oneness of Allah.',
+      'Tawhid is the fundamental belief in the oneness of Allah. It means that Allah is One and has no partners. This is the foundation of Islam and the first thing the Prophet called people to.',
+      'لَا إِلٰهَ إِلَّا اللَّهُ'
+    ),
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+    audioType: 'lecture',
+    duration: '17:00',
+    thumbnail: '/thumbnails/tawhid-meaning.jpg',
+    status: 'published',
+    tags: ['tawhid', 'monotheism', 'belief', 'foundations'],
+    createdAt: '2024-03-01',
+    updatedAt: '2024-03-01',
+  },
+  {
+    id: 'sirah-birth-1',
+    slug: 'birth-of-prophet-muhammad',
+    title: mt('Birth of Prophet Muhammad (PBUH)', 'Kuzaliwa kwa Mtume Muhammad (SAW)', 'مولد النبي محمد ﷺ'),
+    subjectId: 'sirah',
+    levelId: 'beginner',
+    courseId: 'sirah-birth',
+    moduleId: 'sirah-birth-m1',
+    order: 1,
+    content: content(
+      'Prophet Muhammad (PBUH) was born in Makkah in the Year of the Elephant.',
+      'Prophet Muhammad (PBUH) was born in Makkah in the Year of the Elephant (571 CE). His father Abdullah died before his birth, and his mother Aminah passed away when he was six years old. He was raised by his grandfather Abdul-Muttalib and later by his uncle Abu Talib.'
+    ),
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+    audioType: 'lecture',
+    duration: '16:30',
+    thumbnail: '/thumbnails/prophet-birth.jpg',
+    status: 'published',
+    tags: ['sirah', 'prophet', 'birth', 'makkah'],
+    createdAt: '2024-03-15',
+    updatedAt: '2024-03-15',
+  },
+  {
+    id: 'quran-helpers-1',
+    slug: 'prophets-named-in-quran',
+    title: mt('Prophets Named in the Quran', 'Manabii wainuliwa kwa Qur\'an', 'الأنبياء المذكورين في القرآن'),
+    subjectId: 'quran',
+    levelId: 'beginner',
+    courseId: 'quran-intro',
+    order: 3,
+    content: content(
+      'Learn about the 25 prophets mentioned in the Quran.',
+      'Learn about the 25 prophets mentioned in the Quran including Adam, Noah, Abraham, Moses, and Jesus. Understanding their stories helps us learn valuable lessons about faith, patience, and submission to Allah.'
+    ),
+    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
+    audioType: 'lecture',
+    duration: '25:00',
+    thumbnail: '/thumbnails/prophets.jpg',
+    status: 'published',
+    tags: ['quran', 'prophets', 'history'],
+    createdAt: '2024-03-20',
+    updatedAt: '2024-03-20',
+  },
+  {
+    id: 'hadith-sunnah-1',
+    slug: 'what-is-sunnah',
+    title: mt('What is the Sunnah?', 'Sunnah Ni Nini?', 'ما هي السنة؟'),
+    subjectId: 'hadith',
+    levelId: 'beginner',
+    courseId: 'hadith-intro',
+    order: 2,
+    content: content(
+      'The Sunnah is the practices and teachings of Prophet Muhammad (PBUH).',
+      'The Sunnah is the practices and teachings of Prophet Muhammad (PBUH). It explains and expands upon the Quran, showing us how to implement its teachings in our daily lives.'
+    ),
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
+    audioType: 'lecture',
+    duration: '19:00',
+    thumbnail: '/thumbnails/sunnah.jpg',
+    status: 'published',
+    tags: ['hadith', 'sunnah', 'basics'],
+    createdAt: '2024-03-25',
+    updatedAt: '2024-03-25',
+  },
+  {
+    id: 'fiqh-zakat-1',
+    slug: 'introduction-to-zakat',
+    title: mt('Introduction to Zakat', 'Utangulizi wa Zaka', 'مقدمة في الزكاة'),
+    subjectId: 'fiqh',
+    levelId: 'beginner',
+    courseId: 'fiqh-prayer',
+    order: 2,
+    content: content(
+      'Zakat is the third pillar of Islam, an obligatory charity.',
+      'Zakat is the third pillar of Islam, an obligatory charity given to those in need. Learn about who must pay zakat, the Nisab threshold, and how to calculate it.'
+    ),
+    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3',
+    audioType: 'lecture',
+    duration: '23:00',
+    thumbnail: '/thumbnails/zakat.jpg',
+    status: 'published',
+    tags: ['fiqh', 'zakat', 'charity', 'pillars'],
+    createdAt: '2024-04-01',
+    updatedAt: '2024-04-01',
+  },
+  {
+    id: 'tawhid-shirk-1',
+    slug: 'what-is-shirk',
+    title: mt('What is Shirk?', 'Shirk Ni Nini?', 'ما هو الشرك؟'),
+    subjectId: 'tawhid',
+    levelId: 'beginner',
+    courseId: 'tawhid-meaning',
+    order: 2,
+    content: content(
+      'Shirk is associating partners with Allah, the greatest sin in Islam.',
+      'Shirk is associating partners with Allah, the greatest sin in Islam. It means worshipping others alongside Allah or attributing His exclusive qualities to others. Understanding shirk helps us purify our intention and worship.'
+    ),
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3',
+    audioType: 'lecture',
+    duration: '20:00',
+    thumbnail: '/thumbnails/shirk.jpg',
+    status: 'published',
+    tags: ['tawhid', 'shirk', 'sins', 'warning'],
+    createdAt: '2024-04-05',
+    updatedAt: '2024-04-05',
+  },
+  {
+    id: 'sirah-hijra-1',
+    slug: 'the-migration-to-madinah',
+    title: mt('The Migration to Madinah', 'Hijra kwenda Madina', 'الهجرة إلى المدينة'),
+    subjectId: 'sirah',
+    levelId: 'beginner',
+    courseId: 'sirah-hijra',
+    order: 1,
+    content: content(
+      'The Hijra marks the beginning of the Islamic calendar.',
+      'The Hijra marks the beginning of the Islamic calendar. When persecution in Makkah intensified, Prophet Muhammad (PBUH) and his companions migrated to Madinah where they established the first Muslim community and state.'
+    ),
+    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3',
+    audioType: 'lecture',
+    duration: '25:30',
+    thumbnail: '/thumbnails/hijra.jpg',
+    status: 'published',
+    tags: ['sirah', 'hijra', 'madinah', 'history'],
+    createdAt: '2024-04-10',
+    updatedAt: '2024-04-10',
+  },
+]
+
+export const tags: Tag[] = [
+  { id: 'quran', slug: 'quran', name: mt("Qur'an", "Qur'an", 'القرآن'), type: 'subject' },
+  { id: 'hadith', slug: 'hadith', name: mt('Hadith', 'Hadith', 'الحديث'), type: 'subject' },
+  { id: 'fiqh', slug: 'fiqh', name: mt('Fiqh', 'Fiqhi', 'الفقه'), type: 'subject' },
+  { id: 'tawhid', slug: 'tawhid', name: mt('Tawhid', 'Tawhidi', 'التوحيد'), type: 'subject' },
+  { id: 'sirah', slug: 'sirah', name: mt("Sirah", 'Sira', 'السيرة'), type: 'subject' },
+  { id: 'basics', slug: 'basics', name: mt('Basics', 'Misingi', 'الأساسيات'), type: 'topic' },
+  { id: 'foundations', slug: 'foundations', name: mt('Foundations', 'Msingi', 'الأسس'), type: 'topic' },
+  { id: 'tajweed', slug: 'tajweed', name: mt('Tajweed', 'Tajwid', 'التجويد'), type: 'topic' },
+  { id: 'prayer', slug: 'prayer', name: mt('Prayer', 'Sala', 'الصلاة'), type: 'topic' },
+  { id: 'monotheism', slug: 'monotheism', name: mt('Monotheism', 'Tauhid', 'التوحيد'), type: 'topic' },
+]
+
+export const media: Media[] = [
+  {
+    id: 'media-1',
+    type: 'image',
+    url: '/images/quran-pattern.jpg',
+    thumbnail: '/thumbnails/quran-pattern-thumb.jpg',
+    title: mt('Quranic Pattern', 'Mfano wa Qur\'an', 'نمط قرآني'),
+    description: mt('Decorative Islamic geometric pattern.', 'Mfano wa kijiometria ya Kiislamu.', 'نمط هندسي إسلامي زخرفي.'),
+    mimeType: 'image/jpeg',
+    size: 245000,
+  },
+  {
+    id: 'media-2',
+    type: 'audio',
+    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    title: mt('Bismillah Recitation', 'Kusoma ya Bismillah', 'تلاوة البسملة'),
+    mimeType: 'audio/mpeg',
+    size: 4500000,
+    duration: 120,
+  },
+]
+
+export const users: User[] = [
+  {
+    id: 'admin-1',
+    name: 'Administrator',
+    email: 'admin@ahlusunna.info',
+    role: 'admin',
+    levelAccess: ['beginner', 'intermediate', 'advanced'],
+    progress: [],
+    createdAt: '2024-01-01',
+  },
+  {
+    id: 'learner-1',
+    name: 'Ahmed Juma',
+    email: 'learner@ahlusunna.info',
+    role: 'learner',
+    levelAccess: ['beginner'],
+    progress: ['what-is-the-quran', 'what-is-hadith'],
+    createdAt: '2024-02-15',
+  },
+  {
+    id: 'learner-2',
+    name: 'Fatima Hassan',
+    email: 'fatima@ahlusunna.info',
+    role: 'learner',
+    levelAccess: ['beginner'],
+    progress: ['meaning-of-tawhid', 'pillars-of-salah'],
+    createdAt: '2024-03-01',
+  },
+]
+
+export const contactMessages: ContactMessage[] = [
+  {
+    id: 'msg-1',
+    name: 'Ali Omar',
+    email: 'ali@example.com',
+    subject: 'Question about Quran study',
+    message: 'I would like to know when intermediate courses will be available.',
+    status: 'new',
+    createdAt: '2024-04-20',
+  },
+  {
+    id: 'msg-2',
+    name: 'Amina Rashid',
+    email: 'amina@example.com',
+    subject: 'Technical issue',
+    message: 'The audio player is not working on mobile devices.',
+    status: 'read',
+    createdAt: '2024-04-18',
+  },
+]
+
+export const adminStats: AdminStats = {
+  totalLessons: lessons.length,
+  totalCourses: courses.length,
+  totalSubjects: subjects.length,
+  totalUsers: users.length,
+  publishedLessons: lessons.filter(l => l.status === 'published').length,
+  draftLessons: lessons.filter(l => l.status === 'draft').length,
+  recentLessons: lessons.slice(0, 5),
+}

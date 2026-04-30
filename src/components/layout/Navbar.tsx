@@ -1,30 +1,114 @@
 import { Link, useNavigate, useRouterState } from '@tanstack/react-router'
-import { ChevronDown, LogOut, Menu, X } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import {
+  ChevronDown,
+  LayoutDashboard,
+  LogOut,
+  Menu,
+  UserRound,
+  X,
+} from 'lucide-react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 
+import { LogoNavbar } from '#/components/common/Logo'
+import { LanguageToggle } from '#/components/shared/LanguageToggle'
 import { Button } from '#/components/ui/button'
 import { useAuth } from '#/hooks/useAuth'
 import { useLanguage } from '#/hooks/useLanguage'
-import { LanguageToggle } from '#/components/shared/LanguageToggle'
+import { cn } from '#/lib/utils'
+import type { Language } from '#/types'
 
-function LogoMark() {
+type NavTarget = '/' | '/about' | '/contact' | '/subjects'
+
+const navLabels: Record<
+  Language,
+  {
+    home: string
+    about: string
+    contact: string
+    lesson: string
+    login: string
+    menu: string
+    close: string
+  }
+> = {
+  en: {
+    home: 'Home',
+    about: 'About',
+    contact: 'Contact',
+    lesson: 'Lesson',
+    login: 'Login',
+    menu: 'Menu',
+    close: 'Close menu',
+  },
+  sw: {
+    home: 'Nyumbani',
+    about: 'Kuhusu',
+    contact: 'Wasiliana',
+    lesson: 'Masomo',
+    login: 'Ingia',
+    menu: 'Menyu',
+    close: 'Funga menyu',
+  },
+  ar: {
+    home: 'الرئيسية',
+    about: 'عن المنصة',
+    contact: 'تواصل',
+    lesson: 'الدروس',
+    login: 'دخول',
+    menu: 'القائمة',
+    close: 'إغلاق القائمة',
+  },
+}
+
+function isActivePath(pathname: string, to: NavTarget) {
+  if (to === '/') return pathname === '/'
+  return pathname === to || pathname.startsWith(`${to}/`)
+}
+
+function NavLink({
+  to,
+  children,
+  onClick,
+}: {
+  to: NavTarget
+  children: ReactNode
+  onClick?: () => void
+}) {
+  const pathname = useRouterState({ select: (state) => state.location.pathname })
+  const isActive = isActivePath(pathname, to)
+
   return (
-    <svg aria-hidden="true" width="32" height="32" viewBox="0 0 32 32" fill="none">
-      <path d="M16 4C12 8 8 12 8 18V28H24V18C24 12 20 8 16 4Z" fill="#C9A84C" />
-      <rect x="4" y="14" width="3" height="14" fill="#C9A84C" />
-      <rect x="25" y="14" width="3" height="14" fill="#C9A84C" />
-    </svg>
+    <Link
+      to={to}
+      onClick={onClick}
+      className={cn(
+        'relative px-3 py-2 text-sm font-medium transition-colors',
+        isActive ? 'text-primary' : 'text-muted-foreground hover:text-primary',
+      )}
+    >
+      {children}
+      {isActive && <span className="absolute inset-x-3 bottom-0 h-0.5 bg-accent" />}
+    </Link>
   )
 }
 
 export function Navbar() {
   const { user, isAuthenticated, isAdmin, logout } = useAuth()
-  const { t } = useLanguage()
+  const { currentLang, t } = useLanguage()
   const navigate = useNavigate()
   const pathname = useRouterState({ select: (state) => state.location.pathname })
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const userMenuRef = useRef<HTMLDivElement>(null)
+  const labels = navLabels[currentLang]
+
+  const navItems: Array<{ to: NavTarget; label: string }> = [
+    { to: '/', label: labels.home },
+    { to: '/about', label: labels.about },
+    { to: '/contact', label: labels.contact },
+    { to: '/subjects', label: labels.lesson },
+  ]
 
   useEffect(() => {
     setMobileMenuOpen(false)
@@ -42,34 +126,43 @@ export function Navbar() {
     return () => document.removeEventListener('pointerdown', handlePointerDown)
   }, [])
 
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10)
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const handleLogout = () => {
     logout()
     void navigate({ to: '/' })
   }
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-40 h-14 border-b border-accent/20 bg-primary lg:h-16" aria-label="Primary">
-      <div className="container-main flex h-full items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 text-primary-foreground" aria-label="Ahlusunna">
-          <LogoMark />
-          <span className="text-lg font-bold tracking-normal">Ahlusunna</span>
+    <nav
+      className={cn(
+        'fixed inset-x-0 top-0 z-40 h-16 border-b border-border/70 bg-background/96 backdrop-blur-md transition-shadow duration-300 lg:h-[76px]',
+        scrolled && 'shadow-[0_10px_30px_rgba(27,67,50,0.08)]',
+      )}
+      aria-label="Primary"
+    >
+      <div className="mx-0 flex h-full max-w-[390px] items-center justify-between gap-4 px-4 sm:mx-auto sm:max-w-7xl sm:px-6 lg:px-8">
+        <Link to="/" className="flex shrink-0 items-center" aria-label="Ahlusunna home">
+          <LogoNavbar />
         </Link>
 
-        <div className="hidden items-center gap-6 lg:flex">
-          <Link to="/subjects" className="text-sm text-primary-foreground/80 transition-colors hover:text-primary-foreground">
-            {t('navigation.subjects')}
-          </Link>
-          <Link to="/about" className="text-sm text-primary-foreground/80 transition-colors hover:text-primary-foreground">
-            {t('navigation.about')}
-          </Link>
-          <Link to="/contact" className="text-sm text-primary-foreground/80 transition-colors hover:text-primary-foreground">
-            {t('navigation.contact')}
-          </Link>
+        <div className="hidden items-center gap-1 lg:flex">
+          {navItems.map((item) => (
+            <NavLink key={item.to} to={item.to}>
+              {item.label}
+            </NavLink>
+          ))}
         </div>
 
-        <div className="flex items-center gap-3">
-          <div className="hidden sm:block">
-            <LanguageToggle inverted />
+        <div className="flex items-center gap-2">
+          <div className="hidden md:block">
+            <LanguageToggle />
           </div>
 
           {isAuthenticated && user ? (
@@ -77,34 +170,54 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => setUserMenuOpen((open) => !open)}
-                className="flex items-center gap-2 text-primary-foreground"
+                className="flex h-10 items-center gap-2 rounded-[8px] border border-border bg-card px-2 text-primary transition-colors hover:bg-secondary"
                 aria-expanded={userMenuOpen}
                 aria-haspopup="menu"
               >
-                <span className="flex size-8 items-center justify-center rounded-full bg-accent text-sm font-bold text-accent-foreground">
+                <span className="flex size-7 items-center justify-center rounded-[6px] bg-primary text-primary-foreground">
                   {user.name.charAt(0)}
                 </span>
-                <ChevronDown aria-hidden="true" size={16} />
+                <ChevronDown
+                  aria-hidden="true"
+                  className={cn('size-4 transition-transform', userMenuOpen && 'rotate-180')}
+                />
               </button>
 
               {userMenuOpen && (
-                <div className="absolute end-0 top-full mt-2 w-48 border border-border bg-white shadow-[0_8px_24px_rgba(0,0,0,0.15)]" role="menu">
+                <div
+                  className="absolute end-0 top-full z-50 mt-2 w-60 overflow-hidden rounded-[8px] border border-border bg-popover text-popover-foreground shadow-[0_18px_50px_rgba(0,0,0,0.16)]"
+                  role="menu"
+                >
+                  <div className="border-b border-border bg-muted px-4 py-3">
+                    <p className="font-medium text-foreground">{user.name}</p>
+                    <p className="text-sm text-muted-foreground">{user.email}</p>
+                  </div>
                   <div className="py-1">
                     {isAdmin && (
-                      <Link to="/admin" className="block px-4 py-2 text-sm text-foreground hover:bg-background" role="menuitem">
+                      <Link
+                        to="/admin"
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground transition-colors hover:bg-secondary"
+                        role="menuitem"
+                      >
+                        <LayoutDashboard aria-hidden="true" className="size-4 text-accent" />
                         {t('navigation.dashboard')}
                       </Link>
                     )}
-                    <Link to="/progress" className="block px-4 py-2 text-sm text-foreground hover:bg-background" role="menuitem">
+                    <Link
+                      to="/progress"
+                      className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground transition-colors hover:bg-secondary"
+                      role="menuitem"
+                    >
+                      <UserRound aria-hidden="true" className="size-4 text-accent" />
                       {t('navigation.progress')}
                     </Link>
                     <button
                       type="button"
                       onClick={handleLogout}
-                      className="flex w-full items-center gap-2 px-4 py-2 text-start text-sm text-destructive hover:bg-background"
+                      className="flex w-full items-center gap-3 px-4 py-2.5 text-start text-sm text-destructive transition-colors hover:bg-secondary"
                       role="menuitem"
                     >
-                      <LogOut aria-hidden="true" size={16} />
+                      <LogOut aria-hidden="true" className="size-4" />
                       {t('navigation.logout')}
                     </button>
                   </div>
@@ -112,46 +225,49 @@ export function Navbar() {
               )}
             </div>
           ) : (
-            <Button asChild variant="accent" size="sm" className="hidden sm:inline-flex">
-              <Link to="/login">{t('navigation.login')}</Link>
+            <Button asChild variant="accent" size="sm" className="hidden md:inline-flex">
+              <Link to="/login">{labels.login}</Link>
             </Button>
           )}
 
-          <button
+          <Button
             type="button"
+            variant="ghost"
+            size="icon"
+            className="lg:hidden"
             onClick={() => setMobileMenuOpen((open) => !open)}
-            className="text-primary-foreground lg:hidden"
-            aria-label={mobileMenuOpen ? t('common.close') : 'Menu'}
+            aria-label={mobileMenuOpen ? labels.close : labels.menu}
             aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <X aria-hidden="true" size={24} /> : <Menu aria-hidden="true" size={24} />}
-          </button>
+            {mobileMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+          </Button>
         </div>
       </div>
 
       {mobileMenuOpen && (
-        <div className="fixed inset-0 top-14 z-50 bg-primary/95 lg:hidden">
-          <div className="flex h-full flex-col items-center justify-center gap-8">
-            <Link to="/subjects" className="text-2xl font-bold text-primary-foreground">
-              {t('navigation.subjects')}
-            </Link>
-            <Link to="/about" className="text-2xl font-bold text-primary-foreground">
-              {t('navigation.about')}
-            </Link>
-            <Link to="/contact" className="text-2xl font-bold text-primary-foreground">
-              {t('navigation.contact')}
-            </Link>
-            {isAuthenticated ? (
-              <Link to="/progress" className="text-2xl font-bold text-primary-foreground">
-                {t('navigation.progress')}
-              </Link>
-            ) : (
-              <Button asChild variant="accent" size="lg" className="mt-4">
-                <Link to="/login">{t('navigation.login')}</Link>
-              </Button>
-            )}
-            <div className="mt-4">
-              <LanguageToggle expandedLabels inverted />
+        <div className="absolute inset-x-0 top-16 z-50 border-b border-border bg-background shadow-[0_18px_50px_rgba(27,67,50,0.14)] lg:hidden">
+          <div className="container-main flex flex-col gap-1 py-4">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.label}
+              </NavLink>
+            ))}
+
+            <div className="mt-3 flex flex-col gap-3 border-t border-border pt-4">
+              <LanguageToggle expandedLabels />
+              {isAuthenticated ? (
+                <Button asChild variant="outline" size="lg">
+                  <Link to="/progress">{t('navigation.progress')}</Link>
+                </Button>
+              ) : (
+                <Button asChild variant="accent" size="lg">
+                  <Link to="/login">{labels.login}</Link>
+                </Button>
+              )}
             </div>
           </div>
         </div>
