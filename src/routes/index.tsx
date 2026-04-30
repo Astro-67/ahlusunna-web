@@ -1,8 +1,7 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
-import { ArrowRight, BookOpen, CheckCircle2, Languages, ListChecks } from 'lucide-react'
+import { createFileRoute } from '@tanstack/react-router'
+import { BookOpen, CheckCircle2, Languages, ListChecks } from 'lucide-react'
 
 import { HeroSection } from '#/components/home/HeroSection'
-import { Button } from '#/components/ui/button'
 import { useLanguage } from '#/hooks/useLanguage'
 import type { Language } from '#/types'
 
@@ -19,9 +18,6 @@ const pageCopy: Record<
     lessonsTitle: string
     lessonsBody: string
     subjects: string[]
-    finalTitle: string
-    finalBody: string
-    finalCta: string
   }
 > = {
   en: {
@@ -44,13 +40,10 @@ const pageCopy: Record<
       },
     ],
     lessonsLabel: 'Lessons',
-    lessonsTitle: 'One path for Qur’an, Hadith, Fiqh, Tawhid, and Sirah.',
+    lessonsTitle: "One path for Qur'an, Hadith, Fiqh, Tawhid, and Sirah.",
     lessonsBody:
       'Each subject is presented as organised lessons so a learner can move from basic understanding to stronger practice step by step.',
-    subjects: ['Qur’an', 'Hadith', 'Fiqh', 'Tawhid', 'Sirah'],
-    finalTitle: 'Begin with Hatua ya Awali today.',
-    finalBody: 'Level 1 is open without login so every learner can start immediately.',
-    finalCta: 'Open Beginner Lessons',
+    subjects: ["Qur'an", 'Hadith', 'Fiqh', 'Tawhid', 'Sirah'],
   },
   sw: {
     aboutLabel: 'Kuhusu mfumo',
@@ -60,11 +53,11 @@ const pageCopy: Record<
     points: [
       {
         title: 'Anza na msingi',
-        body: 'Masomo ya Beginner yako wazi kwa kila mtu na yamepangwa kwa somo.',
+        body: 'Masomo ya hatua ya awali yanapatikana kwa kila mtu na yamepangwa kwa kila somo.',
       },
       {
         title: 'Endelea kwa hatua',
-        body: 'Intermediate na Advanced zimeandaliwa kwa mwanafunzi aliye tayari kuingia ndani zaidi.',
+        body: 'Hatua ya kati na ya juu zimeandaliwa kwa mwanafunzi aliye tayari kujifunza Uislamu kwa kina zaidi.',
       },
       {
         title: 'Jifunze kwa lugha tatu',
@@ -72,13 +65,10 @@ const pageCopy: Record<
       },
     ],
     lessonsLabel: 'Masomo',
-    lessonsTitle: 'Njia moja ya Qur’an, Hadith, Fiqhi, Tawhidi, na Sira.',
+    lessonsTitle: "Mfumo uliopangiliwa wa kujifunza Qur'an, Hadith, Fiqhi, Tawhidi, na Sira.",
     lessonsBody:
-      'Kila somo limepangwa kwa vipindi ili mwanafunzi aende kutoka ufahamu wa msingi hadi matumizi bora hatua kwa hatua.',
-    subjects: ['Qur’an', 'Hadith', 'Fiqhi', 'Tawhidi', 'Sira'],
-    finalTitle: 'Anza na Hatua ya Awali leo.',
-    finalBody: 'Level 1 iko wazi bila kuingia ili kila mwanafunzi aanze mara moja.',
-    finalCta: 'Fungua Masomo ya Awali',
+      'Kila somo limeandaliwa kwa mpangilio wa hatua kwa hatua, ili mwanafunzi ajenge msingi mzuri na kuendelea kuelewa Uislamu kwa kina zaidi.',
+    subjects: ["Qur'an", 'Hadith', 'Fiqhi', 'Tawhidi', 'Sira'],
   },
   ar: {
     aboutLabel: 'عن النظام',
@@ -104,9 +94,6 @@ const pageCopy: Record<
     lessonsBody:
       'كل مادة تقدم على شكل دروس منظمة حتى ينتقل المتعلم من الفهم الأساسي إلى ممارسة أقوى خطوة بعد خطوة.',
     subjects: ['القرآن', 'الحديث', 'الفقه', 'التوحيد', 'السيرة'],
-    finalTitle: 'ابدأ بالمستوى الأول اليوم.',
-    finalBody: 'المستوى الأول مفتوح دون تسجيل حتى يبدأ كل متعلم فورًا.',
-    finalCta: 'افتح دروس المبتدئين',
   },
 }
 
@@ -138,11 +125,9 @@ function SystemIntro() {
                     key={point.title}
                     className="grid grid-cols-[44px_1fr] gap-4 border-t border-border pt-5 first:border-t-0 first:pt-0"
                   >
-                    {Icon && (
-                      <span className="flex size-11 items-center justify-center rounded-[8px] bg-primary text-primary-foreground">
-                        <Icon aria-hidden="true" className="size-5" />
-                      </span>
-                    )}
+                    <span className="flex size-11 items-center justify-center rounded-[8px] bg-primary text-primary-foreground">
+                      <Icon aria-hidden="true" className="size-5" />
+                    </span>
                     <div>
                       <h3 className="font-decorative text-xl font-bold text-foreground">
                         {point.title}
@@ -195,39 +180,12 @@ function LessonsOverview() {
   )
 }
 
-function StartSection() {
-  const { currentLang } = useLanguage()
-  const copy = pageCopy[currentLang]
-
-  return (
-    <section id="contact" className="bg-primary py-16 text-primary-foreground lg:py-20">
-      <div className="container-main flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
-        <div>
-          <h2 className="font-decorative text-[30px] font-bold leading-tight md:text-[42px]">
-            {copy.finalTitle}
-          </h2>
-          <p className="mt-3 max-w-xl text-base leading-7 text-primary-foreground/72">
-            {copy.finalBody}
-          </p>
-        </div>
-        <Button asChild variant="accent" size="lg" className="gap-2">
-          <Link to="/subjects">
-            {copy.finalCta}
-            <ArrowRight data-icon="inline-end" />
-          </Link>
-        </Button>
-      </div>
-    </section>
-  )
-}
-
 function HomePage() {
   return (
     <>
       <HeroSection />
       <SystemIntro />
       <LessonsOverview />
-      <StartSection />
     </>
   )
 }

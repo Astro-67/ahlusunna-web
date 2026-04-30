@@ -8,6 +8,7 @@ void i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
+    lng: 'sw',
     fallbackLng: 'sw',
     supportedLngs: ['sw', 'ar', 'en'],
     defaultNS: 'translation',

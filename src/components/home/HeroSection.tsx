@@ -1,11 +1,9 @@
-import { Link } from '@tanstack/react-router'
 import {
   ArrowRight,
   BookOpen,
   CheckCircle2,
-  Lock,
-  type LucideIcon,
 } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 import { Button } from '#/components/ui/button'
@@ -31,58 +29,47 @@ const heroImages = [
 const heroCopy: Record<
   Language,
   {
-    badge: string
     title: string
     subtitle: string
-    note: string
     primaryCta: string
     secondaryCta: string
     levelTitle: string
     levelsCount: string
-    levelNote: string
   }
 > = {
   en: {
-    badge: 'Ahlusunna Islamic Learning',
     title: 'Structured Islamic Learning for Every Muslim',
     subtitle:
       "Study Qur'an, Hadith, Fiqh, Tawhid, and Sirah through organised lessons by respected Sheikh.",
-    note: 'Built especially for Swahili-speaking learners, with English and Arabic support.',
     primaryCta: 'Start Learning',
     secondaryCta: 'About Ahlusunna',
     levelTitle: 'Choose your level',
     levelsCount: '3 Levels',
-    levelNote: 'Beginner is open. Higher levels continue after login.',
   },
   sw: {
-    badge: 'Ahlusunna Elimu ya Kiislamu',
-    title: 'Kujifunza Uislamu kwa Mpangilio kwa Kila Muislamu',
+    title: 'Jifunze dini ya kiislam Hatua kwa Hatua',
     subtitle:
-      "Jifunze Qur'an, Hadith, Fiqhi, Tawhidi, na Sira kupitia masomo yaliyopangwa na Sheikh anayeheshimika.",
-    note: 'Imeandaliwa hasa kwa watu wa Kiswahili, pamoja na msaada wa Kiingereza na Kiarabu.',
+      "Jifunze Qur'an, Hadith, Fiqhi, Tawhidi, na Sira kupitia masomo yaliyopangiliwa vizuri yanayotolewa na Masheikh wenye kuheshimika.",
     primaryCta: 'Anza Kujifunza',
     secondaryCta: 'Kuhusu Ahlusunna',
     levelTitle: 'Chagua kiwango chako',
     levelsCount: 'Hatua 3',
-    levelNote: 'Beginner iko wazi. Hatua zinazofuata zinaendelea baada ya kuingia.',
   },
   ar: {
-    badge: 'أهل السنة للتعليم الإسلامي',
     title: 'تعلم إسلامي منظم لكل مسلم',
     subtitle:
       'ادرس القرآن والحديث والفقه والتوحيد والسيرة من خلال دروس منظمة يقدمها شيخ موثوق.',
-    note: 'معد خصيصًا للمتعلمين الناطقين بالسواحيلية مع دعم الإنجليزية والعربية.',
     primaryCta: 'ابدأ التعلم',
     secondaryCta: 'عن أهل السنة',
     levelTitle: 'اختر مستواك',
     levelsCount: '3 مستويات',
-    levelNote: 'المبتدئ مفتوح. المستويات التالية تتابع بعد تسجيل الدخول.',
   },
 }
 
 const levels: Array<{
   title: Record<Language, string>
   subtitle: Record<Language, string>
+  arabicSubtitle: string
   description: Record<Language, string>
   href: '/subjects' | '/subjects/intermediate' | '/subjects/advanced'
   status: Record<Language, string>
@@ -91,37 +78,40 @@ const levels: Array<{
   {
     title: { en: 'Beginner', sw: 'Beginner', ar: 'مبتدئ' },
     subtitle: { en: 'Hatua ya Awali', sw: 'Hatua ya Awali', ar: 'المرحلة الأولى' },
+    arabicSubtitle: 'مبتدئ',
     description: {
       en: "Open lessons for everyone starting Qur'an, Hadith, Fiqh, Tawhid, and Sirah.",
       sw: "Masomo ya wazi kwa kila anayeanza Qur'an, Hadith, Fiqhi, Tawhidi, na Sira.",
       ar: 'دروس مفتوحة لكل من يبدأ القرآن والحديث والفقه والتوحيد والسيرة.',
     },
     href: '/subjects',
-    status: { en: 'Free access', sw: 'Wazi kwa wote', ar: 'متاح للجميع' },
+    status: { en: 'No login needed', sw: 'Bila Akaunti', ar: 'لا تسجيل مطلوب' },
     Icon: BookOpen,
   },
   {
     title: { en: 'Intermediate', sw: 'Intermediate', ar: 'متوسط' },
     subtitle: { en: 'Hatua ya Kati', sw: 'Hatua ya Kati', ar: 'المرحلة المتوسطة' },
+    arabicSubtitle: 'متوسط',
     description: {
       en: 'For learners ready to continue after the beginner foundation.',
       sw: 'Kwa mwanafunzi aliye tayari kuendelea baada ya msingi wa awali.',
       ar: 'للمتعلم المستعد للمتابعة بعد أساسيات المستوى الأول.',
     },
     href: '/subjects/intermediate',
-    status: { en: 'Login required', sw: 'Inahitaji kuingia', ar: 'يتطلب الدخول' },
-    Icon: Lock,
+    status: { en: 'Login required', sw: 'Akaunti Inahitajika', ar: 'يتطلب الدخول' },
+    Icon: BookOpen,
   },
   {
     title: { en: 'Advanced', sw: 'Advanced', ar: 'متقدم' },
     subtitle: { en: 'Kuendelea', sw: 'Kuendelea', ar: 'مرحلة التقدم' },
+    arabicSubtitle: 'متقدم',
     description: {
       en: 'Advanced study for serious learners who want deeper understanding.',
       sw: 'Masomo ya juu kwa wanafunzi wanaotaka ufahamu wa kina zaidi.',
       ar: 'دراسة متقدمة للطلاب الجادين الباحثين عن فهم أعمق.',
     },
     href: '/subjects/advanced',
-    status: { en: 'Login required', sw: 'Inahitaji kuingia', ar: 'يتطلب الدخول' },
+    status: { en: 'Login required', sw: 'Akaunti Inahitajika', ar: 'يتطلب الدخول' },
     Icon: CheckCircle2,
   },
 ]
@@ -147,7 +137,7 @@ export function HeroSection() {
   return (
     <section
       id="home"
-      className="relative isolate overflow-hidden bg-primary text-primary-foreground"
+      className="relative isolate min-h-[calc(100svh-3.5rem)] overflow-hidden bg-primary text-primary-foreground sm:min-h-[calc(100svh-4rem)] lg:min-h-[calc(100svh-76px)]"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -162,42 +152,33 @@ export function HeroSection() {
             src={image.src}
             alt={image.alt}
             className={cn(
-              'absolute inset-0 size-full object-cover object-center transition-opacity duration-1000 ease-in-out',
+              'absolute inset-0 size-full object-cover object-[58%_center] transition-opacity duration-1000 ease-in-out sm:object-center',
               index === activeIndex ? 'opacity-100' : 'opacity-0',
             )}
             loading={index === 0 ? 'eager' : 'lazy'}
           />
         ))}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-primary/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary via-primary/90 to-primary/45 sm:bg-gradient-to-r sm:from-primary sm:via-primary/90 sm:to-primary/30" />
         <div className="absolute inset-0 bg-black/20" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-primary/90 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-primary/90 to-transparent sm:h-40" />
       </div>
 
-      <div className="container-main relative z-10 flex min-h-[calc(100svh-4rem)] flex-col justify-between gap-8 py-10 lg:min-h-[calc(100svh-76px)] lg:py-12">
-        <div className="min-w-0 max-w-[358px] animate-[hero-enter_700ms_ease-out_both] pt-4 sm:max-w-2xl lg:pt-12">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-[8px] border border-accent/35 bg-primary/55 px-3 py-1.5 text-sm font-medium text-accent backdrop-blur-md">
-            <span className="size-1.5 rounded-full bg-accent" />
-            {copy.badge}
-          </div>
-
-          <h1 className="font-decorative text-[40px] font-bold leading-[1.05] text-primary-foreground md:text-[56px] lg:text-[68px]">
+      <div className="container-main relative z-10 flex min-h-[calc(100svh-3.5rem)] flex-col justify-start gap-7 py-6 sm:min-h-[calc(100svh-4rem)] sm:justify-between sm:gap-8 sm:py-8 lg:min-h-[calc(100svh-76px)] lg:py-12">
+        <div className="min-w-0 max-w-[min(100%,36rem)] animate-[hero-enter_700ms_ease-out_both] pt-2 sm:max-w-2xl sm:pt-6 lg:pt-12">
+          <h1 className="font-decorative text-[34px] font-bold leading-[1.08] text-primary-foreground sm:text-[44px] md:text-[56px] lg:text-[68px]">
             {copy.title}
           </h1>
 
-          <p className="mt-6 max-w-xl text-base leading-8 text-primary-foreground/94 md:text-lg">
+          <p className="mt-4 max-w-[34rem] text-sm leading-6 text-primary-foreground/94 sm:mt-5 sm:text-base sm:leading-7 md:text-lg md:leading-8">
             {copy.subtitle}
           </p>
 
-          <p className="mt-4 max-w-xl text-sm leading-7 text-primary-foreground/82 md:text-base">
-            {copy.note}
-          </p>
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row">
             <Button asChild variant="accent" size="lg" className="w-full gap-2 sm:w-auto">
-              <Link to="/subjects">
+              <a href="/">
                 {copy.primaryCta}
                 <ArrowRight data-icon="inline-end" />
-              </Link>
+              </a>
             </Button>
             <Button
               asChild
@@ -205,11 +186,11 @@ export function HeroSection() {
               size="lg"
               className="w-full border-primary-foreground/45 bg-primary/25 text-primary-foreground backdrop-blur-md hover:bg-primary-foreground/10 sm:w-auto"
             >
-              <Link to="/about">{copy.secondaryCta}</Link>
+              <a href="#">{copy.secondaryCta}</a>
             </Button>
           </div>
 
-          <div className="mt-8 flex items-center gap-2" aria-label="Carousel controls">
+          <div className="mt-6 flex items-center gap-2 sm:mt-8" aria-label="Carousel controls">
             {heroImages.map((image, index) => (
               <button
                 key={image.src}
@@ -236,33 +217,33 @@ export function HeroSection() {
                 {copy.levelsCount}
               </h2>
             </div>
-            <p className="max-w-xl text-xs leading-5 text-primary-foreground/74 sm:text-end">
-              {copy.levelNote}
-            </p>
           </div>
 
-          <div className="scrollbar-none -mx-4 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0">
-            <div className="grid min-w-[680px] grid-cols-3 gap-3 sm:min-w-0 lg:gap-4">
+          <div className="pb-1">
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3 lg:gap-4">
               {levels.map((level, index) => {
                 const Icon = level.Icon
 
                 return (
-                  <Link
+                  <a
                     key={level.href}
-                    to={level.href}
-                    className="group flex min-h-24 items-center gap-3 rounded-[8px] border border-accent/28 bg-primary-dark/95 p-3 text-primary-foreground shadow-[0_14px_45px_rgba(0,0,0,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/70 hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:p-4"
+                    href="#"
+                    className="group flex min-h-[76px] items-center gap-3 rounded-[8px] border border-accent/28 bg-primary-dark/95 p-3 text-primary-foreground shadow-[0_14px_45px_rgba(0,0,0,0.22)] transition-all duration-300 hover:border-accent/70 hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:min-h-24 sm:hover:-translate-y-0.5 lg:p-4"
                   >
-                    <span className="flex size-10 shrink-0 items-center justify-center rounded-[8px] bg-accent text-accent-foreground">
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-[8px] bg-accent text-accent-foreground sm:size-10">
                       <Icon aria-hidden="true" />
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="flex items-start justify-between gap-3">
                         <span className="min-w-0">
-                          <span className="block truncate font-decorative text-xl font-bold leading-tight">
+                          <span className="block truncate font-decorative text-lg font-bold leading-tight sm:text-xl">
                             {level.title[currentLang]}
                           </span>
                           <span className="block truncate text-sm font-medium text-accent">
                             {level.subtitle[currentLang]}
+                          </span>
+                          <span className="block truncate text-xs font-medium text-accent/80">
+                            {level.arabicSubtitle}
                           </span>
                         </span>
                         <span className="shrink-0 text-xs text-accent">0{index + 1}</span>
@@ -275,7 +256,7 @@ export function HeroSection() {
                         />
                       </span>
                     </span>
-                  </Link>
+                  </a>
                 )
               })}
             </div>

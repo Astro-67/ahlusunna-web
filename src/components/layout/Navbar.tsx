@@ -7,7 +7,8 @@ import {
   UserRound,
   X,
 } from 'lucide-react'
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import type { ReactNode } from 'react'
 
 import { LogoNavbar } from '#/components/common/Logo'
 import { LanguageToggle } from '#/components/shared/LanguageToggle'
@@ -17,7 +18,7 @@ import { useLanguage } from '#/hooks/useLanguage'
 import { cn } from '#/lib/utils'
 import type { Language } from '#/types'
 
-type NavTarget = '/' | '/about' | '/contact' | '/subjects'
+type NavTarget = '/' | '#'
 
 const navLabels: Record<
   Language,
@@ -62,24 +63,26 @@ const navLabels: Record<
 
 function isActivePath(pathname: string, to: NavTarget) {
   if (to === '/') return pathname === '/'
-  return pathname === to || pathname.startsWith(`${to}/`)
+  return false
 }
 
 function NavLink({
   to,
   children,
   onClick,
+  href,
 }: {
-  to: NavTarget
+  to?: NavTarget
   children: ReactNode
   onClick?: () => void
+  href?: string
 }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname })
-  const isActive = isActivePath(pathname, to)
+  const isActive = to ? isActivePath(pathname, to) : false
 
   return (
-    <Link
-      to={to}
+    <a
+      href={href || to}
       onClick={onClick}
       className={cn(
         'relative px-3 py-2 text-sm font-medium transition-colors',
@@ -88,7 +91,7 @@ function NavLink({
     >
       {children}
       {isActive && <span className="absolute inset-x-3 bottom-0 h-0.5 bg-accent" />}
-    </Link>
+    </a>
   )
 }
 
@@ -103,11 +106,11 @@ export function Navbar() {
   const userMenuRef = useRef<HTMLDivElement>(null)
   const labels = navLabels[currentLang]
 
-  const navItems: Array<{ to: NavTarget; label: string }> = [
-    { to: '/', label: labels.home },
-    { to: '/about', label: labels.about },
-    { to: '/contact', label: labels.contact },
-    { to: '/subjects', label: labels.lesson },
+  const navItems: Array<{ to: NavTarget; label: string; href: string }> = [
+    { to: '/', label: labels.home, href: '/' },
+    { to: '#', label: labels.about, href: '#' },
+    { to: '#', label: labels.contact, href: '#' },
+    { to: '#', label: labels.lesson, href: '#' },
   ]
 
   useEffect(() => {
@@ -142,25 +145,25 @@ export function Navbar() {
   return (
     <nav
       className={cn(
-        'fixed inset-x-0 top-0 z-40 h-16 border-b border-border/70 bg-background/96 backdrop-blur-md transition-shadow duration-300 lg:h-[76px]',
+        'fixed inset-x-0 top-0 z-40 h-14 border-b border-border/70 bg-background/96 backdrop-blur-md transition-shadow duration-300 sm:h-16 lg:h-[76px]',
         scrolled && 'shadow-[0_10px_30px_rgba(27,67,50,0.08)]',
       )}
       aria-label="Primary"
     >
-      <div className="mx-0 flex h-full max-w-[390px] items-center justify-between gap-4 px-4 sm:mx-auto sm:max-w-7xl sm:px-6 lg:px-8">
-        <Link to="/" className="flex shrink-0 items-center" aria-label="Ahlusunna home">
+      <div className="mx-auto flex h-full w-full max-w-7xl items-center justify-between gap-2 px-3 sm:gap-4 sm:px-6 lg:px-8">
+        <Link to="/" className="flex min-w-0 shrink items-center" aria-label="Ahlusunna home">
           <LogoNavbar />
         </Link>
 
         <div className="hidden items-center gap-1 lg:flex">
           {navItems.map((item) => (
-            <NavLink key={item.to} to={item.to}>
+            <NavLink key={item.to} to={item.to} href={item.href}>
               {item.label}
             </NavLink>
           ))}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           <div className="hidden md:block">
             <LanguageToggle />
           </div>
@@ -170,7 +173,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => setUserMenuOpen((open) => !open)}
-                className="flex h-10 items-center gap-2 rounded-[8px] border border-border bg-card px-2 text-primary transition-colors hover:bg-secondary"
+                className="flex h-9 items-center gap-2 rounded-[8px] border border-border bg-card px-2 text-primary transition-colors hover:bg-secondary sm:h-10"
                 aria-expanded={userMenuOpen}
                 aria-haspopup="menu"
               >
@@ -226,7 +229,7 @@ export function Navbar() {
             </div>
           ) : (
             <Button asChild variant="accent" size="sm" className="hidden md:inline-flex">
-              <Link to="/login">{labels.login}</Link>
+              <a href="#">{labels.login}</a>
             </Button>
           )}
 
@@ -245,12 +248,13 @@ export function Navbar() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="absolute inset-x-0 top-16 z-50 border-b border-border bg-background shadow-[0_18px_50px_rgba(27,67,50,0.14)] lg:hidden">
+        <div className="absolute inset-x-0 top-14 z-50 max-h-[calc(100svh-3.5rem)] overflow-y-auto border-b border-border bg-background shadow-[0_18px_50px_rgba(27,67,50,0.14)] sm:top-16 sm:max-h-[calc(100svh-4rem)] lg:hidden">
           <div className="container-main flex flex-col gap-1 py-4">
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
+                href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item.label}
@@ -265,7 +269,7 @@ export function Navbar() {
                 </Button>
               ) : (
                 <Button asChild variant="accent" size="lg">
-                  <Link to="/login">{labels.login}</Link>
+                  <a href="#">{labels.login}</a>
                 </Button>
               )}
             </div>

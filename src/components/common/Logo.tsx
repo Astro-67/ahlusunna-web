@@ -15,10 +15,10 @@ const LOGO_PATHS = {
 }
 
 const SIZE_CLASSES = {
-  sm: 'h-9',
-  md: 'h-12',
-  lg: 'h-20',
-  xl: 'h-36',
+  sm: 'h-14',
+  md: 'h-16',
+  lg: 'h-24',
+  xl: 'h-32',
 }
 
 const VARIANT_WRAPPER = {
@@ -107,7 +107,10 @@ export function LogoNavbar({ className }: { className?: string }) {
     <img
       src={LOGO_PATHS.compact}
       alt="Ahlusunna Islamic Learning"
-      className={cn('h-12 w-32 rounded-[6px] object-cover object-center lg:h-14 lg:w-36', className)}
+      className={cn(
+        'h-14 w-auto max-w-[150px] rounded-[6px] object-contain object-center sm:h-16 sm:max-w-[180px] lg:h-[68px] lg:max-w-none',
+        className,
+      )}
     />
   )
 }

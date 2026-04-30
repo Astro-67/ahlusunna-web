@@ -5,76 +5,33 @@ import { useLanguage } from '#/hooks/useLanguage'
 import { cn } from '#/lib/utils'
 import type { Language } from '#/types'
 
-function TanzaniaFlag({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 36 24" className={className} aria-hidden="true">
-      <rect width="36" height="24" fill="#1EB53A" />
-      <polygon points="36 0 36 24 0 24" fill="#00A3DD" />
-      <polygon points="0 21 31.5 0 36 0 4.5 24 0 24" fill="#FCD116" />
-      <polygon points="0 18 27 0 36 0 9 24 0 24" fill="#000" />
-    </svg>
-  )
-}
-
-function UKFlag({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 36 24" className={className} aria-hidden="true">
-      <rect width="36" height="24" fill="#012169" />
-      <path d="M0 0 36 24M36 0 0 24" stroke="#fff" strokeWidth="5" />
-      <path d="M0 0 36 24M36 0 0 24" stroke="#C8102E" strokeWidth="3" />
-      <path d="M18 0v24M0 12h36" stroke="#fff" strokeWidth="8" />
-      <path d="M18 0v24M0 12h36" stroke="#C8102E" strokeWidth="4.5" />
-    </svg>
-  )
-}
-
-function SaudiFlag({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 36 24" className={className} aria-hidden="true">
-      <rect width="36" height="24" fill="#006C35" />
-      <path
-        d="M9 9h18M10 16h16"
-        stroke="#fff"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-      <path
-        d="M13 6.5h10M15 11.5h6"
-        stroke="#fff"
-        strokeWidth="1.1"
-        strokeLinecap="round"
-      />
-    </svg>
-  )
-}
-
 const languages: Array<{
   id: Language
   name: string
   nativeName: string
   shortLabel: string
-  Flag: (props: { className?: string }) => JSX.Element
+  emoji: string
 }> = [
   {
     id: 'sw',
     name: 'Swahili',
     nativeName: 'Kiswahili',
     shortLabel: 'SW',
-    Flag: TanzaniaFlag,
+    emoji: '🇹🇿',
   },
   {
     id: 'en',
     name: 'English',
     nativeName: 'English',
     shortLabel: 'EN',
-    Flag: UKFlag,
+    emoji: '🇬🇧',
   },
   {
     id: 'ar',
     name: 'Arabic',
     nativeName: 'العربية',
     shortLabel: 'AR',
-    Flag: SaudiFlag,
+    emoji: '🇴🇲',
   },
 ]
 
@@ -88,7 +45,6 @@ export function LanguageToggle({ expandedLabels = false, inverted = false }: Lan
   const [open, setOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const current = languages.find((language) => language.id === currentLang) ?? languages[0]
-  const CurrentFlag = current.Flag
 
   useEffect(() => {
     const handlePointerDown = (event: PointerEvent) => {
@@ -125,9 +81,7 @@ export function LanguageToggle({ expandedLabels = false, inverted = false }: Lan
         aria-expanded={open}
       >
         <Globe2 aria-hidden="true" className="size-4 text-accent" />
-        <span className="overflow-hidden rounded-[3px] border border-black/10">
-          <CurrentFlag className="h-4 w-6" />
-        </span>
+        <span className="text-lg">{current.emoji}</span>
         <span>{expandedLabels ? current.name : current.shortLabel}</span>
         <ChevronDown
           aria-hidden="true"
@@ -143,7 +97,6 @@ export function LanguageToggle({ expandedLabels = false, inverted = false }: Lan
         >
           {languages.map((language) => {
             const isSelected = language.id === currentLang
-            const Flag = language.Flag
 
             return (
               <button
@@ -160,9 +113,7 @@ export function LanguageToggle({ expandedLabels = false, inverted = false }: Lan
                 role="option"
                 aria-selected={isSelected}
               >
-                <span className="overflow-hidden rounded-[3px] border border-border">
-                  <Flag className="h-4 w-6" />
-                </span>
+                <span className="text-lg">{language.emoji}</span>
                 <span className="min-w-0 flex-1">
                   <span className="block font-medium text-foreground">{language.name}</span>
                   <span className="block text-xs text-muted-foreground">{language.nativeName}</span>
