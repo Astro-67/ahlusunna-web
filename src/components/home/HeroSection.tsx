@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router'
 import {
   ArrowRight,
   BookOpen,
@@ -175,10 +176,10 @@ export function HeroSection() {
 
           <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row">
             <Button asChild variant="accent" size="lg" className="w-full gap-2 sm:w-auto">
-              <a href="/">
+              <Link to="/subjects">
                 {copy.primaryCta}
                 <ArrowRight data-icon="inline-end" />
-              </a>
+              </Link>
             </Button>
             <Button
               asChild
@@ -225,9 +226,9 @@ export function HeroSection() {
                 const Icon = level.Icon
 
                 return (
-                  <a
+                  <Link
                     key={level.href}
-                    href="#"
+                    to={level.href}
                     className="group flex min-h-[76px] items-center gap-3 rounded-[8px] border border-accent/28 bg-primary-dark/95 p-3 text-primary-foreground shadow-[0_14px_45px_rgba(0,0,0,0.22)] transition-all duration-300 hover:border-accent/70 hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:min-h-24 sm:hover:-translate-y-0.5 lg:p-4"
                   >
                     <span className="flex size-9 shrink-0 items-center justify-center rounded-[8px] bg-accent text-accent-foreground sm:size-10">
@@ -256,7 +257,7 @@ export function HeroSection() {
                         />
                       </span>
                     </span>
-                  </a>
+                  </Link>
                 )
               })}
             </div>

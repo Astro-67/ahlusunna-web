@@ -157,7 +157,7 @@ export function Navbar() {
 
         <div className="hidden items-center gap-1 lg:flex">
           {navItems.map((item) => (
-            <NavLink key={item.to} to={item.to} href={item.href}>
+            <NavLink key={item.label} to={item.to} href={item.href}>
               {item.label}
             </NavLink>
           ))}
@@ -229,7 +229,7 @@ export function Navbar() {
             </div>
           ) : (
             <Button asChild variant="accent" size="sm" className="hidden md:inline-flex">
-              <a href="#">{labels.login}</a>
+              <Link to="/login">{labels.login}</Link>
             </Button>
           )}
 
@@ -252,7 +252,7 @@ export function Navbar() {
           <div className="container-main flex flex-col gap-1 py-4">
             {navItems.map((item) => (
               <NavLink
-                key={item.to}
+                key={item.label}
                 to={item.to}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
@@ -269,7 +269,7 @@ export function Navbar() {
                 </Button>
               ) : (
                 <Button asChild variant="accent" size="lg">
-                  <a href="#">{labels.login}</a>
+                  <Link to="/login">{labels.login}</Link>
                 </Button>
               )}
             </div>

@@ -1,0 +1,206 @@
+- generic [ref=e3]:
+  - navigation "Primary" [ref=e4]:
+    - generic [ref=e5]:
+      - link "Ahlusunna home" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Ahlusunna Islamic Learning" [ref=e7]
+      - generic [ref=e8]:
+        - button "🇹🇿 SW" [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+          - generic [ref=e17]: 🇹🇿
+          - generic [ref=e18]: SW
+          - img [ref=e19]
+        - link "Ingia" [ref=e21] [cursor=pointer]:
+          - /url: "#"
+        - button "Menyu" [ref=e22] [cursor=pointer]:
+          - img
+  - main [ref=e23]:
+    - generic [ref=e24]:
+      - generic "Ahlusunna learning imagery" [ref=e25]:
+        - img "Open Quran on a wooden rehal with the green dome of Masjid an-Nabawi" [ref=e26]
+        - img "Islamic learning subjects shown through ornate arch artwork" [ref=e27]
+        - img "Digital Islamic learning on laptop and tablet screens" [ref=e28]
+      - generic [ref=e32]:
+        - generic [ref=e33]:
+          - heading "Jifunze dini ya kiislam Hatua kwa Hatua" [level=1] [ref=e34]
+          - paragraph [ref=e35]: Jifunze Qur'an, Hadith, Fiqhi, Tawhidi, na Sira kupitia masomo yaliyopangiliwa vizuri yanayotolewa na Masheikh wenye kuheshimika.
+          - generic [ref=e36]:
+            - link "Anza Kujifunza" [ref=e37] [cursor=pointer]:
+              - /url: /
+              - text: Anza Kujifunza
+              - img
+            - link "Kuhusu Ahlusunna" [ref=e38] [cursor=pointer]:
+              - /url: "#"
+          - generic "Carousel controls" [ref=e39]:
+            - button "Show Open Quran on a wooden rehal with the green dome of Masjid an-Nabawi" [ref=e40] [cursor=pointer]
+            - button "Show Islamic learning subjects shown through ornate arch artwork" [ref=e41] [cursor=pointer]
+            - button "Show Digital Islamic learning on laptop and tablet screens" [ref=e42] [cursor=pointer]
+        - generic [ref=e43]:
+          - generic [ref=e45]:
+            - paragraph [ref=e46]: Chagua kiwango chako
+            - heading "Hatua 3" [level=2] [ref=e47]
+          - generic [ref=e49]:
+            - link "Beginner Hatua ya Awali مبتدئ 01 Bila Akaunti" [ref=e50] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e52]
+              - generic [ref=e54]:
+                - generic [ref=e55]:
+                  - generic [ref=e56]:
+                    - generic [ref=e57]: Beginner
+                    - generic [ref=e58]: Hatua ya Awali
+                    - generic [ref=e59]: مبتدئ
+                  - generic [ref=e60]: "01"
+                - generic [ref=e61]:
+                  - text: Bila Akaunti
+                  - img [ref=e62]
+            - link "Intermediate Hatua ya Kati متوسط 02 Akaunti Inahitajika" [ref=e64] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e66]
+              - generic [ref=e68]:
+                - generic [ref=e69]:
+                  - generic [ref=e70]:
+                    - generic [ref=e71]: Intermediate
+                    - generic [ref=e72]: Hatua ya Kati
+                    - generic [ref=e73]: متوسط
+                  - generic [ref=e74]: "02"
+                - generic [ref=e75]:
+                  - text: Akaunti Inahitajika
+                  - img [ref=e76]
+            - link "Advanced Kuendelea متقدم 03 Akaunti Inahitajika" [ref=e78] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e80]
+              - generic [ref=e83]:
+                - generic [ref=e84]:
+                  - generic [ref=e85]:
+                    - generic [ref=e86]: Advanced
+                    - generic [ref=e87]: Kuendelea
+                    - generic [ref=e88]: متقدم
+                  - generic [ref=e89]: "03"
+                - generic [ref=e90]:
+                  - text: Akaunti Inahitajika
+                  - img [ref=e91]
+    - generic [ref=e95]:
+      - generic [ref=e96]:
+        - paragraph [ref=e97]: Kuhusu mfumo
+        - heading "Ahlusunna inarahisisha kujifunza Uislamu kwa mpangilio." [level=2] [ref=e98]
+      - generic [ref=e99]:
+        - paragraph [ref=e100]: Mfumo huu unampa Muislamu anayezungumza Kiswahili njia iliyo wazi ya kujifunza masomo ya msingi ya dini bila kuchanganyikiwa pa kuanzia.
+        - generic [ref=e101]:
+          - generic [ref=e102]:
+            - img [ref=e104]
+            - generic [ref=e106]:
+              - heading "Anza na msingi" [level=3] [ref=e107]
+              - paragraph [ref=e108]: Masomo ya hatua ya awali yanapatikana kwa kila mtu na yamepangwa kwa kila somo.
+          - generic [ref=e109]:
+            - img [ref=e111]
+            - generic [ref=e114]:
+              - heading "Endelea kwa hatua" [level=3] [ref=e115]
+              - paragraph [ref=e116]: Hatua ya kati na ya juu zimeandaliwa kwa mwanafunzi aliye tayari kujifunza Uislamu kwa kina zaidi.
+          - generic [ref=e117]:
+            - img [ref=e119]
+            - generic [ref=e123]:
+              - heading "Jifunze kwa lugha tatu" [level=3] [ref=e124]
+              - paragraph [ref=e125]: Tumia Kiswahili kwanza, kisha badili kwenda Kiingereza au Kiarabu unapohitaji.
+    - generic [ref=e128]:
+      - generic [ref=e129]:
+        - paragraph [ref=e130]: Masomo
+        - heading "Mfumo uliopangiliwa wa kujifunza Qur'an, Hadith, Fiqhi, Tawhidi, na Sira." [level=2] [ref=e131]
+        - paragraph [ref=e132]: Kila somo limeandaliwa kwa mpangilio wa hatua kwa hatua, ili mwanafunzi ajenge msingi mzuri na kuendelea kuelewa Uislamu kwa kina zaidi.
+      - generic [ref=e133]:
+        - generic [ref=e134]:
+          - img [ref=e135]
+          - text: Qur'an
+        - generic [ref=e138]:
+          - img [ref=e139]
+          - text: Hadith
+        - generic [ref=e142]:
+          - img [ref=e143]
+          - text: Fiqhi
+        - generic [ref=e146]:
+          - img [ref=e147]
+          - text: Tawhidi
+        - generic [ref=e150]:
+          - img [ref=e151]
+          - text: Sira
+  - contentinfo [ref=e154]:
+    - img
+    - img
+    - generic [ref=e156]:
+      - generic [ref=e157]:
+        - heading "Jifunze Uislamu kwa Mpangilio na Uelewa" [level=2] [ref=e159]
+        - link "Anza Kujifunza" [ref=e161] [cursor=pointer]:
+          - /url: /
+          - text: Anza Kujifunza
+          - img [ref=e162]
+      - generic [ref=e166]:
+        - generic [ref=e167]:
+          - img "Ahlusunna" [ref=e169]
+          - paragraph [ref=e170]: Ahlusunna ni jukwaa la kujifunza Uislamu kwa mpangilio, linalowasaidia Waislamu kusoma Qur'an, Hadith, Fiqhi, Tawhidi, na Sira kupitia masomo yaliyo wazi, sauti, na video — kuanzia maarifa ya msingi hadi ufahamu wa kina zaidi.
+          - blockquote [ref=e171]:
+            - paragraph [ref=e172]: Kutafuta elimu ni njia ya kheri.
+        - generic [ref=e173]:
+          - heading "Kurasa Muhimu" [level=3] [ref=e174]
+          - list [ref=e175]:
+            - listitem [ref=e176]:
+              - link "Nyumbani" [ref=e177] [cursor=pointer]:
+                - /url: /
+                - text: Nyumbani
+            - listitem [ref=e179]:
+              - link "Masomo" [ref=e180] [cursor=pointer]:
+                - /url: "#"
+                - text: Masomo
+            - listitem [ref=e182]:
+              - link "Kuhusu" [ref=e183] [cursor=pointer]:
+                - /url: "#"
+                - text: Kuhusu
+            - listitem [ref=e185]:
+              - link "Wasiliana" [ref=e186] [cursor=pointer]:
+                - /url: "#"
+                - text: Wasiliana
+        - generic [ref=e188]:
+          - heading "Masomo" [level=3] [ref=e189]
+          - list [ref=e190]:
+            - listitem [ref=e191]:
+              - link "Qur'an" [ref=e192] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e193]
+                - text: Qur'an
+            - listitem [ref=e195]:
+              - link "Hadith" [ref=e196] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e197]
+                - text: Hadith
+            - listitem [ref=e199]:
+              - link "Fiqhi" [ref=e200] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e201]
+                - text: Fiqhi
+            - listitem [ref=e203]:
+              - link "Tawhidi" [ref=e204] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e205]
+                - text: Tawhidi
+            - listitem [ref=e207]:
+              - link "Sira" [ref=e208] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e209]
+                - text: Sira
+        - generic [ref=e211]:
+          - heading "Mawasiliano" [level=3] [ref=e212]
+          - generic [ref=e213]:
+            - link "info@ahlusunna.info" [ref=e214] [cursor=pointer]:
+              - /url: mailto:info@ahlusunna.info
+              - img [ref=e216]
+              - generic [ref=e219]: info@ahlusunna.info
+            - generic [ref=e220]:
+              - img [ref=e222]
+              - generic [ref=e225]: Zanzibar, Tanzania
+            - link "Msaada wa WhatsApp" [ref=e226] [cursor=pointer]:
+              - /url: https://wa.me/255777810700
+              - img [ref=e228]
+              - generic [ref=e230]: Msaada wa WhatsApp
+      - generic [ref=e231]:
+        - paragraph [ref=e232]: © 2026 Ahlusunna. Haki zote zimehifadhiwa.
+        - paragraph [ref=e233]:
+          - text: Imejengwa kwa ajili ya Ummah
+          - img [ref=e234]
