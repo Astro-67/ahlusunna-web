@@ -1,6 +1,6 @@
 import { createFileRoute, redirect, Link, useNavigate } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
-import { ArrowLeft, Play, Headphones, PlayCircle, FileText, Check } from 'lucide-react'
+import { Headphones, PlayCircle, FileText } from 'lucide-react'
 
 import {
   checkLessonAccess,
@@ -55,13 +55,13 @@ function LessonPage() {
   // We can just automatically mark it complete or keep a button at the bottom.
   const handleComplete = () => {
     if (!lesson) return
-    const hadAdvancedBefore = Boolean(user?.levelAccess.includes('endelea'))
+    const hadAdvancedBefore = Boolean(user?.levelAccess.includes('advanced'))
     const completed = isLessonCompleted(user, lesson.slug)
     if (completed) return
 
     updateProgress(lesson.slug)
 
-    const intermediateLessons = lessons.filter((c) => c.levelId === 'kati')
+    const intermediateLessons = lessons.filter((c) => c.levelId === 'intermediate')
     const completedIntermediateAfter = intermediateLessons.filter((c) =>
       c.slug === lesson.slug ? true : Boolean(user?.progress.includes(c.slug)),
     ).length
@@ -116,7 +116,7 @@ function LessonPage() {
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-primary px-6 py-8 lg:px-12 lg:py-10">
-        <div className="absolute inset-y-0 right-0 w-[400px] opacity-[0.06] pointer-events-none hidden md:block">
+        <div className="absolute inset-y-0 right-0 w-100 opacity-[0.06] pointer-events-none hidden md:block">
           <svg viewBox="0 0 400 500" fill="none" preserveAspectRatio="xMaxYMid slice" className="h-full w-full">
             <defs>
               <pattern id="geo3" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
@@ -141,13 +141,13 @@ function LessonPage() {
             <span className="text-[10px] text-[#FAF7F0]/25">›</span>
             <Link to="/subjects" className="transition-colors hover:text-[#FAF7F0]/90">{t('navigation.subjects')}</Link>
             <span className="text-[10px] text-[#FAF7F0]/25">›</span>
-            <Link to={`/subjects/${subject?.slug}`} className="transition-colors hover:text-[#FAF7F0]/90">{subject?.name[currentLang]}</Link>
+            <Link to="/subjects" className="transition-colors hover:text-[#FAF7F0]/90">{subject?.name[currentLang]}</Link>
             <span className="text-[10px] text-[#FAF7F0]/25">›</span>
             <span className="text-[#FAF7F0]/85 font-semibold">{lesson.title[currentLang]}</span>
           </div>
 
           <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-8">
-            <div className="flex size-[36px] shrink-0 items-center justify-center border border-[#FAF7F0]/20 bg-white/10 hidden sm:flex">
+            <div className="hidden sm:flex size-9 shrink-0 items-center justify-center border border-[#FAF7F0]/20 bg-white/10">
               <FileText className="size-4 text-[#FAF7F0]/80" strokeWidth={1.2} />
             </div>
             
@@ -181,7 +181,7 @@ function LessonPage() {
             {/* Action buttons */}
             <div className="mt-4 flex shrink-0 items-start gap-2 md:mt-0">
               <Button asChild variant="outline" className="border-white/30 bg-transparent text-white/70 hover:bg-white/10 hover:text-white">
-                <Link to={`/subjects/${subject?.slug}`}>← Nyuma</Link>
+                <Link to="/subjects">← Nyuma</Link>
               </Button>
               {nextLesson && (
                 <Button variant="accent" onClick={() => navigate({ to: '/lesson/$slug', params: { slug: nextLesson.slug } })}>
@@ -197,7 +197,7 @@ function LessonPage() {
       <div className="container-main flex flex-col lg:flex-row flex-1">
         
         {/* MAIN: Article */}
-        <div className="flex-1 p-6 lg:p-10 lg:px-12 max-w-[820px] mx-auto min-w-0">
+        <div className="flex-1 p-6 lg:p-10 lg:px-12 max-w-205 mx-auto min-w-0">
           
           {/* Video Section */}
           {lesson.videoUrl && (
@@ -225,13 +225,7 @@ function LessonPage() {
 
           {/* Content */}
           <div className="prose prose-slate max-w-none prose-headings:font-bold prose-headings:text-foreground prose-p:text-[16px] prose-p:leading-[1.8] prose-p:text-foreground prose-a:text-accent hover:prose-a:text-primary">
-            {lesson.content ? (
-              <WrittenContent content={lesson.content[currentLang]} language={currentLang} />
-            ) : (
-              <div className="bg-background border border-dashed border-[#d0c9b8] p-5 text-center text-[13px] text-[#bbb] italic mt-2">
-                [ Hakuna maelezo ya ziada kwa somo hili ]
-              </div>
-            )}
+            <WrittenContent content={lesson.content[currentLang]} language={currentLang} />
           </div>
 
           <div className="mt-8">
@@ -249,7 +243,7 @@ function LessonPage() {
             {prevLesson ? (
               <div 
                 onClick={() => navigate({ to: '/lesson/$slug', params: { slug: prevLesson.slug } })}
-                className="flex cursor-pointer items-center gap-3 border-[1.5px] border-border bg-white px-6 py-3.5 transition-colors hover:border-primary flex-1 max-w-[260px]"
+                className="flex cursor-pointer items-center gap-3 border-[1.5px] border-border bg-white px-6 py-3.5 transition-colors hover:border-primary flex-1 max-w-65"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2.5"><polyline points="15 18 9 12 15 6" /></svg>
                 <div>
@@ -262,7 +256,7 @@ function LessonPage() {
             {nextLesson ? (
               <div 
                 onClick={() => navigate({ to: '/lesson/$slug', params: { slug: nextLesson.slug } })}
-                className="flex cursor-pointer items-center justify-end gap-3 border-[1.5px] border-primary bg-primary px-6 py-3.5 transition-colors hover:bg-primary-dark flex-1 max-w-[260px]"
+                className="flex cursor-pointer items-center justify-end gap-3 border-[1.5px] border-primary bg-primary px-6 py-3.5 transition-colors hover:bg-primary-dark flex-1 max-w-65"
               >
                 <div className="text-right">
                   <div className="text-[10px] font-semibold uppercase tracking-[0.06em] text-white/50">Somo Lifuatalo</div>
@@ -276,8 +270,8 @@ function LessonPage() {
         </div>
 
         {/* SIDEBAR */}
-        <div className="w-full lg:w-[220px] shrink-0 border-l border-border bg-[#FDFCF8] p-6 py-10 lg:p-9 lg:px-4">
-          <div className="sticky top-[88px]">
+        <div className="w-full lg:w-55 shrink-0 border-l border-border bg-[#FDFCF8] p-6 py-10 lg:p-9 lg:px-4">
+          <div className="sticky top-22">
             <h3 className="mb-3 text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground">Masomo ya {subject?.name[currentLang]}</h3>
             <div className="flex flex-col">
               {subjectLessons.map((l, i) => {
@@ -294,9 +288,9 @@ function LessonPage() {
                       {isDone ? (
                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1B4332" strokeWidth="3"><polyline points="20 6 9 17 4 12" /></svg>
                       ) : isCurrent ? (
-                        <div className="size-2 rounded-full bg-accent mt-[1px]" />
+                        <div className="size-2 rounded-full bg-accent mt-px" />
                       ) : (
-                        <div className="size-2.5 rounded-full border-[1.5px] border-border mt-[1px]" />
+                        <div className="size-2.5 rounded-full border-[1.5px] border-border mt-px" />
                       )}
                     </div>
                     <span className={cn(
@@ -313,7 +307,7 @@ function LessonPage() {
             </div>
 
             <div className="mt-4">
-              <Link to={`/subjects/${subject?.slug}`} className="flex items-center gap-1.5 text-[12px] font-semibold text-primary hover:underline">
+              <Link to="/subjects" className="flex items-center gap-1.5 text-[12px] font-semibold text-primary hover:underline">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="15 18 9 12 15 6" /></svg>
                 Rudi kwa Masomo Yote
               </Link>

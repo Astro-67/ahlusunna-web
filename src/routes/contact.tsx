@@ -1,6 +1,7 @@
+import type { FormEvent } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { CheckCircle2, ChevronLeft, ChevronRight, HelpCircle, Mail, MapPin, MessageSquare, Phone } from 'lucide-react'
-import { useState, type FormEvent } from 'react'
+import { useState } from 'react'
 
 import { contactService } from '#/data/services'
 import { useLanguage } from '#/hooks/useLanguage'
@@ -144,7 +145,7 @@ const pageCopy: Record<Language, any> = {
 }
 
 function ContactPage() {
-  const { currentLang, t } = useLanguage()
+  const { currentLang } = useLanguage()
   const copy = pageCopy[currentLang]
   const isRtl = currentLang === 'ar'
   
@@ -190,7 +191,7 @@ function ContactPage() {
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-primary px-6 py-8 lg:px-12 lg:py-10">
-        <div className="absolute inset-y-0 right-0 w-[400px] opacity-[0.06] pointer-events-none hidden md:block">
+        <div className="absolute inset-y-0 right-0 w-100 opacity-[0.06] pointer-events-none hidden md:block">
           <svg viewBox="0 0 400 500" fill="none" preserveAspectRatio="xMaxYMid slice" className="h-full w-full">
             <defs>
               <pattern id="geoA" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
@@ -218,13 +219,13 @@ function ContactPage() {
             <span className="text-[#FAF7F0]/85 font-semibold">{copy.breadcrumbContact}</span>
           </div>
 
-          <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.1em] text-accent">
+          <div className="mb-3 text-[11px] font-bold uppercase tracking-widest text-accent">
             {copy.eyebrow}
           </div>
           <h1 className="mb-3 text-[28px] lg:text-[36px] font-bold leading-[1.15] tracking-[-0.02em] text-[#FAF7F0]">
             {copy.title}
           </h1>
-          <p className="max-w-[600px] text-[14px] lg:text-[15px] leading-[1.65] text-[#FAF7F0]/65">
+          <p className="max-w-150 text-[14px] lg:text-[15px] leading-[1.65] text-[#FAF7F0]/65">
             {copy.subtitle}
           </p>
         </div>
@@ -232,7 +233,7 @@ function ContactPage() {
 
       {/* Content */}
       <section className="container-main px-6 py-12 lg:px-12 lg:py-16 flex-1">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[1px] bg-border border border-border">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-border border border-border">
           
           {/* Form */}
           <div className="bg-surface p-8 lg:p-10">
@@ -306,7 +307,7 @@ function ContactPage() {
                   name="message"
                   required
                   minLength={20}
-                  className="w-full font-sans text-[14px] p-[11px_14px] bg-background border border-border text-foreground transition-colors focus:outline-none focus:border-primary focus:bg-surface min-h-[130px] resize-y leading-[1.55]" 
+                  className="w-full font-sans text-[14px] p-[11px_14px] bg-background border border-border text-foreground transition-colors focus:outline-none focus:border-primary focus:bg-surface min-h-32.5 resize-y leading-[1.55]" 
                   placeholder={copy.placeholderMessage}
                 ></textarea>
                 <div className="text-[11px] text-muted-foreground mt-1.5">
@@ -315,7 +316,7 @@ function ContactPage() {
               </div>
 
               <div>
-                <label className="flex items-start gap-2.5 text-[13px] text-muted-foreground cursor-pointer leading-[1.5]">
+                <label className="flex items-start gap-2.5 text-[13px] text-muted-foreground cursor-pointer leading-normal">
                   <input type="checkbox" required className="w-4 h-4 mt-0.5 shrink-0 accent-primary" />
                   <span>
                     {copy.termsAgree} <Link to="/" className="text-primary font-semibold hover:underline">{copy.termsPrivacy}</Link> {copy.termsRest}
@@ -327,7 +328,7 @@ function ContactPage() {
                 type="submit"
                 disabled={isSubmitting}
                 className={cn(
-                  "mt-2 w-full p-[13px] bg-primary text-white border-none font-sans text-[14px] font-semibold cursor-pointer transition-colors letter-spacing-[0.01em] flex items-center justify-center gap-2",
+                  "mt-2 w-full p-3.25 bg-primary text-white border-none font-sans text-[14px] font-semibold cursor-pointer transition-colors letter-spacing-[0.01em] flex items-center justify-center gap-2",
                   isSubmitting ? "opacity-70 cursor-not-allowed" : "hover:bg-primary-dark",
                   isRtl ? "flex-row-reverse" : ""
                 )}
@@ -358,46 +359,46 @@ function ContactPage() {
             </p>
 
             <div className="flex gap-3.5 py-4.5 border-b border-border">
-              <div className="flex size-10 shrink-0 items-center justify-center bg-[#1B4332]/[0.06] border border-border">
-                <Mail className="size-[18px] text-primary" strokeWidth={1.8} />
+              <div className="flex size-10 shrink-0 items-center justify-center bg-[#1B4332]/6 border border-border">
+                <Mail className="size-4.5 text-primary" strokeWidth={1.8} />
               </div>
               <div>
                 <div className="text-[11px] font-bold uppercase tracking-[0.06em] text-muted-foreground">{copy.contactEmail}</div>
                 <div className="mt-0.5 text-[14px] font-semibold text-foreground">info@ahlusunna.info</div>
-                <div className="mt-[3px] text-[12px] text-muted-foreground">{copy.contactEmailHelp}</div>
+                <div className="mt-0.75 text-[12px] text-muted-foreground">{copy.contactEmailHelp}</div>
               </div>
             </div>
 
             <div className="flex gap-3.5 py-4.5 border-b border-border">
-              <div className="flex size-10 shrink-0 items-center justify-center bg-[#1B4332]/[0.06] border border-border">
-                <Phone className="size-[18px] text-primary" strokeWidth={1.8} />
+              <div className="flex size-10 shrink-0 items-center justify-center bg-[#1B4332]/6 border border-border">
+                <Phone className="size-4.5 text-primary" strokeWidth={1.8} />
               </div>
               <div>
                 <div className="text-[11px] font-bold uppercase tracking-[0.06em] text-muted-foreground">{copy.contactPhone}</div>
                 <div className="mt-0.5 text-[14px] font-semibold text-foreground" dir="ltr">+255 777 123 456</div>
-                <div className="mt-[3px] text-[12px] text-muted-foreground">{copy.contactPhoneHelp}</div>
+                <div className="mt-0.75 text-[12px] text-muted-foreground">{copy.contactPhoneHelp}</div>
               </div>
             </div>
 
             <div className="flex gap-3.5 py-4.5 border-b border-border">
-              <div className="flex size-10 shrink-0 items-center justify-center bg-[#1B4332]/[0.06] border border-border">
-                <MapPin className="size-[18px] text-primary" strokeWidth={1.8} />
+              <div className="flex size-10 shrink-0 items-center justify-center bg-[#1B4332]/6 border border-border">
+                <MapPin className="size-4.5 text-primary" strokeWidth={1.8} />
               </div>
               <div>
                 <div className="text-[11px] font-bold uppercase tracking-[0.06em] text-muted-foreground">{copy.contactOffice}</div>
                 <div className="mt-0.5 text-[14px] font-semibold text-foreground">Stone Town, Zanzibar</div>
-                <div className="mt-[3px] text-[12px] text-muted-foreground">{copy.contactOfficeHelp}</div>
+                <div className="mt-0.75 text-[12px] text-muted-foreground">{copy.contactOfficeHelp}</div>
               </div>
             </div>
 
             <div className="flex gap-3.5 py-4.5">
-              <div className="flex size-10 shrink-0 items-center justify-center bg-[#1B4332]/[0.06] border border-border">
-                <MessageSquare className="size-[18px] text-primary" strokeWidth={1.8} />
+              <div className="flex size-10 shrink-0 items-center justify-center bg-[#1B4332]/6 border border-border">
+                <MessageSquare className="size-4.5 text-primary" strokeWidth={1.8} />
               </div>
               <div>
                 <div className="text-[11px] font-bold uppercase tracking-[0.06em] text-muted-foreground">{copy.contactFatwa}</div>
                 <div className="mt-0.5 text-[14px] font-semibold text-foreground">fatwa@ahlusunna.info</div>
-                <div className="mt-[3px] text-[12px] text-muted-foreground">{copy.contactFatwaHelp}</div>
+                <div className="mt-0.75 text-[12px] text-muted-foreground">{copy.contactFatwaHelp}</div>
               </div>
             </div>
 

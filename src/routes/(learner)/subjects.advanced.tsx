@@ -1,7 +1,6 @@
-import { Link, createFileRoute, redirect } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { ArrowLeft, Lock, Star } from 'lucide-react'
 
-import { LessonCard } from '#/components/subjects/LessonCard'
 import { BorderOrnament } from '#/components/shared/IslamicPatterns'
 import { Button } from '#/components/ui/button'
 import { levels } from '#/data/seed'
@@ -81,14 +80,14 @@ function ComingSoonCard({ title }: { title: string }) {
 function AdvancedSubjectsPage() {
   const { user } = useAuth()
   const { currentLang, t } = useLanguage()
-  const level = levels.find((candidate) => candidate.id === 'endelea')
-  const canAccessAdvanced = user?.levelAccess.includes('endelea')
+  const level = levels.find((candidate) => String(candidate.id) === 'endelea')
+  const canAccessAdvanced = user?.levelAccess.map(String).includes('endelea')
 
   if (!canAccessAdvanced) {
     return (
       <div className="bg-background">
         <section className="relative overflow-hidden bg-primary text-primary-foreground">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary via-[#1B4332] to-[#143828]" />
+          <div className="absolute inset-0 bg-linear-to-br from-primary via-[#1B4332] to-primary-dark" />
           <BorderOrnament position="bottom" variant="mosaic" className="h-1.5" />
           <div className="container-main relative z-10 py-10 lg:py-14">
             <div className="flex items-center gap-2 text-sm text-primary-foreground/60">
@@ -113,7 +112,7 @@ function AdvancedSubjectsPage() {
   return (
     <div className="bg-background pb-12 lg:pb-16">
       <section className="relative overflow-hidden bg-primary text-primary-foreground">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-[#1B4332] to-[#143828]" />
+        <div className="absolute inset-0 bg-linear-to-br from-primary via-[#1B4332] to-primary-dark" />
         <div className="absolute inset-0 opacity-10">
           <svg className="size-full" viewBox="0 0 400 200" preserveAspectRatio="none">
             <defs>

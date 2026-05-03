@@ -97,7 +97,7 @@ function ForgotPasswordPage() {
           <h2 className="mb-4 text-[32px] lg:text-[36px] font-bold leading-[1.15] tracking-[-0.02em] text-[#FAF7F0]">
             {copy.title}
           </h2>
-          <p className="max-w-[380px] text-[14px] leading-[1.7] text-[#FAF7F0]/65">
+          <p className="max-w-95 text-[14px] leading-[1.7] text-[#FAF7F0]/65">
             {copy.subtitle}
           </p>
         </div>
@@ -105,7 +105,7 @@ function ForgotPasswordPage() {
 
       {/* Form Side */}
       <div className="flex flex-col justify-center px-8 py-12 lg:px-14">
-        <div className="mx-auto w-full max-w-[420px]">
+        <div className="mx-auto w-full max-w-105">
           <div className="mb-8">
             <Link to="/" className="inline-block mb-3">
               <img
@@ -151,7 +151,7 @@ function ForgotPasswordPage() {
                 type="submit" 
                 disabled={isLoading} 
                 className={cn(
-                  "mt-2 w-full p-[13px] bg-primary text-white border-none font-sans text-[14px] font-semibold cursor-pointer transition-colors letter-spacing-[0.01em]",
+                  "mt-2 w-full p-3.25 bg-primary text-white border-none font-sans text-[14px] font-semibold cursor-pointer transition-colors letter-spacing-[0.01em]",
                   isLoading ? "opacity-70 cursor-not-allowed" : "hover:bg-primary-dark"
                 )}
               >

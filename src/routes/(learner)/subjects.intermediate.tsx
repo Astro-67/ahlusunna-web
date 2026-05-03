@@ -1,10 +1,9 @@
-import { Link, createFileRoute, redirect, useNavigate } from '@tanstack/react-router'
+import { Link, createFileRoute, useNavigate } from '@tanstack/react-router'
 import { ArrowLeft, ArrowRight, Star } from 'lucide-react'
 
 import { LessonCard } from '#/components/subjects/LessonCard'
 import { LockOverlay } from '#/components/shared/LockOverlay'
-import { BorderOrnament, IslamicDivider } from '#/components/shared/IslamicPatterns'
-import { Button } from '#/components/ui/button'
+import { BorderOrnament } from '#/components/shared/IslamicPatterns'
 import { isLessonCompleted, lessons, levels } from '#/data/seed'
 import { useAuth } from '#/hooks/useAuth'
 import { useLanguage } from '#/hooks/useLanguage'
@@ -22,7 +21,7 @@ function ProgressBar({ progress }: { progress: number }) {
       </div>
       <div className="h-2 overflow-hidden rounded-full bg-primary-foreground/20">
         <div
-          className="h-full rounded-full bg-gradient-to-r from-accent to-[#D4AF37] transition-all duration-500"
+          className="h-full rounded-full bg-linear-to-r from-accent to-[#D4AF37] transition-all duration-500"
           style={{ width: `${progress}%` }}
         />
       </div>
@@ -34,9 +33,9 @@ function IntermediateSubjectsPage() {
   const navigate = useNavigate()
   const { user } = useAuth()
   const { currentLang, t } = useLanguage()
-  const level = levels.find((candidate) => candidate.id === 'kati')
-  const hasAccess = Boolean(user?.levelAccess.includes('kati'))
-  const intermediateLessons = lessons.filter((lesson) => lesson.levelId === 'kati')
+  const level = levels.find((candidate) => String(candidate.id) === 'kati')
+  const hasAccess = Boolean(user?.levelAccess.map(String).includes('kati'))
+  const intermediateLessons = lessons.filter((lesson) => String(lesson.levelId) === 'kati')
   const completedCount =
     user?.progress.filter((progressSlug) =>
       intermediateLessons.some((lesson) => lesson.slug === progressSlug),
@@ -48,7 +47,7 @@ function IntermediateSubjectsPage() {
   return (
     <div className="bg-background pb-12 lg:pb-16">
       <section className="relative overflow-hidden bg-primary text-primary-foreground">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-[#1B4332] to-[#143828]" />
+        <div className="absolute inset-0 bg-linear-to-br from-primary via-[#1B4332] to-primary-dark" />
         <div className="absolute inset-0 opacity-10">
           <svg className="size-full" viewBox="0 0 400 200" preserveAspectRatio="none">
             <defs>
@@ -119,7 +118,7 @@ function IntermediateSubjectsPage() {
           </div>
         )}
 
-        <div className="relative min-h-[300px]">
+        <div className="relative min-h-75">
           <div
             className={cn(
               'grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3',

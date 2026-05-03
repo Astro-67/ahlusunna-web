@@ -1,8 +1,6 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
-import { Link } from '@tanstack/react-router'
 
 import { useLanguage } from '#/hooks/useLanguage'
-import { useAuth } from '#/hooks/useAuth'
 import type { Language } from '#/types'
 import { LoginForm } from '#/components/auth/LoginForm'
 
@@ -89,11 +87,11 @@ function LoginPage() {
           <h2 className="mb-4 text-[32px] lg:text-[36px] font-bold leading-[1.15] tracking-[-0.02em] text-[#FAF7F0]">
             {copy.title}
           </h2>
-          <p className="max-w-[380px] text-[14px] leading-[1.7] text-[#FAF7F0]/65">
+          <p className="max-w-95 text-[14px] leading-[1.7] text-[#FAF7F0]/65">
             {copy.subtitle}
           </p>
 
-          <div className="mt-8 max-w-[380px] text-right font-arabic text-[22px] leading-[1.7] text-accent" dir="rtl">
+          <div className="mt-8 max-w-95 text-right font-arabic text-[22px] leading-[1.7] text-accent" dir="rtl">
             {copy.arabicQuote}
             <div className="mt-1.5 text-left font-sans text-[12px] italic text-[#FAF7F0]/50" dir="ltr">
               {copy.arabicTranslation}
@@ -104,7 +102,7 @@ function LoginPage() {
         <div className="relative z-10 mt-12 space-y-0 lg:mt-auto pt-8">
           {[copy.feat1, copy.feat2, copy.feat3].map((feat: string, i: number) => (
             <div key={i} className="flex items-center gap-3 border-t border-white/10 py-3 text-[13px] text-[#FAF7F0]/70">
-              <div className="flex size-[18px] shrink-0 items-center justify-center border border-accent/50 bg-accent/20">
+              <div className="flex size-4.5 shrink-0 items-center justify-center border border-accent/50 bg-accent/20">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" strokeWidth="3.5">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
@@ -117,7 +115,7 @@ function LoginPage() {
 
       {/* Form Side */}
       <div className="flex flex-col justify-center px-8 py-12 lg:px-14">
-        <div className="mx-auto w-full max-w-[420px]">
+        <div className="mx-auto w-full max-w-105">
           <LoginForm redirect={search.redirect} />
         </div>
       </div>

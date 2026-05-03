@@ -112,7 +112,7 @@ const pageCopy: Record<Language, any> = {
 }
 
 function AboutPage() {
-  const { currentLang, t } = useLanguage()
+  const { currentLang } = useLanguage()
   const copy = pageCopy[currentLang]
 
   const isRtl = currentLang === 'ar'
@@ -122,7 +122,7 @@ function AboutPage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-primary px-6 py-8 lg:px-12 lg:py-10">
         {/* Geometric Background */}
-        <div className="absolute inset-y-0 right-0 w-[400px] opacity-[0.06] pointer-events-none hidden md:block">
+        <div className="absolute inset-y-0 right-0 w-100 opacity-[0.06] pointer-events-none hidden md:block">
           <svg viewBox="0 0 400 500" fill="none" preserveAspectRatio="xMaxYMid slice" className="h-full w-full">
             <defs>
               <pattern id="geoA" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
@@ -150,13 +150,13 @@ function AboutPage() {
             <span className="text-[#FAF7F0]/85 font-semibold">{copy.breadcrumbAbout}</span>
           </div>
 
-          <div className="mb-3 text-[11px] font-bold uppercase tracking-[0.1em] text-accent">
+          <div className="mb-3 text-[11px] font-bold uppercase tracking-widest text-accent">
             {copy.eyebrow}
           </div>
           <h1 className="mb-3 text-[28px] lg:text-[36px] font-bold leading-[1.15] tracking-[-0.02em] text-[#FAF7F0]">
             {copy.title}
           </h1>
-          <p className="max-w-[600px] text-[14px] lg:text-[15px] leading-[1.65] text-[#FAF7F0]/65">
+          <p className="max-w-150 text-[14px] lg:text-[15px] leading-[1.65] text-[#FAF7F0]/65">
             {copy.subtitle}
           </p>
         </div>
@@ -168,22 +168,22 @@ function AboutPage() {
           {/* Left Column - Prose */}
           <div className="text-[15px] leading-[1.85] text-foreground">
             <h2 className="text-[22px] font-bold tracking-[-0.01em] mt-0 mb-3.5">{copy.storyTitle}</h2>
-            <p className="mb-[18px]">
+            <p className="mb-4.5">
               {copy.storyP1}
             </p>
-            <p className="mb-[18px]">
+            <p className="mb-4.5">
               {copy.storyP2}
             </p>
 
             <blockquote className={cn(
-              "my-6 bg-[#1B4332]/[0.04] border-accent px-5 py-4 text-[15px] italic text-muted-foreground",
+              "my-6 bg-[#1B4332]/4 border-accent px-5 py-4 text-[15px] italic text-muted-foreground",
               isRtl ? "border-r-4" : "border-l-4"
             )}>
               {copy.storyQuote}
             </blockquote>
 
             <h2 className="text-[22px] font-bold tracking-[-0.01em] mt-8 mb-3.5 pt-3.5 border-t border-border">{copy.valuesTitle}</h2>
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-[1px] bg-border border border-border">
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-px bg-border border border-border">
               <div className="bg-surface p-7 px-6">
                 <div className="mb-3.5 flex size-11 items-center justify-center bg-[#1B4332]/5">
                   <ShieldCheck className="size-5 text-primary" strokeWidth={1.6} />
@@ -214,11 +214,11 @@ function AboutPage() {
             </div>
 
             <h2 className="text-[22px] font-bold tracking-[-0.01em] mt-8 mb-3.5 pt-3.5 border-t border-border">{copy.teamTitle}</h2>
-            <p className="mb-[18px]">
+            <p className="mb-4.5">
               {copy.teamDesc}
             </p>
             
-            <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-[1px] bg-border border border-border">
+            <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-px bg-border border border-border">
               {[
                 { init: 'SH', name: 'Sh. Hamad', role: copy.teamRoleFounder },
                 { init: 'SK', name: 'Sh. Khalid', role: copy.teamRoleHead },
@@ -238,7 +238,7 @@ function AboutPage() {
             </div>
 
             <h2 className="text-[22px] font-bold tracking-[-0.01em] mt-8 mb-3.5 pt-3.5 border-t border-border">{copy.operationsTitle}</h2>
-            <p className="mb-[18px]">
+            <p className="mb-4.5">
               {copy.operationsDesc}
             </p>
           </div>
@@ -257,7 +257,7 @@ function AboutPage() {
                 { num: '100%', label: copy.stat4 },
               ].map((stat, i) => (
                 <div key={i} className="flex items-baseline gap-3 border-b border-border py-3.5 last:border-none">
-                  <span className="min-w-[60px] text-[26px] font-bold tracking-[-0.02em] text-primary">
+                  <span className="min-w-15 text-[26px] font-bold tracking-[-0.02em] text-primary">
                     {stat.num}
                   </span>
                   <span className="text-[13px] leading-[1.45] text-muted-foreground whitespace-pre-line">
@@ -266,13 +266,13 @@ function AboutPage() {
                 </div>
               ))}
 
-              <div className="mt-5 bg-primary p-[18px]">
+              <div className="mt-5 bg-primary p-4.5">
                 <p className="mb-3 text-[13px] leading-[1.55] text-[#FAF7F0]/70">
                   {copy.ctaText}
                 </p>
                 <Link 
                   to="/subjects" 
-                  className="flex w-full items-center justify-center bg-accent px-4 py-[11px] text-[13px] font-semibold text-foreground transition-opacity hover:opacity-90"
+                  className="flex w-full items-center justify-center bg-accent px-4 py-2.75 text-[13px] font-semibold text-foreground transition-opacity hover:opacity-90"
                 >
                   {copy.ctaBtn}
                 </Link>

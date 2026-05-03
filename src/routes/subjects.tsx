@@ -1,5 +1,5 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { ChevronRight, Play, CheckCircle2, Lock, ShieldCheck, Zap } from 'lucide-react'
+import { CheckCircle2, Lock, ShieldCheck, Zap } from 'lucide-react'
 
 import { SubjectCard } from '#/components/subjects/SubjectCard'
 import { lessons, subjects } from '#/data/seed'
@@ -83,7 +83,7 @@ function SubjectsPage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-primary px-6 py-10 lg:px-12 lg:py-12">
         {/* Geometric Background */}
-        <div className="absolute inset-y-0 right-0 w-[400px] opacity-[0.06] pointer-events-none hidden md:block">
+        <div className="absolute inset-y-0 right-0 w-100 opacity-[0.06] pointer-events-none hidden md:block">
           <svg viewBox="0 0 400 500" fill="none" preserveAspectRatio="xMaxYMid slice" className="h-full w-full">
             <defs>
               <pattern id="geo1" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
@@ -109,7 +109,7 @@ function SubjectsPage() {
             <span className="text-[#FAF7F0]/85 font-semibold">{copy.breadcrumbLevel}</span>
           </div>
 
-          <div className="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.1em] text-accent">
+          <div className="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-accent">
             <span className="h-px w-5 bg-accent" />
             {copy.levelEyebrow}
           </div>
@@ -118,7 +118,7 @@ function SubjectsPage() {
             {copy.title}
           </h1>
 
-          <p className="mb-8 max-w-[500px] text-[14px] lg:text-[15px] leading-[1.65] text-[#FAF7F0]/65">
+          <p className="mb-8 max-w-125 text-[14px] lg:text-[15px] leading-[1.65] text-[#FAF7F0]/65">
             {copy.subtitle}
           </p>
 
@@ -142,17 +142,17 @@ function SubjectsPage() {
       <div className="border-b border-border bg-white px-6 py-3.5 lg:px-12">
         <div className="container-main flex flex-wrap items-center gap-6 lg:gap-8">
           <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
-            <ShieldCheck className="size-[15px] text-primary" strokeWidth={2} />
+            <ShieldCheck className="size-3.75 text-primary" strokeWidth={2} />
             <span><strong className="font-semibold text-foreground">{beginnerSubjects.length}</strong> {copy.statsLessons.split(' ')[1]}</span>
           </div>
-          <div className="h-[18px] w-px bg-border hidden sm:block" />
+          <div className="h-4.5 w-px bg-border hidden sm:block" />
           <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
-            <CheckCircle2 className="size-[15px] text-primary" strokeWidth={2} />
+            <CheckCircle2 className="size-3.75 text-primary" strokeWidth={2} />
             <span>{copy.statsFree}</span>
           </div>
-          <div className="h-[18px] w-px bg-border hidden sm:block" />
+          <div className="h-4.5 w-px bg-border hidden sm:block" />
           <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
-            <Zap className="size-[15px] text-primary" strokeWidth={2} />
+            <Zap className="size-3.75 text-primary" strokeWidth={2} />
             <span>{copy.statsStart}</span>
           </div>
         </div>
@@ -164,7 +164,7 @@ function SubjectsPage() {
           {copy.subjectsLabel}
         </div>
 
-        <div className="grid grid-cols-1 gap-[1px] border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
           {beginnerSubjects.map((subject, index) => {
             const lessonCount = lessons.filter((l) => l.subjectId === subject.id).length
             // Mocking featured status for the first item like in design

@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
-import { CheckCircle, ShieldCheck, Mail, ShieldAlert, ArrowRight, UserCog, UserCheck, MessageSquare } from 'lucide-react'
+import { UserCheck, MessageSquare } from 'lucide-react'
 
 import { AdminLayout } from '#/components/admin/AdminLayout'
 import { mockUsers as seedUsers, mockContacts } from '#/data/seed'
@@ -50,7 +50,7 @@ function AdminDashboardPage() {
   }
 
   const StatusPill = ({ status, type }: { status: string, type: 'user' | 'contact' }) => {
-    let className = "inline-flex items-center font-sans text-[10px] font-bold px-[7px] py-[2px] border tracking-[0.02em] uppercase"
+    let className = "inline-flex items-center font-sans text-[10px] font-bold px-1.75 py-0.5 border tracking-[0.02em] uppercase"
     
     if (type === 'user') {
       if (status === 'admin') className += " bg-[#1B4332] border-[#1B4332] text-[#FAF7F0]"
@@ -149,7 +149,7 @@ function AdminDashboardPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead>
-                <tr className="bg-[#143828]/5 border-b border-border">
+                <tr className="bg-primary-dark/5 border-b border-border">
                   <th className={cn("p-[10px_18px] text-[10px] font-bold uppercase tracking-[0.06em] text-muted-foreground border-border", isRtl ? "border-l" : "border-r")}>Ujumbe</th>
                   <th className={cn("p-[10px_18px] text-[10px] font-bold uppercase tracking-[0.06em] text-muted-foreground border-border", isRtl ? "border-l text-right" : "border-r text-left")}>Hali</th>
                   <th className={cn("p-[10px_18px] text-[10px] font-bold uppercase tracking-[0.06em] text-muted-foreground", isRtl ? "text-left" : "text-right")}>{t('admin.actions')}</th>
