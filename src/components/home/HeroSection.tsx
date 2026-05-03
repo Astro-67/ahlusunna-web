@@ -159,9 +159,9 @@ export function HeroSection() {
             loading={index === 0 ? 'eager' : 'lazy'}
           />
         ))}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary via-primary/90 to-primary/45 sm:bg-gradient-to-r sm:from-primary sm:via-primary/90 sm:to-primary/30" />
+        <div className="absolute inset-0 bg-linear-to-b from-primary via-primary/90 to-primary/45 sm:bg-linear-to-r sm:from-primary sm:via-primary/90 sm:to-primary/30" />
         <div className="absolute inset-0 bg-black/20" />
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-primary/90 to-transparent sm:h-40" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-primary/90 to-transparent sm:h-40" />
       </div>
 
       <div className="container-main relative z-10 flex min-h-[calc(100svh-3.5rem)] flex-col justify-start gap-7 py-6 sm:min-h-[calc(100svh-4rem)] sm:justify-between sm:gap-8 sm:py-8 lg:min-h-[calc(100svh-76px)] lg:py-12">
@@ -170,7 +170,7 @@ export function HeroSection() {
             {copy.title}
           </h1>
 
-          <p className="mt-4 max-w-[34rem] text-sm leading-6 text-primary-foreground/94 sm:mt-5 sm:text-base sm:leading-7 md:text-lg md:leading-8">
+          <p className="mt-4 max-w-136 text-sm leading-6 text-primary-foreground/94 sm:mt-5 sm:text-base sm:leading-7 md:text-lg md:leading-8">
             {copy.subtitle}
           </p>
 
@@ -229,7 +229,7 @@ export function HeroSection() {
                   <Link
                     key={level.href}
                     to={level.href}
-                    className="group flex min-h-[76px] items-center gap-3 rounded-[8px] border border-accent/28 bg-primary-dark/95 p-3 text-primary-foreground shadow-[0_14px_45px_rgba(0,0,0,0.22)] transition-all duration-300 hover:border-accent/70 hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:min-h-24 sm:hover:-translate-y-0.5 lg:p-4"
+                    className="group flex min-h-19 items-center gap-3 rounded-[8px] border border-accent/28 bg-primary-dark/95 p-3 text-primary-foreground shadow-[0_14px_45px_rgba(0,0,0,0.22)] transition-all duration-300 hover:border-accent/70 hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:min-h-24 sm:hover:-translate-y-0.5 lg:p-4"
                   >
                     <span className="flex size-9 shrink-0 items-center justify-center rounded-[8px] bg-accent text-accent-foreground sm:size-10">
                       <Icon aria-hidden="true" />

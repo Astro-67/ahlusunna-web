@@ -18,7 +18,7 @@ import { useLanguage } from '#/hooks/useLanguage'
 import { cn } from '#/lib/utils'
 import type { Language } from '#/types'
 
-type NavTarget = '/' | '#'
+type NavTarget = '/' | '/about' | '/contact' | '/subjects'
 
 const navLabels: Record<
   Language,
@@ -63,26 +63,24 @@ const navLabels: Record<
 
 function isActivePath(pathname: string, to: NavTarget) {
   if (to === '/') return pathname === '/'
-  return false
+  return pathname === to || pathname.startsWith(to + '/')
 }
 
 function NavLink({
   to,
   children,
   onClick,
-  href,
 }: {
-  to?: NavTarget
+  to: NavTarget
   children: ReactNode
   onClick?: () => void
-  href?: string
 }) {
   const pathname = useRouterState({ select: (state) => state.location.pathname })
-  const isActive = to ? isActivePath(pathname, to) : false
+  const isActive = isActivePath(pathname, to)
 
   return (
-    <a
-      href={href || to}
+    <Link
+      to={to}
       onClick={onClick}
       className={cn(
         'relative px-3 py-2 text-sm font-medium transition-colors',
@@ -91,7 +89,7 @@ function NavLink({
     >
       {children}
       {isActive && <span className="absolute inset-x-3 bottom-0 h-0.5 bg-accent" />}
-    </a>
+    </Link>
   )
 }
 
@@ -106,11 +104,11 @@ export function Navbar() {
   const userMenuRef = useRef<HTMLDivElement>(null)
   const labels = navLabels[currentLang]
 
-  const navItems: Array<{ to: NavTarget; label: string; href: string }> = [
-    { to: '/', label: labels.home, href: '/' },
-    { to: '#', label: labels.about, href: '#' },
-    { to: '#', label: labels.contact, href: '#' },
-    { to: '#', label: labels.lesson, href: '#' },
+  const navItems: Array<{ to: NavTarget; label: string }> = [
+    { to: '/', label: labels.home },
+    { to: '/about', label: labels.about },
+    { to: '/contact', label: labels.contact },
+    { to: '/subjects', label: labels.lesson },
   ]
 
   useEffect(() => {
@@ -145,7 +143,7 @@ export function Navbar() {
   return (
     <nav
       className={cn(
-        'fixed inset-x-0 top-0 z-40 h-14 border-b border-border/70 bg-background/96 backdrop-blur-md transition-shadow duration-300 sm:h-16 lg:h-[76px]',
+        'fixed inset-x-0 top-0 z-40 h-14 border-b border-border/70 bg-background/96 backdrop-blur-md transition-shadow duration-300 sm:h-16 lg:h-19',
         scrolled && 'shadow-[0_10px_30px_rgba(27,67,50,0.08)]',
       )}
       aria-label="Primary"
@@ -157,7 +155,7 @@ export function Navbar() {
 
         <div className="hidden items-center gap-1 lg:flex">
           {navItems.map((item) => (
-            <NavLink key={item.label} to={item.to} href={item.href}>
+            <NavLink key={item.label} to={item.to}>
               {item.label}
             </NavLink>
           ))}
@@ -188,7 +186,7 @@ export function Navbar() {
 
               {userMenuOpen && (
                 <div
-                  className="absolute end-0 top-full z-50 mt-2 w-60 overflow-hidden rounded-[8px] border border-border bg-popover text-popover-foreground shadow-[0_18px_50px_rgba(0,0,0,0.16)]"
+                  className="absolute inset-e-0 top-full z-50 mt-2 w-60 overflow-hidden rounded-[8px] border border-border bg-popover text-popover-foreground shadow-[0_18px_50px_rgba(0,0,0,0.16)]"
                   role="menu"
                 >
                   <div className="border-b border-border bg-muted px-4 py-3">
@@ -254,7 +252,6 @@ export function Navbar() {
               <NavLink
                 key={item.label}
                 to={item.to}
-                href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item.label}

@@ -1,10 +1,9 @@
-import { useNavigate } from '@tanstack/react-router'
-import { Menu } from 'lucide-react'
-import { useState  } from 'react'
-import type {ReactNode} from 'react';
+import { useState } from 'react'
+import { Menu, ChevronLeft, ChevronRight } from 'lucide-react'
+import type { ReactNode } from 'react'
 
 import { AdminSidebar } from '#/components/admin/AdminSidebar'
-import { useAuth } from '#/hooks/useAuth'
+import { cn } from '#/lib/utils'
 import { useLanguage } from '#/hooks/useLanguage'
 
 interface AdminLayoutProps {
@@ -12,63 +11,76 @@ interface AdminLayoutProps {
 }
 
 export function AdminLayout({ children }: AdminLayoutProps) {
-  const { user, logout } = useAuth()
-  const { t } = useLanguage()
-  const navigate = useNavigate()
   const [sidebarOpen, setSidebarOpen] = useState(false)
-
-  const handleLogout = () => {
-    logout()
-    void navigate({ to: '/' })
-  }
+  const [isCollapsed, setIsCollapsed] = useState(false)
+  const { currentLang } = useLanguage()
+  const isRtl = currentLang === 'ar'
 
   return (
-    <div className="min-h-screen bg-background">
-      <aside
-        className={
-          sidebarOpen
-            ? 'fixed inset-y-0 start-0 z-50 flex w-60 translate-x-0 flex-col bg-primary text-primary-foreground transition-transform duration-200 lg:translate-x-0'
-            : 'fixed inset-y-0 start-0 z-50 flex w-60 -translate-x-full flex-col bg-primary text-primary-foreground transition-transform duration-200 rtl:translate-x-full lg:translate-x-0'
-        }
+    <div className="h-[calc(100vh-64px)] bg-background flex flex-col md:flex-row overflow-hidden" dir={isRtl ? 'rtl' : 'ltr'}>
+      
+      {/* Mobile Header Toggle */}
+      <div className="md:hidden flex items-center justify-between p-4 bg-primary text-white border-b border-white/10">
+        <div className="flex items-center gap-2">
+           <img 
+             src="/Ahlusunna-logo.png" 
+             alt="Logo" 
+             className="h-10 w-auto" 
+             style={{ filter: 'brightness(0) invert(1)' }}
+           />
+           <span className="font-bold text-[15px]">Admin</span>
+        </div>
+        <button onClick={() => setSidebarOpen(!sidebarOpen)}>
+          <Menu size={24} />
+        </button>
+      </div>
+
+      {/* Sidebar Wrapper */}
+      <div 
+        className={cn(
+          "transition-all duration-300 ease-in-out z-50",
+          sidebarOpen ? "fixed inset-0" : "hidden md:block md:relative",
+          isCollapsed ? "md:w-[70px]" : "md:w-[240px]"
+        )}
       >
-        <AdminSidebar onLogout={handleLogout} />
-      </aside>
+        {/* Mobile Backdrop */}
+        {sidebarOpen && (
+          <div 
+            className="absolute inset-0 bg-black/60 md:hidden" 
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+        
+        {/* Actual Sidebar */}
+        <div className={cn(
+          "relative h-full transition-all duration-300",
+          isCollapsed ? "w-[70px]" : "w-[240px]"
+        )}>
+          <AdminSidebar isCollapsed={isCollapsed} />
+          
+          {/* Collapse Toggle Button (Desktop Only) */}
+          <button 
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className={cn(
+              "hidden md:flex absolute top-1/2 -translate-y-1/2 size-6 items-center justify-center bg-accent text-foreground rounded-full shadow-md z-[60] transition-all",
+              isRtl 
+                ? (isCollapsed ? "-left-3" : "-left-3") 
+                : (isCollapsed ? "-right-3" : "-right-3")
+            )}
+            title={isCollapsed ? "Panua (Expand)" : "Funga (Collapse)"}
+          >
+            {isCollapsed 
+              ? (isRtl ? <ChevronLeft size={14} strokeWidth={3} /> : <ChevronRight size={14} strokeWidth={3} />) 
+              : (isRtl ? <ChevronRight size={14} strokeWidth={3} /> : <ChevronLeft size={14} strokeWidth={3} />)
+            }
+          </button>
+        </div>
+      </div>
 
-      <main className="lg:ms-60">
-        <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-border bg-white px-4 sm:px-6">
-          <div className="flex items-center gap-4">
-            <button
-              type="button"
-              onClick={() => setSidebarOpen((open) => !open)}
-              className="text-foreground lg:hidden"
-              aria-label="Menu"
-              aria-expanded={sidebarOpen}
-            >
-              <Menu aria-hidden="true" size={24} />
-            </button>
-            <h1 className="text-[20px] font-semibold text-foreground lg:text-[22px]">
-              {t('admin.content_manager')}
-            </h1>
-          </div>
-          <div className="flex min-w-0 items-center gap-4">
-            <span className="hidden truncate text-sm text-muted-foreground sm:inline">{user?.email}</span>
-            <div className="flex size-8 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-              {user?.name.charAt(0)}
-            </div>
-          </div>
-        </header>
-
-        <div className="p-4 sm:p-6">{children}</div>
+      {/* Main Content Area */}
+      <main className="flex-1 min-w-0 p-6 md:p-8 lg:p-10 bg-background overflow-y-auto">
+        {children}
       </main>
-
-      {sidebarOpen && (
-        <button
-          type="button"
-          className="fixed inset-0 z-40 bg-foreground/50 lg:hidden"
-          onClick={() => setSidebarOpen(false)}
-          aria-label={t('common.close')}
-        />
-      )}
     </div>
   )
 }

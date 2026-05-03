@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahlusunna — About · Contact · Auth · Dashboards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ahlusunna-shared.css">
+<style>
+/* ══════════════════════════════════════════════════
+   ADDITIONAL STYLES FOR THIS FILE
+══════════════════════════════════════════════════ */
+
+/* Common content wrap */
+.content-wrap { padding: 48px; max-width: 1200px; margin: 0 auto; }
+
+/* ── ABOUT PAGE ── */
+.about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 48px; }
+.about-prose { font-size: 15px; line-height: 1.85; color: var(--text); }
+.about-prose p { margin-bottom: 18px; }
+.about-prose h2 {
+  font-size: 22px; font-weight: 700; letter-spacing: -0.01em;
+  margin: 32px 0 14px; padding-top: 14px; border-top: 1px solid var(--border);
+}
+.about-prose blockquote {
+  background: rgba(27,67,50,0.04); border-left: 3px solid var(--accent);
+  padding: 18px 22px; margin: 24px 0; font-style: italic; color: var(--muted);
+}
+
+.values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 32px; }
+.value-card { background: var(--surface); padding: 28px 24px; }
+.value-icon { width: 44px; height: 44px; background: rgba(27,67,50,0.06); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+.value-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.value-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+.about-side { background: var(--surface); border: 1px solid var(--border); padding: 28px 24px; height: fit-content; }
+.about-side h3 { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 18px; }
+.about-stat { display: flex; align-items: baseline; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+.about-stat:last-child { border-bottom: none; }
+.about-stat-num { font-size: 26px; font-weight: 700; color: var(--primary); letter-spacing: -0.02em; min-width: 60px; }
+.about-stat-label { font-size: 13px; color: var(--muted); line-height: 1.45; }
+.about-side-cta { margin-top: 20px; padding: 18px; background: var(--primary); }
+.about-side-cta p { font-size: 13px; color: rgba(250,247,240,0.7); margin-bottom: 12px; line-height: 1.55; }
+
+/* Team strip */
+.team-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 32px; }
+.team-card { background: var(--surface); padding: 24px; text-align: center; }
+.team-avatar { width: 64px; height: 64px; border-radius: 50%; background: rgba(27,67,50,0.08); border: 2px solid var(--accent); margin: 0 auto 14px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--primary); font-size: 18px; }
+.team-name { font-size: 14px; font-weight: 700; }
+.team-role { font-size: 11px; color: var(--accent); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; margin-top: 4px; }
+
+/* ── CONTACT PAGE ── */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.contact-form-wrap, .contact-info-wrap { background: var(--surface); padding: 40px; }
+.contact-info-wrap { background: #FDFCF8; }
+
+.form-group { margin-bottom: 20px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-label { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 6px; display: block; letter-spacing: 0.02em; }
+.form-label .req { color: var(--accent); margin-left: 2px; }
+.form-input, .form-select, .form-textarea {
+  width: 100%; font-family: var(--font); font-size: 14px;
+  padding: 11px 14px; background: var(--bg); border: 1px solid var(--border);
+  color: var(--text); transition: border-color 0.15s, background 0.15s;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--primary); background: var(--surface); }
+.form-textarea { resize: vertical; min-height: 130px; line-height: 1.55; }
+.form-help { font-size: 11px; color: var(--muted); margin-top: 5px; }
+.form-checkbox { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--muted); cursor: pointer; line-height: 1.5; }
+.form-checkbox input { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; accent-color: var(--primary); }
+.form-checkbox a { color: var(--primary); font-weight: 600; }
+
+.contact-channel { display: flex; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--border); }
+.contact-channel:last-child { border-bottom: none; }
+.contact-channel-icon { width: 40px; height: 40px; background: rgba(27,67,50,0.06); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.contact-channel-label { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.contact-channel-value { font-size: 14px; font-weight: 600; color: var(--text); margin-top: 2px; }
+.contact-channel-help { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+.faq-strip { background: var(--bg); border: 1px solid var(--border); padding: 24px 28px; margin-top: 28px; }
+.faq-strip h4 { font-size: 13px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.faq-q { font-size: 13px; color: var(--muted); padding: 8px 0; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+.faq-q:hover { color: var(--primary); }
+
+/* ── AUTH PAGES ── */
+.auth-shell {
+  min-height: calc(100vh - 64px - 48px); /* nav - tabbar */
+  display: grid; grid-template-columns: 1fr 1fr;
+  background: var(--bg);
+}
+.auth-promo {
+  background: var(--primary); position: relative; overflow: hidden;
+  padding: 56px 48px; display: flex; flex-direction: column; justify-content: space-between;
+}
+.auth-promo-geo { position: absolute; inset: 0; opacity: 0.05; pointer-events: none; }
+.auth-promo-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.auth-promo h2 { font-size: 36px; font-weight: 700; color: #FAF7F0; letter-spacing: -0.02em; line-height: 1.15; margin: 14px 0 16px; }
+.auth-promo p { font-size: 14px; color: rgba(250,247,240,0.65); line-height: 1.7; max-width: 380px; }
+.auth-promo-arabic { font-family: var(--font-arabic); font-size: 22px; color: var(--accent); margin-top: 24px; direction: rtl; line-height: 1.7; max-width: 380px; }
+.auth-promo-features { margin-top: auto; padding-top: 32px; }
+.auth-promo-feat { display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(250,247,240,0.7); padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.08); }
+.auth-promo-feat-check { width: 18px; height: 18px; background: rgba(201,168,76,0.2); border: 1px solid rgba(201,168,76,0.5); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+.auth-form-wrap { padding: 48px 56px; display: flex; flex-direction: column; justify-content: center; }
+.auth-form-inner { max-width: 420px; width: 100%; margin: 0 auto; }
+.auth-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.auth-title { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin: 8px 0 8px; }
+.auth-subtitle { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 28px; }
+
+.oauth-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.oauth-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 11px; background: var(--surface); border: 1px solid var(--border);
+  font-family: var(--font); font-size: 13px; font-weight: 600; color: var(--text);
+  cursor: pointer; transition: border-color 0.15s;
+}
+.oauth-btn:hover { border-color: var(--primary); }
+
+.divider { display: flex; align-items: center; gap: 14px; margin: 24px 0; }
+.divider-line { flex: 1; height: 1px; background: var(--border); }
+.divider-text { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+
+.input-row { position: relative; }
+.input-row .input-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+.input-row .form-input { padding-left: 38px; }
+.input-row .input-toggle { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); cursor: pointer; }
+
+.auth-row-meta { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; margin-bottom: 22px; }
+.auth-link { font-size: 13px; color: var(--primary); font-weight: 600; text-decoration: none; }
+.auth-link:hover { text-decoration: underline; }
+
+.btn-submit-full {
+  width: 100%; padding: 13px; background: var(--primary); color: #fff;
+  border: none; font-family: var(--font); font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: background 0.15s; letter-spacing: 0.01em;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn-submit-full:hover { background: var(--primary-dark); }
+
+.auth-foot { text-align: center; margin-top: 20px; font-size: 13px; color: var(--muted); }
+.auth-foot a { color: var(--primary); font-weight: 600; }
+
+/* Password strength */
+.pw-strength { display: flex; gap: 4px; margin-top: 6px; }
+.pw-bar { flex: 1; height: 3px; background: var(--border); }
+.pw-bar.on { background: var(--primary); }
+.pw-bar.warn { background: var(--accent); }
+.pw-bar.danger { background: var(--danger); }
+
+/* ── DASHBOARD SHELL ── */
+.dash-shell { display: grid; grid-template-columns: 240px 1fr; min-height: calc(100vh - 64px - 48px); background: var(--bg); }
+.dash-side { background: var(--primary); padding: 24px 0; display: flex; flex-direction: column; }
+.dash-side-brand { padding: 0 24px 18px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 10px; }
+.dash-side-brand-mark { width: 32px; height: 32px; background: rgba(255,255,255,0.06); border: 1px solid rgba(201,168,76,0.4); display: flex; align-items: center; justify-content: center; }
+.dash-side-brand-name { color: #FAF7F0; font-size: 14px; font-weight: 700; }
+.dash-side-brand-tag { color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+.dash-side-section { padding: 18px 0 6px; }
+.dash-side-label { padding: 0 24px 8px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(250,247,240,0.4); font-weight: 700; }
+.dash-side-link { display: flex; align-items: center; gap: 12px; padding: 10px 24px; font-size: 13px; color: rgba(250,247,240,0.65); cursor: pointer; transition: all 0.15s; border-left: 3px solid transparent; font-weight: 500; }
+.dash-side-link:hover { color: #FAF7F0; background: rgba(255,255,255,0.04); }
+.dash-side-link.active { color: #FAF7F0; background: var(--primary-dark); border-left-color: var(--accent); font-weight: 600; }
+.dash-side-link .badge-pill { margin-left: auto; background: var(--accent); color: var(--text); font-size: 10px; font-weight: 700; padding: 2px 7px; }
+
+.dash-side-foot { margin-top: auto; padding: 18px 24px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 10px; }
+.dash-side-foot-avatar { width: 32px; height: 32px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--text); font-size: 12px; flex-shrink: 0; }
+.dash-side-foot-name { font-size: 13px; color: #FAF7F0; font-weight: 600; }
+.dash-side-foot-role { font-size: 10px; color: rgba(250,247,240,0.45); margin-top: 1px; }
+
+.dash-main { padding: 32px 40px; min-width: 0; }
+.dash-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+.dash-title { font-size: 24px; font-weight: 700; letter-spacing: -0.01em; }
+.dash-subtitle { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.dash-search { position: relative; }
+.dash-search input { width: 280px; padding: 9px 14px 9px 36px; font-family: var(--font); font-size: 13px; background: var(--surface); border: 1px solid var(--border); }
+.dash-search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+
+/* KPI cards */
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 28px; }
+.kpi-card { background: var(--surface); padding: 20px 22px; }
+.kpi-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.kpi-value { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin: 8px 0 4px; }
+.kpi-trend { font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+.kpi-trend.up { color: var(--primary); }
+.kpi-trend.down { color: var(--danger); }
+.kpi-spark { height: 28px; margin-top: 8px; }
+
+/* Layout grid */
+.dash-row { display: grid; gap: 24px; margin-bottom: 28px; }
+.dash-row.two-col { grid-template-columns: 2fr 1fr; }
+.dash-row.three-col { grid-template-columns: 1fr 1fr 1fr; }
+
+/* Panel */
+.panel { background: var(--surface); border: 1px solid var(--border); }
+.panel-header { padding: 16px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.panel-title { font-size: 14px; font-weight: 700; letter-spacing: -0.005em; }
+.panel-link { font-size: 12px; color: var(--primary); font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 4px; }
+.panel-body { padding: 18px 22px; }
+.panel-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); }
+.panel-tab { padding: 12px 18px; font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.panel-tab.active { color: var(--primary); border-bottom-color: var(--accent); }
+
+/* Tables */
+table.dash-table { width: 100%; border-collapse: collapse; }
+.dash-table th { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 10px 18px; border-bottom: 1px solid var(--border); background: #FDFCF8; }
+.dash-table td { font-size: 13px; padding: 14px 18px; border-bottom: 1px solid var(--border); color: var(--text); }
+.dash-table tr:last-child td { border-bottom: none; }
+.dash-table tr:hover td { background: #FDFCF8; }
+
+.status-pill { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; padding: 3px 9px; border: 1px solid; letter-spacing: 0.02em; }
+.status-pill.pending { background: rgba(201,168,76,0.1); border-color: rgba(201,168,76,0.4); color: #8a6f1f; }
+.status-pill.published { background: rgba(27,67,50,0.08); border-color: rgba(27,67,50,0.25); color: var(--primary); }
+.status-pill.draft { background: var(--bg); border-color: var(--border); color: var(--muted); }
+.status-pill.flagged { background: rgba(155,44,44,0.08); border-color: rgba(155,44,44,0.3); color: var(--danger); }
+
+.action-btn { background: transparent; border: 1px solid var(--border); padding: 5px 11px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: var(--font); color: var(--text); transition: all 0.15s; }
+.action-btn:hover { border-color: var(--primary); color: var(--primary); }
+.action-btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+.action-btn.primary:hover { background: var(--primary-dark); }
+.action-btn.gold { background: var(--accent); border-color: var(--accent); color: var(--text); }
+.action-btn.danger { color: var(--danger); }
+.action-btn.danger:hover { border-color: var(--danger); }
+
+/* Activity feed */
+.feed-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.feed-item:last-child { border-bottom: none; }
+.feed-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; margin-top: 7px; flex-shrink: 0; }
+.feed-text { flex: 1; font-size: 13px; line-height: 1.5; color: var(--text); }
+.feed-text strong { font-weight: 700; }
+.feed-time { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+/* Bar chart */
+.chart-bars { display: flex; align-items: flex-end; gap: 6px; height: 140px; padding: 12px 0; }
+.chart-bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.chart-bar { width: 100%; background: var(--primary); transition: opacity 0.2s; }
+.chart-bar:hover { opacity: 0.85; }
+.chart-bar.accent { background: var(--accent); }
+.chart-bar-label { font-size: 10px; color: var(--muted); }
+
+/* Donut */
+.donut-row { display: flex; align-items: center; gap: 24px; padding: 8px 0; }
+.donut-legend { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.donut-legend-item { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+.donut-swatch { width: 12px; height: 12px; flex-shrink: 0; }
+.donut-legend-label { color: var(--muted); }
+.donut-legend-val { margin-left: auto; font-weight: 700; color: var(--text); }
+
+/* Moderator review queue card */
+.review-card { padding: 16px 18px; border-bottom: 1px solid var(--border); }
+.review-card:last-child { border-bottom: none; }
+.review-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+.review-meta { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.review-meta strong { color: var(--text); font-weight: 700; }
+.review-title { font-size: 14px; font-weight: 700; margin: 4px 0 6px; }
+.review-snippet { font-size: 13px; color: var(--muted); line-height: 1.55; padding: 12px; background: var(--bg); border-left: 2px solid var(--accent); margin-bottom: 12px; }
+.review-actions { display: flex; gap: 8px; }
+
+/* ── TAB BAR ADJUSTMENTS ── */
+.tab-bar { overflow-x: auto; }
+.tab-bar::-webkit-scrollbar { display: none; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- TAB BAR -->
+  <div class="tab-bar">
+    <span class="tab-label">Ahlusunna · Phase 2</span>
+    <button class="tab active" onclick="showPage(0)">① About</button>
+    <button class="tab" onclick="showPage(1)">② Contact</button>
+    <button class="tab" onclick="showPage(2)">③ Login</button>
+    <button class="tab" onclick="showPage(3)">④ Register</button>
+    <button class="tab" onclick="showPage(4)">⑤ Moderator Dashboard</button>
+    <button class="tab" onclick="showPage(5)">⑥ Admin Dashboard</button>
+  </div>
+
+  <!-- VIEWPORT -->
+  <div class="viewport">
+
+    <!-- ════════════════════════════════════════════
+         PAGE 0: ABOUT
+    ════════════════════════════════════════════ -->
+    <div class="page active" id="page-0" data-screen-label="01 About">
+
+      <!-- Navbar -->
+      <nav class="navbar">
+        <a class="nav-logo" href="#"><div class="nav-logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8"><path d="M12 2C9 2 6 4.5 6 8c0 2.5 1.5 4.5 3 6h6c1.5-1.5 3-3.5 3-6 0-3.5-3-6-6-6z"/><line x1="12" y1="14" x2="12" y2="19"/><line x1="9" y1="19" x2="15" y2="19"/></svg></div><span class="nav-logo-text">Ahlusunna</span></a>
+        <div class="nav-links"><span class="nav-link">Nyumbani</span><span class="nav-link active">Kuhusu</span><span class="nav-link">Wasiliana</span><span class="nav-link">Masomo</span></div>
+        <div class="nav-right"><button class="btn-lang"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>SW ▾</button><button class="btn-gold">Ingia</button></div>
+      </nav>
+
+      <!-- Hero -->
+      <div class="page-hero">
+        <svg class="page-hero-geo" viewBox="0 0 400 500" fill="none" preserveAspectRatio="xMaxYMid slice">
+          <defs><pattern id="geoA" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse"><rect x="20" y="20" width="40" height="40" stroke="#C9A84C" stroke-width="0.8" fill="none" transform="rotate(45 40 40)"/><circle cx="40" cy="40" r="3" stroke="#C9A84C" stroke-width="0.8" fill="none"/><line x1="0" y1="40" x2="20" y2="40" stroke="#C9A84C" stroke-width="0.4"/><line x1="60" y1="40" x2="80" y2="40" stroke="#C9A84C" stroke-width="0.4"/><line x1="40" y1="0" x2="40" y2="20" stroke="#C9A84C" stroke-width="0.4"/><line x1="40" y1="60" x2="40" y2="80" stroke="#C9A84C" stroke-width="0.4"/></pattern></defs>
+          <rect width="400" height="500" fill="url(#geoA)"/>
+        </svg>
+        <div class="page-hero-breadcrumb">
+          <a href="#"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Nyumbani</a>
+          <span class="page-hero-breadcrumb-sep">›</span>
+          <span class="bc-current">Kuhusu Sisi</span>
+        </div>
+        <div class="page-hero-eyebrow">Ujumbe Wetu</div>
+        <h1>Kufundisha Uislamu kwa Mpangilio na Uelewa</h1>
+        <p class="page-hero-sub">Ahlusunna ni jukwaa la kujifunza Uislamu kwa hatua — kutoka maarifa ya msingi hadi ufahamu wa kina, kupitia masomo yaliyoandaliwa kwa makini na masheikh wenye mafunzo.</p>
+      </div>
+
+      <div class="content-wrap">
+        <div class="about-grid">
+          <div>
+            <div class="about-prose">
+              <h2 style="border-top:none;padding-top:0;margin-top:0;">Hadithi Yetu</h2>
+              <p>Ahlusunna ilianzishwa Zanzibar mwaka 2025 kwa lengo moja kuu: kuwapa Waislamu wa Tanzania na ulimwengu njia rahisi, salama, na yenye mpangilio wa kujifunza Uislamu kupitia Kiswahili.</p>
+              <p>Tumeona kuwa wengi wanataka kujifunza dini yao, lakini wanakosa <strong>mwalimu wa kuaminika</strong> au <strong>mtaala wa hatua kwa hatua</strong>. Mtandao umejaa habari, lakini si zote zenye msingi sahihi. Ahlusunna inajaza pengo hili.</p>
+
+              <blockquote>"Anayetafuta njia ya elimu, Allah atamrahisishia njia ya Pepo." — Mtume Muhammad ﷺ</blockquote>
+
+              <h2>Maadili Yetu</h2>
+              <div class="values-grid">
+                <div class="value-card">
+                  <div class="value-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                  <div class="value-title">Msingi Sahihi</div>
+                  <div class="value-desc">Masomo yote yamepitiwa na masheikh waliosomea Madina au Azhar.</div>
+                </div>
+                <div class="value-card">
+                  <div class="value-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                  <div class="value-title">Mpangilio</div>
+                  <div class="value-desc">Hatua tatu zilizopangwa wazi — kutoka mwanzo hadi ufahamu wa kina.</div>
+                </div>
+                <div class="value-card">
+                  <div class="value-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                  <div class="value-title">Bure Milele</div>
+                  <div class="value-desc">Hatua ya Awali ni bure kabisa. Hakuna malipo, hakuna matangazo.</div>
+                </div>
+              </div>
+
+              <h2>Timu Yetu</h2>
+              <p>Tumebahatika kuwa na timu ya masheikh na walimu wa kujitolea kutoka Tanzania, Kenya, na Saudi Arabia.</p>
+              <div class="team-strip">
+                <div class="team-card"><div class="team-avatar">SH</div><div class="team-name">Sh. Hamad</div><div class="team-role">Mwanzilishi</div></div>
+                <div class="team-card"><div class="team-avatar">SK</div><div class="team-name">Sh. Khalid</div><div class="team-role">Mwalimu Mkuu</div></div>
+                <div class="team-card"><div class="team-avatar">FA</div><div class="team-name">Fatma A.</div><div class="team-role">Mhariri</div></div>
+                <div class="team-card"><div class="team-avatar">YM</div><div class="team-name">Yusuf M.</div><div class="team-role">Mhandisi</div></div>
+              </div>
+
+              <h2>Tunaendaje?</h2>
+              <p>Tunajiendesha kwa michango ya watu wa kheri (waqf) na kazi za kujitolea. Hatutangazi bidhaa, hatuuzi data za watumiaji, na hatutoshei kazi zetu kwa ada. Lengo letu pekee ni <strong>radhi ya Allah ﷻ</strong>.</p>
+            </div>
+          </div>
+
+          <!-- Side -->
+          <aside class="about-side">
+            <h3>Kwa Nambari</h3>
+            <div class="about-stat">
+              <span class="about-stat-num">2,400+</span>
+              <span class="about-stat-label">wanafunzi wameanza<br>safari yao</span>
+            </div>
+            <div class="about-stat">
+              <span class="about-stat-num">53</span>
+              <span class="about-stat-label">masomo yaliyochapishwa<br>katika lugha ya Kiswahili</span>
+            </div>
+            <div class="about-stat">
+              <span class="about-stat-num">12</span>
+              <span class="about-stat-label">masheikh na walimu<br>wenye mafunzo</span>
+            </div>
+            <div class="about-stat">
+              <span class="about-stat-num">100%</span>
+              <span class="about-stat-label">bure — sasa na milele,<br>kwa Hatua ya Awali</span>
+            </div>
+            <div class="about-side-cta">
+              <p>Anza safari yako leo. Hakuna akaunti inayohitajika kwa Hatua ya Awali.</p>
+              <button class="btn-gold" style="width:100%;padding:11px;font-size:13px;">Anza Kujifunza →</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-cta-bar"><div class="footer-cta-title">Jifunze Uislamu kwa Mpangilio na Uelewa</div><button class="btn-gold" style="padding:12px 24px;font-size:13px;display:flex;align-items:center;gap:8px;">Anza Kujifunza <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button></div>
+        <div class="footer-body">
+          <div class="footer-brand">
+            <div class="footer-logo-wrap"><div class="footer-logo-mark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5"><path d="M12 2C9 2 6 4.5 6 8c0 2.5 1.5 4.5 3 6h6c1.5-1.5 3-3.5 3-6 0-3.5-3-6-6-6z"/><line x1="12" y1="14" x2="12" y2="19"/><line x1="9" y1="19" x2="15" y2="19"/></svg></div><span class="footer-logo-name">Ahlusunna</span></div>
+            <p class="footer-desc">Ahlusunna ni jukwaa la kujifunza Uislamu kwa mpangilio, kuanzia maarifa ya msingi hadi ufahamu wa kina zaidi.</p>
+            <div class="footer-tagline">Kutafuta elimu ni njia ya kheri.</div>
+          </div>
+          <div class="footer-cols">
+            <div class="footer-col"><div class="footer-col-title">Kurasa Muhimu</div><ul><li>Nyumbani</li><li>Masomo</li><li class="dash">Kuhusu</li><li class="dash">Wasiliana</li></ul></div>
+            <div class="footer-col"><div class="footer-col-title">Masomo</div><ul><li>Qur'an</li><li>Hadith</li><li>Fiqhi</li><li>Tawhidi</li><li>Sira</li></ul></div>
+            <div class="footer-col"><div class="footer-col-title">Mawasiliano</div>
+              <div class="footer-contact-item"><div class="footer-contact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(250,247,240,0.5)" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><span>info@ahlusunna.info</span></div>
+              <div class="footer-contact-item"><div class="footer-contact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(250,247,240,0.5)" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><span>Zanzibar, Tanzania</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom"><span class="footer-bottom-left">© 2026 Ahlusunna. Haki zote zimehifadhiwa.</span><span class="footer-bottom-right">Imejengwa kwa ajili ya Ummah</span></div>
+      </footer>
+    </div>
+
+
+    <!-- ════════════════════════════════════════════
+         PAGE 1: CONTACT
+    ════════════════════════════════════════════ -->
+    <div class="page" id="page-1" data-screen-label="02 Contact">
+
+      <nav class="navbar">
+        <a class="nav-logo" href="#"><div class="nav-logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8"><path d="M12 2C9 2 6 4.5 6 8c0 2.5 1.5 4.5 3 6h6c1.5-1.5 3-3.5 3-6 0-3.5-3-6-6-6z"/><line x1="12" y1="14" x2="12" y2="19"/><line x1="9" y1="19" x2="15" y2="19"/></svg></div><span class="nav-logo-text">Ahlusunna</span></a>
+        <div class="nav-links"><span class="nav-link">Nyumbani</span><span class="nav-link">Kuhusu</span><span class="nav-link active">Wasiliana</span><span class="nav-link">Masomo</span></div>
+        <div class="nav-right"><button class="btn-lang"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>SW ▾</button><button class="btn-gold">Ingia</button></div>
+      </nav>
+
+      <div class="page-hero">
+        <svg class="page-hero-geo" viewBox="0 0 400 500" fill="none" preserveAspectRatio="xMaxYMid slice"><rect width="400" height="500" fill="url(#geoA)"/></svg>
+        <div class="page-hero-breadcrumb">
+          <a href="#"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Nyumbani</a>
+          <span class="page-hero-breadcrumb-sep">›</span>
+          <span class="bc-current">Wasiliana Nasi</span>
+        </div>
+        <div class="page-hero-eyebrow">Tuko Hapa Kukusaidia</div>
+        <h1>Wasiliana Nasi</h1>
+        <p class="page-hero-sub">Una swali kuhusu Uislamu? Umeona kosa katika somo? Au unataka kuchangia? Andika kwetu — tutajibu ndani ya saa 24.</p>
+      </div>
+
+      <div class="content-wrap">
+        <div class="contact-grid">
+
+          <!-- Form -->
+          <div class="contact-form-wrap">
+            <h3 style="font-size:18px;font-weight:700;letter-spacing:-0.01em;margin-bottom:6px;">Tuma Ujumbe</h3>
+            <p style="font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.55;">Jaza fomu hii — tutajibu kupitia barua pepe ndani ya masaa 24 ya kazi.</p>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Jina kamili<span class="req">*</span></label>
+                <input class="form-input" type="text" placeholder="Mfano: Asha Mohamed" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Barua pepe<span class="req">*</span></label>
+                <input class="form-input" type="email" placeholder="jina@email.com" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Aina ya ujumbe<span class="req">*</span></label>
+              <select class="form-select">
+                <option>Swali la kidini</option>
+                <option>Kosa katika somo</option>
+                <option>Kuchangia / Waqf</option>
+                <option>Ushirikiano</option>
+                <option>Mengineyo</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Kichwa<span class="req">*</span></label>
+              <input class="form-input" type="text" placeholder="Kichwa kifupi cha ujumbe wako" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Ujumbe<span class="req">*</span></label>
+              <textarea class="form-textarea" placeholder="Andika ujumbe wako kwa undani..."></textarea>
+              <div class="form-help">Kima cha chini cha herufi 20 · Tumia Kiswahili au Kiingereza</div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-checkbox">
+                <input type="checkbox" checked>
+                <span>Nakubali <a href="#">Sera ya Faragha</a> na ninafahamu kuwa ujumbe wangu utachukuliwa kwa heshima.</span>
+              </label>
+            </div>
+
+            <button class="btn-submit-full" style="margin-top:8px;">
+              Tuma Ujumbe
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+
+          <!-- Info -->
+          <div class="contact-info-wrap">
+            <h3 style="font-size:18px;font-weight:700;letter-spacing:-0.01em;margin-bottom:6px;">Njia za Mawasiliano</h3>
+            <p style="font-size:13px;color:var(--muted);margin-bottom:18px;line-height:1.55;">Chagua njia inayokufaa zaidi.</p>
+
+            <div class="contact-channel">
+              <div class="contact-channel-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+              <div>
+                <div class="contact-channel-label">Barua Pepe</div>
+                <div class="contact-channel-value">info@ahlusunna.info</div>
+                <div class="contact-channel-help">Jibu ndani ya saa 24</div>
+              </div>
+            </div>
+
+            <div class="contact-channel">
+              <div class="contact-channel-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+              <div>
+                <div class="contact-channel-label">WhatsApp</div>
+                <div class="contact-channel-value">+255 777 123 456</div>
+                <div class="contact-channel-help">Jumatatu – Ijumaa, 9 asubuhi – 5 jioni (EAT)</div>
+              </div>
+            </div>
+
+            <div class="contact-channel">
+              <div class="contact-channel-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+              <div>
+                <div class="contact-channel-label">Ofisi</div>
+                <div class="contact-channel-value">Stone Town, Zanzibar</div>
+                <div class="contact-channel-help">Tanzania · Karibu kwa miadi</div>
+              </div>
+            </div>
+
+            <div class="contact-channel">
+              <div class="contact-channel-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="1.8"><path d="M12 2C9 2 6 4.5 6 8c0 2.5 1.5 4.5 3 6h6c1.5-1.5 3-3.5 3-6 0-3.5-3-6-6-6z"/></svg></div>
+              <div>
+                <div class="contact-channel-label">Fatwa & Maswali ya Dini</div>
+                <div class="contact-channel-value">fatwa@ahlusunna.info</div>
+                <div class="contact-channel-help">Jibu kutoka kwa masheikh wenye mafunzo</div>
+              </div>
+            </div>
+
+            <div class="faq-strip">
+              <h4>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                Maswali Yanayoulizwa Sana
+              </h4>
+              <div class="faq-q">Je, ninahitaji akaunti kuanza? <span style="color:var(--accent);">›</span></div>
+              <div class="faq-q">Masomo yapo Kiswahili tu? <span style="color:var(--accent);">›</span></div>
+              <div class="faq-q">Ninawezaje kuchangia? <span style="color:var(--accent);">›</span></div>
+              <div class="faq-q">Mahatua ya Kati zinapatikana lini? <span style="color:var(--accent);">›</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="footer-cta-bar"><div class="footer-cta-title">Jifunze Uislamu kwa Mpangilio na Uelewa</div><button class="btn-gold" style="padding:12px 24px;font-size:13px;">Anza Kujifunza →</button></div>
+        <div class="footer-body">
+          <div class="footer-brand">
+            <div class="footer-logo-wrap"><div class="footer-logo-mark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5"><path d="M12 2C9 2 6 4.5 6 8c0 2.5 1.5 4.5 3 6h6c1.5-1.5 3-3.5 3-6 0-3.5-3-6-6-6z"/></svg></div><span class="footer-logo-name">Ahlusunna</span></div>
+            <p class="footer-desc">Jukwaa la kujifunza Uislamu kwa mpangilio.</p>
+            <div class="footer-tagline">Kutafuta elimu ni njia ya kheri.</div>
+          </div>
+          <div class="footer-cols">
+            <div class="footer-col"><div class="footer-col-title">Kurasa</div><ul><li>Nyumbani</li><li>Masomo</li><li class="dash">Kuhusu</li><li class="dash">Wasiliana</li></ul></div>
+            <div class="footer-col"><div class="footer-col-title">Masomo</div><ul><li>Qur'an</li><li>Hadith</li><li>Fiqhi</li><li>Tawhidi</li><li>Sira</li></ul></div>
+            <div class="footer-col"><div class="footer-col-title">Mawasiliano</div>
+              <div class="footer-contact-item"><div class="footer-contact-icon"></div><span>info@ahlusunna.info</span></div>
+              <div class="footer-contact-item"><div class="footer-contact-icon"></div><span>Zanzibar, Tanzania</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom"><span class="footer-bottom-left">© 2026 Ahlusunna.</span><span class="footer-bottom-right">Imejengwa kwa ajili ya Ummah</span></div>
+      </footer>
+    </div>
+
+
+    <!-- ════════════════════════════════════════════
+         PAGE 2: LOGIN
+    ════════════════════════════════════════════ -->
+    <div class="page" id="page-2" data-screen-label="03 Login">
+
+      <nav class="navbar">
+        <a class="nav-logo" href="#"><div class="nav-logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8"><path d="M12 2C9 2 6 4.5 6 8c0 2.5 1.5 4.5 3 6h6c1.5-1.5 3-3.5 3-6 0-3.5-3-6-6-6z"/></svg></div><span class="nav-logo-text">Ahlusunna</span></a>
+        <div class="nav-links"><span class="nav-link">Nyumbani</span><span class="nav-link">Kuhusu</span><span class="nav-link">Wasiliana</span><span class="nav-link">Masomo</span></div>
+        <div class="nav-right"><button class="btn-lang">SW ▾</button><button class="btn-outline">Jiunge Bure</button></div>
+      </nav>
+
+      <div class="auth-shell">
+        <!-- Promo -->
+        <div class="auth-promo">
+          <svg class="auth-promo-geo" viewBox="0 0 400 600" fill="none" preserveAspectRatio="xMidYMid slice"><rect width="400" height="600" fill="url(#geoA)"/></svg>
+          <div style="position:relative;">
+            <div class="auth-promo-eyebrow">Karibu Tena</div>
+            <h2>Endelea safari yako ya kujifunza Uislamu</h2>
+            <p>Ingia ili kuona masomo yako, kuhifadhi maendeleo, na kupata masomo mapya yanayotolewa kila wiki.</p>
+            <div class="auth-promo-arabic" style="text-align:right;">
+              "وَقُل رَّبِّ زِدْنِي عِلْمًا"
+              <div style="font-size:12px;font-style:italic;font-family:var(--font);color:rgba(250,247,240,0.5);direction:ltr;text-align:left;margin-top:6px;">"Mola wangu, niongezee elimu." — Qur'an 20:114</div>
+            </div>
+          </div>
+          <div class="auth-promo-features">
+            <div class="auth-promo-feat"><div class="auth-promo-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Hifadhi maendeleo katika vifaa vyote</div>
+            <div class="auth-promo-feat"><div class="auth-promo-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Vyeti vya kumaliza masomo</div>
+            <div class="auth-promo-feat"><div class="auth-promo-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Komentari na maswali kwa masheikh</div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="auth-form-wrap">
+          <div class="auth-form-inner">
+            <div class="auth-eyebrow">Ingia</div>
+            <h1 class="auth-title">Karibu tena.</h1>
+            <p class="auth-subtitle">Hujapata akaunti? <a href="#" class="auth-link" onclick="showPage(3)">Jiunge bure →</a></p>
+
+            <div class="oauth-row">
+              <button class="oauth-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                Google
+              </button>
+              <button class="oauth-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#000"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                Apple
+              </button>
+            </div>
+
+            <div class="divider">
+              <div class="divider-line"></div>
+              <span class="divider-text">au na barua pepe</span>
+              <div class="divider-line"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Barua Pepe</label>
+              <div class="input-row">
+                <span class="input-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+                <input class="form-input" type="email" placeholder="jina@email.com" value="asha.mohamed@email.com">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Nenosiri</label>
+              <div class="input-row">
+                <span class="input-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="0"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+                <input class="form-input" type="password" placeholder="••••••••" value="········">
+                <span class="input-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span>
+              </div>
+            </div>
+
+            <div class="auth-row-meta">
+              <label class="form-checkbox" style="font-size:13px;">
+                <input type="checkbox"> <span>Nikumbuke kwa siku 30</span>
+              </label>
+              <a class="auth-link">Umesahau nenosiri?</a>
+            </div>
+
+            <button class="btn-submit-full">
+              Ingia
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+
+            <div class="auth-foot">Kwa kuingia, unakubali <a href="#">Masharti</a> na <a href="#">Sera ya Faragha</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ════════════════════════════════════════════
+         PAGE 3: REGISTER
+    ════════════════════════════════════════════ -->
+    <div class="page" id="page-3" data-screen-label="04 Register">
+
+      <nav class="navbar">
+        <a class="nav-logo" href="#"><div class="nav-logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8"><path d="M12 2C9 2 6 4.5 6 8c0 2.5 1.5 4.5 3 6h6c1.5-1.5 3-3.5 3-6 0-3.5-3-6-6-6z"/></svg></div><span class="nav-logo-text">Ahlusunna</span></a>
+        <div class="nav-links"><span class="nav-link">Nyumbani</span><span class="nav-link">Kuhusu</span><span class="nav-link">Wasiliana</span><span class="nav-link">Masomo</span></div>
+        <div class="nav-right"><button class="btn-lang">SW ▾</button><button class="btn-outline" onclick="showPage(2)">Ingia</button></div>
+      </nav>
+
+      <div class="auth-shell">
+        <!-- Promo -->
+        <div class="auth-promo">
+          <svg class="auth-promo-geo" viewBox="0 0 400 600" fill="none" preserveAspectRatio="xMidYMid slice"><rect width="400" height="600" fill="url(#geoA)"/></svg>
+          <div style="position:relative;">
+            <div class="auth-promo-eyebrow">Anza Bure</div>
+            <h2>Jiunge na maelfu wanaojifunza Uislamu kwa mpangilio</h2>
+            <p>Akaunti ni bure milele. Hakuna kadi ya benki, hakuna utangazaji, hakuna ujanja. Lengo letu pekee ni kukusaidia kujifunza.</p>
+            <div class="auth-promo-arabic" style="text-align:right;">
+              "إِنَّمَا يَخْشَى اللَّهَ مِنْ عِبَادِهِ الْعُلَمَاءُ"
+              <div style="font-size:12px;font-style:italic;font-family:var(--font);color:rgba(250,247,240,0.5);direction:ltr;text-align:left;margin-top:6px;">"Hakika wenye kumcha Allah miongoni mwa waja wake ni wenye elimu." — Qur'an 35:28</div>
+            </div>
+          </div>
+          <div class="auth-promo-features">
+            <div class="auth-promo-feat"><div class="auth-promo-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Bure milele · Hatua ya Awali</div>
+            <div class="auth-promo-feat"><div class="auth-promo-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Masomo 53+ tayari yapatikanayo</div>
+            <div class="auth-promo-feat"><div class="auth-promo-feat-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="3.5"><polyline points="20 6 9 17 4 12"/></svg></div>Hatutauzi data zako milele</div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="auth-form-wrap">
+          <div class="auth-form-inner">
+            <div class="auth-eyebrow">Jiunge Bure</div>
+            <h1 class="auth-title">Anza safari yako.</h1>
+            <p class="auth-subtitle">Tayari una akaunti? <a href="#" class="auth-link" onclick="showPage(2)">Ingia →</a></p>
+
+            <div class="oauth-row">
+              <button class="oauth-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                Google
+              </button>
+              <button class="oauth-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#000"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09z"/></svg>
+                Apple
+              </button>
+            </div>
+
+            <div class="divider">
+              <div class="divider-line"></div>
+              <span class="divider-text">au na barua pepe</span>
+              <div class="divider-line"></div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Jina kamili</label>
+              <div class="input-row">
+                <span class="input-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+                <input class="form-input" type="text" placeholder="Asha Mohamed">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Barua Pepe</label>
+              <div class="input-row">
+                <span class="input-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+                <input class="form-input" type="email" placeholder="jina@email.com">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Nenosiri</label>
+              <div class="input-row">
+                <span class="input-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+                <input class="form-input" type="password" placeholder="Tumia angalau herufi 8" value="········">
+                <span class="input-toggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span>
+              </div>
+              <div class="pw-strength">
+                <div class="pw-bar on"></div>
+                <div class="pw-bar on"></div>
+                <div class="pw-bar warn"></div>
+                <div class="pw-bar"></div>
+              </div>
+              <div class="form-help">Ngumu kiasi · ongeza nambari au alama kuongeza nguvu</div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Hatua ya kuanza</label>
+              <select class="form-select">
+                <option>Hatua ya Awali — Bure (Ninapendekezwa)</option>
+                <option>Sina uhakika — nichaguliwe</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-checkbox">
+                <input type="checkbox" checked>
+                <span>Nakubali <a href="#">Masharti ya Matumizi</a> na <a href="#">Sera ya Faragha</a></span>
+              </label>
+            </div>
+
+            <button class="btn-submit-full">
+              Jiunge Bure
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+
+            <div class="auth-foot" style="display:flex;align-items:center;justify-content:center;gap:6px;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Tutatuma barua pepe ya uthibitisho — hakikisha barua yako ni sahihi
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ════════════════════════════════════════════
+         PAGE 4: MODERATOR DASHBOARD
+    ════════════════════════════════════════════ -->
+    <div class="page" id="page-4" data-screen-label="05 Moderator Dashboard">
+
+      <nav class="navbar">
+        <a class="nav-logo" href="#"><div class="nav-logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8"><path d="M12 2C9 2 6 4.5 6 8c0 2.5 1.5 4.5 3 6h6c1.5-1.5 3-3.5 3-6 0-3.5-3-6-6-6z"/></svg></div><span class="nav-logo-text">Ahlusunna</span></a>
+        <div style="margin-left:24px;font-size:12px;color:var(--muted);background:rgba(27,67,50,0.06);padding:5px 12px;border:1px solid rgba(27,67,50,0.15);">MODERATOR PANEL</div>
+        <div class="nav-right">
+          <span style="font-size:13px;color:var(--muted);">Sh. Khalid al-Rashidi</span>
+          <div style="width:34px;height:34px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--text);">KR</div>
+        </div>
+      </nav>
+
+      <div class="dash-shell">
+        <!-- Sidebar -->
+        <aside class="dash-side">
+          <div class="dash-side-brand">
+            <div class="dash-side-brand-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><path d="M12 2C9 2 6 4.5 6 8c0 2.5 1.5 4.5 3 6h6c1.5-1.5 3-3.5 3-6 0-3.5-3-6-6-6z"/></svg></div>
+            <div>
+              <div class="dash-side-brand-name">Ahlusunna</div>
+              <div class="dash-side-brand-tag">Moderator</div>
+            </div>
+          </div>
+
+          <div class="dash-side-section">
+            <div class="dash-side-label">Kazi</div>
+            <div class="dash-side-link active"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Muhtasari</div>
+            <div class="dash-side-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Foleni ya Kuhakiki<span class="badge-pill">14</span></div>
+            <div class="dash-side-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Masomo Yangu</div>
+            <div class="dash-side-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Maripoti<span class="badge-pill" style="background:#9B2C2C;color:#fff;">3</span></div>
+            <div class="dash-side-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Maoni ya Wanafunzi</div>
+          </div>
+
+          <div class="dash-side-section">
+            <div class="dash-side-label">Nyenzo</div>
+            <div class="dash-side-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Mwongozo wa Mhariri</div>
+            <div class="dash-side-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Mipangilio</div>
+          </div>
+
+          <div class="dash-side-foot">
+            <div class="dash-side-foot-avatar">KR</div>
+            <div>
+              <div class="dash-side-foot-name">Sh. Khalid R.</div>
+              <div class="dash-side-foot-role">Mhariri Mkuu</div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="dash-main">
+          <div class="dash-header">
+            <div>
+              <h1 class="dash-title">As-salamu alaykum, Sheikh Khalid 👋</h1>
+              <div class="dash-subtitle">Foleni yako ya kuhakiki ina vipande 14 leo · Jumamosi 3 Mei 2026</div>
+            </div>
+            <div class="dash-search">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" placeholder="Tafuta somo, mtumiaji, tag...">
+            </div>
+          </div>
+
+          <!-- KPI Row -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-label"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Kuhakiki</div>
+              <div class="kpi-value">14</div>
+              <div class="kpi-trend up"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"/></svg>+4 tangu jana</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Yamekamilika</div>
+              <div class="kpi-value">87</div>
+              <div class="kpi-trend up"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"/></svg>Wiki hii</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Wastani wa muda</div>
+              <div class="kpi-value">4.2<span style="font-size:14px;color:var(--muted);font-weight:500;"> dak</span></div>
+              <div class="kpi-trend down"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"/></svg>−12% (haraka zaidi)</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Maripoti yanayosubiri</div>
+              <div class="kpi-value" style="color:var(--danger);">3</div>
+              <div class="kpi-trend down"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"/></svg>+1 leo · linahitaji uangalifu</div>
+            </div>
+          </div>
+
+          <!-- Two-col: queue + activity -->
+          <div class="dash-row two-col">
+            <div class="panel">
+              <div class="panel-tabs">
+                <div class="panel-tab active">Foleni ya Kuhakiki <span style="background:var(--accent);color:var(--text);font-size:10px;font-weight:700;padding:1px 6px;margin-left:4px;">14</span></div>
+                <div class="panel-tab">Yaliyokwama</div>
+                <div class="panel-tab">Yaliyokataliwa</div>
+              </div>
+              <div>
+                <!-- Review card 1 -->
+                <div class="review-card">
+                  <div class="review-head">
+                    <div class="review-meta">
+                      <span class="status-pill pending">Inahakikiwa</span>
+                      <strong>Yusuf Mwakipesile</strong>
+                      <span>· dakika 12 zilizopita</span>
+                    </div>
+                    <span class="review-meta">Hadith · Hatua ya Awali</span>
+                  </div>
+                  <div class="review-title">Hadith ya Niyya — "Innamal a'malu bin-niyyat"</div>
+                  <div class="review-snippet">"Hakika matendo yote yanahesabika kwa nia. Mtume ﷺ amesema katika hadithi maarufu iliyopokewa na Umar ibn al-Khattab raḍiya Allāhu 'anhu, kwamba kila mtu atapata kile alichonuia..."</div>
+                  <div class="review-actions">
+                    <button class="action-btn primary">Idhinisha & Chapisha</button>
+                    <button class="action-btn">Omba marekebisho</button>
+                    <button class="action-btn danger">Kataa</button>
+                    <button class="action-btn" style="margin-left:auto;">Soma yote →</button>
+                  </div>
+                </div>
+
+                <!-- Review card 2 -->
+                <div class="review-card">
+                  <div class="review-head">
+                    <div class="review-meta">
+                      <span class="status-pill pending">Inahakikiwa</span>
+                      <strong>Asha M.</strong>
+                      <span>· saa 1 iliyopita</span>
+                    </div>
+                    <span class="review-meta">Fiqhi · Tahara</span>
+                  </div>
+                  <div class="review-title">Wudhu — Sheria za Msingi za Kujitwaharisha</div>
+                  <div class="review-snippet">"Wudhu ni amali ya kujisafisha kabla ya swala. Allah ﷻ amesema katika Qur'an: 'Enyi mlioamini! Mnaposimama kwa swala, basi osheni nyuso zenu na mikono yenu hadi viwiko...'"</div>
+                  <div class="review-actions">
+                    <button class="action-btn primary">Idhinisha & Chapisha</button>
+                    <button class="action-btn">Omba marekebisho</button>
+                    <button class="action-btn danger">Kataa</button>
+                    <button class="action-btn" style="margin-left:auto;">Soma yote →</button>
+                  </div>
+                </div>
+
+                <!-- Review card 3 (flagged) -->
+                <div class="review-card">
+                  <div class="review-head">
+                    <div class="review-meta">
+                      <span class="status-pill flagged">⚠ Iliripotiwa</span>
+                      <strong>Hamisa A.</strong>
+                      <span>· masaa 3 yaliyopita</span>
+                    </div>
+                    <span class="review-meta">Sira</span>
+                  </div>
+                  <div class="review-title">Hijra ya Mtume ﷺ kutoka Makka</div>
+                  <div class="review-snippet">"Maripoti 2 — Mwanafunzi alidai kosa la tarehe. Tafadhali hakiki sehemu ya mwaka wa Hijra na linganisha na vyanzo (Bukhari, Ibn Hisham)..."</div>
+                  <div class="review-actions">
+                    <button class="action-btn primary">Hakiki ripoti</button>
+                    <button class="action-btn">Wasiliana na mwandishi</button>
+                  </div>
+                </div>
+
+                <div style="padding:14px;text-align:center;background:#FDFCF8;">
+                  <a class="panel-link" style="justify-content:center;">Ona masomo 11 mengine →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Activity feed -->
+            <div>
+              <div class="panel" style="margin-bottom:24px;">
+                <div class="panel-header">
+                  <div class="panel-title">Shughuli za Hivi Karibuni</div>
+                  <a class="panel-link">Yote</a>
+                </div>
+                <div class="panel-body">
+                  <div class="feed-item">
+                    <div class="feed-dot"></div>
+                    <div class="feed-text">Umechapisha <strong>"Sura Al-Fatiha — Maana"</strong>. Wanafunzi 12 wameshasoma.<div class="feed-time">dakika 22 zilizopita</div></div>
+                  </div>
+                  <div class="feed-item">
+                    <div class="feed-dot" style="background:var(--danger);"></div>
+                    <div class="feed-text"><strong>Ripoti mpya</strong> kwenye somo "Hijra ya Mtume" — kosa la tarehe.<div class="feed-time">saa 1 iliyopita</div></div>
+                  </div>
+                  <div class="feed-item">
+                    <div class="feed-dot"></div>
+                    <div class="feed-text">Yusuf M. amewasilisha somo jipya <strong>"Hadith ya Niyya"</strong>.<div class="feed-time">saa 2 zilizopita</div></div>
+                  </div>
+                  <div class="feed-item">
+                    <div class="feed-dot" style="background:var(--primary);"></div>
+                    <div class="feed-text">Umeidhinisha <strong>"Wudhu — Misingi"</strong>.<div class="feed-time">jana, 4:33 jioni</div></div>
+                  </div>
+                  <div class="feed-item">
+                    <div class="feed-dot"></div>
+                    <div class="feed-text">Maoni 3 mapya kutoka kwa wanafunzi.<div class="feed-time">jana, 2:11 mchana</div></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick actions -->
+              <div class="panel">
+                <div class="panel-header"><div class="panel-title">Vitendo vya Haraka</div></div>
+                <div class="panel-body" style="display:flex;flex-direction:column;gap:8px;">
+                  <button class="action-btn primary" style="padding:10px;justify-content:flex-start;text-align:left;">+ Andika somo jipya</button>
+                  <button class="action-btn" style="padding:10px;justify-content:flex-start;text-align:left;">📋 Anza foleni ya kuhakiki (14)</button>
+                  <button class="action-btn" style="padding:10px;justify-content:flex-start;text-align:left;">📊 Tazama takwimu zangu</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom row: my lessons table -->
+          <div class="panel">
+            <div class="panel-header">
+              <div class="panel-title">Masomo Yangu (8)</div>
+              <a class="panel-link">Yote →</a>
+            </div>
+            <table class="dash-table">
+              <thead><tr><th>Kichwa</th><th>Hatua</th><th>Hali</th><th>Wanafunzi</th><th>Iliyochapishwa</th><th></th></tr></thead>
+              <tbody>
+                <tr><td><strong>Sura Al-Fatiha — Maana Kamili</strong><div style="font-size:11px;color:var(--muted);margin-top:2px;">Qur'an · Somo 04</div></td><td>Awali</td><td><span class="status-pill published">Imechapishwa</span></td><td>247</td><td>Apr 28</td><td><button class="action-btn">Hariri</button></td></tr>
+                <tr><td><strong>Tajweed — Sehemu ya Kwanza</strong><div style="font-size:11px;color:var(--muted);margin-top:2px;">Qur'an · Somo 03</div></td><td>Awali</td><td><span class="status-pill published">Imechapishwa</span></td><td>312</td><td>Apr 14</td><td><button class="action-btn">Hariri</button></td></tr>
+                <tr><td><strong>Adabu za Kusoma Qur'an</strong><div style="font-size:11px;color:var(--muted);margin-top:2px;">Qur'an · Somo 07</div></td><td>Awali</td><td><span class="status-pill draft">Rasimu</span></td><td>—</td><td>—</td><td><button class="action-btn">Endelea →</button></td></tr>
+                <tr><td><strong>Sura Al-Ikhlas</strong><div style="font-size:11px;color:var(--muted);margin-top:2px;">Qur'an · Somo 05</div></td><td>Awali</td><td><span class="status-pill pending">Inakaguliwa</span></td><td>—</td><td>—</td><td><button class="action-btn">Tazama</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    </div>
+
+
+    <!-- ════════════════════════════════════════════
+         PAGE 5: ADMIN DASHBOARD
+    ════════════════════════════════════════════ -->
+    <div class="page" id="page-5" data-screen-label="06 Admin Dashboard">
+
+      <nav class="navbar">
+        <a class="nav-logo" href="#"><div class="nav-logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8"><path d="M12 2C9 2 6 4.5 6 8c0 2.5 1.5 4.5 3 6h6c1.5-1.5 3-3.5 3-6 0-3.5-3-6-6-6z"/></svg></div><span class="nav-logo-text">Ahlusunna</span></a>
+        <div style="margin-left:24px;font-size:12px;color:var(--accent);background:var(--primary);padding:5px 12px;font-weight:600;letter-spacing:0.04em;">ADMIN PANEL</div>
+        <div class="nav-right">
+          <div style="font-size:12px;color:var(--muted);background:var(--bg);padding:5px 10px;border:1px solid var(--border);">All systems normal ●</div>
+          <span style="font-size:13px;color:var(--muted);">Sh. Hamad (Admin)</span>
+          <div style="width:34px;height:34px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;">SH</div>
+        </div>
+      </nav>
+
+      <div class="dash-shell">
+        <!-- Sidebar -->
+        <aside class="dash-side">
+          <div class="dash-side-brand">
+            <div class="dash-side-brand-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2"><path d="M12 2C9 2 6 4.5 6 8c0 2.5 1.5 4.5 3 6h6c1.5-1.5 3-3.5 3-6 0-3.5-3-6-6-6z"/></svg></div>
+            <div>
+              <div class="dash-side-brand-name">Ahlusunna</div>
+              <div class="dash-side-brand-tag" style="color:#fff;">Admin</div>
+            </div>
+          </div>
+
+          <div class="dash-side-section">
+            <div class="dash-side-label">Mfumo</div>
+            <div class="dash-side-link active"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Muhtasari</div>
+            <div class="dash-side-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Takwimu</div>
+            <div class="dash-side-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>Watumiaji<span class="badge-pill">2.4k</span></div>
+            <div class="dash-side-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>Masomo</div>
+            <div class="dash-side-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/></svg>Mahariri</div>
+            <div class="dash-side-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg>Maripoti<span class="badge-pill" style="background:#9B2C2C;color:#fff;">7</span></div>
+          </div>
+
+          <div class="dash-side-section">
+            <div class="dash-side-label">Mfumo</div>
+            <div class="dash-side-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4z"/></svg>Mipangilio</div>
+            <div class="dash-side-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Logi za Mfumo</div>
+            <div class="dash-side-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Usalama</div>
+          </div>
+
+          <div class="dash-side-foot">
+            <div class="dash-side-foot-avatar" style="background:var(--primary);color:#fff;">SH</div>
+            <div>
+              <div class="dash-side-foot-name">Sh. Hamad</div>
+              <div class="dash-side-foot-role">Mwanzilishi · Admin</div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="dash-main">
+          <div class="dash-header">
+            <div>
+              <h1 class="dash-title">Mfumo unaendelea vizuri</h1>
+              <div class="dash-subtitle">Muhtasari wa siku 30 zilizopita · Sasisho la mwisho dakika 2 zilizopita</div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <button class="action-btn">📅 Siku 30</button>
+              <button class="action-btn">⬇ Pakua ripoti</button>
+              <button class="action-btn primary">+ Tendo</button>
+            </div>
+          </div>
+
+          <!-- KPI Row -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-label">Wanafunzi waliojisajili</div>
+              <div class="kpi-value">2,418</div>
+              <div class="kpi-trend up"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"/></svg>+184 (8.2%)</div>
+              <svg class="kpi-spark" viewBox="0 0 100 28" preserveAspectRatio="none"><polyline points="0,22 10,20 20,18 30,16 40,15 50,12 60,11 70,8 80,7 90,5 100,4" fill="none" stroke="#1B4332" stroke-width="1.5"/></svg>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Masomo yote</div>
+              <div class="kpi-value">53</div>
+              <div class="kpi-trend up"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"/></svg>+6 mwezi huu</div>
+              <svg class="kpi-spark" viewBox="0 0 100 28" preserveAspectRatio="none"><polyline points="0,20 15,18 30,17 50,14 70,12 85,10 100,8" fill="none" stroke="#C9A84C" stroke-width="1.5"/></svg>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Wanafunzi hai (DAU)</div>
+              <div class="kpi-value">487</div>
+              <div class="kpi-trend up"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="18 15 12 9 6 15"/></svg>+12% wiki hii</div>
+              <svg class="kpi-spark" viewBox="0 0 100 28" preserveAspectRatio="none"><polyline points="0,18 12,16 25,19 38,14 50,16 62,12 75,10 88,11 100,7" fill="none" stroke="#1B4332" stroke-width="1.5"/></svg>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Wastani wa kukamilisha</div>
+              <div class="kpi-value">68%</div>
+              <div class="kpi-trend down"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"/></svg>−2.1%</div>
+              <svg class="kpi-spark" viewBox="0 0 100 28" preserveAspectRatio="none"><polyline points="0,8 15,10 30,9 50,12 70,14 85,15 100,16" fill="none" stroke="#9B2C2C" stroke-width="1.5"/></svg>
+            </div>
+          </div>
+
+          <!-- Two-col: chart + donut -->
+          <div class="dash-row two-col">
+            <div class="panel">
+              <div class="panel-header">
+                <div>
+                  <div class="panel-title">Shughuli za Wanafunzi (siku 14)</div>
+                  <div style="font-size:12px;color:var(--muted);margin-top:2px;">Vipindi vipya kwa siku</div>
+                </div>
+                <div style="display:flex;gap:6px;">
+                  <span class="action-btn" style="background:var(--primary);color:#fff;border-color:var(--primary);">Siku</span>
+                  <span class="action-btn">Wiki</span>
+                  <span class="action-btn">Mwezi</span>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div class="chart-bars">
+                  <div class="chart-bar-col"><div class="chart-bar" style="height:40%;"></div><div class="chart-bar-label">Apr 20</div></div>
+                  <div class="chart-bar-col"><div class="chart-bar" style="height:55%;"></div><div class="chart-bar-label">21</div></div>
+                  <div class="chart-bar-col"><div class="chart-bar" style="height:48%;"></div><div class="chart-bar-label">22</div></div>
+                  <div class="chart-bar-col"><div class="chart-bar" style="height:65%;"></div><div class="chart-bar-label">23</div></div>
+                  <div class="chart-bar-col"><div class="chart-bar" style="height:72%;"></div><div class="chart-bar-label">24</div></div>
+                  <div class="chart-bar-col"><div class="chart-bar accent" style="height:88%;"></div><div class="chart-bar-label" style="color:var(--accent);font-weight:700;">25</div></div>
+                  <div class="chart-bar-col"><div class="chart-bar" style="height:78%;"></div><div class="chart-bar-label">26</div></div>
+                  <div class="chart-bar-col"><div class="chart-bar" style="height:62%;"></div><div class="chart-bar-label">27</div></div>
+                  <div class="chart-bar-col"><div class="chart-bar" style="height:70%;"></div><div class="chart-bar-label">28</div></div>
+                  <div class="chart-bar-col"><div class="chart-bar" style="height:75%;"></div><div class="chart-bar-label">29</div></div>
+                  <div class="chart-bar-col"><div class="chart-bar" style="height:82%;"></div><div class="chart-bar-label">30</div></div>
+                  <div class="chart-bar-col"><div class="chart-bar" style="height:90%;"></div><div class="chart-bar-label">May 1</div></div>
+                  <div class="chart-bar-col"><div class="chart-bar" style="height:95%;"></div><div class="chart-bar-label">2</div></div>
+                  <div class="chart-bar-col"><div class="chart-bar accent" style="height:100%;"></div><div class="chart-bar-label" style="color:var(--accent);font-weight:700;">3</div></div>
+                </div>
+                <div style="display:flex;gap:18px;margin-top:14px;font-size:12px;color:var(--muted);">
+                  <span><span style="display:inline-block;width:10px;height:10px;background:var(--primary);margin-right:5px;vertical-align:middle;"></span>Vipindi</span>
+                  <span><span style="display:inline-block;width:10px;height:10px;background:var(--accent);margin-right:5px;vertical-align:middle;"></span>Ijumaa (kilele)</span>
+                  <span style="margin-left:auto;">Jumla: <strong style="color:var(--text);">6,841 vipindi</strong></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel">
+              <div class="panel-header">
+                <div class="panel-title">Mgawanyo wa Masomo</div>
+                <a class="panel-link">Maelezo →</a>
+              </div>
+              <div class="panel-body">
+                <!-- Simple donut as SVG -->
+                <div style="display:flex;align-items:center;justify-content:center;margin-bottom:14px;">
+                  <svg width="140" height="140" viewBox="0 0 42 42">
+                    <circle cx="21" cy="21" r="15.91549" fill="none" stroke="#E8E2D3" stroke-width="6"/>
+                    <circle cx="21" cy="21" r="15.91549" fill="none" stroke="#1B4332" stroke-width="6" stroke-dasharray="32 100" stroke-dashoffset="0" transform="rotate(-90 21 21)"/>
+                    <circle cx="21" cy="21" r="15.91549" fill="none" stroke="#C9A84C" stroke-width="6" stroke-dasharray="24 100" stroke-dashoffset="-32" transform="rotate(-90 21 21)"/>
+                    <circle cx="21" cy="21" r="15.91549" fill="none" stroke="#143828" stroke-width="6" stroke-dasharray="20 100" stroke-dashoffset="-56" transform="rotate(-90 21 21)"/>
+                    <circle cx="21" cy="21" r="15.91549" fill="none" stroke="#5C5C5C" stroke-width="6" stroke-dasharray="14 100" stroke-dashoffset="-76" transform="rotate(-90 21 21)"/>
+                    <circle cx="21" cy="21" r="15.91549" fill="none" stroke="#9B2C2C" stroke-width="6" stroke-dasharray="10 100" stroke-dashoffset="-90" transform="rotate(-90 21 21)"/>
+                    <text x="21" y="22" text-anchor="middle" fill="#1C1C1C" font-size="6" font-weight="700" font-family="Inter">53</text>
+                    <text x="21" y="27" text-anchor="middle" fill="#5C5C5C" font-size="2.5" font-family="Inter">masomo</text>
+                  </svg>
+                </div>
+                <div class="donut-row" style="padding:6px 0;border-top:1px solid var(--border);"><div class="donut-legend" style="flex-direction:row;flex-wrap:wrap;gap:8px 16px;">
+                  <div class="donut-legend-item" style="flex:none;width:calc(50% - 8px);"><div class="donut-swatch" style="background:#1B4332;"></div><span class="donut-legend-label">Qur'an</span><span class="donut-legend-val">17</span></div>
+                  <div class="donut-legend-item" style="flex:none;width:calc(50% - 8px);"><div class="donut-swatch" style="background:#C9A84C;"></div><span class="donut-legend-label">Hadith</span><span class="donut-legend-val">13</span></div>
+                  <div class="donut-legend-item" style="flex:none;width:calc(50% - 8px);"><div class="donut-swatch" style="background:#143828;"></div><span class="donut-legend-label">Fiqhi</span><span class="donut-legend-val">11</span></div>
+                  <div class="donut-legend-item" style="flex:none;width:calc(50% - 8px);"><div class="donut-swatch" style="background:#5C5C5C;"></div><span class="donut-legend-label">Tawhidi</span><span class="donut-legend-val">7</span></div>
+                  <div class="donut-legend-item" style="flex:none;width:calc(50% - 8px);"><div class="donut-swatch" style="background:#9B2C2C;"></div><span class="donut-legend-label">Sira</span><span class="donut-legend-val">5</span></div>
+                </div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Three-col: top lessons + editors + system -->
+          <div class="dash-row two-col">
+            <!-- Users table -->
+            <div class="panel">
+              <div class="panel-header">
+                <div class="panel-title">Watumiaji wa Hivi Karibuni</div>
+                <a class="panel-link">Wote (2,418) →</a>
+              </div>
+              <table class="dash-table">
+                <thead><tr><th>Mtumiaji</th><th>Nafasi</th><th>Mahatua</th><th>Sajili</th><th></th></tr></thead>
+                <tbody>
+                  <tr><td><div style="display:flex;align-items:center;gap:10px;"><div style="width:28px;height:28px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;">AM</div><div><strong>Asha Mohamed</strong><div style="font-size:11px;color:var(--muted);">asha.m@email.com</div></div></div></td><td><span class="status-pill draft">Mwanafunzi</span></td><td>Awali · 25%</td><td>dakika 8 zilizopita</td><td><button class="action-btn">Tazama</button></td></tr>
+                  <tr><td><div style="display:flex;align-items:center;gap:10px;"><div style="width:28px;height:28px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;">YM</div><div><strong>Yusuf Mwakipesile</strong><div style="font-size:11px;color:var(--muted);">y.mwakipesile@email.com</div></div></div></td><td><span class="status-pill published">Mhariri</span></td><td>—</td><td>saa 1 iliyopita</td><td><button class="action-btn">Tazama</button></td></tr>
+                  <tr><td><div style="display:flex;align-items:center;gap:10px;"><div style="width:28px;height:28px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;">FA</div><div><strong>Fatma Ali</strong><div style="font-size:11px;color:var(--muted);">fatma.a@email.com</div></div></div></td><td><span class="status-pill draft">Mwanafunzi</span></td><td>Awali · 71%</td><td>masaa 3 yaliyopita</td><td><button class="action-btn">Tazama</button></td></tr>
+                  <tr><td><div style="display:flex;align-items:center;gap:10px;"><div style="width:28px;height:28px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;">SK</div><div><strong>Sh. Khalid</strong><div style="font-size:11px;color:var(--muted);">khalid@ahlusunna.info</div></div></div></td><td><span class="status-pill published">Mhariri Mkuu</span></td><td>—</td><td>jana</td><td><button class="action-btn">Tazama</button></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- System health + reports -->
+            <div>
+              <div class="panel" style="margin-bottom:24px;">
+                <div class="panel-header"><div class="panel-title">Hali ya Mfumo</div></div>
+                <div class="panel-body" style="display:flex;flex-direction:column;gap:14px;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;"><span>API Server</span><span style="display:flex;align-items:center;gap:6px;color:var(--primary);font-weight:600;"><span style="width:7px;height:7px;background:var(--primary);border-radius:50%;"></span>Hai · 99.98%</span></div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;"><span>Database</span><span style="display:flex;align-items:center;gap:6px;color:var(--primary);font-weight:600;"><span style="width:7px;height:7px;background:var(--primary);border-radius:50%;"></span>Hai · 12ms</span></div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;"><span>CDN (Video)</span><span style="display:flex;align-items:center;gap:6px;color:#8a6f1f;font-weight:600;"><span style="width:7px;height:7px;background:var(--accent);border-radius:50%;"></span>Polepole</span></div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;"><span>Email Service</span><span style="display:flex;align-items:center;gap:6px;color:var(--primary);font-weight:600;"><span style="width:7px;height:7px;background:var(--primary);border-radius:50%;"></span>Hai</span></div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;font-size:13px;padding-top:12px;border-top:1px solid var(--border);"><span style="color:var(--muted);">Hifadhi (S3)</span><span style="font-weight:600;">12.4 GB / 50 GB</span></div>
+                  <div style="height:4px;background:var(--border);"><div style="height:100%;background:var(--primary);width:25%;"></div></div>
+                </div>
+              </div>
+
+              <div class="panel">
+                <div class="panel-header"><div class="panel-title" style="color:var(--danger);">⚠ Maripoti Yanayohitaji Uangalifu</div><span style="background:var(--danger);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;">7</span></div>
+                <div class="panel-body" style="padding:0;">
+                  <div style="padding:12px 22px;border-bottom:1px solid var(--border);"><div style="font-size:13px;font-weight:600;">Hijra ya Mtume — Tarehe</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">Maripoti 2 · saa 1 iliyopita</div></div>
+                  <div style="padding:12px 22px;border-bottom:1px solid var(--border);"><div style="font-size:13px;font-weight:600;">Komentari isiyofaa kwenye somo "Wudhu"</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">Maripoti 1 · jana</div></div>
+                  <div style="padding:12px 22px;"><div style="font-size:13px;font-weight:600;">Akaunti ya bot inajaribu kujisajili</div><div style="font-size:11px;color:var(--muted);margin-top:2px;">Mfumo · masaa 4 yaliyopita</div></div>
+                  <a class="panel-link" style="padding:12px 22px;border-top:1px solid var(--border);background:#FDFCF8;justify-content:center;">Yote (7) →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </main>
+      </div>
+    </div>
+
+  </div><!-- /viewport -->
+</div><!-- /shell -->
+
+<script>
+function showPage(idx) {
+  document.querySelectorAll('.page').forEach((p, i) => p.classList.toggle('active', i === idx));
+  document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+  document.querySelector('.viewport').scrollTop = 0;
+}
+</script>
+
+</body>
+</html>

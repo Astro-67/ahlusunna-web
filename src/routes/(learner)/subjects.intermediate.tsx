@@ -12,11 +12,6 @@ import { cn } from '#/lib/utils'
 
 export const Route = createFileRoute('/(learner)/subjects/intermediate')({
   component: IntermediateSubjectsPage,
-  beforeLoad: ({ context, location }) => {
-    if (!context.auth.isAuthenticated) {
-      throw redirect({ to: '/login', search: { redirect: location.href } })
-    }
-  },
 })
 
 function ProgressBar({ progress }: { progress: number }) {
@@ -149,7 +144,24 @@ function IntermediateSubjectsPage() {
               />
             ))}
           </div>
-          {!hasAccess && <LockOverlay />}
+          {!hasAccess && (
+            <LockOverlay 
+              title={user ? (
+                currentLang === 'ar' ? 'أكمل المرحلة السابقة' : currentLang === 'sw' ? 'Kamilisha Hatua ya Awali' : 'Complete Previous Level'
+              ) : undefined}
+              message={user ? (
+                currentLang === 'ar' 
+                  ? 'يرجى إكمال ٧٠٪ من مستوى المبتدئين لفتح هذا المستوى.' 
+                  : currentLang === 'sw' 
+                    ? 'Tafadhali kamilisha 70% ya hatua ya awali ili kufungua hatua hii.' 
+                    : 'Please complete 70% of the Beginner level to unlock this stage.'
+              ) : undefined}
+              ctaText={user ? (
+                currentLang === 'ar' ? 'العودة للمواد' : currentLang === 'sw' ? 'Rudi kwa Masomo' : 'Back to Subjects'
+              ) : undefined}
+              ctaHref={user ? '/subjects' : '/register'}
+            />
+          )}
         </div>
       </section>
     </div>

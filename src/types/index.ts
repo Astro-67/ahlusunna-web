@@ -6,7 +6,7 @@ export type LevelId = 'beginner' | 'intermediate' | 'advanced'
 
 export type SubjectId = 'quran' | 'hadith' | 'fiqh' | 'tawhid' | 'sirah'
 
-export type UserRole = 'public' | 'learner' | 'admin'
+export type UserRole = 'public' | 'learner' | 'moderator' | 'admin'
 
 export type AudioType = 'lecture' | 'recitation'
 

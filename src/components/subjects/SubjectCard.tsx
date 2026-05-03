@@ -1,7 +1,4 @@
-import { BookOpen, Heart, Lightbulb, Moon, Scroll, Star } from 'lucide-react'
-
-import { IslamicDivider } from '#/components/shared/IslamicPatterns'
-import { ProgressBar } from '#/components/shared/ProgressBar'
+import { BookOpen, FileText, Headphones, Play } from 'lucide-react'
 import { useLanguage } from '#/hooks/useLanguage'
 import { cn } from '#/lib/utils'
 
@@ -9,90 +6,85 @@ interface SubjectCardProps {
   subject: {
     id: string
     name: string
+    nameAr?: string
     slug: string
     description: string
     icon: string
     lessonCount: number
   }
-  progress?: number
-  onClick: () => void
+  featured?: boolean
+  index?: number
+  hasAudio?: boolean
+  hasVideo?: boolean
 }
 
-function SubjectIcon({ icon }: { icon: string }) {
-  const icons: Record<string, React.ElementType> = {
-    'book-open': BookOpen,
-    scroll: Scroll,
-    mosque: Moon,
-    star: Star,
-    'person-standing': Heart,
-    lightbulb: Lightbulb,
-  }
-
-  const Icon = icons[icon] ?? BookOpen
-
-  return (
-    <div className="relative">
-      <div className="flex size-14 items-center justify-center border border-accent/30 bg-accent/5">
-        <Icon className="size-7 text-accent" aria-hidden="true" />
-      </div>
-      <div className="absolute -end-1 -bottom-1 size-4 border border-accent/20 bg-primary" />
-    </div>
-  )
-}
-
-export function SubjectCard({ subject, progress, onClick }: SubjectCardProps) {
+export function SubjectCard({ subject, featured, index = 0, hasAudio = true, hasVideo = true }: SubjectCardProps) {
   const { t } = useLanguage()
 
+  const formattedNum = String(index + 1).padStart(2, '0')
+
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={cn(
-        'group relative w-full overflow-hidden border-2 border-[#E5E0D8] bg-white p-6 text-start',
-        'transition-all duration-300 hover:border-accent hover:shadow-[0_8px_30px_rgba(27,67,50,0.12)]',
+    <div className={cn(
+      "group relative flex flex-col bg-white p-7 cursor-pointer transition-colors duration-200",
+      "hover:bg-[#FDFCF8]"
+    )}>
+      {/* Featured Left Border */}
+      {featured && (
+        <div className="absolute left-0 top-0 h-full w-[3px] bg-accent" />
       )}
-      aria-label={`${t('subjects.open_subject')}: ${subject.name}`}
-    >
-      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent/20 via-accent to-accent/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-      <div className="relative z-10">
-        <div className="mb-5">
-          <SubjectIcon icon={subject.icon} />
+      {/* Number */}
+      <span className="absolute right-6 top-5 text-[11px] font-bold tracking-widest text-[#1B4332]/20">
+        {formattedNum}
+      </span>
+
+      {/* Icon Wrap */}
+      <div className="mb-5 flex size-16 items-center justify-center bg-[#1B4332]/5 transition-colors duration-200 group-hover:bg-[#1B4332]/10">
+        <BookOpen className="size-8 text-[#1B4332] transition-colors duration-200 group-hover:text-accent" strokeWidth={1.4} />
+      </div>
+
+      {/* Titles */}
+      <div className="mb-1 text-[20px] font-bold tracking-tight text-foreground">
+        {subject.name}
+      </div>
+      
+      {subject.nameAr && (
+        <div className="mb-3 font-arabic text-[17px] leading-[1.6] text-accent" dir="rtl">
+          {subject.nameAr}
         </div>
+      )}
 
-        <h3 className="mb-3 font-decorative text-[20px] font-bold leading-tight text-foreground md:text-[22px]">
-          {subject.name}
-        </h3>
+      <div className="mb-5 flex-1 text-[13px] leading-[1.6] text-muted-foreground">
+        {subject.description}
+      </div>
 
-        <p className="mb-5 text-sm leading-relaxed text-muted-foreground">
-          {subject.description}
-        </p>
-
-        <IslamicDivider variant="simple" className="mb-5" />
-
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="rounded-full bg-[#F4EFE6] px-3 py-1 text-xs font-medium text-muted-foreground">
-              {t('subjects.lessons_count', { count: subject.lessonCount })}
+      {/* Footer */}
+      <div className="mt-auto flex items-center justify-between">
+        <div className="flex gap-1.5 flex-wrap">
+          <span className="flex items-center gap-1 border border-[#1B4332]/10 bg-[#1B4332]/5 px-2 py-1 text-[11px] font-medium text-primary">
+            <FileText className="size-3" strokeWidth={2.5} />
+            {subject.lessonCount} {t('navigation.lesson')}
+          </span>
+          {hasAudio && (
+            <span className="flex items-center gap-1 border border-[#1B4332]/10 bg-[#1B4332]/5 px-2 py-1 text-[11px] font-medium text-primary">
+              <Headphones className="size-3" strokeWidth={2.5} />
+              Sauti
             </span>
-          </div>
-
-          {progress !== undefined && progress > 0 && (
-            <div className="w-20">
-              <ProgressBar progress={progress} size="sm" />
-            </div>
+          )}
+          {hasVideo && (
+            <span className="flex items-center gap-1 border border-[#1B4332]/10 bg-[#1B4332]/5 px-2 py-1 text-[11px] font-medium text-primary">
+              <Play className="size-3" strokeWidth={2.5} />
+              Video
+            </span>
           )}
         </div>
+        
+        <div className="flex size-7 items-center justify-center bg-[#1B4332]/5 text-primary transition-transform duration-200 group-hover:translate-x-[3px]">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </div>
       </div>
-
-      <div className="absolute end-4 top-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="text-accent">
-          <path
-            d="M10 2L12 8H18L13 12L15 18L10 14L5 18L7 12L2 8H8L10 2Z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
-    </button>
+    </div>
   )
 }

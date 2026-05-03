@@ -188,8 +188,8 @@ export const lessons: Lesson[] = [
       'The Quran is the holy book of Islam revealed to Prophet Muhammad (PBUH) through the angel Gabriel (AS) over a period of twenty-three years.',
       'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
     ),
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    videoUrl: 'https://www.youtube.com/embed/ZYaZ6Odbx_Y',
+    audioSrc: 'https://server8.mp3quran.net/afs/001.mp3',
     audioType: 'lecture',
     duration: '15:00',
     thumbnail: '/thumbnails/quran-intro.jpg',
@@ -214,8 +214,8 @@ export const lessons: Lesson[] = [
       'Quranic Recitation Rules',
       'Reading the Quran proficiently requires following the rules of tajwid. Tajwid is the science of reading the Quran in its proper form.',
     ),
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+    videoUrl: 'https://www.youtube.com/embed/ZYaZ6Odbx_Y',
+    audioSrc: 'https://server8.mp3quran.net/afs/001.mp3',
     audioType: 'recitation',
     duration: '22:30',
     thumbnail: '/thumbnails/tajwid.jpg',
@@ -240,8 +240,8 @@ export const lessons: Lesson[] = [
       'Meaning of Surah Al-Ikhlas',
       'Surah Al-Ikhlas is a short surah of only four verses, but it holds great importance in Islam. It affirms the Muslim belief in one God.',
     ),
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+    videoUrl: 'https://www.youtube.com/embed/ZYaZ6Odbx_Y',
+    audioSrc: 'https://server8.mp3quran.net/afs/001.mp3',
     audioType: 'lecture',
     duration: '18:45',
     thumbnail: '/thumbnails/ikhlas.jpg',
@@ -262,8 +262,8 @@ export const lessons: Lesson[] = [
       'Introduction to Hadith',
       'Hadith refers to reports concerning the words, actions, or approval of Prophet Muhammad (PBUH). Hadith is the second source of Islamic law after the Quran.',
     ),
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+    videoUrl: 'https://www.youtube.com/embed/ZYaZ6Odbx_Y',
+    audioSrc: 'https://server8.mp3quran.net/afs/001.mp3',
     audioType: 'lecture',
     duration: '20:00',
     thumbnail: '/thumbnails/hadith-intro.jpg',
@@ -284,8 +284,8 @@ export const lessons: Lesson[] = [
       'The 40 Hadith of Nawawi',
       'Imam Nawawi selected the 40 most important hadith in Islam. These hadith teach the fundamentals of faith, worship, and morality.',
     ),
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+    videoUrl: 'https://www.youtube.com/embed/ZYaZ6Odbx_Y',
+    audioSrc: 'https://server8.mp3quran.net/afs/001.mp3',
     audioType: 'lecture',
     duration: '25:00',
     thumbnail: '/thumbnails/nawawi.jpg',
@@ -306,8 +306,8 @@ export const lessons: Lesson[] = [
       'Hadith on Morality',
       'Prophet Muhammad (PBUH) taught us good morals in every aspect of life. These hadith show us how to be a righteous Muslim.',
     ),
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+    videoUrl: 'https://www.youtube.com/embed/ZYaZ6Odbx_Y',
+    audioSrc: 'https://server8.mp3quran.net/afs/001.mp3',
     audioType: 'lecture',
     duration: '19:15',
     thumbnail: '/thumbnails/morality.jpg',
@@ -328,8 +328,8 @@ export const lessons: Lesson[] = [
       'Rules of Purification',
       'Purification is the foundation of worship in Islam. Without purification, our prayers are not accepted.',
     ),
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
+    videoUrl: 'https://www.youtube.com/embed/ZYaZ6Odbx_Y',
+    audioSrc: 'https://server8.mp3quran.net/afs/001.mp3',
     audioType: 'lecture',
     duration: '21:30',
     thumbnail: '/thumbnails/tahara.jpg',
@@ -350,8 +350,8 @@ export const lessons: Lesson[] = [
       'Rules of Prayer',
       'Prayer is the pillar of Islam. It is obligatory for every Muslim of sound mind who has reached puberty.',
     ),
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+    videoUrl: 'https://www.youtube.com/embed/ZYaZ6Odbx_Y',
+    audioSrc: 'https://server8.mp3quran.net/afs/001.mp3',
     audioType: 'lecture',
     duration: '28:00',
     thumbnail: '/thumbnails/sala.jpg',
@@ -372,8 +372,8 @@ export const lessons: Lesson[] = [
       'Rules of Fasting',
       'Fasting during the month of Ramadan is obligatory for every Muslim of sound mind who has reached puberty.',
     ),
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+    videoUrl: 'https://www.youtube.com/embed/ZYaZ6Odbx_Y',
+    audioSrc: 'https://server8.mp3quran.net/afs/001.mp3',
     audioType: 'lecture',
     duration: '24:00',
     thumbnail: '/thumbnails/saumu.jpg',
@@ -394,8 +394,8 @@ export const lessons: Lesson[] = [
       'Meaning of Tawhid',
       'Tawhid is the belief in one God alone. It is the foundation of Islam and the first thing the Prophet (PBUH) called people to.',
     ),
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3',
+    videoUrl: 'https://www.youtube.com/embed/ZYaZ6Odbx_Y',
+    audioSrc: 'https://server8.mp3quran.net/afs/001.mp3',
     audioType: 'lecture',
     duration: '17:00',
     thumbnail: '/thumbnails/tawhid-intro.jpg',
@@ -416,8 +416,8 @@ export const lessons: Lesson[] = [
       'Types of Tawhid',
       'Tawhid is divided into three types: Tawhid Rububiyyah, Tawhid Uluhiyyah, and Tawhid Asma wa Sifa.',
     ),
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3',
+    videoUrl: 'https://www.youtube.com/embed/ZYaZ6Odbx_Y',
+    audioSrc: 'https://server8.mp3quran.net/afs/001.mp3',
     audioType: 'lecture',
     duration: '23:30',
     thumbnail: '/thumbnails/tawhid-types.jpg',
@@ -438,8 +438,8 @@ export const lessons: Lesson[] = [
       'Shirk and How to Avoid It',
       'Shirk is associating partners with God in worship or His attributes. It is the greatest sin in Islam.',
     ),
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3',
+    videoUrl: 'https://www.youtube.com/embed/ZYaZ6Odbx_Y',
+    audioSrc: 'https://server8.mp3quran.net/afs/001.mp3',
     audioType: 'lecture',
     duration: '26:00',
     thumbnail: '/thumbnails/shirk.jpg',
@@ -460,8 +460,8 @@ export const lessons: Lesson[] = [
       'Birth of the Prophet (PBUH)',
       'Prophet Muhammad (PBUH) was born in the city of Makkah in the year 571 CE. His first name was Muhammad, and his second name was Ahmad.',
     ),
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3',
+    videoUrl: 'https://www.youtube.com/embed/ZYaZ6Odbx_Y',
+    audioSrc: 'https://server8.mp3quran.net/afs/001.mp3',
     audioType: 'lecture',
     duration: '16:30',
     thumbnail: '/thumbnails/birth.jpg',
@@ -482,8 +482,8 @@ export const lessons: Lesson[] = [
       'The Prophetic Mission',
       'Prophet Muhammad (PBUH) began receiving the message of Islam at the age of forty. The first message was "Iqra" from Surah Al-Alaq.',
     ),
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3',
+    videoUrl: 'https://www.youtube.com/embed/ZYaZ6Odbx_Y',
+    audioSrc: 'https://server8.mp3quran.net/afs/001.mp3',
     audioType: 'lecture',
     duration: '27:00',
     thumbnail: '/thumbnails/mission.jpg',
@@ -504,8 +504,8 @@ export const lessons: Lesson[] = [
       'The Hijra to Madinah',
       'The Hijra is the migration of Prophet Muhammad (PBUH) from Makkah to Madinah in the year 622 CE. This event marks the beginning of the Islamic calendar.',
     ),
-    videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    audioSrc: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3',
+    videoUrl: 'https://www.youtube.com/embed/ZYaZ6Odbx_Y',
+    audioSrc: 'https://server8.mp3quran.net/afs/001.mp3',
     audioType: 'lecture',
     duration: '25:30',
     thumbnail: '/thumbnails/hijra.jpg',
@@ -581,42 +581,77 @@ export const lessons: Lesson[] = [
 
 export const mockUsers: User[] = [
   {
-    id: 'admin-1',
-    name: 'Msimamizi',
+    id: 'user-1',
+    name: 'Sh. Hamad',
     email: 'admin@ahlusunna.info',
     role: 'admin',
-    levelAccess: ['awali', 'kati', 'endelea'],
     progress: [],
+    levelAccess: ['awali', 'kati', 'endelea'],
+    createdAt: '2025-01-01'
   },
   {
-    id: 'learner-1',
-    name: 'Mwanafunzi',
+    id: 'user-2',
+    name: 'Sh. Khalid',
+    email: 'moderator@ahlusunna.info',
+    role: 'moderator',
+    progress: [],
+    levelAccess: ['awali', 'kati', 'endelea'],
+    createdAt: '2025-02-15'
+  },
+  {
+    id: 'user-3',
+    name: 'Asha Juma',
     email: 'mwanafunzi@ahlusunna.info',
     role: 'learner',
-    levelAccess: ['awali', 'kati'],
-    progress: ['introduction-to-quran', 'introduction-to-hadith'],
-  },
-  {
-    id: 'learner-2',
-    name: 'Mwanajumuia',
-    email: 'mwanajumuia@ahlusunna.info',
-    role: 'learner',
-    levelAccess: ['awali', 'kati', 'endelea'],
-    progress: ['introduction-to-quran', 'introduction-to-hadith', 'rules-of-purification'],
-  },
+    progress: ['maana-ya-fatiha'],
+    levelAccess: ['awali'],
+    createdAt: '2026-03-10'
+  }
 ]
 
 export const mockCredentials: Record<string, string> = {
   'admin@ahlusunna.info': 'admin123',
+  'moderator@ahlusunna.info': 'mod123',
   'mwanafunzi@ahlusunna.info': 'user123',
-  'mwanajumuia@ahlusunna.info': 'user123',
 }
+
 
 export const getLessonsBySubject = (subjectId: SubjectId): Lesson[] =>
   lessons.filter((lesson) => lesson.subjectId === subjectId).sort((a, b) => a.order - b.order)
 
 export const getLessonsByLevel = (levelId: LevelId): Lesson[] =>
   lessons.filter((lesson) => lesson.levelId === levelId).sort((a, b) => a.order - b.order)
+
+export interface ContactMessage {
+  id: string
+  name: string
+  email: string
+  subject: string
+  message: string
+  status: 'new' | 'read'
+  createdAt: string
+}
+
+export const mockContacts: ContactMessage[] = [
+  {
+    id: 'msg-1',
+    name: 'Asha Juma',
+    email: 'asha@example.com',
+    subject: 'Swali la kidini',
+    message: 'Nina swali kuhusu hukumu ya...',
+    status: 'new',
+    createdAt: '2026-05-01',
+  },
+  {
+    id: 'msg-2',
+    name: 'Kassim',
+    email: 'kassim@test.com',
+    subject: 'Kosa katika somo',
+    message: 'Kwenye somo la Tajweed dakika ya pili kuna kosa...',
+    status: 'read',
+    createdAt: '2026-04-28',
+  }
+];
 
 export const getLessonBySlug = (slug: string): Lesson | undefined =>
   lessons.find((lesson) => lesson.slug === slug)

@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ahlusunna — Subjects · Subject Detail · Lesson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #1B4332;
+  --primary-dark: #143828;
+  --accent: #C9A84C;
+  --bg: #FAF7F0;
+  --surface: #FFFFFF;
+  --text: #1C1C1C;
+  --muted: #5C5C5C;
+  --border: #E8E2D3;
+  --border-dark: #d0c9b8;
+  --danger: #9B2C2C;
+  --font: 'Inter', system-ui, sans-serif;
+  --font-arabic: 'Amiri', serif;
+}
+
+body {
+  font-family: var(--font);
+  background: #111;
+  color: var(--text);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── SHELL ── */
+.shell { width: 100vw; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+/* ── TAB BAR ── */
+.tab-bar {
+  height: 48px; background: #0d0d0d; border-bottom: 1px solid #222;
+  display: flex; align-items: center; padding: 0 24px; gap: 4px; flex-shrink: 0;
+}
+.tab-label { color: #666; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-right: 12px; }
+.tab {
+  padding: 7px 18px; font-size: 12px; font-family: var(--font); font-weight: 500;
+  background: transparent; color: #666; border: 1px solid #333;
+  cursor: pointer; transition: all 0.15s; white-space: nowrap;
+}
+.tab:hover { color: #ccc; border-color: #555; }
+.tab.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+/* ── VIEWPORT ── */
+.viewport { flex: 1; overflow-y: auto; background: var(--bg); }
+.page { display: none; }
+.page.active { display: block; }
+
+/* ══════════════════════════════
+   SHARED: NAVBAR
+══════════════════════════════ */
+.navbar {
+  height: 64px; background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 48px; gap: 0;
+  position: sticky; top: 0; z-index: 100;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; margin-right: 52px; text-decoration: none; }
+.nav-logo-mark {
+  width: 36px; height: 36px; background: var(--primary);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+}
+.nav-logo-text { font-size: 15px; font-weight: 700; color: var(--primary); letter-spacing: -0.01em; }
+.nav-links { display: flex; gap: 32px; flex: 1; }
+.nav-link {
+  font-size: 14px; color: var(--muted); text-decoration: none;
+  padding-bottom: 2px; font-weight: 500; cursor: pointer; transition: color 0.15s;
+}
+.nav-link:hover { color: var(--primary); }
+.nav-link.active { color: var(--primary); font-weight: 600; border-bottom: 2px solid var(--primary); }
+.nav-right { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.btn-lang {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; color: var(--text); font-weight: 500;
+  border: 1px solid var(--border); padding: 6px 12px;
+  background: var(--surface); cursor: pointer;
+}
+.btn-primary {
+  background: var(--primary); color: #fff; font-size: 13px; font-weight: 600;
+  padding: 9px 20px; border: none; cursor: pointer; font-family: var(--font);
+  transition: background 0.15s; letter-spacing: 0.01em;
+}
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-gold {
+  background: var(--accent); color: var(--text); font-size: 13px; font-weight: 700;
+  padding: 9px 20px; border: none; cursor: pointer; font-family: var(--font);
+  transition: opacity 0.15s; letter-spacing: 0.01em;
+}
+.btn-gold:hover { opacity: 0.9; }
+.btn-outline {
+  background: transparent; color: var(--primary); font-size: 13px; font-weight: 600;
+  padding: 9px 20px; border: 1.5px solid var(--primary); cursor: pointer;
+  font-family: var(--font); transition: all 0.15s;
+}
+.btn-outline:hover { background: var(--primary); color: #fff; }
+
+/* ══════════════════════════════
+   SHARED: PAGE HERO BAND
+══════════════════════════════ */
+.page-hero {
+  background: var(--primary); padding: 36px 48px 36px;
+  position: relative; overflow: hidden;
+}
+.page-hero-geo {
+  position: absolute; right: 0; top: 0; bottom: 0; width: 400px; opacity: 0.06; pointer-events: none;
+}
+.page-hero-breadcrumb {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; margin-bottom: 14px;
+}
+.page-hero-breadcrumb a {
+  color: rgba(250,247,240,0.55); text-decoration: none; font-weight: 500;
+  display: flex; align-items: center; gap: 5px; transition: color 0.15s;
+}
+.page-hero-breadcrumb a:hover { color: rgba(250,247,240,0.9); }
+.page-hero-breadcrumb-sep { color: rgba(250,247,240,0.25); font-size: 10px; }
+.page-hero-breadcrumb .bc-current { color: rgba(250,247,240,0.85); font-weight: 600; }
+.page-hero-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+}
+.page-hero-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+.page-hero h1 {
+  font-size: 30px; font-weight: 700; color: #FAF7F0;
+  letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 10px;
+}
+.page-hero-sub {
+  font-size: 14px; color: rgba(250,247,240,0.6); max-width: 540px; line-height: 1.6;
+}
+/* Subject detail hero — wider with icon+meta row */
+.page-hero-row {
+  display: flex; align-items: flex-start; gap: 24px;
+}
+.page-hero-icon {
+  width: 72px; height: 72px; background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(250,247,240,0.18); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.page-hero-meta { flex: 1; }
+.page-hero-names { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 8px; }
+.page-hero-sw { font-size: 28px; font-weight: 700; color: #FAF7F0; letter-spacing: -0.02em; }
+.page-hero-ar { font-family: var(--font-arabic); font-size: 20px; color: var(--accent); direction: rtl; }
+.page-hero-badges { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.page-hero-badge {
+  font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 5px;
+  padding: 4px 10px; border: 1px solid rgba(201,168,76,0.3); background: rgba(201,168,76,0.1); color: var(--accent);
+}
+.page-hero-badge-plain {
+  font-size: 11px; font-weight: 500; padding: 4px 10px;
+  border: 1px solid rgba(250,247,240,0.15); color: rgba(250,247,240,0.55);
+}
+.page-hero-progress { margin-top: 18px; }
+.page-hero-progress-label {
+  font-size: 12px; color: rgba(250,247,240,0.55); margin-bottom: 6px;
+  display: flex; justify-content: space-between;
+}
+.page-hero-progress-label span:last-child { color: var(--accent); font-weight: 600; }
+.page-hero-progress-bar { height: 3px; background: rgba(255,255,255,0.12); }
+.page-hero-progress-fill { height: 100%; background: var(--accent); }
+/* Level pills inside hero */
+.level-pills { display: flex; gap: 8px; margin-top: 24px; }
+
+/* ══════════════════════════════
+   SHARED: FOOTER
+══════════════════════════════ */
+.footer {
+  background: var(--primary); position: relative; overflow: hidden;
+}
+.footer-geo {
+  position: absolute; inset: 0; opacity: 0.04; pointer-events: none;
+}
+.footer-cta-bar {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 28px 48px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-cta-title {
+  font-size: 20px; font-weight: 600; color: #FAF7F0;
+  font-family: var(--font); letter-spacing: -0.01em;
+}
+.footer-body { padding: 48px; display: flex; gap: 0; }
+.footer-brand { flex: 0 0 260px; padding-right: 48px; }
+.footer-logo-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.footer-logo-mark {
+  width: 44px; height: 44px; border: 1px solid rgba(201,168,76,0.4);
+  display: flex; align-items: center; justify-content: center;
+}
+.footer-logo-name { font-size: 16px; font-weight: 700; color: #FAF7F0; }
+.footer-desc { font-size: 13px; color: rgba(250,247,240,0.55); line-height: 1.7; margin-bottom: 20px; }
+.footer-desc a { color: var(--accent); text-decoration: none; }
+.footer-tagline {
+  display: inline-block;
+  font-size: 13px; color: rgba(250,247,240,0.4);
+  border: 1px solid rgba(250,247,240,0.12); padding: 8px 14px;
+  font-style: italic;
+}
+.footer-cols { flex: 1; display: flex; gap: 0; }
+.footer-col { flex: 1; padding: 0 24px; border-left: 1px solid rgba(255,255,255,0.08); }
+.footer-col-title {
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent); font-weight: 700; margin-bottom: 20px;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col ul li { font-size: 13px; color: rgba(250,247,240,0.6); cursor: pointer; display: flex; align-items: center; gap: 8px; }
+.footer-col ul li:hover { color: #FAF7F0; }
+.footer-col ul li.dash::before { content: '—'; color: rgba(250,247,240,0.25); font-size: 11px; }
+.footer-contact-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: rgba(250,247,240,0.6); margin-bottom: 12px; }
+.footer-contact-icon {
+  width: 28px; height: 28px; border: 1px solid rgba(250,247,240,0.15);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 16px 48px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-bottom-left { font-size: 12px; color: rgba(250,247,240,0.3); }
+.footer-bottom-right { font-size: 12px; color: rgba(250,247,240,0.3); display: flex; align-items: center; gap: 6px; }
+
+/* Gold top accent line */
+.footer::before {
+  content: ''; display: block;
+  height: 2px; background: linear-gradient(90deg, transparent, var(--accent) 30%, var(--accent) 70%, transparent);
+}
+
+
+/* ══════════════════════════════════════════════════
+   PAGE 1: SUBJECTS LISTING
+══════════════════════════════════════════════════ */
+
+/* Hero band */
+.subjects-hero {
+  background: var(--primary); padding: 52px 48px 48px;
+  position: relative; overflow: hidden;
+}
+.subjects-hero-geo {
+  position: absolute; right: 0; top: 0; bottom: 0; width: 400px; opacity: 0.06; pointer-events: none;
+}
+.subjects-hero-eyebrow {
+  font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+}
+.subjects-hero-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+.subjects-hero h1 {
+  font-size: 38px; font-weight: 700; color: #FAF7F0; line-height: 1.15;
+  letter-spacing: -0.02em; margin-bottom: 14px;
+}
+.subjects-hero p { font-size: 15px; color: rgba(250,247,240,0.65); max-width: 500px; line-height: 1.65; margin-bottom: 32px; }
+
+/* Level pills */
+.level-pills { display: flex; gap: 8px; }
+.level-pill {
+  padding: 9px 22px; font-size: 13px; font-weight: 600; cursor: pointer;
+  font-family: var(--font); border: 1px solid transparent; transition: all 0.15s;
+}
+.level-pill.active { background: var(--accent); color: var(--text); }
+.level-pill.locked {
+  background: rgba(255,255,255,0.06); color: rgba(250,247,240,0.45);
+  border-color: rgba(255,255,255,0.12);
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* Stats strip */
+.stats-strip {
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: 14px 48px; display: flex; gap: 32px; align-items: center;
+}
+.stat-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.stat-item strong { color: var(--text); font-weight: 600; }
+.stat-sep { width: 1px; height: 18px; background: var(--border); }
+
+/* Cards grid */
+.subjects-grid-wrap { padding: 48px; }
+.subjects-grid-label { font-size: 12px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; font-weight: 600; margin-bottom: 24px; }
+.subjects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+
+/* Subject card */
+.subject-card {
+  background: var(--surface); padding: 32px 28px;
+  cursor: pointer; transition: all 0.2s; position: relative;
+  display: flex; flex-direction: column;
+}
+.subject-card:hover { background: #FDFCF8; }
+.subject-card:hover .card-arrow { transform: translateX(3px); }
+.subject-card:hover .card-icon-wrap { background: rgba(27,67,50,0.1); }
+.subject-card:hover .card-icon-wrap svg { stroke: var(--accent); }
+
+.card-num {
+  position: absolute; top: 20px; right: 24px;
+  font-size: 11px; font-weight: 700; color: rgba(27,67,50,0.18);
+  letter-spacing: 0.05em;
+}
+.card-icon-wrap {
+  width: 64px; height: 64px; background: rgba(27,67,50,0.06);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px; transition: background 0.2s;
+}
+.card-icon-wrap svg { transition: stroke 0.2s; }
+.card-title { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 4px; letter-spacing: -0.01em; }
+.card-arabic {
+  font-family: var(--font-arabic); font-size: 17px; color: var(--accent);
+  direction: rtl; margin-bottom: 12px; line-height: 1.6;
+}
+.card-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 20px; flex: 1; }
+.card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+.card-tags { display: flex; gap: 6px; }
+.card-tag {
+  font-size: 11px; font-weight: 500; color: var(--primary);
+  background: rgba(27,67,50,0.07); padding: 3px 8px;
+  border: 1px solid rgba(27,67,50,0.12); display: flex; align-items: center; gap: 4px;
+}
+.card-arrow {
+  width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
+  background: rgba(27,67,50,0.06); color: var(--primary); transition: transform 0.2s;
+}
+
+/* Featured card (first) */
+.subject-card.featured::after {
+  content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent);
+}
+
+/* Register nudge */
+.register-nudge {
+  margin-top: 32px; background: var(--primary);
+  padding: 24px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px;
+}
+.nudge-text h4 { font-size: 15px; font-weight: 600; color: #FAF7F0; margin-bottom: 4px; }
+.nudge-text p { font-size: 13px; color: rgba(250,247,240,0.6); }
+
+
+/* ══════════════════════════════════════════════════
+   PAGE 2: SUBJECT DETAIL
+══════════════════════════════════════════════════ */
+
+.subject-hero {
+  background: var(--primary); border-bottom: none;
+  padding: 36px 48px 32px; position: relative; overflow: hidden;
+}
+.subject-hero-inner { display: flex; align-items: flex-start; gap: 28px; }
+.subject-big-icon {
+  width: 88px; height: 88px; background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(250,247,240,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.subject-hero-meta { flex: 1; }
+.subject-hero-names { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; flex-wrap: wrap; }
+.subject-hero-sw { font-size: 30px; font-weight: 700; color: #FAF7F0; letter-spacing: -0.02em; }
+.subject-hero-ar { font-family: var(--font-arabic); font-size: 22px; color: var(--accent); direction: rtl; }
+.subject-hero-desc { font-size: 14px; color: rgba(250,247,240,0.7); line-height: 1.65; max-width: 560px; margin-bottom: 18px; }
+.subject-hero-badges { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.badge {
+  font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 5px;
+  padding: 4px 10px; border: 1px solid rgba(250,247,240,0.2); background: rgba(255,255,255,0.08); color: rgba(250,247,240,0.7);
+}
+.badge-primary { background: rgba(201,168,76,0.15); border-color: rgba(201,168,76,0.3); color: var(--accent); }
+.badge-sep { width: 1px; height: 14px; background: rgba(250,247,240,0.2); }
+.subject-hero-progress { margin-top: 20px; }
+.progress-label { font-size: 12px; color: rgba(250,247,240,0.6); margin-bottom: 6px; display: flex; justify-content: space-between; }
+.progress-label span:last-child { color: var(--accent); font-weight: 600; }
+.progress-bar { height: 4px; background: rgba(255,255,255,0.15); }
+.progress-fill { height: 100%; background: var(--accent); }
+
+/* Two-col layout */
+.detail-layout { display: flex; }
+.detail-main { flex: 1; padding: 40px 48px; border-right: 1px solid var(--border); min-width: 0; }
+.detail-sidebar { width: 272px; flex-shrink: 0; background: #FDFCF8; padding: 36px 24px; }
+
+/* Lesson list */
+.lessons-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0; }
+.lessons-title { font-size: 16px; font-weight: 700; color: var(--text); }
+.lessons-count { font-size: 12px; color: var(--muted); }
+.lessons-list { margin-top: 0; }
+
+.lesson-row {
+  display: flex; align-items: center; gap: 16px;
+  padding: 16px 0; border-bottom: 1px solid var(--border);
+  cursor: pointer; transition: background 0.15s;
+}
+.lesson-row:hover { background: #FDFCF8; margin: 0 -16px; padding: 16px; }
+
+.lesson-num-wrap { flex-shrink: 0; }
+.lesson-num-done {
+  width: 30px; height: 30px; background: var(--primary); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.lesson-num-current {
+  width: 30px; height: 30px; background: var(--accent); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800; color: var(--text);
+}
+.lesson-num-todo {
+  width: 30px; height: 30px; background: var(--bg);
+  border: 1.5px solid var(--border); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; color: #aaa;
+}
+.lesson-info { flex: 1; min-width: 0; }
+.lesson-title-done { font-size: 14px; font-weight: 500; color: #aaa; text-decoration: line-through; }
+.lesson-title-current { font-size: 14px; font-weight: 700; color: var(--primary); }
+.lesson-title-todo { font-size: 14px; font-weight: 500; color: var(--text); }
+.lesson-subtitle { font-size: 12px; color: #bbb; margin-top: 2px; line-height: 1.4; }
+.lesson-subtitle-current { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.lesson-meta { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.lesson-media { display: flex; gap: 4px; }
+.media-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; background: rgba(27,67,50,0.06); }
+.lesson-dur { font-size: 11px; color: #bbb; white-space: nowrap; }
+.lesson-dur-current { font-size: 11px; color: var(--muted); white-space: nowrap; }
+.continue-badge { font-size: 10px; font-weight: 700; background: var(--accent); color: var(--text); padding: 3px 8px; letter-spacing: 0.04em; }
+
+/* Current row highlight */
+.lesson-row.current {
+  background: rgba(27,67,50,0.03);
+  border-left: 3px solid var(--accent);
+  margin-left: -3px;
+  padding-left: 3px;
+}
+.lesson-row.current:hover { background: rgba(27,67,50,0.05); }
+
+/* Sidebar widgets */
+.sidebar-widget { margin-bottom: 32px; }
+.sidebar-widget-title { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+.learn-item { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--muted); margin-bottom: 8px; line-height: 1.5; }
+.learn-dot { width: 6px; height: 6px; background: var(--accent); flex-shrink: 0; margin-top: 5px; }
+.related-card {
+  display: flex; align-items: center; gap: 12px; padding: 12px;
+  background: var(--surface); border: 1px solid var(--border);
+  cursor: pointer; margin-bottom: 8px; transition: border-color 0.15s;
+}
+.related-card:hover { border-color: var(--primary); }
+.related-icon { width: 32px; height: 32px; background: rgba(27,67,50,0.06); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.related-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.related-count { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+
+/* ══════════════════════════════════════════════════
+   PAGE 3: LESSON PAGE
+══════════════════════════════════════════════════ */
+
+.lesson-layout { display: flex; }
+
+/* Center article */
+.lesson-article { flex: 1; padding: 40px 48px; max-width: 820px; min-width: 0; }
+
+.lesson-meta-row {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;
+}
+.lesson-subject-tag {
+  font-size: 11px; font-weight: 700; background: rgba(27,67,50,0.08);
+  color: var(--primary); padding: 4px 10px; border: 1px solid rgba(27,67,50,0.15);
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.lesson-pos { font-size: 12px; color: var(--muted); }
+.lesson-time { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+
+.lesson-h1 {
+  font-size: 34px; font-weight: 700; color: var(--text); line-height: 1.15;
+  letter-spacing: -0.02em; margin-bottom: 10px;
+}
+.lesson-arabic-title {
+  font-family: var(--font-arabic); font-size: 26px; color: var(--accent);
+  direction: rtl; text-align: right; padding-bottom: 24px; margin-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Video block */
+.video-block { margin-bottom: 28px; }
+.video-container {
+  background: #111; width: 100%; aspect-ratio: 16/9;
+  position: relative; display: flex; align-items: center; justify-content: center;
+  border: 1px solid #2a2a2a; overflow: hidden;
+}
+.video-stripes {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg, transparent, transparent 6px, rgba(255,255,255,0.015) 6px, rgba(255,255,255,0.015) 12px);
+}
+.video-play {
+  width: 60px; height: 60px; background: rgba(201,168,76,0.92);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  position: relative; z-index: 1; transition: transform 0.15s;
+}
+.video-play:hover { transform: scale(1.05); }
+.video-caption { font-size: 12px; color: var(--muted); padding: 8px 0; font-style: italic; border-bottom: 1px solid var(--border); }
+
+/* Audio player */
+.audio-player {
+  background: #161616; padding: 14px 20px;
+  display: flex; align-items: center; gap: 14px; margin-bottom: 32px;
+  border: 1px solid #2a2a2a;
+}
+.audio-play {
+  width: 44px; height: 44px; background: var(--accent);
+  display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+.audio-play:hover { opacity: 0.85; }
+.audio-skip { color: #666; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; }
+.audio-skip:hover svg { stroke: #aaa; }
+.audio-scrub { flex: 1; }
+.scrub-bar { height: 3px; background: #333; width: 100%; position: relative; cursor: pointer; }
+.scrub-fill { height: 100%; background: var(--accent); width: 35%; }
+.scrub-thumb {
+  position: absolute; top: 50%; left: 35%;
+  transform: translate(-50%, -50%);
+  width: 11px; height: 11px; background: var(--accent); border-radius: 50%;
+}
+.scrub-times { display: flex; justify-content: space-between; margin-top: 5px; }
+.scrub-time { font-size: 10px; color: #555; font-family: var(--font); }
+.audio-speed {
+  font-size: 11px; font-weight: 700; color: var(--accent);
+  border: 1px solid rgba(201,168,76,0.4); padding: 4px 9px; cursor: pointer;
+  font-family: var(--font); flex-shrink: 0; background: rgba(201,168,76,0.06);
+}
+.audio-vol { color: #555; cursor: pointer; flex-shrink: 0; }
+
+/* Article body */
+.article-body { font-size: 16px; color: var(--text); line-height: 1.8; }
+.article-body p { margin-bottom: 20px; }
+.article-body h2 {
+  font-size: 21px; font-weight: 700; color: var(--text); letter-spacing: -0.01em;
+  margin: 32px 0 14px; padding-top: 8px; border-top: 1px solid var(--border);
+}
+.article-body strong { font-weight: 700; color: var(--text); }
+.article-body em { font-style: italic; color: var(--muted); }
+
+/* Arabic blockquote */
+.arabic-quote {
+  background: var(--bg); border-left: 3px solid var(--accent);
+  padding: 24px 28px; margin: 28px 0; direction: rtl;
+}
+.arabic-verse {
+  font-family: var(--font-arabic); font-size: 22px; color: var(--text);
+  line-height: 2.2; text-align: right; margin-bottom: 14px;
+}
+.arabic-translation {
+  font-size: 13px; color: var(--muted); direction: ltr; text-align: left;
+  font-style: italic; line-height: 1.65; border-top: 1px solid var(--border); padding-top: 12px;
+}
+
+/* Hadith callout */
+.hadith-box {
+  background: rgba(27,67,50,0.04); border: 1px solid rgba(27,67,50,0.12);
+  padding: 18px 22px; margin: 24px 0; display: flex; gap: 14px; align-items: flex-start;
+}
+.hadith-icon {
+  width: 22px; height: 22px; background: var(--primary); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px;
+}
+.hadith-text { font-size: 14px; color: var(--text); line-height: 1.65; }
+.hadith-source { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+/* Content placeholder */
+.content-placeholder {
+  background: var(--bg); border: 1px dashed var(--border-dark);
+  padding: 20px; text-align: center;
+  font-size: 13px; color: #bbb; font-style: italic; margin-top: 8px;
+}
+
+/* Lesson navigation */
+.lesson-nav {
+  display: flex; justify-content: space-between; gap: 16px;
+  margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--border);
+}
+.lesson-nav-btn {
+  display: flex; align-items: center; gap: 12px; padding: 14px 24px;
+  border: 1.5px solid var(--border); background: var(--surface); cursor: pointer;
+  transition: all 0.15s; flex: 1; max-width: 260px;
+}
+.lesson-nav-btn:hover { border-color: var(--primary); }
+.lesson-nav-btn.next { background: var(--primary); border-color: var(--primary); justify-content: flex-end; }
+.lesson-nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.lesson-nav-label-next { font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+.lesson-nav-title { font-size: 13px; font-weight: 600; color: var(--text); margin-top: 2px; }
+.lesson-nav-title-next { font-size: 13px; font-weight: 600; color: #fff; margin-top: 2px; }
+
+/* Right sidebar */
+.lesson-sidebar {
+  width: 220px; flex-shrink: 0; background: #FDFCF8;
+  border-left: 1px solid var(--border); padding: 36px 16px;
+  position: sticky; top: 64px; align-self: flex-start;
+  max-height: calc(100vh - 64px); overflow-y: auto;
+}
+.toc-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 32px; }
+.toc-item {
+  font-size: 13px; color: var(--muted); padding: 6px 10px; cursor: pointer;
+  border-left: 2px solid transparent; transition: all 0.15s;
+}
+.toc-item:hover { color: var(--primary); background: rgba(27,67,50,0.04); }
+.toc-item.active { color: var(--primary); font-weight: 600; border-left-color: var(--accent); background: rgba(27,67,50,0.04); }
+
+.sibling-list { display: flex; flex-direction: column; }
+.sibling-item {
+  display: flex; align-items: flex-start; gap: 8px; padding: 7px 0;
+  border-bottom: 1px solid var(--border); font-size: 12px; cursor: pointer;
+}
+.sibling-item:last-child { border-bottom: none; }
+.sibling-done { color: #bbb; text-decoration: line-through; }
+.sibling-current { color: var(--primary); font-weight: 700; }
+.sibling-todo { color: var(--muted); }
+.sibling-todo:hover { color: var(--primary); }
+
+/* Sticky mobile audio */
+.sticky-audio {
+  background: #161616; padding: 12px 24px;
+  display: flex; align-items: center; gap: 12px;
+  border-top: 2px solid var(--accent);
+}
+.sticky-audio-btn { width: 38px; height: 38px; background: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.sticky-info { flex: 1; }
+.sticky-title { font-size: 12px; color: #fff; font-weight: 600; }
+.sticky-sub { font-size: 11px; color: #666; margin-top: 2px; }
+.sticky-bar { height: 2px; background: #333; margin-top: 5px; }
+.sticky-fill { height: 100%; background: var(--accent); width: 35%; }
+
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- TAB BAR -->
+  <div class="tab-bar">
+    <span class="tab-label">Ahlusunna</span>
+    <button class="tab active" onclick="showPage(0)">① Subjects Listing</button>
+    <button class="tab" onclick="showPage(1)">② Subject Detail</button>
+    <button class="tab" onclick="showPage(2)">③ Lesson Page</button>
+  </div>
+
+  <!-- VIEWPORT -->
+  <div class="viewport">
+
+    <!-- ══════════════════════════════════════════════
+         PAGE 1: SUBJECTS LISTING
+    ══════════════════════════════════════════════ -->
+    <div class="page active" id="page-0">
+
+      <!-- NAVBAR -->
+      <nav class="navbar">
+        <a class="nav-logo" href="#">
+          <div class="nav-logo-mark">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8">
+              <path d="M12 2C9 2 6 4.5 6 8c0 2.5 1.5 4.5 3 6h6c1.5-1.5 3-3.5 3-6 0-3.5-3-6-6-6z"/>
+              <line x1="12" y1="14" x2="12" y2="19"/><line x1="9" y1="19" x2="15" y2="19"/>
+            </svg>
+          </div>
+          <span class="nav-logo-text">Ahlusunna</span>
+        </a>
+        <div class="nav-links">
+          <span class="nav-link">Nyumbani</span>
+          <span class="nav-link">Kuhusu</span>
+          <span class="nav-link">Wasiliana</span>
+          <span class="nav-link active">Masomo</span>
+        </div>
+        <div class="nav-right">
+          <button class="btn-lang">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            🇹🇿 SW ▾
+          </button>
+          <button class="btn-gold">Ingia</button>
+        </div>
+      </nav>
+
+      <!-- PAGE HERO -->
+      <div class="page-hero">
+        <svg class="page-hero-geo" viewBox="0 0 400 500" fill="none" preserveAspectRatio="xMaxYMid slice">
+          <defs><pattern id="geo1" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse"><rect x="20" y="20" width="40" height="40" stroke="#C9A84C" stroke-width="0.8" fill="none" transform="rotate(45 40 40)"/><circle cx="40" cy="40" r="3" stroke="#C9A84C" stroke-width="0.8" fill="none"/><line x1="0" y1="40" x2="20" y2="40" stroke="#C9A84C" stroke-width="0.4"/><line x1="60" y1="40" x2="80" y2="40" stroke="#C9A84C" stroke-width="0.4"/><line x1="40" y1="0" x2="40" y2="20" stroke="#C9A84C" stroke-width="0.4"/><line x1="40" y1="60" x2="40" y2="80" stroke="#C9A84C" stroke-width="0.4"/></pattern></defs>
+          <rect width="400" height="500" fill="url(#geo1)"/>
+        </svg>
+        <div class="page-hero-breadcrumb">
+          <a href="#"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Nyumbani</a>
+          <span class="page-hero-breadcrumb-sep">›</span>
+          <span class="bc-current">Masomo</span>
+        </div>
+        <div class="page-hero-eyebrow">Hatua ya Kujifunza</div>
+        <h1>Hatua ya Awali — Masomo</h1>
+        <p class="page-hero-sub">Chagua somo lolote kuanza safari yako ya kujifunza. Masomo yote ya Hatua ya Awali yanapatikana bila akaunti.</p>
+        <div class="level-pills">
+          <button class="level-pill active">Hatua ya Awali</button>
+          <button class="level-pill locked">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="0"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Hatua ya Kati
+          </button>
+          <button class="level-pill locked">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="0"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Kuendelea
+          </button>
+        </div>
+      </div>
+
+      <!-- STATS STRIP -->
+      <div class="stats-strip">
+        <div class="stat-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span><strong>6</strong> Masomo</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Bure milele</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-item">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Anza sasa hivi</span>
+        </div>
+      </div>
+
+      <!-- GRID -->
+      <div class="subjects-grid-wrap">
+        <div class="subjects-grid-label">Masomo 6 yanapatikana — Hatua ya Awali</div>
+        <div class="subjects-grid">
+
+          <!-- 1. Qur'an -->
+          <div class="subject-card featured">
+            <span class="card-num">01</span>
+            <div class="card-icon-wrap">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="1.4"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/><line x1="9" y1="15" x2="12" y2="15"/></svg>
+            </div>
+            <div class="card-title">Qur'an</div>
+            <div class="card-arabic">القرآن الكريم</div>
+            <div class="card-desc">Soma na tajweed sahihi, kuelewa Sura mbalimbali, na kusikiliza tilawa nzuri.</div>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="card-tag">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16"/><path d="M18 22H6"/><path d="M18 2v20"/></svg>
+                  12 masomo
+                </span>
+                <span class="card-tag">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                  Sauti
+                </span>
+              </div>
+              <div class="card-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Hadith -->
+          <div class="subject-card">
+            <span class="card-num">02</span>
+            <div class="card-icon-wrap">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="1.4"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="card-title">Hadith</div>
+            <div class="card-arabic">الحديث النبوي</div>
+            <div class="card-desc">Maneno ya Mtume ﷺ yaliyothibitishwa — msingi wa mwenendo wa Kiislamu.</div>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="card-tag">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16"/><path d="M18 22H6"/><path d="M18 2v20"/></svg>
+                  8 masomo
+                </span>
+                <span class="card-tag">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14"/></svg>
+                  Video
+                </span>
+              </div>
+              <div class="card-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Fiqhi -->
+          <div class="subject-card">
+            <span class="card-num">03</span>
+            <div class="card-icon-wrap">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="1.4"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div class="card-title">Fiqhi</div>
+            <div class="card-arabic">الفقه الإسلامي</div>
+            <div class="card-desc">Tahara, swala, saumu — sheria za Kiislamu za kila siku kwa mwanzo.</div>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="card-tag">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16"/><path d="M18 22H6"/><path d="M18 2v20"/></svg>
+                  10 masomo
+                </span>
+              </div>
+              <div class="card-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Tawhidi -->
+          <div class="subject-card">
+            <span class="card-num">04</span>
+            <div class="card-icon-wrap">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="1.4"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="card-title">Tawhidi</div>
+            <div class="card-arabic">التوحيد</div>
+            <div class="card-desc">Nguzo za imani na majina na sifa za Allah ﷻ — msingi wa Uislamu.</div>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="card-tag">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16"/><path d="M18 22H6"/><path d="M18 2v20"/></svg>
+                  9 masomo
+                </span>
+                <span class="card-tag">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14"/></svg>
+                  Video
+                </span>
+              </div>
+              <div class="card-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Sira -->
+          <div class="subject-card">
+            <span class="card-num">05</span>
+            <div class="card-icon-wrap">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>
+            </div>
+            <div class="card-title">Sira</div>
+            <div class="card-arabic">السيرة النبوية</div>
+            <div class="card-desc">Maisha ya Mtume Muhammad ﷺ — kuzaliwa, ujumbe, na misingi ya Uislamu.</div>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="card-tag">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16"/><path d="M18 22H6"/><path d="M18 2v20"/></svg>
+                  11 masomo
+                </span>
+                <span class="card-tag">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/></svg>
+                  Sauti
+                </span>
+              </div>
+              <div class="card-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. Adhkar -->
+          <div class="subject-card">
+            <span class="card-num">06</span>
+            <div class="card-icon-wrap">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="1.4"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div class="card-title">Adhkar</div>
+            <div class="card-arabic">الأذكار والأدعية</div>
+            <div class="card-desc">Dua za kila siku, zikr za asubuhi na jioni — uchaji wa kila wakati.</div>
+            <div class="card-footer">
+              <div class="card-tags">
+                <span class="card-tag">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16"/><path d="M18 22H6"/><path d="M18 2v20"/></svg>
+                  7 masomo
+                </span>
+                <span class="card-tag">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/></svg>
+                  Sauti
+                </span>
+              </div>
+              <div class="card-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /grid -->
+
+        <!-- Register nudge -->
+        <div class="register-nudge">
+          <div class="nudge-text">
+            <h4>Fuatilia maendeleo yako</h4>
+            <p>Jiunge bure ili uhifadhi mahali ulipofika na upate masomo ya Hatua ya Kati.</p>
+          </div>
+          <button class="btn-gold" style="flex-shrink:0;white-space:nowrap;padding:12px 28px;font-size:14px;">Jiunge Bure →</button>
+        </div>
+
+      </div><!-- /grid-wrap -->
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="footer-cta-bar">
+          <div class="footer-cta-title">Jifunze Uislamu kwa Mpangilio na Uclewa</div>
+          <button class="btn-gold" style="padding:12px 24px;font-size:13px;display:flex;align-items:center;gap:8px;">
+            Anza Kujifunza
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+        <div class="footer-body">
+          <div class="footer-brand">
+            <div class="footer-logo-wrap">
+              <div class="footer-logo-mark">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5"><path d="M12 2C9 2 6 4.5 6 8c0 2.5 1.5 4.5 3 6h6c1.5-1.5 3-3.5 3-6 0-3.5-3-6-6-6z"/><line x1="12" y1="14" x2="12" y2="19"/><line x1="9" y1="19" x2="15" y2="19"/></svg>
+              </div>
+              <span class="footer-logo-name">Ahlusunna</span>
+            </div>
+            <p class="footer-desc">
+              Ahlusunna ni jukwaa la kujifunza Uislamu kwa mpangilio, linalowasaidia Waislamu kusoma <a href="#">Qur'an, Fiqhi, Tawhidi</a>, na Sira kupitia masomo yaliyo wazi, sauti, na video — kuanzia maarifa ya msingi hadi ufahamu wa kina zaidi.
+            </p>
+            <div class="footer-tagline">Kutafuta elimu ni njia ya kheri.</div>
+          </div>
+          <div class="footer-cols">
+            <div class="footer-col">
+              <div class="footer-col-title">Kurasa Muhimu</div>
+              <ul>
+                <li>Nyumbani</li>
+                <li>Masomo</li>
+                <li class="dash">Kuhusu</li>
+                <li class="dash">Wasiliana</li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <div class="footer-col-title">Masomo</div>
+              <ul>
+                <li>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                  Qur'an
+                </li>
+                <li>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                  Hadith
+                </li>
+                <li>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                  Fiqhi
+                </li>
+                <li>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  Tawhidi
+                </li>
+                <li>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>
+                  Sira
+                </li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <div class="footer-col-title">Mawasiliano</div>
+              <div class="footer-contact-item">
+                <div class="footer-contact-icon">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(250,247,240,0.5)" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <span>info@ahlusunna.info</span>
+              </div>
+              <div class="footer-contact-item">
+                <div class="footer-contact-icon">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(250,247,240,0.5)" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <span>Zanzibar, Tanzania</span>
+              </div>
+              <div class="footer-contact-item">
+                <div class="footer-contact-icon">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(250,247,240,0.5)" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </div>
+                <span>Msaada wa WhatsApp</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span class="footer-bottom-left">© 2026 Ahlusunna. Haki zote zimehifadhiwa.</span>
+          <span class="footer-bottom-right">
+            Imejengwa kwa ajili ya Ummah
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(201,168,76,0.6)" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </span>
+        </div>
+      </footer>
+
+    </div><!-- /page-0 -->
+
+
+    <!-- ══════════════════════════════════════════════
+         PAGE 2: SUBJECT DETAIL
+    ══════════════════════════════════════════════ -->
+    <div class="page" id="page-1">
+
+      <!-- NAVBAR -->
+      <nav class="navbar">
+        <a class="nav-logo" href="#">
+          <div class="nav-logo-mark">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8"><path d="M12 2C9 2 6 4.5 6 8c0 2.5 1.5 4.5 3 6h6c1.5-1.5 3-3.5 3-6 0-3.5-3-6-6-6z"/><line x1="12" y1="14" x2="12" y2="19"/><line x1="9" y1="19" x2="15" y2="19"/></svg>
+          </div>
+          <span class="nav-logo-text">Ahlusunna</span>
+        </a>
+        <div class="nav-links">
+          <span class="nav-link">Nyumbani</span>
+          <span class="nav-link">Kuhusu</span>
+          <span class="nav-link">Wasiliana</span>
+          <span class="nav-link active">Masomo</span>
+        </div>
+        <div class="nav-right">
+          <button class="btn-lang">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            🇹🇿 SW ▾
+          </button>
+          <button class="btn-gold">Ingia</button>
+        </div>
+      </nav>
+
+      <!-- PAGE HERO -->
+      <div class="page-hero">
+        <svg class="page-hero-geo" viewBox="0 0 400 500" fill="none" preserveAspectRatio="xMaxYMid slice">
+          <defs><pattern id="geo2" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse"><rect x="20" y="20" width="40" height="40" stroke="#C9A84C" stroke-width="0.8" fill="none" transform="rotate(45 40 40)"/><circle cx="40" cy="40" r="3" stroke="#C9A84C" stroke-width="0.8" fill="none"/><line x1="0" y1="40" x2="20" y2="40" stroke="#C9A84C" stroke-width="0.4"/><line x1="60" y1="40" x2="80" y2="40" stroke="#C9A84C" stroke-width="0.4"/><line x1="40" y1="0" x2="40" y2="20" stroke="#C9A84C" stroke-width="0.4"/><line x1="40" y1="60" x2="40" y2="80" stroke="#C9A84C" stroke-width="0.4"/></pattern></defs>
+          <rect width="400" height="500" fill="url(#geo2)"/>
+        </svg>
+        <div class="page-hero-breadcrumb">
+          <a href="#"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Nyumbani</a>
+          <span class="page-hero-breadcrumb-sep">›</span>
+          <a href="#">Masomo</a>
+          <span class="page-hero-breadcrumb-sep">›</span>
+          <span class="bc-current">Qur'an</span>
+        </div>
+        <div class="page-hero-row">
+          <div class="page-hero-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(250,247,240,0.8)" stroke-width="1.2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/><line x1="9" y1="15" x2="12" y2="15"/></svg>
+          </div>
+          <div class="page-hero-meta">
+            <div class="page-hero-names">
+              <span class="page-hero-sw">Qur'an</span>
+              <span class="page-hero-ar">القرآن الكريم</span>
+            </div>
+            <p class="page-hero-sub">Jifunza kusoma Qur'an kwa tajweed sahihi, kuelewa maana ya Sura mbalimbali, na kusikiliza tilawa nzuri. Linafaa kwa wanaoanza kabisa.</p>
+            <div class="page-hero-badges">
+              <span class="page-hero-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16"/><path d="M18 22H6"/><path d="M18 2v20"/></svg>12 masomo</span>
+              <span class="page-hero-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>Sauti</span>
+              <span class="page-hero-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14"/></svg>Video</span>
+              <span class="page-hero-badge-plain">~4 saa jumla</span>
+              <span class="page-hero-badge-plain">Hatua ya Awali</span>
+            </div>
+            <div class="page-hero-progress">
+              <div class="page-hero-progress-label"><span>Umefanya 3 / 12 masomo</span><span>25%</span></div>
+              <div class="page-hero-progress-bar"><div class="page-hero-progress-fill" style="width:25%"></div></div>
+            </div>
+          </div>
+          <button class="btn-gold" style="flex-shrink:0;padding:13px 28px;font-size:14px;align-self:flex-start;">Endelea →</button>
+        </div>
+      </div>
+
+      <!-- TWO-COLUMN -->
+      <div class="detail-layout">
+
+        <!-- MAIN: lesson list -->
+        <div class="detail-main">
+          <div class="lessons-header" style="margin-bottom:24px;">
+            <span class="lessons-title">Orodha ya Masomo</span>
+            <span class="lessons-count">12 masomo yote</span>
+          </div>
+          <div class="lessons-list">
+
+            <!-- Done -->
+            <div class="lesson-row">
+              <div class="lesson-num-wrap"><div class="lesson-num-done"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+              <div class="lesson-info"><div class="lesson-title-done">01. Utangulizi wa Qur'an</div><div class="lesson-subtitle">Historia, umuhimu, na jinsi ya kusoma</div></div>
+              <div class="lesson-meta">
+                <div class="lesson-media"><div class="media-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16"/><path d="M18 22H6"/><path d="M18 2v20"/></svg></div></div>
+                <span class="lesson-dur">8 dak</span>
+              </div>
+            </div>
+
+            <div class="lesson-row">
+              <div class="lesson-num-wrap"><div class="lesson-num-done"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+              <div class="lesson-info"><div class="lesson-title-done">02. Huruf za Kiarabu</div><div class="lesson-subtitle">Jifunza herufi 28 za alfabeti</div></div>
+              <div class="lesson-meta">
+                <div class="lesson-media">
+                  <div class="media-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16"/><path d="M18 22H6"/><path d="M18 2v20"/></svg></div>
+                  <div class="media-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/></svg></div>
+                </div>
+                <span class="lesson-dur">15 dak</span>
+              </div>
+            </div>
+
+            <div class="lesson-row">
+              <div class="lesson-num-wrap"><div class="lesson-num-done"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div></div>
+              <div class="lesson-info"><div class="lesson-title-done">03. Tajweed — Sehemu ya Kwanza</div><div class="lesson-subtitle">Sheria za msingi za usomaji</div></div>
+              <div class="lesson-meta">
+                <div class="lesson-media">
+                  <div class="media-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#aaa" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14"/></svg></div>
+                </div>
+                <span class="lesson-dur">22 dak</span>
+              </div>
+            </div>
+
+            <!-- CURRENT -->
+            <div class="lesson-row current">
+              <div class="lesson-num-wrap"><div class="lesson-num-current">04</div></div>
+              <div class="lesson-info">
+                <div class="lesson-title-current">Sura Al-Fatiha — Maana Kamili</div>
+                <div class="lesson-subtitle-current">Tafsiri ya kina na uzuri wa Sura hii</div>
+              </div>
+              <div class="lesson-meta">
+                <div class="lesson-media">
+                  <div class="media-icon" style="background:rgba(27,67,50,0.1);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16"/><path d="M18 22H6"/><path d="M18 2v20"/></svg></div>
+                  <div class="media-icon" style="background:rgba(27,67,50,0.1);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/></svg></div>
+                  <div class="media-icon" style="background:rgba(27,67,50,0.1);"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14"/></svg></div>
+                </div>
+                <span class="lesson-dur-current">20 dak</span>
+                <span class="continue-badge">Endelea</span>
+              </div>
+            </div>
+
+            <!-- TODO -->
+            <div class="lesson-row"><div class="lesson-num-wrap"><div class="lesson-num-todo">05</div></div><div class="lesson-info"><div class="lesson-title-todo">Sura Al-Ikhlas</div><div class="lesson-subtitle">Kusoma na kuelewa maana</div></div><div class="lesson-meta"><div class="lesson-media"><div class="media-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/></svg></div></div><span class="lesson-dur">12 dak</span></div></div>
+            <div class="lesson-row"><div class="lesson-num-wrap"><div class="lesson-num-todo">06</div></div><div class="lesson-info"><div class="lesson-title-todo">Sura Al-Nas na Al-Falaq</div><div class="lesson-subtitle">Sura za kinga — maana na hifadhi</div></div><div class="lesson-meta"><div class="lesson-media"><div class="media-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/></svg></div></div><span class="lesson-dur">14 dak</span></div></div>
+            <div class="lesson-row"><div class="lesson-num-wrap"><div class="lesson-num-todo">07</div></div><div class="lesson-info"><div class="lesson-title-todo">Adabu za Kusoma Qur'an</div><div class="lesson-subtitle">Tahara, makazi, na nia sahihi</div></div><div class="lesson-meta"><div class="lesson-media"><div class="media-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16"/></svg></div></div><span class="lesson-dur">10 dak</span></div></div>
+            <div class="lesson-row"><div class="lesson-num-wrap"><div class="lesson-num-todo">08</div></div><div class="lesson-info"><div class="lesson-title-todo">Hifadhi — Juz' Amma Sehemu ya Kwanza</div><div class="lesson-subtitle">Sura za mwisho za Qur'an</div></div><div class="lesson-meta"><div class="lesson-media"><div class="media-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/></svg></div></div><span class="lesson-dur">25 dak</span></div></div>
+
+            <div style="padding:14px 0;text-align:center;border-bottom:1px solid var(--border);">
+              <button style="font-size:13px;color:var(--primary);background:none;border:none;cursor:pointer;font-weight:600;font-family:var(--font);display:inline-flex;align-items:center;gap:6px;">
+                Onyesha masomo 4 zaidi
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="detail-sidebar">
+          <div class="sidebar-widget">
+            <div class="sidebar-widget-title">Kuhusu Somo Hili</div>
+            <p style="font-size:13px;color:var(--muted);line-height:1.65;">Somo hili limepangwa kwa wanaoanza kusoma Qur'an tangu mwanzo. Unaweza kuanza bila uzoefu wowote wa Kiarabu.</p>
+          </div>
+
+          <div class="sidebar-widget">
+            <div class="sidebar-widget-title">Utakachojifunza</div>
+            <div class="learn-item"><div class="learn-dot"></div>Kusoma herufi za Kiarabu kutoka mwanzo</div>
+            <div class="learn-item"><div class="learn-dot"></div>Sheria za tajweed za msingi</div>
+            <div class="learn-item"><div class="learn-dot"></div>Maana ya Sura 6 za mwisho</div>
+            <div class="learn-item"><div class="learn-dot"></div>Adabu za kusoma Qur'an</div>
+          </div>
+
+          <div class="sidebar-widget">
+            <div class="sidebar-widget-title">Masomo Mengine</div>
+            <div class="related-card">
+              <div class="related-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+              <div><div class="related-name">Hadith</div><div class="related-count">8 masomo</div></div>
+              <svg style="margin-left:auto;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="related-card">
+              <div class="related-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+              <div><div class="related-name">Fiqhi</div><div class="related-count">10 masomo</div></div>
+              <svg style="margin-left:auto;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="related-card">
+              <div class="related-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg></div>
+              <div><div class="related-name">Sira</div><div class="related-count">11 masomo</div></div>
+              <svg style="margin-left:auto;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /detail-layout -->
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="footer-cta-bar">
+          <div class="footer-cta-title">Jifunze Uislamu kwa Mpangilio na Uclewa</div>
+          <button class="btn-gold" style="padding:12px 24px;font-size:13px;display:flex;align-items:center;gap:8px;">Anza Kujifunza <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+        <div class="footer-body">
+          <div class="footer-brand">
+            <div class="footer-logo-wrap"><div class="footer-logo-mark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5"><path d="M12 2C9 2 6 4.5 6 8c0 2.5 1.5 4.5 3 6h6c1.5-1.5 3-3.5 3-6 0-3.5-3-6-6-6z"/><line x1="12" y1="14" x2="12" y2="19"/><line x1="9" y1="19" x2="15" y2="19"/></svg></div><span class="footer-logo-name">Ahlusunna</span></div>
+            <p class="footer-desc">Ahlusunna ni jukwaa la kujifunza Uislamu kwa mpangilio, linalowasaidia Waislamu kusoma <a href="#">Qur'an, Fiqhi, Tawhidi</a>, na Sira kupitia masomo yaliyo wazi, sauti, na video.</p>
+            <div class="footer-tagline">Kutafuta elimu ni njia ya kheri.</div>
+          </div>
+          <div class="footer-cols">
+            <div class="footer-col"><div class="footer-col-title">Kurasa Muhimu</div><ul><li>Nyumbani</li><li>Masomo</li><li class="dash">Kuhusu</li><li class="dash">Wasiliana</li></ul></div>
+            <div class="footer-col"><div class="footer-col-title">Masomo</div><ul><li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Qur'an</li><li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Hadith</li><li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Fiqhi</li><li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Tawhidi</li><li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>Sira</li></ul></div>
+            <div class="footer-col"><div class="footer-col-title">Mawasiliano</div>
+              <div class="footer-contact-item"><div class="footer-contact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(250,247,240,0.5)" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><span>info@ahlusunna.info</span></div>
+              <div class="footer-contact-item"><div class="footer-contact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(250,247,240,0.5)" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><span>Zanzibar, Tanzania</span></div>
+              <div class="footer-contact-item"><div class="footer-contact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(250,247,240,0.5)" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><span>Msaada wa WhatsApp</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom"><span class="footer-bottom-left">© 2026 Ahlusunna. Haki zote zimehifadhiwa.</span><span class="footer-bottom-right">Imejengwa kwa ajili ya Ummah <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(201,168,76,0.6)" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span></div>
+      </footer>
+
+    </div><!-- /page-1 -->
+
+
+    <!-- ══════════════════════════════════════════════
+         PAGE 3: LESSON PAGE
+    ══════════════════════════════════════════════ -->
+    <div class="page" id="page-2">
+
+      <!-- NAVBAR -->
+      <nav class="navbar">
+        <a class="nav-logo" href="#">
+          <div class="nav-logo-mark">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8"><path d="M12 2C9 2 6 4.5 6 8c0 2.5 1.5 4.5 3 6h6c1.5-1.5 3-3.5 3-6 0-3.5-3-6-6-6z"/><line x1="12" y1="14" x2="12" y2="19"/><line x1="9" y1="19" x2="15" y2="19"/></svg>
+          </div>
+          <span class="nav-logo-text">Ahlusunna</span>
+        </a>
+        <div class="nav-links">
+          <span class="nav-link">Nyumbani</span>
+          <span class="nav-link">Kuhusu</span>
+          <span class="nav-link">Wasiliana</span>
+          <span class="nav-link active">Masomo</span>
+        </div>
+        <div class="nav-right">
+          <button class="btn-lang"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>🇹🇿 SW ▾</button>
+          <button class="btn-gold">Ingia</button>
+        </div>
+      </nav>
+
+      <!-- PAGE HERO -->
+      <div class="page-hero">
+        <svg class="page-hero-geo" viewBox="0 0 400 500" fill="none" preserveAspectRatio="xMaxYMid slice">
+          <defs><pattern id="geo3" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse"><rect x="20" y="20" width="40" height="40" stroke="#C9A84C" stroke-width="0.8" fill="none" transform="rotate(45 40 40)"/><circle cx="40" cy="40" r="3" stroke="#C9A84C" stroke-width="0.8" fill="none"/><line x1="0" y1="40" x2="20" y2="40" stroke="#C9A84C" stroke-width="0.4"/><line x1="60" y1="40" x2="80" y2="40" stroke="#C9A84C" stroke-width="0.4"/><line x1="40" y1="0" x2="40" y2="20" stroke="#C9A84C" stroke-width="0.4"/><line x1="40" y1="60" x2="40" y2="80" stroke="#C9A84C" stroke-width="0.4"/></pattern></defs>
+          <rect width="400" height="500" fill="url(#geo3)"/>
+        </svg>
+        <div class="page-hero-breadcrumb">
+          <a href="#"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Nyumbani</a>
+          <span class="page-hero-breadcrumb-sep">›</span>
+          <a href="#">Masomo</a>
+          <span class="page-hero-breadcrumb-sep">›</span>
+          <a href="#">Qur'an</a>
+          <span class="page-hero-breadcrumb-sep">›</span>
+          <span class="bc-current">Sura Al-Fatiha</span>
+        </div>
+        <div class="page-hero-row">
+          <div class="page-hero-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="rgba(250,247,240,0.8)" stroke-width="1.2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/><line x1="9" y1="15" x2="12" y2="15"/></svg>
+          </div>
+          <div class="page-hero-meta">
+            <div class="page-hero-names">
+              <span class="page-hero-sw">Sura Al-Fatiha — Maana Kamili</span>
+            </div>
+            <div style="font-family:var(--font-arabic);font-size:20px;color:var(--accent);direction:rtl;margin-top:4px;">سُورَةُ الْفَاتِحَة</div>
+            <div class="page-hero-badges" style="margin-top:12px;">
+              <span class="page-hero-badge-plain">Somo la 04 / 12</span>
+              <span class="page-hero-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/></svg>Sauti</span>
+              <span class="page-hero-badge"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14"/></svg>Video</span>
+              <span class="page-hero-badge-plain"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:3px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>20 dak</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;flex-shrink:0;align-self:flex-start;">
+            <button class="btn-outline" style="border-color:rgba(250,247,240,0.3);color:rgba(250,247,240,0.7);padding:10px 18px;font-size:13px;">← Nyuma</button>
+            <button class="btn-gold" style="padding:10px 20px;font-size:13px;">Somo Lifuatalo →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- LESSON LAYOUT -->
+      <div class="lesson-layout">
+
+        <!-- ARTICLE -->
+        <div class="lesson-article">
+
+          <!-- VIDEO -->
+          <div class="video-block">
+            <div class="video-container">
+              <div class="video-stripes"></div>
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;">
+                <div class="video-play">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#1C1C1C"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </div>
+                <div style="font-size:12px;color:rgba(255,255,255,0.3);font-family:var(--font);">Sheikh Khalid al-Rashidi · YouTube</div>
+              </div>
+              <div style="position:absolute;bottom:10px;right:14px;font-size:11px;color:rgba(255,255,255,0.25);">24:15</div>
+            </div>
+            <div class="video-caption">Video: Sheikh Khalid al-Rashidi — Tafsiri ya Sura Al-Fatiha (Kiswahili)</div>
+          </div>
+
+          <!-- AUDIO PLAYER -->
+          <div class="audio-player">
+            <div class="audio-play">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#1C1C1C"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+            <div class="audio-skip">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
+            </div>
+            <div class="audio-scrub">
+              <div class="scrub-bar"><div class="scrub-fill"></div><div class="scrub-thumb"></div></div>
+              <div class="scrub-times"><span class="scrub-time">4:22</span><span class="scrub-time">12:47</span></div>
+            </div>
+            <div class="audio-skip">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.49-4.5"/></svg>
+            </div>
+            <button class="audio-speed">1×</button>
+            <div class="audio-vol"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></div>
+          </div>
+
+          <!-- ARTICLE BODY -->
+          <div class="article-body">
+
+            <p>Sura Al-Fatiha ni Sura ya kwanza katika Qur'an Tukufu. Inaitwa pia <strong>"Umm Al-Kitab"</strong> (Mama wa Kitabu) kwa sababu inajumuisha mafundisho makuu ya Uislamu katika Aya saba tu.</p>
+
+            <h2>Maana ya Jina</h2>
+            <p>Neno <em>"Al-Fatiha"</em> linamaanisha <strong>"Ufunguzi"</strong> au <strong>"Kianzio."</strong> Sura hii inafungua Qur'an na pia inafungua kila Rakaa katika Swala. Bila Sura hii, Swala haikamiliki.</p>
+
+            <!-- Arabic blockquote -->
+            <div class="arabic-quote">
+              <div class="arabic-verse">
+                بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ﴿١﴾<br>
+                الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ﴿٢﴾<br>
+                الرَّحْمَٰنِ الرَّحِيمِ ﴿٣﴾
+              </div>
+              <div class="arabic-translation">
+                "Kwa jina la Allah, Mwingi wa Rehema, Mwenye kurehemu. Sifa njema zote ni za Allah, Mola Mlezi wa walimwengu wote. Mwingi wa Rehema, Mwenye kurehemu." — (Qur'an 1:1–3)
+              </div>
+            </div>
+
+            <h2>Sehemu Kuu za Sura</h2>
+            <p>Wanazuoni wa Tafsiri wamegawanya Sura Al-Fatiha katika sehemu kuu mbili:</p>
+            <p><strong>Aya 1–4:</strong> Kumsifu Allah ﷻ na kutaja sifa zake kuu — Rehema, Utukufu, na Ufalme wa Siku ya Malipo.</p>
+            <p><strong>Aya 5–7:</strong> Dua ya mja kwa Mola wake — kuomba msaada, kuomba njia ya watu wema, na kuomba kuepuka njia ya waliopotea.</p>
+
+            <!-- Hadith box -->
+            <div class="hadith-box">
+              <div class="hadith-icon">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </div>
+              <div>
+                <div class="hadith-text">Mtume Muhammad ﷺ amesema: <em>"Hapana Swala (yenye kukubaliwa) bila ya Al-Fatiha."</em></div>
+                <div class="hadith-source">Sahihi Al-Bukhari, No. 756 · Sahihi Muslim, No. 394</div>
+              </div>
+            </div>
+
+            <div class="content-placeholder">[ Tafsiri ya Aya 4–7 · Faida za Sura · Maswali ya kujifunza ]</div>
+
+          </div>
+
+          <!-- LESSON NAV -->
+          <div class="lesson-nav">
+            <div class="lesson-nav-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+              <div>
+                <div class="lesson-nav-label">Somo la Awali</div>
+                <div class="lesson-nav-title">Tajweed — Sehemu ya Kwanza</div>
+              </div>
+            </div>
+            <div class="lesson-nav-btn next">
+              <div style="text-align:right;">
+                <div class="lesson-nav-label-next">Somo Lifuatalo</div>
+                <div class="lesson-nav-title-next">Sura Al-Ikhlas</div>
+              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+
+        </div><!-- /article -->
+
+        <!-- RIGHT SIDEBAR -->
+        <div class="lesson-sidebar">
+
+          <div style="margin-bottom:28px;">
+            <div class="sidebar-widget-title" style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Katika Ukurasa Huu</div>
+            <div class="toc-list">
+              <div class="toc-item active">Maana ya Jina</div>
+              <div class="toc-item">Sehemu Kuu za Sura</div>
+              <div class="toc-item">Hadith kuhusu Fatiha</div>
+              <div class="toc-item">Tafsiri ya Aya 4–7</div>
+              <div class="toc-item">Faida za Sura</div>
+            </div>
+          </div>
+
+          <div>
+            <div class="sidebar-widget-title" style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Masomo ya Qur'an</div>
+            <div class="sibling-list">
+              <div class="sibling-item"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span class="sibling-done">01. Utangulizi wa Qur'an</span></div>
+              <div class="sibling-item"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span class="sibling-done">02. Huruf za Kiarabu</span></div>
+              <div class="sibling-item"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1B4332" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><span class="sibling-done">03. Tajweed — Sehemu ya Kwanza</span></div>
+              <div class="sibling-item">
+                <div style="width:8px;height:8px;background:var(--accent);border-radius:50%;flex-shrink:0;margin-top:2px;"></div>
+                <span class="sibling-current">04. Sura Al-Fatiha ← Uko Hapa</span>
+              </div>
+              <div class="sibling-item"><div style="width:10px;height:10px;border:1.5px solid var(--border);border-radius:50%;flex-shrink:0;margin-top:1px;"></div><span class="sibling-todo">05. Sura Al-Ikhlas</span></div>
+              <div class="sibling-item"><div style="width:10px;height:10px;border:1.5px solid var(--border);border-radius:50%;flex-shrink:0;margin-top:1px;"></div><span class="sibling-todo">06. Sura Al-Nas na Al-Falaq</span></div>
+              <div class="sibling-item"><div style="width:10px;height:10px;border:1.5px solid var(--border);border-radius:50%;flex-shrink:0;margin-top:1px;"></div><span class="sibling-todo">07. Adabu za Kusoma Qur'an</span></div>
+            </div>
+            <div style="margin-top:14px;">
+              <a style="font-size:12px;color:var(--primary);text-decoration:none;font-weight:600;display:flex;align-items:center;gap:5px;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+                Rudi kwa Masomo Yote
+              </a>
+            </div>
+          </div>
+
+        </div><!-- /lesson-sidebar -->
+
+      </div><!-- /lesson-layout -->
+
+      <!-- MOBILE STICKY AUDIO PLAYER -->
+      <div class="sticky-audio">
+        <div class="sticky-audio-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#1C1C1C"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
+        <div class="sticky-info">
+          <div class="sticky-title">Sura Al-Fatiha — Tilawa · Sheikh Khalid al-Rashidi</div>
+          <div class="sticky-sub">4:22 / 12:47</div>
+          <div class="sticky-bar"><div class="sticky-fill"></div></div>
+        </div>
+        <button class="audio-speed" style="font-size:11px;">1×</button>
+        <div style="font-size:10px;color:#444;margin-left:8px;font-family:var(--font);font-style:italic;">← mobile sticky</div>
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="footer-cta-bar">
+          <div class="footer-cta-title">Jifunze Uislamu kwa Mpangilio na Uclewa</div>
+          <button class="btn-gold" style="padding:12px 24px;font-size:13px;display:flex;align-items:center;gap:8px;">Anza Kujifunza <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+        </div>
+        <div class="footer-body">
+          <div class="footer-brand">
+            <div class="footer-logo-wrap"><div class="footer-logo-mark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5"><path d="M12 2C9 2 6 4.5 6 8c0 2.5 1.5 4.5 3 6h6c1.5-1.5 3-3.5 3-6 0-3.5-3-6-6-6z"/><line x1="12" y1="14" x2="12" y2="19"/><line x1="9" y1="19" x2="15" y2="19"/></svg></div><span class="footer-logo-name">Ahlusunna</span></div>
+            <p class="footer-desc">Ahlusunna ni jukwaa la kujifunza Uislamu kwa mpangilio, linalowasaidia Waislamu kusoma <a href="#">Qur'an, Fiqhi, Tawhidi</a>, na Sira kupitia masomo yaliyo wazi, sauti, na video.</p>
+            <div class="footer-tagline">Kutafuta elimu ni njia ya kheri.</div>
+          </div>
+          <div class="footer-cols">
+            <div class="footer-col"><div class="footer-col-title">Kurasa Muhimu</div><ul><li>Nyumbani</li><li>Masomo</li><li class="dash">Kuhusu</li><li class="dash">Wasiliana</li></ul></div>
+            <div class="footer-col"><div class="footer-col-title">Masomo</div><ul><li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Qur'an</li><li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Hadith</li><li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Fiqhi</li><li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>Tawhidi</li><li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>Sira</li></ul></div>
+            <div class="footer-col"><div class="footer-col-title">Mawasiliano</div>
+              <div class="footer-contact-item"><div class="footer-contact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(250,247,240,0.5)" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><span>info@ahlusunna.info</span></div>
+              <div class="footer-contact-item"><div class="footer-contact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(250,247,240,0.5)" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><span>Zanzibar, Tanzania</span></div>
+              <div class="footer-contact-item"><div class="footer-contact-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(250,247,240,0.5)" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><span>Msaada wa WhatsApp</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom"><span class="footer-bottom-left">© 2026 Ahlusunna. Haki zote zimehifadhiwa.</span><span class="footer-bottom-right">Imejengwa kwa ajili ya Ummah <svg width="14" height="14" viewBox="0 0 24 24" fill="rgba(201,168,76,0.6)" stroke="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span></div>
+      </footer>
+
+    </div><!-- /page-2 -->
+
+  </div><!-- /viewport -->
+</div>
+
+<script>
+function showPage(idx) {
+  document.querySelectorAll('.page').forEach((p, i) => p.classList.toggle('active', i === idx));
+  document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+  document.querySelector('.viewport').scrollTop = 0;
+}
+</script>
+
+</body>
+</html>

@@ -11,13 +11,16 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SubjectsRouteImport } from './routes/subjects'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as ModeratorRouteImport } from './routes/moderator'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LessonSlugRouteImport } from './routes/lesson.$slug'
 import { Route as learnerProgressRouteImport } from './routes/(learner)/progress'
 import { Route as adminAdminIndexRouteImport } from './routes/(admin)/admin.index'
+import { Route as subjectsSubjectsSlugRouteImport } from './routes/(subjects)/subjects.$slug'
 import { Route as learnerSubjectsIntermediateRouteImport } from './routes/(learner)/subjects.intermediate'
 import { Route as learnerSubjectsAdvancedRouteImport } from './routes/(learner)/subjects.advanced'
 import { Route as adminAdminContentRouteImport } from './routes/(admin)/admin.content'
@@ -32,9 +35,19 @@ const RegisterRoute = RegisterRouteImport.update({
   path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ModeratorRoute = ModeratorRouteImport.update({
+  id: '/moderator',
+  path: '/moderator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -67,6 +80,11 @@ const adminAdminIndexRoute = adminAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const subjectsSubjectsSlugRoute = subjectsSubjectsSlugRouteImport.update({
+  id: '/(subjects)/subjects/$slug',
+  path: '/subjects/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const learnerSubjectsIntermediateRoute =
   learnerSubjectsIntermediateRouteImport.update({
     id: '/(learner)/subjects/intermediate',
@@ -88,7 +106,9 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/moderator': typeof ModeratorRoute
   '/register': typeof RegisterRoute
   '/subjects': typeof SubjectsRoute
   '/progress': typeof learnerProgressRoute
@@ -96,13 +116,16 @@ export interface FileRoutesByFullPath {
   '/admin/content': typeof adminAdminContentRoute
   '/subjects/advanced': typeof learnerSubjectsAdvancedRoute
   '/subjects/intermediate': typeof learnerSubjectsIntermediateRoute
+  '/subjects/$slug': typeof subjectsSubjectsSlugRoute
   '/admin/': typeof adminAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/moderator': typeof ModeratorRoute
   '/register': typeof RegisterRoute
   '/subjects': typeof SubjectsRoute
   '/progress': typeof learnerProgressRoute
@@ -110,6 +133,7 @@ export interface FileRoutesByTo {
   '/admin/content': typeof adminAdminContentRoute
   '/subjects/advanced': typeof learnerSubjectsAdvancedRoute
   '/subjects/intermediate': typeof learnerSubjectsIntermediateRoute
+  '/subjects/$slug': typeof subjectsSubjectsSlugRoute
   '/admin': typeof adminAdminIndexRoute
 }
 export interface FileRoutesById {
@@ -117,7 +141,9 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/moderator': typeof ModeratorRoute
   '/register': typeof RegisterRoute
   '/subjects': typeof SubjectsRoute
   '/(learner)/progress': typeof learnerProgressRoute
@@ -125,6 +151,7 @@ export interface FileRoutesById {
   '/(admin)/admin/content': typeof adminAdminContentRoute
   '/(learner)/subjects/advanced': typeof learnerSubjectsAdvancedRoute
   '/(learner)/subjects/intermediate': typeof learnerSubjectsIntermediateRoute
+  '/(subjects)/subjects/$slug': typeof subjectsSubjectsSlugRoute
   '/(admin)/admin/': typeof adminAdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -133,7 +160,9 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/forgot-password'
     | '/login'
+    | '/moderator'
     | '/register'
     | '/subjects'
     | '/progress'
@@ -141,13 +170,16 @@ export interface FileRouteTypes {
     | '/admin/content'
     | '/subjects/advanced'
     | '/subjects/intermediate'
+    | '/subjects/$slug'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/contact'
+    | '/forgot-password'
     | '/login'
+    | '/moderator'
     | '/register'
     | '/subjects'
     | '/progress'
@@ -155,13 +187,16 @@ export interface FileRouteTypes {
     | '/admin/content'
     | '/subjects/advanced'
     | '/subjects/intermediate'
+    | '/subjects/$slug'
     | '/admin'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/contact'
+    | '/forgot-password'
     | '/login'
+    | '/moderator'
     | '/register'
     | '/subjects'
     | '/(learner)/progress'
@@ -169,6 +204,7 @@ export interface FileRouteTypes {
     | '/(admin)/admin/content'
     | '/(learner)/subjects/advanced'
     | '/(learner)/subjects/intermediate'
+    | '/(subjects)/subjects/$slug'
     | '/(admin)/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -176,7 +212,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
+  ModeratorRoute: typeof ModeratorRoute
   RegisterRoute: typeof RegisterRoute
   SubjectsRoute: typeof SubjectsRoute
   learnerProgressRoute: typeof learnerProgressRoute
@@ -184,6 +222,7 @@ export interface RootRouteChildren {
   adminAdminContentRoute: typeof adminAdminContentRoute
   learnerSubjectsAdvancedRoute: typeof learnerSubjectsAdvancedRoute
   learnerSubjectsIntermediateRoute: typeof learnerSubjectsIntermediateRoute
+  subjectsSubjectsSlugRoute: typeof subjectsSubjectsSlugRoute
   adminAdminIndexRoute: typeof adminAdminIndexRoute
 }
 
@@ -203,11 +242,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/moderator': {
+      id: '/moderator'
+      path: '/moderator'
+      fullPath: '/moderator'
+      preLoaderRoute: typeof ModeratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -252,6 +305,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof adminAdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(subjects)/subjects/$slug': {
+      id: '/(subjects)/subjects/$slug'
+      path: '/subjects/$slug'
+      fullPath: '/subjects/$slug'
+      preLoaderRoute: typeof subjectsSubjectsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/(learner)/subjects/intermediate': {
       id: '/(learner)/subjects/intermediate'
       path: '/subjects/intermediate'
@@ -280,7 +340,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
+  ModeratorRoute: ModeratorRoute,
   RegisterRoute: RegisterRoute,
   SubjectsRoute: SubjectsRoute,
   learnerProgressRoute: learnerProgressRoute,
@@ -288,6 +350,7 @@ const rootRouteChildren: RootRouteChildren = {
   adminAdminContentRoute: adminAdminContentRoute,
   learnerSubjectsAdvancedRoute: learnerSubjectsAdvancedRoute,
   learnerSubjectsIntermediateRoute: learnerSubjectsIntermediateRoute,
+  subjectsSubjectsSlugRoute: subjectsSubjectsSlugRoute,
   adminAdminIndexRoute: adminAdminIndexRoute,
 }
 export const routeTree = rootRouteImport

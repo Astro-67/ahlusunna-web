@@ -139,6 +139,13 @@ export const adminService = {
     mockLessons.slice(0, limit),
 }
 
+export const contactService = {
+  sendMessage: async (data: { name: string; email: string; type: string; title: string; message: string }) => {
+    // Simulate network delay and return success
+    return new Promise((resolve) => setTimeout(() => resolve(true), 1000))
+  }
+}
+
 export const getLocalizedField = <T extends Record<string, unknown>>(
   item: T,
   fieldName: string,

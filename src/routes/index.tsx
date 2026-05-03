@@ -1,11 +1,24 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 import { BookOpen, CheckCircle2, Languages, ListChecks } from 'lucide-react'
 
 import { HeroSection } from '#/components/home/HeroSection'
 import { useLanguage } from '#/hooks/useLanguage'
 import type { Language } from '#/types'
 
-export const Route = createFileRoute('/')({ component: HomePage })
+export const Route = createFileRoute('/')({ 
+  component: HomePage,
+  beforeLoad: ({ context }) => {
+    if (context.auth.isAuthenticated && context.auth.user) {
+      if (context.auth.user.role === 'admin') {
+        throw redirect({ to: '/admin' })
+      } else if (context.auth.user.role === 'moderator') {
+        throw redirect({ to: '/moderator' })
+      } else if (context.auth.user.role === 'learner') {
+        throw redirect({ to: '/subjects' })
+      }
+    }
+  }
+})
 
 const pageCopy: Record<
   Language,

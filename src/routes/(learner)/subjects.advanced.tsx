@@ -10,15 +10,37 @@ import { useLanguage } from '#/hooks/useLanguage'
 
 export const Route = createFileRoute('/(learner)/subjects/advanced')({
   component: AdvancedSubjectsPage,
-  beforeLoad: ({ context, location }) => {
-    if (!context.auth.isAuthenticated) {
-      throw redirect({ to: '/login', search: { redirect: location.href } })
-    }
-  },
 })
 
 function LockedState() {
-  const { t } = useLanguage()
+  const { user } = useAuth()
+  const { currentLang, t } = useLanguage()
+
+  const title = user ? (
+    currentLang === 'ar' ? 'أكمل المرحلة السابقة' : currentLang === 'sw' ? 'Kamilisha Hatua ya Kati' : 'Complete Previous Level'
+  ) : (
+    t('levels.advanced') + ' - ' + t('levels.locked')
+  )
+
+  const message = user ? (
+    currentLang === 'ar' 
+      ? 'يرجى إكمال ٧٠٪ من المستوى المتوسط لفتح هذا المستوى.' 
+      : currentLang === 'sw' 
+        ? 'Tafadhali kamilisha 70% ya hatua ya kati ili kufungua hatua hii.' 
+        : 'Please complete 70% of the Intermediate level to unlock this stage.'
+  ) : (
+    currentLang === 'ar'
+      ? 'انضم مجانًا للوصول إلى دروس هذا المستوى ومواصلة رحلتك التعليمية.'
+      : currentLang === 'sw'
+        ? 'Jiunge bure ili uweze kusoma masomo ya hatua hii na kuendelea na safari yako ya elimu.'
+        : 'Join for free to access lessons at this level and continue your educational journey.'
+  )
+
+  const ctaText = user 
+    ? (currentLang === 'ar' ? 'العودة للمواد' : currentLang === 'sw' ? 'Rudi kwa Masomo' : 'Back to Subjects')
+    : (currentLang === 'ar' ? 'انضم إلينا ←' : currentLang === 'sw' ? 'Jiunge Nasi →' : 'Join Us →')
+
+  const ctaHref = user ? '/subjects' : '/register'
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center px-4">
@@ -27,16 +49,15 @@ function LockedState() {
           <Lock className="size-10 text-accent" />
         </div>
         <h2 className="mb-3 font-decorative text-[24px] font-bold text-foreground">
-          {t('levels.advanced')} - {t('levels.locked')}
+          {title}
         </h2>
         <p className="mb-8 text-sm leading-relaxed text-muted-foreground">
-          Complete all Intermediate lessons to unlock this level and continue your journey in Islamic knowledge.
+          {message}
         </p>
         <div className="flex flex-col items-center gap-4">
-          <Button asChild variant="accent" size="lg" className="gap-2">
-            <Link to="/subjects/intermediate">
-              <ArrowLeft className="size-5" />
-              {t('levels.go_to_intermediate')}
+          <Button asChild variant="accent" size="lg" className="gap-2 px-8">
+            <Link to={ctaHref}>
+              {ctaText}
             </Link>
           </Button>
         </div>

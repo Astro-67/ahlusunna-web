@@ -1,25 +1,30 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 
-import { Button } from '#/components/ui/button'
 import { useAuth } from '#/hooks/useAuth'
 import { useLanguage } from '#/hooks/useLanguage'
+import { cn } from '#/lib/utils'
+import { mockUsers as seedUsers } from '#/data/seed'
 
 interface LoginFormProps {
-  onSuccess: () => void
+  onSuccess?: () => void
+  redirect?: string
 }
 
-export function LoginForm({ onSuccess }: LoginFormProps) {
+export function LoginForm({ onSuccess, redirect }: LoginFormProps) {
+  const navigate = useNavigate()
   const { login } = useAuth()
-  const { t } = useLanguage()
+  const { t, currentLang } = useLanguage()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [rememberMe, setRememberMe] = useState(false)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  
+  const isRtl = currentLang === 'ar'
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -30,37 +35,61 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
     setIsLoading(false)
 
     if (result.success) {
-      onSuccess()
+      if (onSuccess) {
+        onSuccess()
+      } else {
+        // Centralized redirection logic
+        const users = seedUsers // we need to get the user object to check role
+        const loggedInUser = users.find(u => u.email === email.trim().toLowerCase())
+        
+        if (!loggedInUser) {
+           void navigate({ to: '/' })
+           return
+        }
+
+        if (loggedInUser.role === 'admin') {
+          void navigate({ to: '/admin' })
+        } else if (loggedInUser.role === 'moderator') {
+          void navigate({ to: '/moderator' })
+        } else {
+          void navigate({ to: '/subjects' })
+        }
+      }
     } else {
       setError(t(result.error ?? 'common.error'))
     }
   }
 
   return (
-    <div className="w-full max-w-sm">
-      <div className="mb-8 text-center">
-        <img
-          src="/Ahlusunna-logo.png"
-          alt="Ahlusunna"
-          className="mx-auto mb-4 h-16 w-auto object-contain"
-        />
-        <h1 className="text-2xl font-bold text-foreground">
+    <div className="w-full">
+      <div className="mb-8">
+        <Link to="/" className="inline-block mb-3">
+          <img
+            src="/Ahlusunna-logo.png"
+            alt="Ahlusunna"
+            className="h-24 w-auto"
+          />
+        </Link>
+        <h2 className="mb-2 text-[24px] font-bold text-foreground">
           {t('auth.login_title')}
-        </h1>
-        <p className="mt-2 text-sm text-gray-500">
-          Enter your credentials to access your account
+        </h2>
+        <p className="text-[13px] text-muted-foreground">
+          {t('auth.no_account')}{' '}
+          <Link to="/register" className="text-primary font-semibold hover:underline">
+            {t('navigation.register')}
+          </Link>
         </p>
       </div>
 
       {error && (
-        <div className="mb-4 rounded-lg bg-red-50 p-4 text-sm text-red-600" role="alert">
+        <div className="mb-5 border border-destructive bg-destructive/10 p-3 text-[13px] text-destructive" role="alert">
           {error}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-5">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="email" className="mb-1.5 block text-[12px] font-semibold tracking-[0.02em] text-foreground">
             {t('auth.email_label')}
           </label>
           <input
@@ -68,7 +97,8 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
             type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-400 transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            className="w-full bg-background border border-border p-[11px_14px] font-sans text-[14px] text-foreground transition-colors focus:border-primary focus:bg-surface focus:outline-none text-left"
+            dir="ltr"
             placeholder={t('auth.email_placeholder')}
             required
             autoComplete="email"
@@ -76,16 +106,21 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-            {t('auth.password_label')}
-          </label>
-          <div className="relative mt-1">
+          <div className="mb-1.5 flex items-center justify-between">
+            <label htmlFor="password" className="block text-[12px] font-semibold tracking-[0.02em] text-foreground">
+              {t('auth.password_label')}
+            </label>
+            <Link to="/forgot-password" className="text-[11px] font-semibold text-muted-foreground hover:text-primary hover:underline">
+              Umesahau nenosiri?
+            </Link>
+          </div>
+          <div className="relative">
             <input
               id="password"
               type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className="block w-full rounded-lg border border-gray-300 px-4 py-3 pe-12 text-gray-900 placeholder-gray-400 transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              className="w-full bg-background border border-border p-[11px_14px] font-sans text-[14px] text-foreground transition-colors focus:border-primary focus:bg-surface focus:outline-none"
               placeholder="••••••••"
               required
               autoComplete="current-password"
@@ -93,43 +128,44 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
             <button
               type="button"
               onClick={() => setShowPassword((shown) => !shown)}
-              className="absolute end-4 top-1/2 -translate-y-1/2 text-gray-400 transition-colors hover:text-gray-600"
+              className={cn("absolute top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground", isRtl ? "left-4" : "right-4")}
               aria-label={showPassword ? t('auth.hide_password') : t('auth.show_password')}
             >
-              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
             </button>
           </div>
         </div>
 
-        <div className="flex items-center justify-between">
-          <label className="flex items-center gap-2">
+        <div className="mt-2">
+          <label className="flex cursor-pointer items-center gap-2">
             <input
               type="checkbox"
               checked={rememberMe}
               onChange={(event) => setRememberMe(event.target.checked)}
-              className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+              className="size-4 shrink-0 accent-primary"
             />
-            <span className="text-sm text-gray-600">{t('auth.remember_me')}</span>
+            <span className="text-[13px] text-muted-foreground">{t('auth.remember_me')}</span>
           </label>
         </div>
 
-        <Button type="submit" disabled={isLoading} className="w-full py-3">
+        <button 
+          type="submit" 
+          disabled={isLoading} 
+          className={cn(
+            "mt-2 w-full p-[13px] bg-primary text-white border-none font-sans text-[14px] font-semibold cursor-pointer transition-colors letter-spacing-[0.01em]",
+            isLoading ? "opacity-70 cursor-not-allowed" : "hover:bg-primary-dark"
+          )}
+        >
           {isLoading ? t('common.loading') : t('auth.submit_login')}
-        </Button>
+        </button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-gray-500">
-        {t('auth.no_account')}{' '}
-        <Link to="/register" className="font-medium text-primary hover:underline">
-          {t('navigation.register')}
-        </Link>
-      </p>
-
-      <div className="mt-8 rounded-lg bg-gray-50 p-4">
-        <p className="mb-2 text-xs font-medium uppercase tracking-wide text-gray-500">Demo accounts</p>
-        <div className="space-y-1 text-xs text-gray-600">
-          <p><span className="font-medium">Admin:</span> admin@ahlusunna.info / admin123</p>
-          <p><span className="font-medium">Student:</span> mwanafunzi@ahlusunna.info / user123</p>
+      <div className="mt-8 border-t border-border pt-6">
+        <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground">Demo Accounts</div>
+        <div className="space-y-1.5 text-[12px] text-muted-foreground">
+          <p><strong className="font-semibold text-foreground">Admin:</strong> admin@ahlusunna.info / admin123</p>
+          <p><strong className="font-semibold text-foreground">Moderator:</strong> moderator@ahlusunna.info / mod123</p>
+          <p><strong className="font-semibold text-foreground">Mwanafunzi:</strong> mwanafunzi@ahlusunna.info / user123</p>
         </div>
       </div>
     </div>

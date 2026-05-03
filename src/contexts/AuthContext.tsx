@@ -15,6 +15,8 @@ export interface AuthContextValue {
   user: User | null
   isAuthenticated: boolean
   isAdmin: boolean
+  isModerator: boolean
+  isLearner: boolean
   isLoading: boolean
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>
   register: (
@@ -68,18 +70,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const checkAndUnlockLevels = useCallback((currentUser: User): User => {
+    // Check Beginner (Awali) -> Intermediate (Kati)
+    const beginnerLessons = lessons.filter((lesson) => lesson.levelId === 'awali')
+    const completedBeginner = beginnerLessons.filter((lesson) =>
+      currentUser.progress.includes(lesson.slug),
+    ).length
+    const beginnerProgress = beginnerLessons.length > 0 ? (completedBeginner / beginnerLessons.length) : 0
+    
+    // Check Intermediate (Kati) -> Advanced (Endelea)
     const intermediateLessons = lessons.filter((lesson) => lesson.levelId === 'kati')
     const completedIntermediate = intermediateLessons.filter((lesson) =>
       currentUser.progress.includes(lesson.slug),
     ).length
+    const intermediateProgress = intermediateLessons.length > 0 ? (completedIntermediate / intermediateLessons.length) : 0
 
-    const allIntermediateDone = completedIntermediate === intermediateLessons.length
-    const hasAdvanced = currentUser.levelAccess.includes('endelea')
+    let nextAccess = [...currentUser.levelAccess]
 
-    if (allIntermediateDone && !hasAdvanced && intermediateLessons.length > 0) {
+    if (beginnerProgress >= 0.7 && !nextAccess.includes('kati')) {
+      nextAccess.push('kati')
+    }
+    
+    if (intermediateProgress >= 0.7 && !nextAccess.includes('endelea')) {
+      nextAccess.push('endelea')
+    }
+
+    if (nextAccess.length !== currentUser.levelAccess.length) {
       return {
         ...currentUser,
-        levelAccess: [...currentUser.levelAccess, 'endelea'],
+        levelAccess: nextAccess as LevelId[],
       }
     }
 
@@ -187,6 +205,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       user,
       isAuthenticated: Boolean(user),
       isAdmin: user?.role === 'admin',
+      isModerator: user?.role === 'moderator',
+      isLearner: user?.role === 'learner',
       isLoading: false,
       login,
       register,

@@ -15,9 +15,9 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 
 function RootComponent() {
   const pathname = useRouterState({ select: (state) => state.location.pathname })
-  const isAdminRoute = pathname.startsWith('/admin')
+  const isDashboardRoute = pathname.startsWith('/admin') || pathname.startsWith('/moderator')
 
-  if (isAdminRoute) {
+  if (isDashboardRoute) {
     return <Outlet />
   }
 

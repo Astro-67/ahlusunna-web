@@ -1,21 +1,22 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import { Eye, EyeOff } from 'lucide-react'
-import { useState  } from 'react'
-import type {FormEvent} from 'react';
+import { useState } from 'react'
+import type { FormEvent } from 'react'
 
-import { Button } from '#/components/ui/button'
 import { useAuth } from '#/hooks/useAuth'
 import { useLanguage } from '#/hooks/useLanguage'
+import { cn } from '#/lib/utils'
 
 interface RegisterFormProps {
-  onSuccess: () => void
+  onSuccess?: () => void
 }
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export function RegisterForm({ onSuccess }: RegisterFormProps) {
+  const navigate = useNavigate()
   const { register } = useAuth()
-  const { t } = useLanguage()
+  const { t, currentLang } = useLanguage()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -23,6 +24,8 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+
+  const isRtl = currentLang === 'ar'
 
   const validate = () => {
     if (!name.trim()) return t('auth.error_name_required')
@@ -49,27 +52,46 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
     setIsLoading(false)
 
     if (result.success) {
-      onSuccess()
+      if (onSuccess) {
+        onSuccess()
+      } else {
+        void navigate({ to: '/' })
+      }
     } else {
       setError(t(result.error ?? 'common.error'))
     }
   }
 
   return (
-    <div className="w-full max-w-md border border-border bg-white p-8">
-      <h1 className="mb-6 text-[24px] font-bold text-foreground lg:text-[28px]">
-        {t('auth.register_title')}
-      </h1>
+    <div className="w-full">
+      <div className="mb-8">
+        <Link to="/" className="inline-block mb-3">
+          <img
+            src="/Ahlusunna-logo.png"
+            alt="Ahlusunna"
+            className="h-24 w-auto"
+          />
+        </Link>
+        <h2 className="mb-2 text-[24px] font-bold text-foreground">
+          {t('auth.register_title')}
+        </h2>
+        <p className="text-[13px] text-muted-foreground">
+          {t('auth.has_account')}{' '}
+          <Link to="/login" className="text-primary font-semibold hover:underline">
+            {t('navigation.login')}
+          </Link>
+        </p>
+      </div>
 
       {error && (
-        <div className="mb-4 border border-destructive bg-destructive/10 p-3 text-sm text-destructive" role="alert">
+        <div className="mb-5 border border-destructive bg-destructive/10 p-3 text-[13px] text-destructive" role="alert">
           {error}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1">
-          <label htmlFor="name" className="text-sm font-medium text-foreground">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+        <div>
+          <label htmlFor="name" className="mb-1.5 block text-[12px] font-semibold tracking-[0.02em] text-foreground">
             {t('auth.name_label')}
           </label>
           <input
@@ -77,15 +99,15 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
             type="text"
             value={name}
             onChange={(event) => setName(event.target.value)}
-            className="h-12 w-full border border-border bg-background px-3 text-foreground transition-colors focus:border-2 focus:border-accent focus:outline-none"
+            className="w-full bg-background border border-border p-[11px_14px] font-sans text-[14px] text-foreground transition-colors focus:border-primary focus:bg-surface focus:outline-none"
             placeholder={t('auth.name_placeholder')}
             autoComplete="name"
             required
           />
         </div>
 
-        <div className="flex flex-col gap-1">
-          <label htmlFor="register-email" className="text-sm font-medium text-foreground">
+        <div>
+          <label htmlFor="register-email" className="mb-1.5 block text-[12px] font-semibold tracking-[0.02em] text-foreground">
             {t('auth.email_label')}
           </label>
           <input
@@ -93,39 +115,42 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
             type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            className="h-12 w-full border border-border bg-background px-3 text-foreground transition-colors focus:border-2 focus:border-accent focus:outline-none"
+            className="w-full bg-background border border-border p-[11px_14px] font-sans text-[14px] text-foreground transition-colors focus:border-primary focus:bg-surface focus:outline-none text-left"
+            dir="ltr"
             placeholder={t('auth.email_placeholder')}
             autoComplete="email"
             required
           />
         </div>
 
-        <div className="relative flex flex-col gap-1">
-          <label htmlFor="register-password" className="text-sm font-medium text-foreground">
+        <div>
+          <label htmlFor="register-password" className="mb-1.5 block text-[12px] font-semibold tracking-[0.02em] text-foreground">
             {t('auth.password_label')}
           </label>
-          <input
-            id="register-password"
-            type={showPassword ? 'text' : 'password'}
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            className="h-12 w-full border border-border bg-background px-3 pe-10 text-foreground transition-colors focus:border-2 focus:border-accent focus:outline-none"
-            placeholder="••••••••"
-            autoComplete="new-password"
-            required
-          />
-          <button
-            type="button"
-            onClick={() => setShowPassword((shown) => !shown)}
-            className="absolute end-3 top-8 text-muted-foreground transition-colors hover:text-foreground"
-            aria-label={showPassword ? t('auth.hide_password') : t('auth.show_password')}
-          >
-            {showPassword ? <EyeOff aria-hidden="true" size={20} /> : <Eye aria-hidden="true" size={20} />}
-          </button>
+          <div className="relative">
+            <input
+              id="register-password"
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              className="w-full bg-background border border-border p-[11px_14px] font-sans text-[14px] text-foreground transition-colors focus:border-primary focus:bg-surface focus:outline-none"
+              placeholder="••••••••"
+              autoComplete="new-password"
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword((shown) => !shown)}
+              className={cn("absolute top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground", isRtl ? "left-4" : "right-4")}
+              aria-label={showPassword ? t('auth.hide_password') : t('auth.show_password')}
+            >
+              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
+          </div>
         </div>
 
-        <div className="flex flex-col gap-1">
-          <label htmlFor="confirm-password" className="text-sm font-medium text-foreground">
+        <div>
+          <label htmlFor="confirm-password" className="mb-1.5 block text-[12px] font-semibold tracking-[0.02em] text-foreground">
             {t('auth.confirm_password_label')}
           </label>
           <input
@@ -133,24 +158,24 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
             type={showPassword ? 'text' : 'password'}
             value={confirmPassword}
             onChange={(event) => setConfirmPassword(event.target.value)}
-            className="h-12 w-full border border-border bg-background px-3 text-foreground transition-colors focus:border-2 focus:border-accent focus:outline-none"
+            className="w-full bg-background border border-border p-[11px_14px] font-sans text-[14px] text-foreground transition-colors focus:border-primary focus:bg-surface focus:outline-none"
             placeholder="••••••••"
             autoComplete="new-password"
             required
           />
         </div>
 
-        <Button type="submit" disabled={isLoading} className="w-full">
+        <button 
+          type="submit" 
+          disabled={isLoading} 
+          className={cn(
+            "mt-2 w-full p-[13px] bg-primary text-white border-none font-sans text-[14px] font-semibold cursor-pointer transition-colors letter-spacing-[0.01em]",
+            isLoading ? "opacity-70 cursor-not-allowed" : "hover:bg-primary-dark"
+          )}
+        >
           {isLoading ? t('common.loading') : t('auth.submit_register')}
-        </Button>
+        </button>
       </form>
-
-      <p className="mt-4 text-center text-sm text-muted-foreground">
-        {t('auth.has_account')}{' '}
-        <Link to="/login" className="text-accent hover:underline">
-          {t('navigation.login')}
-        </Link>
-      </p>
     </div>
   )
 }
