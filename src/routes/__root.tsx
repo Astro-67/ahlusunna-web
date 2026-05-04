@@ -24,7 +24,7 @@ function RootComponent() {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <Navbar />
-      <main className="flex-1 pt-14 sm:pt-16 lg:pt-19">
+      <main className="flex-1 pt-16 sm:pt-20 lg:pt-24">
         <Outlet />
       </main>
       <PersistentAudioPlayer />

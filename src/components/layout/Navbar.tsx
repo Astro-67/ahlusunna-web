@@ -143,13 +143,13 @@ export function Navbar() {
   return (
     <nav
       className={cn(
-        'fixed inset-x-0 top-0 z-40 h-14 border-b border-border/70 bg-background/96 backdrop-blur-md transition-shadow duration-300 sm:h-16 lg:h-19',
+        'fixed inset-x-0 top-0 z-40 h-16 border-b border-border/70 bg-background/96 backdrop-blur-md transition-shadow duration-300 sm:h-20 lg:h-24',
         scrolled && 'shadow-[0_10px_30px_rgba(27,67,50,0.08)]',
       )}
       aria-label="Primary"
     >
       <div className="mx-auto flex h-full w-full max-w-7xl items-center justify-between gap-2 px-3 sm:gap-4 sm:px-6 lg:px-8">
-        <Link to="/" className="flex min-w-0 shrink items-center" aria-label="Ahlusunna home">
+        <Link to="/" className="flex shrink-0 items-center" aria-label="Ahlusunna home">
           <LogoNavbar />
         </Link>
 
@@ -246,7 +246,7 @@ export function Navbar() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="absolute inset-x-0 top-14 z-50 max-h-[calc(100svh-3.5rem)] overflow-y-auto border-b border-border bg-background shadow-[0_18px_50px_rgba(27,67,50,0.14)] sm:top-16 sm:max-h-[calc(100svh-4rem)] lg:hidden">
+        <div className="absolute inset-x-0 top-16 z-50 max-h-[calc(100svh-4rem)] overflow-y-auto border-b border-border bg-background shadow-[0_18px_50px_rgba(27,67,50,0.14)] sm:top-20 sm:max-h-[calc(100svh-5rem)] lg:hidden">
           <div className="container-main flex flex-col gap-1 py-4">
             {navItems.map((item) => (
               <NavLink
