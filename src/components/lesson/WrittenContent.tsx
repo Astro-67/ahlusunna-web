@@ -43,10 +43,10 @@ export function WrittenContent({ content, language }: WrittenContentProps) {
           className={cn(
             'prose max-w-none',
             'prose-headings:font-decorative prose-headings:text-foreground',
-            'prose-p:text-muted-foreground prose-p:leading-relaxed',
+            'prose-p:text-body-lg prose-p:text-muted-foreground prose-p:leading-[1.8]',
             'prose-blockquote:border-accent prose-blockquote:bg-accent/5 prose-blockquote:py-2 prose-blockquote:not-italic',
-            'prose-blockquote:text-accent prose-blockquote:font-arabic prose-blockquote:text-xl',
-            language === 'ar' && 'prose-p:font-arabic prose-p:text-lg prose-p:leading-loose',
+            'prose-blockquote:text-accent prose-blockquote:font-arabic prose-blockquote:text-2xl',
+            language === 'ar' && 'prose-p:font-arabic prose-p:text-xl prose-p:leading-[2.2]',
           )}
         />
 

@@ -32,27 +32,39 @@ export function AdminSidebar({ isCollapsed }: AdminSidebarProps) {
     <aside className="bg-primary flex flex-col h-full py-6" dir={isRtl ? 'rtl' : 'ltr'}>
       {/* Brand */}
       <div className={cn(
-        "px-6 pb-6 mb-2 border-b border-white/10 flex items-center gap-3 transition-all",
-        isCollapsed && "px-0 justify-center"
+        "pb-5 mb-2 border-b border-white/10 transition-all",
+        isCollapsed ? "px-2" : "px-6"
       )}>
-        <Link to="/" className="shrink-0 transition-all hover:opacity-80">
-          <img 
-            src="/Ahlusunna-logo.png" 
-            alt="Logo" 
-            className={cn(
-              "h-14 w-auto transition-all",
-              isCollapsed && "h-10"
-            )} 
-            style={{ filter: 'brightness(0) invert(1)' }}
-          />
-        </Link>
-        {!isCollapsed && (
-          <div className="flex flex-col min-w-0">
-            <span className="text-[14px] font-bold text-[#FAF7F0] leading-none truncate">Ahlusunna</span>
-            <span className="text-[10px] font-bold tracking-[0.08em] text-accent uppercase leading-none mt-1 truncate">
-              {roleLabel}
-            </span>
-          </div>
+        {isCollapsed ? (
+          <Link
+            to="/"
+            className="flex justify-center transition-opacity hover:opacity-85"
+            aria-label="Ahlusunna home"
+          >
+            <img
+              src="/Logos/Logo-with-no-background/icon-text-below-logo-for-green-bg.png"
+              alt="Ahlusunna"
+              className="h-14 w-auto object-contain"
+            />
+          </Link>
+        ) : (
+          <Link
+            to="/"
+            className="group block transition-opacity hover:opacity-90"
+            aria-label="Ahlusunna home"
+          >
+            <img
+              src="/Logos/Logo-with-no-background/horizontal-logo-with-border-for-green-bg.png"
+              alt="Ahlusunna"
+              className="h-20 w-auto object-contain object-start"
+            />
+            <div className={cn("mt-3 flex items-center gap-2", isRtl && "flex-row-reverse")}>
+              <span className="h-px w-4 bg-accent" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-accent leading-none">
+                {roleLabel}
+              </span>
+            </div>
+          </Link>
         )}
       </div>
 

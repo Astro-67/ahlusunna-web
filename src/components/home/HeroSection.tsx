@@ -170,7 +170,7 @@ export function HeroSection() {
             {copy.title}
           </h1>
 
-          <p className="mt-4 max-w-136 text-sm leading-6 text-primary-foreground/94 sm:mt-5 sm:text-base sm:leading-7 md:text-lg md:leading-8">
+          <p className="mt-4 max-w-136 text-base leading-7 text-primary-foreground/94 sm:mt-5 sm:text-lg sm:leading-8 md:text-xl md:leading-9">
             {copy.subtitle}
           </p>
 
@@ -229,27 +229,27 @@ export function HeroSection() {
                   <Link
                     key={level.href}
                     to={level.href}
-                    className="group flex min-h-19 items-center gap-3 rounded-[8px] border border-accent/28 bg-primary-dark/95 p-3 text-primary-foreground shadow-[0_14px_45px_rgba(0,0,0,0.22)] transition-all duration-300 hover:border-accent/70 hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:min-h-24 sm:hover:-translate-y-0.5 lg:p-4"
+                    className="group flex min-h-20 items-center gap-3 border border-accent/28 bg-primary-dark/95 p-3 text-primary-foreground shadow-[0_14px_45px_rgba(0,0,0,0.22)] transition-all duration-300 hover:border-accent/70 hover:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:min-h-24 sm:hover:-translate-y-0.5 lg:p-4"
                   >
-                    <span className="flex size-9 shrink-0 items-center justify-center rounded-[8px] bg-accent text-accent-foreground sm:size-10">
+                    <span className="flex size-10 shrink-0 items-center justify-center bg-accent text-accent-foreground sm:size-11">
                       <Icon aria-hidden="true" />
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="flex items-start justify-between gap-3">
                         <span className="min-w-0">
-                          <span className="block truncate font-decorative text-lg font-bold leading-tight sm:text-xl">
-                            {level.title[currentLang]}
+                          <span className="block truncate font-decorative text-xl font-bold leading-tight sm:text-2xl">
+                            {level.subtitle[currentLang]}
                           </span>
                           <span className="block truncate text-sm font-medium text-accent">
-                            {level.subtitle[currentLang]}
+                            {level.title[currentLang]}
                           </span>
                           <span className="block truncate text-xs font-medium text-accent/80">
                             {level.arabicSubtitle}
                           </span>
                         </span>
-                        <span className="shrink-0 text-xs text-accent">0{index + 1}</span>
+                        <span className="shrink-0 text-sm text-accent">0{index + 1}</span>
                       </span>
-                      <span className="mt-2 inline-flex items-center gap-2 text-xs font-medium text-primary-foreground/92">
+                      <span className="mt-2 inline-flex items-center gap-2 text-sm font-medium text-primary-foreground/92">
                         {level.status[currentLang]}
                         <ArrowRight
                           aria-hidden="true"

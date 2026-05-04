@@ -13,7 +13,19 @@ interface LoginFormProps {
   redirect?: string
 }
 
-export function LoginForm({ onSuccess, redirect }: LoginFormProps) {
+const forgotCopy: Record<'sw' | 'en' | 'ar', string> = {
+  sw: 'Umesahau nenosiri?',
+  en: 'Forgot password?',
+  ar: 'نسيت كلمة المرور؟',
+}
+
+const demoCopy: Record<'sw' | 'en' | 'ar', { tag: string; admin: string; mod: string; learner: string }> = {
+  sw: { tag: 'Akaunti za Demo', admin: 'Msimamizi', mod: 'Mratibu', learner: 'Mwanafunzi' },
+  en: { tag: 'Demo Accounts', admin: 'Admin', mod: 'Moderator', learner: 'Learner' },
+  ar: { tag: 'حسابات تجريبية', admin: 'مشرف', mod: 'منسق', learner: 'طالب' },
+}
+
+export function LoginForm({ onSuccess, redirect: _redirect }: LoginFormProps) {
   const navigate = useNavigate()
   const { login } = useAuth()
   const { t, currentLang } = useLanguage()
@@ -23,8 +35,9 @@ export function LoginForm({ onSuccess, redirect }: LoginFormProps) {
   const [rememberMe, setRememberMe] = useState(false)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  
+
   const isRtl = currentLang === 'ar'
+  const demo = demoCopy[currentLang]
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -38,13 +51,12 @@ export function LoginForm({ onSuccess, redirect }: LoginFormProps) {
       if (onSuccess) {
         onSuccess()
       } else {
-        // Centralized redirection logic
-        const users = seedUsers // we need to get the user object to check role
-        const loggedInUser = users.find(u => u.email === email.trim().toLowerCase())
-        
+        const users = seedUsers
+        const loggedInUser = users.find((u) => u.email === email.trim().toLowerCase())
+
         if (!loggedInUser) {
-           void navigate({ to: '/' })
-           return
+          void navigate({ to: '/' })
+          return
         }
 
         if (loggedInUser.role === 'admin') {
@@ -61,35 +73,70 @@ export function LoginForm({ onSuccess, redirect }: LoginFormProps) {
   }
 
   return (
-    <div className="w-full">
-      <div className="mb-8">
-        <Link to="/" className="inline-block mb-3">
+    <div className="w-full animate-[fadeUp_500ms_ease-out_both]">
+      <style>{`
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+
+      {/* Heading + Brand — text first, logo after */}
+      <div
+        className={cn(
+          'mb-10 flex items-center gap-3',
+          isRtl && 'flex-row-reverse',
+        )}
+      >
+        <div className="min-w-0 flex-1">
+          <div className={cn('mb-1.5 flex items-center gap-2', isRtl && 'flex-row-reverse')}>
+            <span className="h-px w-5 bg-accent" />
+            <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-accent">
+              {currentLang === 'sw' ? 'Ingia' : currentLang === 'ar' ? 'دخول' : 'Sign in'}
+            </span>
+          </div>
+          <h2 className="font-decorative text-[26px] font-semibold leading-[1.1] tracking-tight text-foreground sm:text-[30px]">
+            {t('auth.login_title')}
+          </h2>
+          <p className="mt-1.5 text-[12.5px] leading-snug text-muted-foreground sm:text-[13px]">
+            {t('auth.no_account')}{' '}
+            <Link
+              to="/register"
+              className="font-semibold text-primary underline-offset-4 transition-colors hover:text-accent hover:underline"
+            >
+              {t('navigation.register')}
+            </Link>
+          </p>
+        </div>
+
+        <Link
+          to="/"
+          className="shrink-0 transition-opacity duration-200 hover:opacity-85"
+          aria-label="Ahlusunna home"
+        >
           <img
-            src="/Ahlusunna-logo.png"
+            src="/Logos/Logo-with-no-background/horizontal-logo-with-border.png"
             alt="Ahlusunna"
-            className="h-24 w-auto"
+            className="h-16 w-auto object-contain sm:h-20"
           />
         </Link>
-        <h2 className="mb-2 text-[24px] font-bold text-foreground">
-          {t('auth.login_title')}
-        </h2>
-        <p className="text-[13px] text-muted-foreground">
-          {t('auth.no_account')}{' '}
-          <Link to="/register" className="text-primary font-semibold hover:underline">
-            {t('navigation.register')}
-          </Link>
-        </p>
       </div>
 
       {error && (
-        <div className="mb-5 border border-destructive bg-destructive/10 p-3 text-[13px] text-destructive" role="alert">
+        <div
+          className="mb-5 border-l-2 border-destructive bg-destructive/8 px-4 py-3 text-[13px] text-destructive"
+          role="alert"
+        >
           {error}
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <div>
-          <label htmlFor="email" className="mb-1.5 block text-[12px] font-semibold tracking-[0.02em] text-foreground">
+          <label
+            htmlFor="email"
+            className="mb-2 block text-[11px] font-bold uppercase tracking-[0.14em] text-foreground/80"
+          >
             {t('auth.email_label')}
           </label>
           <input
@@ -97,7 +144,7 @@ export function LoginForm({ onSuccess, redirect }: LoginFormProps) {
             type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            className="w-full bg-background border border-border p-[11px_14px] font-sans text-[14px] text-foreground transition-colors focus:border-primary focus:bg-surface focus:outline-none text-left"
+            className="w-full border border-border bg-card px-4 py-3 font-sans text-[15px] text-foreground placeholder:text-muted-foreground/60 transition-all duration-200 focus:border-primary focus:bg-background focus:shadow-[inset_0_-2px_0_var(--color-accent)] focus:outline-none"
             dir="ltr"
             placeholder={t('auth.email_placeholder')}
             required
@@ -106,12 +153,18 @@ export function LoginForm({ onSuccess, redirect }: LoginFormProps) {
         </div>
 
         <div>
-          <div className="mb-1.5 flex items-center justify-between">
-            <label htmlFor="password" className="block text-[12px] font-semibold tracking-[0.02em] text-foreground">
+          <div className={cn('mb-2 flex items-center justify-between', isRtl && 'flex-row-reverse')}>
+            <label
+              htmlFor="password"
+              className="block text-[11px] font-bold uppercase tracking-[0.14em] text-foreground/80"
+            >
               {t('auth.password_label')}
             </label>
-            <Link to="/forgot-password" className="text-[11px] font-semibold text-muted-foreground hover:text-primary hover:underline">
-              Umesahau nenosiri?
+            <Link
+              to="/forgot-password"
+              className="text-[11px] font-semibold text-muted-foreground transition-colors hover:text-accent"
+            >
+              {forgotCopy[currentLang]}
             </Link>
           </div>
           <div className="relative">
@@ -120,7 +173,7 @@ export function LoginForm({ onSuccess, redirect }: LoginFormProps) {
               type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className="w-full bg-background border border-border p-[11px_14px] font-sans text-[14px] text-foreground transition-colors focus:border-primary focus:bg-surface focus:outline-none"
+              className="w-full border border-border bg-card px-4 py-3 pe-11 font-sans text-[15px] text-foreground placeholder:text-muted-foreground/60 transition-all duration-200 focus:border-primary focus:bg-background focus:shadow-[inset_0_-2px_0_var(--color-accent)] focus:outline-none"
               placeholder="••••••••"
               required
               autoComplete="current-password"
@@ -128,7 +181,10 @@ export function LoginForm({ onSuccess, redirect }: LoginFormProps) {
             <button
               type="button"
               onClick={() => setShowPassword((shown) => !shown)}
-              className={cn("absolute top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground", isRtl ? "left-4" : "right-4")}
+              className={cn(
+                'absolute top-1/2 flex size-9 -translate-y-1/2 items-center justify-center text-muted-foreground transition-colors hover:text-primary',
+                isRtl ? 'left-1' : 'right-1',
+              )}
               aria-label={showPassword ? t('auth.hide_password') : t('auth.show_password')}
             >
               {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -136,38 +192,64 @@ export function LoginForm({ onSuccess, redirect }: LoginFormProps) {
           </div>
         </div>
 
-        <div className="mt-2">
-          <label className="flex cursor-pointer items-center gap-2">
-            <input
-              type="checkbox"
-              checked={rememberMe}
-              onChange={(event) => setRememberMe(event.target.checked)}
-              className="size-4 shrink-0 accent-primary"
-            />
-            <span className="text-[13px] text-muted-foreground">{t('auth.remember_me')}</span>
-          </label>
-        </div>
+        <label className="mt-1 flex cursor-pointer items-center gap-2.5 select-none">
+          <input
+            type="checkbox"
+            checked={rememberMe}
+            onChange={(event) => setRememberMe(event.target.checked)}
+            className="size-4 shrink-0 accent-primary"
+          />
+          <span className="text-[13px] text-muted-foreground">{t('auth.remember_me')}</span>
+        </label>
 
-        <button 
-          type="submit" 
-          disabled={isLoading} 
+        <button
+          type="submit"
+          disabled={isLoading}
           className={cn(
-            "mt-2 w-full p-[13px] bg-primary text-white border-none font-sans text-[14px] font-semibold cursor-pointer transition-colors letter-spacing-[0.01em]",
-            isLoading ? "opacity-70 cursor-not-allowed" : "hover:bg-primary-dark"
+            'group relative mt-3 flex w-full items-center justify-center gap-2 overflow-hidden bg-primary px-6 py-3.5 text-[14px] font-semibold uppercase tracking-[0.16em] text-primary-foreground transition-all duration-300',
+            isLoading
+              ? 'cursor-not-allowed opacity-70'
+              : 'hover:bg-[var(--color-primary-dark)] hover:shadow-[0_8px_24px_rgba(27,67,50,0.18)]',
           )}
         >
-          {isLoading ? t('common.loading') : t('auth.submit_login')}
+          <span className="relative z-10">
+            {isLoading ? t('common.loading') : t('auth.submit_login')}
+          </span>
+          <span
+            aria-hidden="true"
+            className="absolute inset-x-0 bottom-0 h-[2px] origin-left scale-x-0 bg-accent transition-transform duration-300 group-hover:scale-x-100"
+          />
         </button>
       </form>
 
-      <div className="mt-8 border-t border-border pt-6">
-        <div className="mb-3 text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground">Demo Accounts</div>
-        <div className="space-y-1.5 text-[12px] text-muted-foreground">
-          <p><strong className="font-semibold text-foreground">Admin:</strong> admin@ahlusunna.info / admin123</p>
-          <p><strong className="font-semibold text-foreground">Moderator:</strong> moderator@ahlusunna.info / mod123</p>
-          <p><strong className="font-semibold text-foreground">Mwanafunzi:</strong> mwanafunzi@ahlusunna.info / user123</p>
+      {/* Demo accounts */}
+      <div className="mt-10 border border-border bg-muted/40 p-5">
+        <div className={cn('mb-4 flex items-center gap-3', isRtl && 'flex-row-reverse')}>
+          <span className="h-px flex-1 bg-accent/40" />
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent">
+            {demo.tag}
+          </span>
+          <span className="h-px flex-1 bg-accent/40" />
+        </div>
+        <div className="space-y-2 text-[12px] text-muted-foreground">
+          <DemoRow role={demo.admin} email="admin@ahlusunna.info" pass="admin123" />
+          <DemoRow role={demo.mod} email="moderator@ahlusunna.info" pass="mod123" />
+          <DemoRow role={demo.learner} email="mwanafunzi@ahlusunna.info" pass="user123" />
         </div>
       </div>
+    </div>
+  )
+}
+
+function DemoRow({ role, email, pass }: { role: string; email: string; pass: string }) {
+  return (
+    <div className="grid grid-cols-[5.5rem_1fr] items-center gap-3 font-mono text-[11.5px]">
+      <span className="border-s-2 border-accent ps-2 font-sans text-[11px] font-semibold uppercase tracking-[0.08em] text-foreground">
+        {role}
+      </span>
+      <span className="truncate text-muted-foreground">
+        {email} · {pass}
+      </span>
     </div>
   )
 }

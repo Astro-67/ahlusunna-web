@@ -200,11 +200,6 @@ export function Footer() {
       className="relative overflow-hidden border-t border-accent/20 bg-primary text-primary-foreground"
       dir={isArabic ? 'rtl' : 'ltr'}
     >
-      <FooterPattern className="absolute -right-16 top-10 size-72" />
-      <FooterPattern className="absolute -bottom-24 -left-16 size-80 rotate-180" />
-
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(201,168,76,0.16),transparent_35%),linear-gradient(180deg,rgba(255,255,255,0.04),transparent)]" />
-
       <div className="container-main relative z-10">
         {/* Top CTA */}
         <div className="grid gap-6 border-b border-white/10 py-10 lg:grid-cols-[1.4fr_0.8fr] lg:items-center">
@@ -229,11 +224,11 @@ export function Footer() {
         <div className="grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-12 lg:gap-12">
           {/* Brand */}
           <div className="lg:col-span-5">
-            <div className="mb-6 inline-flex rounded-2xl border border-accent/25 bg-white/10 backdrop-blur-sm">
+            <div className="mb-6 inline-flex rounded-2xl backdrop-blur-sm border border-accent/25">
               <img
-                src="/Ahlusunna-logo.png"
+                src="/Logos/Logo-with-no-background/horizontal-logo-with-border-for-green-bg.png"
                 alt="Ahlusunna"
-                className="h-20 w-auto object-contain lg:h-24"
+                className="h-32 w-auto object-contain"
               />
             </div>
 

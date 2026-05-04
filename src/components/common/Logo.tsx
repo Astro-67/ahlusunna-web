@@ -105,10 +105,10 @@ export function Logo({
 export function LogoNavbar({ className }: { className?: string }) {
   return (
     <img
-      src="/Logos/Logo-with-no-background/Horizontal-icon-text-right.png"
+      src="/Logos/Logo-with-no-background/horizontal-logo-with-border.png"
       alt="Ahlusunna Islamic Learning"
       className={cn(
-        'h-12 w-auto object-contain object-left sm:h-16 lg:h-20',
+        'h-16 w-auto object-contain object-left sm:h-20 lg:h-24',
         className,
       )}
     />

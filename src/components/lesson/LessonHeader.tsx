@@ -58,16 +58,16 @@ export function LessonHeader({ lesson, subjectName, completed, onToggleComplete 
         <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-3xl">
             <div className="mb-4 flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-accent px-3 py-1 text-xs font-medium text-accent-foreground">
-                <span className="size-1.5 rounded-full bg-accent-foreground" />
+              <span className="inline-flex items-center gap-1.5 bg-accent px-3 py-1.5 text-sm font-medium text-accent-foreground">
+                <span className="size-1.5 bg-accent-foreground" />
                 {subjectName}
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-foreground/10 px-3 py-1 text-xs font-medium text-primary-foreground/80">
+              <span className="inline-flex items-center gap-1.5 bg-primary-foreground/10 px-3 py-1.5 text-sm font-medium text-primary-foreground/80">
                 {t(`levels.${lesson.levelId}`)}
               </span>
             </div>
 
-            <h1 className="mb-4 font-decorative text-[28px] font-bold leading-tight lg:text-[36px]">
+            <h1 className="mb-4 font-decorative text-[32px] font-bold leading-tight lg:text-[44px]">
               {lesson.title}
             </h1>
 

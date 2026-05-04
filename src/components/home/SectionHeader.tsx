@@ -41,18 +41,18 @@ export function SectionHeader({
         </div>
       )}
 
-      <h2 className="font-decorative text-[24px] font-bold leading-tight text-foreground md:text-[28px] lg:text-[32px]">
+      <h2 className="font-decorative text-[28px] font-bold leading-tight text-foreground md:text-[32px] lg:text-[36px]">
         {title}
       </h2>
 
       {subtitle && (
-        <p className="mt-3 text-base leading-relaxed text-gray-500">
+        <p className="mt-4 text-[18px] leading-relaxed text-muted-foreground">
           {subtitle}
         </p>
       )}
 
       {showDivider && (
-        <div className={cn('mt-4 h-1 w-12 rounded-full bg-accent', centered && 'mx-auto')} />
+        <div className={cn('mt-5 h-0.5 w-10 bg-accent', centered && 'mx-auto')} />
       )}
 
       {viewAllHref && (

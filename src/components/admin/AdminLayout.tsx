@@ -21,16 +21,17 @@ export function AdminLayout({ children }: AdminLayoutProps) {
       
       {/* Mobile Header Toggle */}
       <div className="md:hidden flex items-center justify-between p-4 bg-primary text-white border-b border-white/10">
-        <div className="flex items-center gap-2">
-           <img 
-             src="/Ahlusunna-logo.png" 
-             alt="Logo" 
-             className="h-10 w-auto" 
-             style={{ filter: 'brightness(0) invert(1)' }}
-           />
-           <span className="font-bold text-[15px]">Admin</span>
+        <div className="flex items-center gap-3">
+          <img
+            src="/Logos/Logo-with-no-background/horizontal-logo-with-border-for-green-bg.png"
+            alt="Ahlusunna"
+            className="h-12 w-auto object-contain"
+          />
+          <span className="text-[10px] font-bold tracking-[0.18em] text-accent uppercase">
+            Admin
+          </span>
         </div>
-        <button onClick={() => setSidebarOpen(!sidebarOpen)}>
+        <button onClick={() => setSidebarOpen(!sidebarOpen)} aria-label="Toggle menu">
           <Menu size={24} />
         </button>
       </div>

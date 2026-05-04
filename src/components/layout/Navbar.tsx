@@ -143,7 +143,7 @@ export function Navbar() {
   return (
     <nav
       className={cn(
-        'fixed inset-x-0 top-0 z-40 h-16 border-b border-border/70 bg-background/96 backdrop-blur-md transition-shadow duration-300 sm:h-20 lg:h-24',
+        'fixed inset-x-0 top-0 z-40 h-20 border-b border-border/70 bg-background/96 backdrop-blur-md transition-shadow duration-300 sm:h-24 lg:h-28',
         scrolled && 'shadow-[0_10px_30px_rgba(27,67,50,0.08)]',
       )}
       aria-label="Primary"
@@ -246,7 +246,7 @@ export function Navbar() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="absolute inset-x-0 top-16 z-50 max-h-[calc(100svh-4rem)] overflow-y-auto border-b border-border bg-background shadow-[0_18px_50px_rgba(27,67,50,0.14)] sm:top-20 sm:max-h-[calc(100svh-5rem)] lg:hidden">
+        <div className="absolute inset-x-0 top-20 z-50 max-h-[calc(100svh-5rem)] overflow-y-auto border-b border-border bg-background shadow-[0_18px_50px_rgba(27,67,50,0.14)] sm:top-24 sm:max-h-[calc(100svh-6rem)] lg:hidden">
           <div className="container-main flex flex-col gap-1 py-4">
             {navItems.map((item) => (
               <NavLink
