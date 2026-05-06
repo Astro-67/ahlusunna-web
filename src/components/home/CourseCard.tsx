@@ -83,7 +83,7 @@ export function CourseCard({ course, onClick }: CourseCardProps) {
   if (onClick) return content
 
   return (
-    <Link to={`/courses/${course.slug}`} className="block">
+    <Link to="/subjects" className="block">
       {content}
     </Link>
   )

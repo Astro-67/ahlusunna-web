@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react'
-import { Link } from '@tanstack/react-router'
 import {
   BookOpen,
   ExternalLink,
@@ -11,7 +10,6 @@ import {
 
 
 import { useLanguage } from '#/hooks/useLanguage'
-import { cn } from '#/lib/utils'
 
 const footerContent = {
   en: {
@@ -87,32 +85,6 @@ const footerContent = {
     builtFor: 'بُنيت لخدمة الأمة',
   },
 } as const
-
-function FooterPattern({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 160 160"
-      fill="none"
-      className={cn('pointer-events-none text-accent/10', className)}
-      aria-hidden="true"
-    >
-      <path
-        d="M80 8L132 38V98L80 152L28 98V38L80 8Z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-      />
-      <path
-        d="M80 32L112 50V88L80 122L48 88V50L80 32Z"
-        stroke="currentColor"
-      />
-      <path
-        d="M80 55L96 65V84L80 101L64 84V65L80 55Z"
-        stroke="currentColor"
-      />
-      <circle cx="80" cy="78" r="7" stroke="currentColor" />
-    </svg>
-  )
-}
 
 function FooterHeading({ children }: { children: ReactNode }) {
   return (

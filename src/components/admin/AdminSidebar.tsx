@@ -1,5 +1,5 @@
 import { Link, useRouterState, useNavigate } from '@tanstack/react-router'
-import { BookOpen, LayoutDashboard, LogOut, Users, MessageSquare, Settings, FileText, AlertCircle, BarChart3, HelpCircle } from 'lucide-react'
+import { BookOpen, LayoutDashboard, LogOut, Users, FileText } from 'lucide-react'
 
 import { useAuth } from '#/hooks/useAuth'
 import { useLanguage } from '#/hooks/useLanguage'

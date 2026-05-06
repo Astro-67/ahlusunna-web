@@ -1,4 +1,4 @@
-import { Pause, Play, RotateCcw, RotateCw, Volume2, VolumeX } from 'lucide-react'
+import { VolumeX } from 'lucide-react'
 import type { MouseEvent } from 'react'
 
 import { useAudioPlayer } from '#/hooks/useAudioPlayer'

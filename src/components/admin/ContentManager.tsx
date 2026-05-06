@@ -195,9 +195,9 @@ export function ContentManager() {
                   </td>
                   <td className="p-[14px_18px]">
                     <div className="flex gap-1.5 text-muted-foreground">
-                      {lesson.content && <FileText size={16} title="Text Content" />}
-                      {lesson.videoUrl && <Video size={16} title="Video" />}
-                      {lesson.audioSrc && <FileAudio size={16} title="Audio" />}
+                      {lesson.content && <FileText size={16} />}
+                      {lesson.videoUrl && <Video size={16} />}
+                      {lesson.audioSrc && <FileAudio size={16} />}
                     </div>
                   </td>
                   <td className="p-[14px_18px] text-right">

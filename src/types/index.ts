@@ -2,9 +2,9 @@ export type Language = 'sw' | 'ar' | 'en'
 
 export type ContentType = 'text' | 'video' | 'audio'
 
-export type LevelId = 'beginner' | 'intermediate' | 'advanced'
+export type LevelId = 'awali' | 'kati' | 'endelea'
 
-export type SubjectId = 'quran' | 'hadith' | 'fiqh' | 'tawhid' | 'sirah'
+export type SubjectId = 'quran' | 'hadith' | 'fiqhi' | 'tawhidi' | 'sira'
 
 export type UserRole = 'public' | 'learner' | 'moderator' | 'admin'
 

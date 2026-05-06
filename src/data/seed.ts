@@ -54,6 +54,7 @@ const content = (
 export const levels: Level[] = [
   {
     id: 'awali',
+    slug: 'awali',
     name: {
       sw: 'Hatua ya Awali',
       ar: 'المستوى المبتدئ',
@@ -66,9 +67,11 @@ export const levels: Level[] = [
     },
     order: 1,
     isPublic: true,
+    status: 'active',
   },
   {
     id: 'kati',
+    slug: 'kati',
     name: {
       sw: 'Hatua ya Kati',
       ar: 'المستوى المتوسط',
@@ -81,9 +84,11 @@ export const levels: Level[] = [
     },
     order: 2,
     isPublic: false,
+    status: 'active',
   },
   {
     id: 'endelea',
+    slug: 'endelea',
     name: {
       sw: 'Kuendelea',
       ar: 'المستوى المتقدم',
@@ -96,6 +101,7 @@ export const levels: Level[] = [
     },
     order: 3,
     isPublic: false,
+    status: 'active',
   },
 ]
 
@@ -112,6 +118,7 @@ export const subjects: Subject[] = [
     icon: 'book-open',
     levelId: 'awali',
     order: 1,
+    status: 'active',
   },
   {
     id: 'hadith',
@@ -125,6 +132,7 @@ export const subjects: Subject[] = [
     icon: 'scroll',
     levelId: 'awali',
     order: 2,
+    status: 'active',
   },
   {
     id: 'fiqhi',
@@ -138,6 +146,7 @@ export const subjects: Subject[] = [
     icon: 'mosque',
     levelId: 'awali',
     order: 3,
+    status: 'active',
   },
   {
     id: 'tawhidi',
@@ -151,6 +160,7 @@ export const subjects: Subject[] = [
     icon: 'star',
     levelId: 'awali',
     order: 4,
+    status: 'active',
   },
   {
     id: 'sira',
@@ -164,6 +174,7 @@ export const subjects: Subject[] = [
     icon: 'person-standing',
     levelId: 'awali',
     order: 5,
+    status: 'active',
   },
 ]
 
@@ -178,6 +189,7 @@ export const lessons: Lesson[] = [
     slug: 'introduction-to-quran',
     subjectId: 'quran',
     levelId: 'awali',
+    courseId: 'quran-awali',
     order: 1,
     content: content(
       "Utangulizi wa Qur'an",
@@ -193,7 +205,10 @@ export const lessons: Lesson[] = [
     audioType: 'lecture',
     duration: '15:00',
     thumbnail: '/thumbnails/quran-intro.jpg',
+    status: 'published',
+    tags: ['quran', 'introduction', 'tajwid'],
     createdAt: '2024-01-15',
+    updatedAt: '2024-01-15',
   },
   {
     id: 'quran-2',
@@ -205,6 +220,7 @@ export const lessons: Lesson[] = [
     slug: 'quranic-recitation-rules',
     subjectId: 'quran',
     levelId: 'awali',
+    courseId: 'quran-awali',
     order: 2,
     content: content(
       "Makosa ya Tafsiri ya Qur'an",
@@ -219,7 +235,10 @@ export const lessons: Lesson[] = [
     audioType: 'recitation',
     duration: '22:30',
     thumbnail: '/thumbnails/tajwid.jpg',
+    status: 'published',
+    tags: ['quran', 'tajwid', 'recitation'],
     createdAt: '2024-01-20',
+    updatedAt: '2024-01-20',
   },
   {
     id: 'quran-3',
@@ -231,6 +250,7 @@ export const lessons: Lesson[] = [
     slug: 'meaning-of-surah-ikhlas',
     subjectId: 'quran',
     levelId: 'awali',
+    courseId: 'quran-awali',
     order: 3,
     content: content(
       'Maana ya Sura Al-Ikhlas',
@@ -245,7 +265,10 @@ export const lessons: Lesson[] = [
     audioType: 'lecture',
     duration: '18:45',
     thumbnail: '/thumbnails/ikhlas.jpg',
+    status: 'published',
+    tags: ['quran', 'surah', 'ikhlas', 'tawhid'],
     createdAt: '2024-01-25',
+    updatedAt: '2024-01-25',
   },
   {
     id: 'hadith-1',
@@ -253,6 +276,7 @@ export const lessons: Lesson[] = [
     slug: 'introduction-to-hadith',
     subjectId: 'hadith',
     levelId: 'awali',
+    courseId: 'hadith-awali',
     order: 1,
     content: content(
       'Utangulizi wa Hadith',
@@ -267,7 +291,10 @@ export const lessons: Lesson[] = [
     audioType: 'lecture',
     duration: '20:00',
     thumbnail: '/thumbnails/hadith-intro.jpg',
+    status: 'published',
+    tags: ['hadith', 'introduction'],
     createdAt: '2024-02-01',
+    updatedAt: '2024-02-01',
   },
   {
     id: 'hadith-2',
@@ -275,6 +302,7 @@ export const lessons: Lesson[] = [
     slug: 'forty-hadith-of-nawawi',
     subjectId: 'hadith',
     levelId: 'awali',
+    courseId: 'hadith-awali',
     order: 2,
     content: content(
       'Hadith 40 za Nawawi',
@@ -289,7 +317,10 @@ export const lessons: Lesson[] = [
     audioType: 'lecture',
     duration: '25:00',
     thumbnail: '/thumbnails/nawawi.jpg',
+    status: 'published',
+    tags: ['hadith', 'nawawi', '40-hadith'],
     createdAt: '2024-02-05',
+    updatedAt: '2024-02-05',
   },
   {
     id: 'hadith-3',
@@ -297,6 +328,7 @@ export const lessons: Lesson[] = [
     slug: 'hadith-on-morality',
     subjectId: 'hadith',
     levelId: 'awali',
+    courseId: 'hadith-awali',
     order: 3,
     content: content(
       'Hadith za Maadili',
@@ -311,7 +343,10 @@ export const lessons: Lesson[] = [
     audioType: 'lecture',
     duration: '19:15',
     thumbnail: '/thumbnails/morality.jpg',
+    status: 'published',
+    tags: ['hadith', 'morality', 'ethics'],
     createdAt: '2024-02-10',
+    updatedAt: '2024-02-10',
   },
   {
     id: 'fiqhi-1',
@@ -319,6 +354,7 @@ export const lessons: Lesson[] = [
     slug: 'rules-of-purification',
     subjectId: 'fiqhi',
     levelId: 'awali',
+    courseId: 'fiqhi-awali',
     order: 1,
     content: content(
       'Mafunzo ya Tahara',
@@ -333,7 +369,10 @@ export const lessons: Lesson[] = [
     audioType: 'lecture',
     duration: '21:30',
     thumbnail: '/thumbnails/tahara.jpg',
+    status: 'published',
+    tags: ['fiqh', 'tahara', 'purification'],
     createdAt: '2024-02-15',
+    updatedAt: '2024-02-15',
   },
   {
     id: 'fiqhi-2',
@@ -341,6 +380,7 @@ export const lessons: Lesson[] = [
     slug: 'rules-of-prayer',
     subjectId: 'fiqhi',
     levelId: 'awali',
+    courseId: 'fiqhi-awali',
     order: 2,
     content: content(
       'Mafunzo ya Sala',
@@ -355,7 +395,10 @@ export const lessons: Lesson[] = [
     audioType: 'lecture',
     duration: '28:00',
     thumbnail: '/thumbnails/sala.jpg',
+    status: 'published',
+    tags: ['fiqh', 'salah', 'prayer'],
     createdAt: '2024-02-20',
+    updatedAt: '2024-02-20',
   },
   {
     id: 'fiqhi-3',
@@ -363,6 +406,7 @@ export const lessons: Lesson[] = [
     slug: 'rules-of-fasting',
     subjectId: 'fiqhi',
     levelId: 'awali',
+    courseId: 'fiqhi-awali',
     order: 3,
     content: content(
       'Mafunzo ya Saumu',
@@ -377,7 +421,10 @@ export const lessons: Lesson[] = [
     audioType: 'lecture',
     duration: '24:00',
     thumbnail: '/thumbnails/saumu.jpg',
+    status: 'published',
+    tags: ['fiqh', 'sawm', 'fasting', 'ramadan'],
     createdAt: '2024-02-25',
+    updatedAt: '2024-02-25',
   },
   {
     id: 'tawhidi-1',
@@ -385,6 +432,7 @@ export const lessons: Lesson[] = [
     slug: 'meaning-of-tawhid',
     subjectId: 'tawhidi',
     levelId: 'awali',
+    courseId: 'tawhidi-awali',
     order: 1,
     content: content(
       'Maana ya Tawhidi',
@@ -399,7 +447,10 @@ export const lessons: Lesson[] = [
     audioType: 'lecture',
     duration: '17:00',
     thumbnail: '/thumbnails/tawhid-intro.jpg',
+    status: 'published',
+    tags: ['tawhid', 'aqeedah', 'monotheism'],
     createdAt: '2024-03-01',
+    updatedAt: '2024-03-01',
   },
   {
     id: 'tawhidi-2',
@@ -407,6 +458,7 @@ export const lessons: Lesson[] = [
     slug: 'types-of-tawhid',
     subjectId: 'tawhidi',
     levelId: 'awali',
+    courseId: 'tawhidi-awali',
     order: 2,
     content: content(
       'Aina za Tawhidi',
@@ -421,7 +473,10 @@ export const lessons: Lesson[] = [
     audioType: 'lecture',
     duration: '23:30',
     thumbnail: '/thumbnails/tawhid-types.jpg',
+    status: 'published',
+    tags: ['tawhid', 'aqeedah', 'types'],
     createdAt: '2024-03-05',
+    updatedAt: '2024-03-05',
   },
   {
     id: 'tawhidi-3',
@@ -429,6 +484,7 @@ export const lessons: Lesson[] = [
     slug: 'shirk-and-how-to-avoid',
     subjectId: 'tawhidi',
     levelId: 'awali',
+    courseId: 'tawhidi-awali',
     order: 3,
     content: content(
       'Shirk na Jinsi ya Kuepuka',
@@ -443,7 +499,10 @@ export const lessons: Lesson[] = [
     audioType: 'lecture',
     duration: '26:00',
     thumbnail: '/thumbnails/shirk.jpg',
+    status: 'published',
+    tags: ['tawhid', 'shirk', 'polytheism'],
     createdAt: '2024-03-10',
+    updatedAt: '2024-03-10',
   },
   {
     id: 'sira-1',
@@ -451,6 +510,7 @@ export const lessons: Lesson[] = [
     slug: 'birth-of-the-prophet',
     subjectId: 'sira',
     levelId: 'awali',
+    courseId: 'sira-awali',
     order: 1,
     content: content(
       'Kuzaliwa kwa Mtume (SAW)',
@@ -465,7 +525,10 @@ export const lessons: Lesson[] = [
     audioType: 'lecture',
     duration: '16:30',
     thumbnail: '/thumbnails/birth.jpg',
+    status: 'published',
+    tags: ['sirah', 'seerat', 'birth'],
     createdAt: '2024-03-15',
+    updatedAt: '2024-03-15',
   },
   {
     id: 'sira-2',
@@ -473,6 +536,7 @@ export const lessons: Lesson[] = [
     slug: 'the-prophetic-mission',
     subjectId: 'sira',
     levelId: 'awali',
+    courseId: 'sira-awali',
     order: 2,
     content: content(
       'Utoaji wa Ujumbe wa Uislamu',
@@ -487,7 +551,10 @@ export const lessons: Lesson[] = [
     audioType: 'lecture',
     duration: '27:00',
     thumbnail: '/thumbnails/mission.jpg',
+    status: 'published',
+    tags: ['sirah', 'seerat', 'prophetic-mission'],
     createdAt: '2024-03-20',
+    updatedAt: '2024-03-20',
   },
   {
     id: 'sira-3',
@@ -495,6 +562,7 @@ export const lessons: Lesson[] = [
     slug: 'hijra-to-madinah',
     subjectId: 'sira',
     levelId: 'awali',
+    courseId: 'sira-awali',
     order: 3,
     content: content(
       'Hijra ya Madina',
@@ -509,7 +577,10 @@ export const lessons: Lesson[] = [
     audioType: 'lecture',
     duration: '25:30',
     thumbnail: '/thumbnails/hijra.jpg',
+    status: 'published',
+    tags: ['sirah', 'seerat', 'hijra'],
     createdAt: '2024-03-25',
+    updatedAt: '2024-03-25',
   },
   {
     id: 'quran-kati-1',
@@ -521,6 +592,7 @@ export const lessons: Lesson[] = [
     slug: 'foundations-of-quranic-tafsir',
     subjectId: 'quran',
     levelId: 'kati',
+    courseId: 'quran-kati',
     order: 1,
     content: content(
       "Misingi ya Tafsiri ya Qur'an",
@@ -531,7 +603,10 @@ export const lessons: Lesson[] = [
       'Quranic tafsir requires knowledge of revelation context, Arabic language, and the explanations preserved from early scholars.',
     ),
     duration: '18:00',
+    status: 'published',
+    tags: ['quran', 'tafsir', 'intermediate'],
     createdAt: '2024-04-01',
+    updatedAt: '2024-04-01',
   },
   {
     id: 'hadith-kati-1',
@@ -543,6 +618,7 @@ export const lessons: Lesson[] = [
     slug: 'recognizing-authentic-hadith',
     subjectId: 'hadith',
     levelId: 'kati',
+    courseId: 'hadith-kati',
     order: 2,
     content: content(
       'Kutambua Hadith Sahihi',
@@ -553,7 +629,10 @@ export const lessons: Lesson[] = [
       'A student studies the chain of narration, narrator reliability, and the text in light of established principles.',
     ),
     duration: '20:00',
+    status: 'published',
+    tags: ['hadith', 'uthuluth', 'intermediate'],
     createdAt: '2024-04-05',
+    updatedAt: '2024-04-05',
   },
   {
     id: 'fiqhi-kati-1',
@@ -565,6 +644,7 @@ export const lessons: Lesson[] = [
     slug: 'daily-worship-rulings',
     subjectId: 'fiqhi',
     levelId: 'kati',
+    courseId: 'fiqhi-kati',
     order: 3,
     content: content(
       'Masuala ya Ibada ya Kila Siku',
@@ -575,7 +655,10 @@ export const lessons: Lesson[] = [
       'Daily worship rulings require understanding evidence, personal circumstances, and when to ask qualified scholars.',
     ),
     duration: '22:00',
+    status: 'published',
+    tags: ['fiqh', 'ibadah', 'intermediate'],
     createdAt: '2024-04-10',
+    updatedAt: '2024-04-10',
   },
 ]
 

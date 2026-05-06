@@ -9,117 +9,104 @@ import type {
   AdminStats,
   LevelId,
   SubjectId,
-  ContentStatus,
-  LessonStatus,
 } from '#/types'
 import {
-  levels as mockLevels,
-  subjects as mockSubjects,
-  courses as mockCourses,
-  modules as mockModules,
-  lessons as mockLessons,
-  tags as mockTags,
-  users as mockUsers,
-  adminStats as mockAdminStats,
-} from '#/data/mockData'
+  levels,
+  subjects,
+  lessons,
+} from '#/data/seed'
+import { tags, users as mockUsers } from '#/data/mockData'
 
 export const levelService = {
-  getAll: (): Level[] => mockLevels.filter(l => l.status === 'active'),
+  getAll: (): Level[] => levels.filter(l => l.status === 'active'),
 
   getById: (id: LevelId): Level | undefined =>
-    mockLevels.find(l => l.id === id),
+    levels.find(l => l.id === id),
 
   getBySlug: (slug: string): Level | undefined =>
-    mockLevels.find(l => l.slug === slug),
+    levels.find(l => l.slug === slug),
 
   getPublicLevels: (): Level[] =>
-    mockLevels.filter(l => l.isPublic && l.status === 'active'),
+    levels.filter(l => l.isPublic && l.status === 'active'),
 }
 
 export const subjectService = {
-  getAll: (): Subject[] => mockSubjects.filter(s => s.status === 'active'),
+  getAll: (): Subject[] => subjects.filter(s => s.status === 'active'),
 
   getById: (id: SubjectId): Subject | undefined =>
-    mockSubjects.find(s => s.id === id),
+    subjects.find(s => s.id === id),
 
   getBySlug: (slug: string): Subject | undefined =>
-    mockSubjects.find(s => s.slug === slug),
+    subjects.find(s => s.slug === slug),
 
   getByLevel: (levelId: LevelId): Subject[] =>
-    mockSubjects.filter(s => s.levelId === levelId && s.status === 'active'),
+    subjects.filter(s => s.levelId === levelId && s.status === 'active'),
 }
 
 export const courseService = {
-  getAll: (): Course[] => mockCourses.filter(c => c.status === 'active'),
+  getAll: (): Course[] => [],
 
-  getById: (id: string): Course | undefined =>
-    mockCourses.find(c => c.id === id),
+  getById: (_id: string): Course | undefined => undefined,
 
-  getBySlug: (slug: string): Course | undefined =>
-    mockCourses.find(c => c.slug === slug),
+  getBySlug: (_slug: string): Course | undefined => undefined,
 
-  getBySubject: (subjectId: SubjectId): Course[] =>
-    mockCourses.filter(c => c.subjectId === subjectId && c.status === 'active'),
+  getBySubject: (_subjectId: SubjectId): Course[] => [],
 
-  getByLevel: (levelId: LevelId): Course[] =>
-    mockCourses.filter(c => c.levelId === levelId && c.status === 'active'),
+  getByLevel: (_levelId: LevelId): Course[] => [],
 
-  getFeatured: (limit = 4): Course[] =>
-    mockCourses.filter(c => c.status === 'active').slice(0, limit),
+  getFeatured: (_limit = 4): Course[] => [],
 }
 
 export const moduleService = {
-  getAll: (): Module[] => mockModules.filter(m => m.status === 'active'),
+  getAll: (): Module[] => [],
 
-  getById: (id: string): Module | undefined =>
-    mockModules.find(m => m.id === id),
+  getById: (_id: string): Module | undefined => undefined,
 
-  getByCourse: (courseId: string): Module[] =>
-    mockModules.filter(m => m.courseId === courseId && m.status === 'active'),
+  getByCourse: (_courseId: string): Module[] => [],
 }
 
 export const lessonService = {
-  getAll: (): Lesson[] => mockLessons.filter(l => l.status === 'published'),
+  getAll: (): Lesson[] => lessons.filter(l => l.status === 'published'),
 
   getById: (id: string): Lesson | undefined =>
-    mockLessons.find(l => l.id === id),
+    lessons.find(l => l.id === id),
 
   getBySlug: (slug: string): Lesson | undefined =>
-    mockLessons.find(l => l.slug === slug),
+    lessons.find(l => l.slug === slug),
 
   getBySubject: (subjectId: SubjectId): Lesson[] =>
-    mockLessons.filter(l => l.subjectId === subjectId && l.status === 'published'),
+    lessons.filter(l => l.subjectId === subjectId && l.status === 'published'),
 
   getByCourse: (courseId: string): Lesson[] =>
-    mockLessons.filter(l => l.courseId === courseId && l.status === 'published'),
+    lessons.filter(l => l.courseId === courseId && l.status === 'published'),
 
   getByLevel: (levelId: LevelId): Lesson[] =>
-    mockLessons.filter(l => l.levelId === levelId && l.status === 'published'),
+    lessons.filter(l => l.levelId === levelId && l.status === 'published'),
 
   getFeatured: (limit = 6): Lesson[] =>
-    mockLessons
+    lessons
       .filter(l => l.status === 'published')
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
       .slice(0, limit),
 
   getLatest: (limit = 4): Lesson[] =>
-    mockLessons
+    lessons
       .filter(l => l.status === 'published')
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
       .slice(0, limit),
 }
 
 export const tagService = {
-  getAll: (): Tag[] => mockTags,
+  getAll: (): Tag[] => tags,
 
   getById: (id: string): Tag | undefined =>
-    mockTags.find(t => t.id === id),
+    tags.find(t => t.id === id),
 
   getBySlug: (slug: string): Tag | undefined =>
-    mockTags.find(t => t.slug === slug),
+    tags.find(t => t.slug === slug),
 
   getByType: (type: Tag['type']): Tag[] =>
-    mockTags.filter(t => t.type === type),
+    tags.filter(t => t.type === type),
 }
 
 export const userService = {
@@ -133,15 +120,22 @@ export const userService = {
 }
 
 export const adminService = {
-  getStats: (): AdminStats => mockAdminStats,
+  getStats: (): AdminStats => ({
+    totalLessons: lessons.length,
+    totalCourses: 0,
+    totalSubjects: subjects.length,
+    totalUsers: mockUsers.length,
+    publishedLessons: lessons.filter(l => l.status === 'published').length,
+    draftLessons: lessons.filter(l => l.status === 'draft').length,
+    recentLessons: lessons.slice(0, 5),
+  }),
 
   getRecentLessons: (limit = 5): Lesson[] =>
-    mockLessons.slice(0, limit),
+    lessons.slice(0, limit),
 }
 
 export const contactService = {
-  sendMessage: async (data: { name: string; email: string; type: string; title: string; message: string }) => {
-    // Simulate network delay and return success
+  sendMessage: async () => {
     return new Promise((resolve) => setTimeout(() => resolve(true), 1000))
   }
 }

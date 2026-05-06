@@ -155,17 +155,9 @@ function ContactPage() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSubmitting(true)
-
-    const formData = new FormData(e.currentTarget)
     
     try {
-      await contactService.sendMessage({
-        name: formData.get('name') as string,
-        email: formData.get('email') as string,
-        type: formData.get('type') as string,
-        title: formData.get('title') as string,
-        message: formData.get('message') as string,
-      })
+      await contactService.sendMessage()
       
       e.currentTarget.reset()
       setShowToast(true)

@@ -5,6 +5,7 @@ import { lessonService } from '#/data/services'
 import { useAuth } from '#/hooks/useAuth'
 import { useLanguage } from '#/hooks/useLanguage'
 import { cn } from '#/lib/utils'
+import type { LevelId } from '#/types'
 
 interface LevelCardProps {
   level: {
@@ -42,18 +43,14 @@ export function LevelCard({ level, isLocked, href }: LevelCardProps) {
   const { user } = useAuth()
   const { t } = useLanguage()
 
-  const isAdvanced = level.id === 'advanced'
+  const isAdvanced = level.id === 'endelea'
   const isLoggedIn = Boolean(user)
 
-  const levelLessons = lessonService.getByLevel(level.id as 'beginner' | 'intermediate' | 'advanced')
-  const completedCount =
-    user?.progress.filter((progressSlug) =>
-      levelLessons.some((lesson) => lesson.slug === progressSlug),
-    ).length ?? 0
+  const levelLessons = lessonService.getByLevel(level.id as LevelId)
   const totalLessons = levelLessons.length
 
   const lockedMessage = t('levels.locked')
-  const lockedCtaHref = isLoggedIn && isAdvanced ? '/levels/intermediate' : '/login'
+  const lockedCtaHref = isLoggedIn && isAdvanced ? '/subjects/intermediate' : '/login'
   const lockedCtaText = isLoggedIn ? t('levels.locked') : t('navigation.login')
 
   const cardContent = (

@@ -149,6 +149,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         role: 'learner',
         levelAccess: ['awali', 'kati'] satisfies LevelId[],
         progress: [],
+        createdAt: new Date().toISOString().split('T')[0],
       }
 
       const updatedUsers = [...users, newUser]

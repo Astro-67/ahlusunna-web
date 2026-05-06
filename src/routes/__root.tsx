@@ -1,9 +1,10 @@
-import { Outlet, createRootRouteWithContext, useRouterState  } from '@tanstack/react-router'
+import { Outlet, createRootRouteWithContext, useRouterState } from '@tanstack/react-router'
 
 import { PersistentAudioPlayer } from '#/components/audio/PersistentAudioPlayer'
 import { Footer } from '#/components/layout/Footer'
 import { Navbar } from '#/components/layout/Navbar'
 import type { AuthContextValue } from '#/contexts/AuthContext'
+import { Link } from '@tanstack/react-router'
 
 interface RouterContext {
   auth: AuthContextValue
@@ -11,7 +12,20 @@ interface RouterContext {
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootComponent,
+  errorComponent: ErrorComponent,
 })
+
+function ErrorComponent({ error }: { error: Error }) {
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center p-8 text-center">
+      <h1 className="mb-4 text-2xl font-bold text-destructive">Something went wrong</h1>
+      <p className="mb-6 text-muted-foreground">{error.message}</p>
+      <Link to="/" className="text-primary hover:underline">
+        Go back home
+      </Link>
+    </div>
+  )
+}
 
 function RootComponent() {
   const pathname = useRouterState({ select: (state) => state.location.pathname })
