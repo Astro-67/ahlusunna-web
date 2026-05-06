@@ -63,7 +63,17 @@
     "video_title": "Lesson video",
     "audio_intro": "Press play to start this lesson in the persistent audio player.",
     "not_found": "Lesson not found",
-    "duration": "Duration"
+    "duration": "Duration",
+    "read_minutes": "{{count}} min read",
+    "previous_lesson": "Previous Lesson",
+    "next_lesson": "Next Lesson",
+    "on_this_page": "On This Page",
+    "related_lessons": "Related Lessons",
+    "audio_label": "Audio",
+    "video_label": "Video",
+    "status_published": "Published",
+    "fallback_lang_notice": "Translation not available — showing in Swahili.",
+    "advanced_unlocked": "Congratulations! You have unlocked the Advanced level."
   },
   "levels": {
     "beginner": "Beginner",

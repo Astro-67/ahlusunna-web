@@ -1,3 +1,4 @@
+import { useRouterState } from '@tanstack/react-router'
 import {
   BookOpen,
   ChevronDown,
@@ -25,6 +26,7 @@ const formatTime = (seconds: number): string => {
 
 export function PersistentAudioPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null)
+  const pathname = useRouterState({ select: (state) => state.location.pathname })
   const {
     currentTrack,
     isPlaying,
@@ -63,6 +65,7 @@ export function PersistentAudioPlayer() {
   }, [currentTrack, isPlaying])
 
   if (!currentTrack || !isVisible) return null
+  if (pathname.startsWith('/lesson/')) return null
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0
   const TrackIcon = currentTrack.type === 'recitation' ? BookOpen : Headphones

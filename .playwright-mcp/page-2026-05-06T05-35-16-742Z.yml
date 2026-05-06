@@ -1,0 +1,185 @@
+- generic [ref=e3]:
+  - navigation "Primary" [ref=e4]:
+    - generic [ref=e5]:
+      - link "Ahlusunna home" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Ahlusunna Islamic Learning" [ref=e7]
+      - generic [ref=e8]:
+        - link "Home" [ref=e223] [cursor=pointer]:
+          - /url: /
+        - link "About" [ref=e224] [cursor=pointer]:
+          - /url: /about
+        - link "Contact" [ref=e225] [cursor=pointer]:
+          - /url: /contact
+        - link "Lesson" [ref=e226] [cursor=pointer]:
+          - /url: /subjects
+      - generic [ref=e13]:
+        - button "🇬🇧 EN" [ref=e227] [cursor=pointer]:
+          - img [ref=e17]
+          - generic [ref=e22]: 🇬🇧
+          - generic [ref=e23]: EN
+          - img [ref=e24]
+        - link "Login" [ref=e228] [cursor=pointer]:
+          - /url: /login
+  - main [ref=e27]:
+    - generic [ref=e28]:
+      - navigation "Breadcrumb" [ref=e30]:
+        - link "Nyumbani" [ref=e31] [cursor=pointer]:
+          - /url: /
+          - img [ref=e32]
+          - generic [ref=e35]: Nyumbani
+        - generic [ref=e229]:
+          - img [ref=e230]
+          - link "Islamic Jurisprudence" [ref=e232] [cursor=pointer]:
+            - /url: /subjects
+        - generic [ref=e233]:
+          - img [ref=e234]
+          - generic [ref=e236]: Purification
+        - generic [ref=e237]:
+          - img [ref=e238]
+          - generic [ref=e240]: Types of Impurity
+        - generic [ref=e241]:
+          - img [ref=e242]
+          - generic [ref=e244]: Meaning and Types of Impurity
+      - generic [ref=e53]:
+        - article [ref=e54]:
+          - generic [ref=e55]:
+            - heading "Meaning and Types of Impurity" [level=1] [ref=e245]
+            - paragraph [ref=e57]: معنى النجاسة وأنواعها
+            - generic [ref=e58]:
+              - generic [ref=e59]:
+                - img [ref=e60]
+                - text: 5 min read
+              - generic [ref=e63]: Published
+            - img [ref=e67]
+          - generic [ref=e71]:
+            - paragraph [ref=e72]: In Islam, impurity (najasah) refers to physical filth that prevents a person from performing worship such as prayer. Understanding the types of impurity is essential for every Muslim to maintain proper ritual cleanliness.
+            - paragraph [ref=e73]: "Allah says: \"Indeed, Allah loves those who repent and loves those who purify themselves.\" (Al-Baqarah 2:222)"
+            - heading "QURANIC VERSE" [level=3] [ref=e246]
+            - figure "(Al-Baqarah 2:222)" [ref=e75]:
+              - paragraph [ref=e76]:
+                - generic [ref=e77]: إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ
+              - generic [ref=e78]: (Al-Baqarah 2:222)
+            - heading "THE THREE TYPES OF IMPURITY" [level=3] [ref=e247]
+            - list [ref=e80]:
+              - listitem [ref=e81]:
+                - generic [ref=e82]: "01"
+                - generic [ref=e83]: Heavy Impurity (Mughalladha) — The most severe type, including the saliva of dogs and pigs. Purified by washing seven times, once with soil mixed into the water.
+              - listitem [ref=e84]:
+                - generic [ref=e85]: "02"
+                - generic [ref=e86]: "Medium Impurity (Mutawassita) — The common type: urine, blood, feces. Purified by removing it completely with water until no trace of color, smell, or taste remains."
+              - listitem [ref=e87]:
+                - generic [ref=e88]: "03"
+                - generic [ref=e89]: Light Impurity (Mukhaffafa) — The mildest type, such as the urine of a male infant who has not yet eaten solid food. Purified simply by sprinkling water over the area.
+            - heading "HOW TO PURIFY IMPURITY" [level=3] [ref=e248]
+            - paragraph [ref=e91]: The substance, color, smell, and taste of the impurity must all be removed. If the substance is gone but a trace of color or smell remains that is difficult to remove, it is pardoned. Water is poured over the affected area until the impurity is judged to be fully gone.
+          - navigation "Lesson navigation" [ref=e93]:
+            - 'link "Next Lesson: Obligatory Acts and Sunnahs of Wudhu" [ref=e249] [cursor=pointer]':
+              - /url: /lesson/wudhu-nguzo
+              - generic [ref=e96]:
+                - generic [ref=e97]: Next Lesson
+                - generic [ref=e98]: Obligatory Acts and Sunnahs of Wudhu
+              - img [ref=e99]
+          - generic [ref=e101]:
+            - heading "Related Lessons" [level=2] [ref=e250]
+            - link "5 min Obligatory Acts and Sunnahs of Wudhu" [ref=e251] [cursor=pointer]:
+              - /url: /lesson/wudhu-nguzo
+              - generic [ref=e105]:
+                - img [ref=e106]
+                - generic [ref=e109]:
+                  - img [ref=e110]
+                  - text: 5 min
+              - heading "Obligatory Acts and Sunnahs of Wudhu" [level=3] [ref=e252]
+        - complementary [ref=e114]:
+          - navigation "On This Page" [ref=e253]:
+            - heading "On This Page" [level=2] [ref=e254]
+            - list [ref=e117]:
+              - listitem [ref=e255]:
+                - link "QURANIC VERSE" [ref=e256] [cursor=pointer]:
+                  - /url: "#quranic-verse"
+              - listitem [ref=e257]:
+                - link "THE THREE TYPES OF IMPURITY" [ref=e258] [cursor=pointer]:
+                  - /url: "#the-three-types-of-impurity"
+              - listitem [ref=e259]:
+                - link "HOW TO PURIFY IMPURITY" [ref=e260] [cursor=pointer]:
+                  - /url: "#how-to-purify-impurity"
+  - contentinfo [ref=e124]:
+    - generic [ref=e125]:
+      - generic [ref=e126]:
+        - heading "Structured Islamic Learning for Every Muslim" [level=2] [ref=e261]
+        - link "Start Learning" [ref=e262] [cursor=pointer]:
+          - /url: /
+          - text: Start Learning
+          - img [ref=e131]
+      - generic [ref=e135]:
+        - generic [ref=e136]:
+          - img "Ahlusunna" [ref=e138]
+          - paragraph [ref=e139]: Ahlusunna is a structured Islamic learning platform that helps Muslims study Qur'an, Hadith, Fiqh, Tawhid, and Sirah through clear lessons, audio, and video — from foundational knowledge to deeper understanding.
+          - blockquote [ref=e140]:
+            - paragraph [ref=e141]: Seeking knowledge is a path to goodness.
+        - generic [ref=e142]:
+          - heading "Explore" [level=3] [ref=e263]
+          - list [ref=e144]:
+            - listitem [ref=e145]:
+              - link "Home" [ref=e264] [cursor=pointer]:
+                - /url: /
+                - text: Home
+            - listitem [ref=e148]:
+              - link "Subjects" [ref=e265] [cursor=pointer]:
+                - /url: "#"
+                - text: Subjects
+            - listitem [ref=e151]:
+              - link "About" [ref=e266] [cursor=pointer]:
+                - /url: "#"
+                - text: About
+            - listitem [ref=e154]:
+              - link "Contact" [ref=e267] [cursor=pointer]:
+                - /url: "#"
+                - text: Contact
+        - generic [ref=e157]:
+          - heading "Learning Areas" [level=3] [ref=e268]
+          - list [ref=e159]:
+            - listitem [ref=e160]:
+              - link "Qur'an" [ref=e161] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e162]
+                - text: Qur'an
+            - listitem [ref=e164]:
+              - link "Hadith" [ref=e165] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e166]
+                - text: Hadith
+            - listitem [ref=e269]:
+              - link "Fiqh" [ref=e270] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e271]
+                - text: Fiqh
+            - listitem [ref=e273]:
+              - link "Tawhid" [ref=e274] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e275]
+                - text: Tawhid
+            - listitem [ref=e277]:
+              - link "Sirah" [ref=e278] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e279]
+                - text: Sirah
+        - generic [ref=e180]:
+          - heading "Contact" [level=3] [ref=e281]
+          - generic [ref=e182]:
+            - link "info@ahlusunna.info" [ref=e183] [cursor=pointer]:
+              - /url: mailto:info@ahlusunna.info
+              - img [ref=e185]
+              - generic [ref=e188]: info@ahlusunna.info
+            - generic [ref=e189]:
+              - img [ref=e191]
+              - generic [ref=e194]: Zanzibar, Tanzania
+            - link "WhatsApp Support" [ref=e282] [cursor=pointer]:
+              - /url: https://wa.me/255777810700
+              - img [ref=e197]
+              - generic [ref=e199]: WhatsApp Support
+      - generic [ref=e200]:
+        - paragraph [ref=e201]: © 2026 Ahlusunna. All rights reserved.
+        - paragraph [ref=e202]:
+          - text: Built for the Ummah
+          - img [ref=e203]

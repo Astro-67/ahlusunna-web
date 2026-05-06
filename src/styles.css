@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&family=Scheherazade+New:wght@400;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -24,6 +24,7 @@ body {
   --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-arabic: "Amiri", "Scheherazade New", "Noto Naskh Arabic", serif;
   --font-decorative: "Amiri", serif;
+  --font-display: "Fraunces", "Source Serif 4", "Cormorant Garamond", Georgia, serif;
 
   /* ── Type scale ── */
   --text-body-sm: 1rem;          /* 16px */
@@ -189,6 +190,77 @@ body {
 
   .font-decorative {
     font-family: "Amiri", serif;
+  }
+
+  .font-display {
+    font-family: "Fraunces", "Source Serif 4", "Cormorant Garamond", Georgia, serif;
+    font-optical-sizing: auto;
+  }
+
+  /* ── Lesson reader animations ── */
+  @keyframes lesson-title-rise {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes lesson-body-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes lesson-heading-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .lesson-title-rise {
+    animation: lesson-title-rise 300ms ease-out both;
+  }
+
+  .lesson-body-fade {
+    animation: lesson-body-fade 200ms ease-out both;
+    animation-delay: 100ms;
+  }
+
+  .lesson-heading-fade {
+    animation: lesson-heading-reveal 280ms ease-out both;
+  }
+
+  /* ── Skeleton shimmer (ivory) ── */
+  @keyframes lesson-shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  .lesson-shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(232, 226, 211, 0.35) 0%,
+      rgba(232, 226, 211, 0.6) 50%,
+      rgba(232, 226, 211, 0.35) 100%
+    );
+    background-size: 200% 100%;
+    animation: lesson-shimmer 1.6s linear infinite;
   }
 
   .ProseMirror {

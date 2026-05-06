@@ -1,0 +1,187 @@
+- generic [ref=e3]:
+  - navigation "Primary" [ref=e4]:
+    - generic [ref=e5]:
+      - link "Ahlusunna home" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Ahlusunna Islamic Learning" [ref=e7]
+      - generic [ref=e8]:
+        - link "الرئيسية" [ref=e301] [cursor=pointer]:
+          - /url: /
+        - link "عن المنصة" [ref=e302] [cursor=pointer]:
+          - /url: /about
+        - link "تواصل" [ref=e303] [cursor=pointer]:
+          - /url: /contact
+        - link "الدروس" [ref=e304] [cursor=pointer]:
+          - /url: /subjects
+      - generic [ref=e13]:
+        - button "🇴🇲 AR" [ref=e305] [cursor=pointer]:
+          - img [ref=e17]
+          - generic [ref=e22]: 🇴🇲
+          - generic [ref=e23]: AR
+          - img [ref=e24]
+        - link "دخول" [ref=e306] [cursor=pointer]:
+          - /url: /login
+  - main [ref=e27]:
+    - generic [ref=e28]:
+      - navigation "Breadcrumb" [ref=e30]:
+        - link "Nyumbani" [ref=e31] [cursor=pointer]:
+          - /url: /
+          - img [ref=e32]
+          - generic [ref=e35]: Nyumbani
+        - generic [ref=e307]:
+          - img [ref=e308]
+          - link "الفقه" [ref=e310] [cursor=pointer]:
+            - /url: /subjects
+        - generic [ref=e311]:
+          - img [ref=e312]
+          - generic [ref=e314]: الطهارة
+        - generic [ref=e315]:
+          - img [ref=e316]
+          - generic [ref=e318]: أنواع النجاسات
+        - generic [ref=e319]:
+          - img [ref=e320]
+          - generic [ref=e322]: معنى النجاسة وأنواعها
+      - generic [ref=e53]:
+        - article [ref=e54]:
+          - generic [ref=e55]:
+            - heading "معنى النجاسة وأنواعها" [level=1] [ref=e323]
+            - generic [ref=e58]:
+              - generic [ref=e59]:
+                - img [ref=e60]
+                - text: 5 دقائق قراءة
+              - generic [ref=e63]: منشور
+            - img [ref=e67]
+          - generic [ref=e71]:
+            - figure [ref=e324]:
+              - paragraph [ref=e325]:
+                - generic [ref=e326]: النجاسة في الإسلام هي كل عين حكم الشرع بنجاستها، وتمنع صحة الصلاة عند الإخلال بإزالتها. ومعرفة أنواع النجاسات واجبة على كل مسلم ليؤدي عباداته على الوجه الصحيح.
+            - heading "قال الله تعالى" [level=3] [ref=e327]
+            - 'figure "(البقرة: ٢٢٢)" [ref=e328]':
+              - paragraph [ref=e329]:
+                - generic [ref=e330]: إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ
+              - generic [ref=e331]: "(البقرة: ٢٢٢)"
+            - heading "أنواع النجاسات الثلاثة" [level=3] [ref=e332]
+            - list [ref=e333]:
+              - listitem [ref=e334]:
+                - generic [ref=e335]: "01"
+                - generic [ref=e336]: النجاسة المغلَّظة — وهي أشد أنواع النجاسة، كولوغ الكلب والخنزير في الإناء. وتُطهَّر بالغسل سبع مرات إحداها بالتراب.
+              - listitem [ref=e337]:
+                - generic [ref=e338]: "02"
+                - generic [ref=e339]: النجاسة المتوسطة — كالبول والدم والغائط. وتُطهَّر بإزالة عينها بالماء حتى تذهب الرائحة واللون والطعم.
+              - listitem [ref=e340]:
+                - generic [ref=e341]: "03"
+                - generic [ref=e342]: النجاسة المخففة — وهي بول الغلام الرضيع الذي لم يأكل الطعام. يكفي في تطهيرها النضح والرش بالماء.
+            - heading "كيفية التطهير" [level=3] [ref=e343]
+            - figure [ref=e344]:
+              - paragraph [ref=e345]:
+                - generic [ref=e346]: يجب إزالة عين النجاسة ولونها وريحها وطعمها. فإن زالت العين وبقي اللون أو الريح العسير إزالته، عُفي عنه. ويُصبّ الماء على موضع النجاسة حتى يُحكم بزوالها.
+          - navigation "Lesson navigation" [ref=e93]:
+            - 'link "الدرس التالي: فرائض الوضوء وسننه" [ref=e347] [cursor=pointer]':
+              - /url: /lesson/wudhu-nguzo
+              - generic [ref=e96]:
+                - generic [ref=e97]: الدرس التالي
+                - generic [ref=e98]: فرائض الوضوء وسننه
+              - img [ref=e348]
+          - generic [ref=e101]:
+            - heading "دروس ذات صلة" [level=2] [ref=e350]
+            - link "5 د فرائض الوضوء وسننه" [ref=e351] [cursor=pointer]:
+              - /url: /lesson/wudhu-nguzo
+              - generic [ref=e105]:
+                - img [ref=e106]
+                - generic [ref=e109]:
+                  - img [ref=e110]
+                  - text: 5 د
+              - heading "فرائض الوضوء وسننه" [level=3] [ref=e352]
+        - complementary [ref=e114]:
+          - navigation "في هذه الصفحة" [ref=e353]:
+            - heading "في هذه الصفحة" [level=2] [ref=e354]
+            - list [ref=e117]:
+              - listitem [ref=e355]:
+                - link "قال الله تعالى" [ref=e356] [cursor=pointer]:
+                  - /url: "#قال-الله-تعالى"
+              - listitem [ref=e357]:
+                - link "أنواع النجاسات الثلاثة" [ref=e358] [cursor=pointer]:
+                  - /url: "#أنواع-النجاسات-الثلاثة"
+              - listitem [ref=e359]:
+                - link "كيفية التطهير" [ref=e360] [cursor=pointer]:
+                  - /url: "#كيفية-التطهير"
+  - contentinfo [ref=e124]:
+    - generic [ref=e125]:
+      - generic [ref=e126]:
+        - heading "تعلم إسلامي منظم لكل مسلم" [level=2] [ref=e361]
+        - link "ابدأ التعلم" [ref=e362] [cursor=pointer]:
+          - /url: /
+          - text: ابدأ التعلم
+          - img [ref=e131]
+      - generic [ref=e135]:
+        - generic [ref=e136]:
+          - img "Ahlusunna" [ref=e138]
+          - paragraph [ref=e139]: أهل السنة هي منصة تعليمية إسلامية منظمة تساعد المسلمين على دراسة القرآن والحديث والفقه والتوحيد والسيرة من خلال دروس واضحة وصوت وفيديو — من المعرفة الأساسية إلى الفهم الأعمق.
+          - blockquote [ref=e140]:
+            - paragraph [ref=e141]: طلب العلم طريق إلى الخير.
+        - generic [ref=e142]:
+          - heading "روابط مهمة" [level=3] [ref=e363]
+          - list [ref=e144]:
+            - listitem [ref=e145]:
+              - link "الرئيسية" [ref=e364] [cursor=pointer]:
+                - /url: /
+                - text: الرئيسية
+            - listitem [ref=e148]:
+              - link "المواد" [ref=e365] [cursor=pointer]:
+                - /url: "#"
+                - text: المواد
+            - listitem [ref=e151]:
+              - link "عن المنصة" [ref=e366] [cursor=pointer]:
+                - /url: "#"
+                - text: عن المنصة
+            - listitem [ref=e154]:
+              - link "اتصل بنا" [ref=e367] [cursor=pointer]:
+                - /url: "#"
+                - text: اتصل بنا
+        - generic [ref=e157]:
+          - heading "المواد" [level=3] [ref=e368]
+          - list [ref=e159]:
+            - listitem [ref=e369]:
+              - link "القرآن" [ref=e370] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e371]
+                - text: القرآن
+            - listitem [ref=e373]:
+              - link "الحديث" [ref=e374] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e375]
+                - text: الحديث
+            - listitem [ref=e377]:
+              - link "الفقه" [ref=e378] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e379]
+                - text: الفقه
+            - listitem [ref=e381]:
+              - link "التوحيد" [ref=e382] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e383]
+                - text: التوحيد
+            - listitem [ref=e385]:
+              - link "السيرة" [ref=e386] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e387]
+                - text: السيرة
+        - generic [ref=e180]:
+          - heading "التواصل" [level=3] [ref=e389]
+          - generic [ref=e182]:
+            - link "info@ahlusunna.info" [ref=e183] [cursor=pointer]:
+              - /url: mailto:info@ahlusunna.info
+              - img [ref=e185]
+              - generic [ref=e188]: info@ahlusunna.info
+            - generic [ref=e189]:
+              - img [ref=e191]
+              - generic [ref=e194]: زنجبار، تنزانيا
+            - link "دعم واتساب" [ref=e390] [cursor=pointer]:
+              - /url: https://wa.me/255777810700
+              - img [ref=e197]
+              - generic [ref=e199]: دعم واتساب
+      - generic [ref=e200]:
+        - paragraph [ref=e201]: © 2026 Ahlusunna. جميع الحقوق محفوظة.
+        - paragraph [ref=e202]:
+          - text: بُنيت لخدمة الأمة
+          - img [ref=e203]

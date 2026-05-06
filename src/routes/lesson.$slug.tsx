@@ -1,28 +1,29 @@
-import { createFileRoute, redirect, Link, useNavigate } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
-import { Headphones, PlayCircle, FileText } from 'lucide-react'
+import { createFileRoute, redirect } from '@tanstack/react-router'
+import { useEffect, useMemo, useState } from 'react'
 
+import { LessonReader } from '#/components/lesson-reader'
+import { Button } from '#/components/ui/button'
+import { isFiqhiSlug } from '#/data/fiqhiAdapter'
+import {
+  getLessonBreadcrumb,
+  getLessonModelBySlug,
+  getLessonPrevNext,
+  getLessonSiblings,
+} from '#/data/lessonModel'
 import {
   checkLessonAccess,
   getLessonBySlug,
-  getSubjectById,
   isLessonCompleted,
-  lessons,
-  getLessonsBySubject,
+  lessons as allSeedLessons,
 } from '#/data/seed'
+import { useAudioPlayer } from '#/hooks/useAudioPlayer'
 import { useAuth } from '#/hooks/useAuth'
 import { useLanguage } from '#/hooks/useLanguage'
-import { useAudioPlayer } from '#/hooks/useAudioPlayer'
-import { cn } from '#/lib/utils'
-import { Button } from '#/components/ui/button'
-
-import { VideoEmbed } from '#/components/lesson/VideoEmbed'
-import { WrittenContent } from '#/components/lesson/WrittenContent'
-import { AudioTrigger } from '#/components/lesson/AudioTrigger'
 
 export const Route = createFileRoute('/lesson/$slug')({
   component: LessonPage,
   beforeLoad: ({ context, params, location }) => {
+    if (isFiqhiSlug(params.slug)) return
     const lesson = getLessonBySlug(params.slug)
     if (!lesson) return
     const access = checkLessonAccess(lesson, context.auth.user)
@@ -37,12 +38,21 @@ export const Route = createFileRoute('/lesson/$slug')({
 
 function LessonPage() {
   const { slug } = Route.useParams()
-  const navigate = useNavigate()
   const { user, updateProgress } = useAuth()
-  const { currentLang, t } = useLanguage()
-  const { currentTrack, isPlaying, playTrack, togglePlay } = useAudioPlayer()
+  const { t } = useLanguage()
+  const { closePlayer } = useAudioPlayer()
   const [showUnlockToast, setShowUnlockToast] = useState(false)
-  const lesson = getLessonBySlug(slug)
+
+  useEffect(() => {
+    closePlayer()
+  }, [closePlayer, slug])
+
+  const model = useMemo(() => getLessonModelBySlug(slug), [slug])
+  const breadcrumb = useMemo(() => getLessonBreadcrumb(slug), [slug])
+  const prevNext = useMemo(() => getLessonPrevNext(slug), [slug])
+  const siblings = useMemo(() => getLessonSiblings(slug), [slug])
+
+  const completed = isLessonCompleted(user, slug)
 
   useEffect(() => {
     if (!showUnlockToast) return
@@ -50,272 +60,71 @@ function LessonPage() {
     return () => window.clearTimeout(timeout)
   }, [showUnlockToast])
 
-  // Mark lesson as complete on mount for now (or when user interacts)
-  // According to original logic, there was a "Mark as Complete" button. 
-  // We can just automatically mark it complete or keep a button at the bottom.
-  const handleComplete = () => {
-    if (!lesson) return
-    const hadAdvancedBefore = Boolean(user?.levelAccess.includes('advanced'))
-    const completed = isLessonCompleted(user, lesson.slug)
-    if (completed) return
-
-    updateProgress(lesson.slug)
-
-    const intermediateLessons = lessons.filter((c) => c.levelId === 'intermediate')
-    const completedIntermediateAfter = intermediateLessons.filter((c) =>
-      c.slug === lesson.slug ? true : Boolean(user?.progress.includes(c.slug)),
-    ).length
-    const unlocksAdvanced =
-      !hadAdvancedBefore &&
-      intermediateLessons.length > 0 &&
-      completedIntermediateAfter === intermediateLessons.length
-
-    if (unlocksAdvanced) {
-      setShowUnlockToast(true)
-    }
-  }
-
-  if (!lesson) {
+  if (!model) {
     return (
       <div className="container-main py-16">
-        <h1 className="text-[28px] font-bold text-foreground">{t('lesson.not_found')}</h1>
+        <h1 className="font-display text-[28px] font-semibold text-foreground">
+          {t('lesson.not_found')}
+        </h1>
       </div>
     )
   }
 
-  const subject = getSubjectById(lesson.subjectId)
-  const subjectLessons = subject ? getLessonsBySubject(subject.id) : []
-  const lessonIndex = subjectLessons.findIndex(l => l.id === lesson.id)
-  const prevLesson = lessonIndex > 0 ? subjectLessons[lessonIndex - 1] : null
-  const nextLesson = lessonIndex < subjectLessons.length - 1 ? subjectLessons[lessonIndex + 1] : null
+  const handleComplete = () => {
+    if (completed) return
+    const hadAdvancedBefore = Boolean(
+      (user?.levelAccess as readonly string[] | undefined)?.includes('endelea'),
+    )
+    updateProgress(slug)
+    const intermediate = allSeedLessons.filter(
+      (l) => (l.levelId as string) === 'kati',
+    )
+    const completedAfter = intermediate.filter((l) =>
+      l.slug === slug ? true : Boolean(user?.progress.includes(l.slug)),
+    ).length
+    if (
+      !hadAdvancedBefore &&
+      intermediate.length > 0 &&
+      completedAfter === intermediate.length
+    ) {
+      setShowUnlockToast(true)
+    }
+  }
 
-  const track = lesson.audioSrc
-    ? {
-        id: lesson.id,
-        title: lesson.title[currentLang],
-        subject: subject?.name[currentLang] ?? '',
-        src: lesson.audioSrc,
-        type: lesson.audioType ?? 'lecture',
-        duration: 0,
-      }
-    : null
-  const isCurrentTrackPlaying = Boolean(track && currentTrack?.id === track.id && isPlaying)
+  const markLabel = t('lesson.mark_complete')
+  const doneLabel = t('lesson.completed')
 
-  const formattedNum = String(lessonIndex + 1).padStart(2, '0')
-  const totalLessonsStr = String(subjectLessons.length).padStart(2, '0')
+  const completionSlot = user ? (
+    <Button
+      onClick={handleComplete}
+      variant={completed ? 'default' : 'outline'}
+      aria-label={completed ? doneLabel : markLabel}
+      className="w-full min-h-[48px]"
+    >
+      {completed ? `${doneLabel} ✓` : markLabel}
+    </Button>
+  ) : null
 
   return (
-    <div className="bg-background flex flex-col min-h-[calc(100vh-64px)]">
+    <>
       {showUnlockToast && (
-        <div className="fixed left-1/2 top-4 z-50 -translate-x-1/2 bg-[#2D6A4F] px-6 py-3 text-[#FAF7F0] shadow-[0_8px_24px_rgba(0,0,0,0.15)]">
-          <p className="text-sm font-medium">
-            Hongera! Umeufungua kiwango cha Kuendelea (Advanced).
+        <div
+          role="status"
+          className="fixed left-1/2 top-6 z-50 -translate-x-1/2 border border-accent bg-success px-6 py-3 text-background shadow-[0_8px_24px_rgba(0,0,0,0.18)]"
+        >
+          <p className="text-[14px] font-semibold">
+            {t('lesson.advanced_unlocked')}
           </p>
         </div>
       )}
 
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-primary px-6 py-8 lg:px-12 lg:py-10">
-        <div className="absolute inset-y-0 right-0 w-100 opacity-[0.06] pointer-events-none hidden md:block">
-          <svg viewBox="0 0 400 500" fill="none" preserveAspectRatio="xMaxYMid slice" className="h-full w-full">
-            <defs>
-              <pattern id="geo3" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
-                <rect x="20" y="20" width="40" height="40" stroke="#C9A84C" strokeWidth="0.8" fill="none" transform="rotate(45 40 40)" />
-                <circle cx="40" cy="40" r="3" stroke="#C9A84C" strokeWidth="0.8" fill="none" />
-                <line x1="0" y1="40" x2="20" y2="40" stroke="#C9A84C" strokeWidth="0.4" />
-                <line x1="60" y1="40" x2="80" y2="40" stroke="#C9A84C" strokeWidth="0.4" />
-                <line x1="40" y1="0" x2="40" y2="20" stroke="#C9A84C" strokeWidth="0.4" />
-                <line x1="40" y1="60" x2="40" y2="80" stroke="#C9A84C" strokeWidth="0.4" />
-              </pattern>
-            </defs>
-            <rect width="400" height="500" fill="url(#geo3)" />
-          </svg>
-        </div>
-
-        <div className="container-main relative z-10">
-          <div className="mb-6 flex flex-wrap items-center gap-1.5 text-xs text-[#FAF7F0]/55 font-medium">
-            <Link to="/" className="flex items-center gap-1 transition-colors hover:text-[#FAF7F0]/90">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-              {t('navigation.home')}
-            </Link>
-            <span className="text-[10px] text-[#FAF7F0]/25">›</span>
-            <Link to="/subjects" className="transition-colors hover:text-[#FAF7F0]/90">{t('navigation.subjects')}</Link>
-            <span className="text-[10px] text-[#FAF7F0]/25">›</span>
-            <Link to="/subjects" className="transition-colors hover:text-[#FAF7F0]/90">{subject?.name[currentLang]}</Link>
-            <span className="text-[10px] text-[#FAF7F0]/25">›</span>
-            <span className="text-[#FAF7F0]/85 font-semibold">{lesson.title[currentLang]}</span>
-          </div>
-
-          <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-8">
-            <div className="hidden sm:flex size-9 shrink-0 items-center justify-center border border-[#FAF7F0]/20 bg-white/10">
-              <FileText className="size-4 text-[#FAF7F0]/80" strokeWidth={1.2} />
-            </div>
-            
-            <div className="flex-1">
-              <h1 className="mb-2 text-[24px] sm:text-[28px] font-bold leading-tight tracking-[-0.02em] text-[#FAF7F0]">
-                {lesson.title[currentLang]}
-              </h1>
-
-              <div className="flex flex-wrap items-center gap-2.5 mt-4">
-                <span className="border border-[#FAF7F0]/15 px-2.5 py-1 text-[11px] font-medium text-[#FAF7F0]/55">
-                  Somo la {formattedNum} / {totalLessonsStr}
-                </span>
-                {lesson.audioSrc && (
-                  <span className="flex items-center gap-1.5 border border-accent/30 bg-accent/15 px-2.5 py-1 text-[11px] font-semibold text-accent">
-                    <Headphones className="size-3" strokeWidth={2.5} />
-                    Sauti
-                  </span>
-                )}
-                {lesson.videoUrl && (
-                  <span className="flex items-center gap-1.5 border border-accent/30 bg-accent/15 px-2.5 py-1 text-[11px] font-semibold text-accent">
-                    <PlayCircle className="size-3" strokeWidth={2.5} />
-                    Video
-                  </span>
-                )}
-                <span className="border border-[#FAF7F0]/15 px-2.5 py-1 text-[11px] font-medium text-[#FAF7F0]/55">
-                  {lesson.duration}
-                </span>
-              </div>
-            </div>
-
-            {/* Action buttons */}
-            <div className="mt-4 flex shrink-0 items-start gap-2 md:mt-0">
-              <Button asChild variant="outline" className="border-white/30 bg-transparent text-white/70 hover:bg-white/10 hover:text-white">
-                <Link to="/subjects">← Nyuma</Link>
-              </Button>
-              {nextLesson && (
-                <Button variant="accent" onClick={() => navigate({ to: '/lesson/$slug', params: { slug: nextLesson.slug } })}>
-                  Somo Lifuatalo →
-                </Button>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Two Column Layout */}
-      <div className="container-main flex flex-col lg:flex-row flex-1">
-        
-        {/* MAIN: Article */}
-        <div className="flex-1 p-6 lg:p-10 lg:px-12 max-w-205 mx-auto min-w-0">
-          
-          {/* Video Section */}
-          {lesson.videoUrl && (
-            <div className="mb-8">
-              <VideoEmbed videoUrl={lesson.videoUrl} />
-            </div>
-          )}
-
-          {/* Audio Section */}
-          {lesson.audioSrc && track && (
-            <div className="mb-8">
-               <AudioTrigger
-                  track={track}
-                  isPlaying={isCurrentTrackPlaying}
-                  onPlay={() => {
-                    if (currentTrack?.id === track.id) {
-                      togglePlay()
-                    } else {
-                      playTrack(track)
-                    }
-                  }}
-                />
-            </div>
-          )}
-
-          {/* Content */}
-          <div className="prose prose-slate max-w-none prose-headings:font-bold prose-headings:text-foreground prose-p:text-[16px] prose-p:leading-[1.8] prose-p:text-foreground prose-a:text-accent hover:prose-a:text-primary">
-            <WrittenContent content={lesson.content[currentLang]} language={currentLang} />
-          </div>
-
-          <div className="mt-8">
-            <Button 
-              variant="outline" 
-              className={cn("w-full border-primary text-primary hover:bg-primary hover:text-white", isLessonCompleted(user, lesson.slug) && "bg-primary text-white")}
-              onClick={handleComplete}
-            >
-              {isLessonCompleted(user, lesson.slug) ? "Imekamilika ✓" : "Tia Alama Kamili"}
-            </Button>
-          </div>
-
-          {/* Lesson Navigation */}
-          <div className="mt-12 flex justify-between gap-4 border-t border-border pt-7">
-            {prevLesson ? (
-              <div 
-                onClick={() => navigate({ to: '/lesson/$slug', params: { slug: prevLesson.slug } })}
-                className="flex cursor-pointer items-center gap-3 border-[1.5px] border-border bg-white px-6 py-3.5 transition-colors hover:border-primary flex-1 max-w-65"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2.5"><polyline points="15 18 9 12 15 6" /></svg>
-                <div>
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">Somo la Awali</div>
-                  <div className="mt-0.5 text-[13px] font-semibold text-foreground line-clamp-1">{prevLesson.title[currentLang]}</div>
-                </div>
-              </div>
-            ) : <div className="flex-1" />}
-
-            {nextLesson ? (
-              <div 
-                onClick={() => navigate({ to: '/lesson/$slug', params: { slug: nextLesson.slug } })}
-                className="flex cursor-pointer items-center justify-end gap-3 border-[1.5px] border-primary bg-primary px-6 py-3.5 transition-colors hover:bg-primary-dark flex-1 max-w-65"
-              >
-                <div className="text-right">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.06em] text-white/50">Somo Lifuatalo</div>
-                  <div className="mt-0.5 text-[13px] font-semibold text-white line-clamp-1">{nextLesson.title[currentLang]}</div>
-                </div>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="2.5"><polyline points="9 18 15 12 9 6" /></svg>
-              </div>
-            ) : <div className="flex-1" />}
-          </div>
-          
-        </div>
-
-        {/* SIDEBAR */}
-        <div className="w-full lg:w-55 shrink-0 border-l border-border bg-[#FDFCF8] p-6 py-10 lg:p-9 lg:px-4">
-          <div className="sticky top-22">
-            <h3 className="mb-3 text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground">Masomo ya {subject?.name[currentLang]}</h3>
-            <div className="flex flex-col">
-              {subjectLessons.map((l, i) => {
-                const isDone = isLessonCompleted(user, l.slug)
-                const isCurrent = l.slug === lesson.slug
-
-                return (
-                  <div 
-                    key={l.id} 
-                    onClick={() => navigate({ to: '/lesson/$slug', params: { slug: l.slug } })}
-                    className="flex cursor-pointer items-start gap-2 border-b border-border py-2 text-[12px] last:border-none hover:bg-black/5 px-1 -mx-1"
-                  >
-                    <div className="mt-0.5 shrink-0">
-                      {isDone ? (
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#1B4332" strokeWidth="3"><polyline points="20 6 9 17 4 12" /></svg>
-                      ) : isCurrent ? (
-                        <div className="size-2 rounded-full bg-accent mt-px" />
-                      ) : (
-                        <div className="size-2.5 rounded-full border-[1.5px] border-border mt-px" />
-                      )}
-                    </div>
-                    <span className={cn(
-                      "leading-[1.4] line-clamp-2 flex-1",
-                      isDone && "text-[#bbb] line-through",
-                      isCurrent && "font-bold text-primary",
-                      !isDone && !isCurrent && "text-muted-foreground hover:text-primary"
-                    )}>
-                      {String(i + 1).padStart(2, '0')}. {l.title[currentLang]}
-                    </span>
-                  </div>
-                )
-              })}
-            </div>
-
-            <div className="mt-4">
-              <Link to="/subjects" className="flex items-center gap-1.5 text-[12px] font-semibold text-primary hover:underline">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="15 18 9 12 15 6" /></svg>
-                Rudi kwa Masomo Yote
-              </Link>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
+      <LessonReader
+        lesson={model}
+        breadcrumb={breadcrumb}
+        prevNext={prevNext}
+        siblings={siblings}
+        completionSlot={completionSlot}
+      />
+    </>
   )
 }

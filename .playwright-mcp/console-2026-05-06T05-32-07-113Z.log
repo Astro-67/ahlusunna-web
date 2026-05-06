@@ -1,0 +1,23 @@
+[    4671ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3002/node_modules/.vite/deps/react-dom_client.js?v=71717bf0:14337
+[    5051ms] [ERROR] Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. # @ http://localhost:3002/@vite/client:509
+[    5051ms] [ERROR] Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. # @ http://localhost:3002/@vite/client:509
+[   92394ms] [ERROR] %o
+
+%s
+
+%s
+ ReferenceError: useRef is not defined
+    at Heading (http://localhost:3002/src/components/lesson-reader/LessonBody.tsx?t=1778045619362:35:14)
+    at Object.react_stack_bottom_frame (http://localhost:3002/node_modules/.vite/deps/react-dom_client.js?v=71717bf0:12868:12)
+    at renderWithHooks (http://localhost:3002/node_modules/.vite/deps/react-dom_client.js?v=71717bf0:4213:19)
+    at updateFunctionComponent (http://localhost:3002/node_modules/.vite/deps/react-dom_client.js?v=71717bf0:5569:16)
+    at beginWork (http://localhost:3002/node_modules/.vite/deps/react-dom_client.js?v=71717bf0:6140:20)
+    at runWithFiberInDEV (http://localhost:3002/node_modules/.vite/deps/react-dom_client.js?v=71717bf0:851:66)
+    at performUnitOfWork (http://localhost:3002/node_modules/.vite/deps/react-dom_client.js?v=71717bf0:8429:92)
+    at workLoopSync (http://localhost:3002/node_modules/.vite/deps/react-dom_client.js?v=71717bf0:8325:37)
+    at renderRootSync (http://localhost:3002/node_modules/.vite/deps/react-dom_client.js?v=71717bf0:8309:6)
+    at performWorkOnRoot (http://localhost:3002/node_modules/.vite/deps/react-dom_client.js?v=71717bf0:7994:27) The above error occurred in the <Heading> component. React will try to recreate this component tree from scratch using the error boundary you provided, CatchBoundaryImpl. @ http://localhost:3002/@vite/client:509
+[   92416ms] [WARNING] Warning: The following error wasn't caught by any route! At the very least, consider setting an 'errorComponent' in your RootRoute! @ http://localhost:3002/@vite/client:509
+[   92416ms] [WARNING] Warning: useRef is not defined @ http://localhost:3002/@vite/client:509
+[  100402ms] [ERROR] Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. # @ http://localhost:3002/@vite/client:509
+[  100403ms] [ERROR] Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. # @ http://localhost:3002/@vite/client:509
