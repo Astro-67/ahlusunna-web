@@ -1,14 +1,32 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { CheckCircle2, Lock, ShieldCheck, Zap } from 'lucide-react'
+import {
+  BookOpen,
+  CheckCircle2,
+  FileText,
+  Lock,
+  ShieldCheck,
+  Zap,
+} from 'lucide-react'
 
-import { SubjectCard } from '#/components/subjects/SubjectCard'
-import { lessons, subjects } from '#/data/seed'
-import { useLanguage } from '#/hooks/useLanguage'
-import { useAuth } from '#/hooks/useAuth'
-import type { Language } from '#/types'
 import { Button } from '#/components/ui/button'
+import { levelService, subjectService, lessonService } from '#/data/services'
+import { useAuth } from '#/hooks/useAuth'
+import { useLanguage } from '#/hooks/useLanguage'
+import { cn } from '#/lib/utils'
+import type { Language } from '#/types'
 
-export const Route = createFileRoute('/subjects')({ component: SubjectsPage })
+export const Route = createFileRoute('/subjects')({
+  component: SubjectsPage,
+})
+
+const subjectIcons: Record<string, React.ComponentType<{ className?: string; 'aria-hidden'?: boolean; strokeWidth?: number }>> = {
+  quran: BookOpen,
+  hadith: FileText,
+  fiqhi: BookOpen,
+  tawhidi: CheckCircle2,
+  sira: BookOpen,
+  adhkar: CheckCircle2,
+}
 
 const pageCopy: Record<
   Language,
@@ -25,27 +43,15 @@ const pageCopy: Record<
     registerTitle: string
     registerDesc: string
     registerBtn: string
+    allLevels: string
+    levelName: string
   }
 > = {
   en: {
-    breadcrumbHome: 'Home',
-    breadcrumbLevel: 'Subjects',
-    levelEyebrow: 'Learning Level',
-    title: 'Beginner — Subjects',
-    subtitle: 'Choose any subject to begin your learning journey. All Beginner subjects are available without an account.',
-    subjectsLabel: '6 Subjects available — Beginner',
-    statsLessons: '6 Subjects',
-    statsFree: 'Free forever',
-    statsStart: 'Start right now',
-    registerTitle: 'Track your progress',
-    registerDesc: 'Join for free to save your progress and unlock Intermediate lessons.',
-    registerBtn: 'Join for Free →',
-  },
-  sw: {
     breadcrumbHome: 'Nyumbani',
     breadcrumbLevel: 'Masomo',
     levelEyebrow: 'Hatua ya Kujifunza',
-    title: 'Hatua ya Awali — Masomo',
+    title: 'Masomo ya Hatua ya Awali',
     subtitle: 'Chagua somo lolote kuanza safari yako ya kujifunza. Masomo yote ya Hatua ya Awali yanapatikana bila akaunti.',
     subjectsLabel: 'Masomo 6 yanapatikana — Hatua ya Awali',
     statsLessons: 'Masomo 6',
@@ -54,20 +60,40 @@ const pageCopy: Record<
     registerTitle: 'Fuatilia maendeleo yako',
     registerDesc: 'Jiunge bure ili uhifadhi mahali ulipofika na upate masomo ya Hatua ya Kati.',
     registerBtn: 'Jiunge Bure →',
+    allLevels: 'Hatua Zote',
+    levelName: 'Hatua ya Awali',
+  },
+  sw: {
+    breadcrumbHome: 'Nyumbani',
+    breadcrumbLevel: 'Masomo',
+    levelEyebrow: 'Hatua ya Kujifunza',
+    title: 'Masomo ya Hatua ya Awali',
+    subtitle: 'Chagua somo lolote kuanza safari yako ya kujifunza. Masomo yote ya Hatua ya Awali yanapatikana bila akaunti.',
+    subjectsLabel: 'Masomo 6 yanapatikana — Hatua ya Awali',
+    statsLessons: 'Masomo 6',
+    statsFree: 'Bure milele',
+    statsStart: 'Anza sasa hivi',
+    registerTitle: 'Fuatilia maendeleo yako',
+    registerDesc: 'Jiunge bure ili uhifadhi mahali ulipofika na upate masomo ya Hatua ya Kati.',
+    registerBtn: 'Jiunge Bure →',
+    allLevels: 'Hatua Zote',
+    levelName: 'Hatua ya Awali',
   },
   ar: {
     breadcrumbHome: 'الرئيسية',
     breadcrumbLevel: 'المواد',
     levelEyebrow: 'مرحلة التعلم',
-    title: 'المستوى المبتدئ — المواد',
-    subtitle: 'اختر أي مادة لبدء رحلة التعلم. جميع مواد المستوى المبتدئ متاحة بدون حساب.',
-    subjectsLabel: '6 مواد متاحة — مبتدئ',
-    statsLessons: '6 مواد',
-    statsFree: 'مجاني دائماً',
+    title: 'مستوى المبتدئ — المواد',
+    subtitle: 'اختر أي مادة لبدء رحلتك التعليمية. جميع مواد المستوى المبتدئ متاحة بدون حساب.',
+    subjectsLabel: '٦ مواد متاحة — المستوى المبتدئ',
+    statsLessons: '٦ مواد',
+    statsFree: 'مجاني دائمًا',
     statsStart: 'ابدأ الآن',
     registerTitle: 'تتبع تقدمك',
     registerDesc: 'انضم مجانًا لحفظ تقدمك وفتح دروس المستوى المتوسط.',
     registerBtn: 'انضم مجاناً ←',
+    allLevels: 'جميع المستويات',
+    levelName: 'المستوى المبتدئ',
   },
 }
 
@@ -75,11 +101,13 @@ function SubjectsPage() {
   const { currentLang } = useLanguage()
   const { isAuthenticated } = useAuth()
   const copy = pageCopy[currentLang]
+  const isRtl = currentLang === 'ar'
 
-  const beginnerSubjects = subjects.filter((s) => (s.levelId as string) === 'awali')
+  const allLevels = levelService.getAll()
+  const subjects = subjectService.getByLevel('awali')
 
   return (
-    <div className="bg-background flex flex-col min-h-[calc(100vh-64px)]">
+    <div className="bg-background flex min-h-[calc(100vh-64px)] flex-col">
       {/* Hero */}
       <section className="relative overflow-hidden bg-primary px-6 py-10 lg:px-12 lg:py-12">
         {/* Geometric Background */}
@@ -122,15 +150,27 @@ function SubjectsPage() {
             {copy.subtitle}
           </p>
 
-          <div className="flex flex-wrap gap-2">
-            <button className="bg-accent px-5 py-2 text-[13px] font-semibold text-foreground transition-all duration-150">
+          <div className="flex flex-wrap gap-2" dir={isRtl ? 'rtl' : 'ltr'}>
+            {/* Awali - Active */}
+            <Link
+              to="/subjects"
+              className="flex items-center gap-2 bg-accent px-5 py-2.5 text-[13px] font-semibold text-accent-foreground"
+            >
               Hatua ya Awali
-            </button>
-            <Link to="/subjects/intermediate" className="flex items-center gap-2 border border-white/12 bg-white/5 px-5 py-2 text-[13px] font-semibold text-[#FAF7F0]/45 transition-all duration-150 hover:bg-white/10 hover:text-[#FAF7F0]">
+            </Link>
+            {/* Kati - Locked */}
+            <Link
+              to="/subjects/intermediate"
+              className="flex items-center gap-2 border border-white/12 bg-white/5 px-5 py-2.5 text-[13px] font-semibold text-[#FAF7F0]/45 transition-all duration-150 hover:bg-white/10 hover:text-[#FAF7F0]"
+            >
               <Lock className="size-3.5" strokeWidth={2.5} />
               Hatua ya Kati
             </Link>
-            <Link to="/subjects/advanced" className="flex items-center gap-2 border border-white/12 bg-white/5 px-5 py-2 text-[13px] font-semibold text-[#FAF7F0]/45 transition-all duration-150 hover:bg-white/10 hover:text-[#FAF7F0]">
+            {/* Endelea - Locked */}
+            <Link
+              to="/subjects/advanced"
+              className="flex items-center gap-2 border border-white/12 bg-white/5 px-5 py-2.5 text-[13px] font-semibold text-[#FAF7F0]/45 transition-all duration-150 hover:bg-white/10 hover:text-[#FAF7F0]"
+            >
               <Lock className="size-3.5" strokeWidth={2.5} />
               Kuendelea
             </Link>
@@ -143,7 +183,7 @@ function SubjectsPage() {
         <div className="container-main flex flex-wrap items-center gap-6 lg:gap-8">
           <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
             <ShieldCheck className="size-3.75 text-primary" strokeWidth={2} />
-            <span><strong className="font-semibold text-foreground">{beginnerSubjects.length}</strong> {copy.statsLessons.split(' ')[1]}</span>
+            <span><strong className="font-semibold text-foreground">{subjects.length}</strong> {copy.statsLessons.split(' ')[1]}</span>
           </div>
           <div className="h-4.5 w-px bg-border hidden sm:block" />
           <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
@@ -158,38 +198,72 @@ function SubjectsPage() {
         </div>
       </div>
 
-      {/* Grid */}
+      {/* Subject Grid */}
       <section className="container-main flex-1 px-6 py-10 lg:px-12 lg:py-12">
         <div className="mb-6 text-[12px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">
           {copy.subjectsLabel}
         </div>
 
-        <div className="grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-3">
-          {beginnerSubjects.map((subject, index) => {
-            const lessonCount = lessons.filter((l) => l.subjectId === subject.id).length
-            // Mocking featured status for the first item like in design
-            const isFeatured = index === 0
+        <div className="grid grid-cols-1 gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+          {subjects.map((subject, index) => {
+            const Icon = subjectIcons[subject.id] || BookOpen
+            const lessonCount = lessonService.getBySubject(subject.id).length
+            const formattedNum = String(index + 1).padStart(2, '0')
 
             return (
               <Link
                 key={subject.id}
                 to="/subjects/$slug"
                 params={{ slug: subject.slug }}
-                className="block outline-none"
+                className="group flex min-h-48 flex-col bg-white p-7 transition-colors duration-200 hover:bg-[#FDFCF8]"
               >
-                <SubjectCard
-                  subject={{
-                    id: subject.id,
-                    name: subject.name[currentLang],
-                    nameAr: subject.name.ar,
-                    slug: subject.slug,
-                    description: subject.description[currentLang],
-                    icon: subject.icon,
-                    lessonCount,
-                  }}
-                  featured={isFeatured}
-                  index={index}
-                />
+                {/* Number */}
+                <span className="mb-4 font-decorative text-xl font-bold text-primary/20">
+                  {formattedNum}
+                </span>
+
+                {/* Icon */}
+                <div className="mb-5 flex size-16 items-center justify-center bg-[#1B4332]/5 transition-colors duration-200 group-hover:bg-[#1B4332]/10">
+                  <Icon className="size-8 text-[#1B4332] transition-colors duration-200 group-hover:text-accent" strokeWidth={1.4} />
+                </div>
+
+                {/* Titles */}
+                <div className="mb-1 flex-1 text-[20px] font-bold tracking-tight text-foreground">
+                  {subject.name[currentLang]}
+                </div>
+
+                <div className="mb-3 font-arabic text-[17px] leading-[1.6] text-accent" dir="rtl">
+                  {subject.name.ar}
+                </div>
+
+                {/* Description */}
+                <p className="mb-5 text-[13px] leading-[1.6] text-muted-foreground">
+                  {subject.description[currentLang]}
+                </p>
+
+                {/* Footer */}
+                <div className="mt-auto flex items-center justify-between">
+                  <div className="flex flex-wrap gap-1.5">
+                    <span className="flex items-center gap-1 border border-[#1B4332]/10 bg-[#1B4332]/5 px-2 py-1 text-[11px] font-medium text-primary">
+                      <FileText className="size-3" strokeWidth={2.5} />
+                      {lessonCount} masomo
+                    </span>
+                  </div>
+
+                  <div className="flex size-7 items-center justify-center bg-[#1B4332]/5 text-primary transition-transform duration-200 group-hover:translate-x-[3px]">
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      className={isRtl ? 'rotate-180' : ''}
+                    >
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </div>
+                </div>
               </Link>
             )
           })}

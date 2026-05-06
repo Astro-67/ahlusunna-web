@@ -42,7 +42,8 @@
     "advanced_title": "المستوى المتقدم",
     "locked_body": "قريبًا",
     "subject_label": "المادة",
-    "coming_soon": "قريبًا"
+    "coming_soon": "قريبًا",
+    "no_lessons": "لا توجد دروس في هذه المادة بعد."
   },
   "courses": {
     "title": "الدورات",

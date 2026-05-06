@@ -1,45 +1,60 @@
-import { Link, createFileRoute } from '@tanstack/react-router'
+import { Link, redirect, createFileRoute } from '@tanstack/react-router'
 import { ArrowLeft, Lock, Star } from 'lucide-react'
 
 import { BorderOrnament } from '#/components/shared/IslamicPatterns'
 import { Button } from '#/components/ui/button'
-import { levels } from '#/data/seed'
+import { levelService } from '#/data/services'
 import { useAuth } from '#/hooks/useAuth'
 import { useLanguage } from '#/hooks/useLanguage'
 
 export const Route = createFileRoute('/(learner)/subjects/advanced')({
   component: AdvancedSubjectsPage,
+  beforeLoad: ({ context }) => {
+    if (!context.auth.isAuthenticated) {
+      throw redirect({ to: '/login', search: { redirectTo: '/subjects/advanced' } })
+    }
+  },
 })
 
+const pageCopy = {
+  en: {
+    breadcrumbHome: 'Nyumbani',
+    breadcrumbSubjects: 'Masomo',
+    lockedTitle: 'Kamilisha Hatua ya Kati',
+    lockedMessage: 'Tafadhali kamilisha 70% ya hatua ya kati ili kufungua hatua hii.',
+    lockedCta: 'Rudi kwa Masomo',
+    backSubjects: 'Masomo',
+    comingSoon: 'Inakuja hivi punde',
+    register: 'Jiunge Nasi →',
+    login: 'Ingia',
+  },
+  sw: {
+    breadcrumbHome: 'Nyumbani',
+    breadcrumbSubjects: 'Masomo',
+    lockedTitle: 'Kamilisha Hatua ya Kati',
+    lockedMessage: 'Tafadhali kamilisha 70% ya hatua ya kati ili kufungua hatua hii.',
+    lockedCta: 'Rudi kwa Masomo',
+    backSubjects: 'Masomo',
+    comingSoon: 'Inakuja hivi punde',
+    register: 'Jiunge Nasi →',
+    login: 'Ingia',
+  },
+  ar: {
+    breadcrumbHome: 'الرئيسية',
+    breadcrumbSubjects: 'المواد',
+    lockedTitle: 'أكمل المستوى المتوسط',
+    lockedMessage: 'يرجى إكمال 70% من المستوى المتوسط لفتح هذا المستوى.',
+    lockedCta: 'العودة للمواد',
+    backSubjects: 'المواد',
+    comingSoon: 'قريبًا',
+    register: 'انضم إلينا ←',
+    login: 'دخول',
+  },
+}
+
 function LockedState() {
-  const { user } = useAuth()
-  const { currentLang, t } = useLanguage()
-
-  const title = user ? (
-    currentLang === 'ar' ? 'أكمل المرحلة السابقة' : currentLang === 'sw' ? 'Kamilisha Hatua ya Kati' : 'Complete Previous Level'
-  ) : (
-    t('levels.advanced') + ' - ' + t('levels.locked')
-  )
-
-  const message = user ? (
-    currentLang === 'ar' 
-      ? 'يرجى إكمال ٧٠٪ من المستوى المتوسط لفتح هذا المستوى.' 
-      : currentLang === 'sw' 
-        ? 'Tafadhali kamilisha 70% ya hatua ya kati ili kufungua hatua hii.' 
-        : 'Please complete 70% of the Intermediate level to unlock this stage.'
-  ) : (
-    currentLang === 'ar'
-      ? 'انضم مجانًا للوصول إلى دروس هذا المستوى ومواصلة رحلتك التعليمية.'
-      : currentLang === 'sw'
-        ? 'Jiunge bure ili uweze kusoma masomo ya hatua hii na kuendelea na safari yako ya elimu.'
-        : 'Join for free to access lessons at this level and continue your educational journey.'
-  )
-
-  const ctaText = user 
-    ? (currentLang === 'ar' ? 'العودة للمواد' : currentLang === 'sw' ? 'Rudi kwa Masomo' : 'Back to Subjects')
-    : (currentLang === 'ar' ? 'انضم إلينا ←' : currentLang === 'sw' ? 'Jiunge Nasi →' : 'Join Us →')
-
-  const ctaHref = user ? '/subjects' : '/register'
+  const { currentLang } = useLanguage()
+  const copy = pageCopy[currentLang]
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center px-4">
@@ -48,31 +63,31 @@ function LockedState() {
           <Lock className="size-10 text-accent" />
         </div>
         <h2 className="mb-3 font-decorative text-[24px] font-bold text-foreground">
-          {title}
+          {copy.lockedTitle}
         </h2>
         <p className="mb-8 text-sm leading-relaxed text-muted-foreground">
-          {message}
+          {copy.lockedMessage}
         </p>
         <div className="flex flex-col items-center gap-4">
-          <Button asChild variant="accent" size="lg" className="gap-2 px-8">
-            <Link to={ctaHref}>
-              {ctaText}
-            </Link>
-          </Button>
+          <Link to="/subjects">
+            <Button variant="accent" size="lg" className="gap-2 px-8">
+              {copy.lockedCta}
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
   )
 }
 
-function ComingSoonCard({ title }: { title: string }) {
+function ComingSoonCard({ title, description }: { title: string; description: string }) {
   return (
     <div className="group relative overflow-hidden border-2 border-dashed border-[#E5E0D8] bg-white p-6 text-center transition-all hover:border-accent/30">
       <div className="mb-4 flex size-12 items-center justify-center rounded-full border border-accent/20 bg-accent/5 mx-auto">
         <Star className="size-6 text-accent/50" />
       </div>
       <h3 className="mb-2 font-decorative text-[18px] font-semibold text-foreground/60">{title}</h3>
-      <p className="text-sm text-muted-foreground/60">Coming soon</p>
+      <p className="text-sm text-muted-foreground/60">{description}</p>
     </div>
   )
 }
@@ -80,8 +95,10 @@ function ComingSoonCard({ title }: { title: string }) {
 function AdvancedSubjectsPage() {
   const { user } = useAuth()
   const { currentLang, t } = useLanguage()
-  const level = levels.find((candidate) => String(candidate.id) === 'endelea')
-  const canAccessAdvanced = user?.levelAccess.map(String).includes('endelea')
+  const copy = pageCopy[currentLang]
+
+  const level = levelService.getById('endelea')
+  const canAccessAdvanced = user?.levelAccess.includes('endelea')
 
   if (!canAccessAdvanced) {
     return (
@@ -93,7 +110,7 @@ function AdvancedSubjectsPage() {
             <div className="flex items-center gap-2 text-sm text-primary-foreground/60">
               <Link to="/subjects" className="flex items-center gap-1 transition-colors hover:text-primary-foreground">
                 <ArrowLeft className="size-4" />
-                {t('navigation.subjects')}
+                {copy.backSubjects}
               </Link>
             </div>
             <h1 className="mt-6 font-decorative text-[28px] font-bold lg:text-[36px]">
@@ -130,14 +147,14 @@ function AdvancedSubjectsPage() {
           <div className="flex items-center gap-2 text-sm text-primary-foreground/60">
             <Link to="/subjects" className="flex items-center gap-1 transition-colors hover:text-primary-foreground">
               <ArrowLeft className="size-4" />
-              {t('navigation.subjects')}
+              {copy.backSubjects}
             </Link>
           </div>
 
           <div className="mt-6">
             <p className="mb-2 inline-flex items-center gap-2 text-sm font-medium text-accent">
               <span className="size-1.5 rounded-full bg-accent" />
-              {t('levels.advanced')}
+              {level?.name[currentLang]}
             </p>
             <h1 className="mb-3 font-decorative text-[28px] font-bold leading-tight lg:text-[36px]">
               {level?.name[currentLang]}
@@ -150,11 +167,17 @@ function AdvancedSubjectsPage() {
       </section>
 
       <section className="container-main py-8 lg:py-12">
+        <div className="mb-8 text-center">
+          <p className="font-arabic text-xl text-muted-foreground" dir="rtl">
+            {copy.comingSoon}
+          </p>
+        </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3, 4, 5, 6].map((item) => (
             <ComingSoonCard
               key={item}
-              title={`Advanced Lesson ${item}`}
+              title={`Somo ${item}`}
+              description="Inakuja hivi karibuni, Insha'Allah."
             />
           ))}
         </div>

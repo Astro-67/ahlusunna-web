@@ -42,7 +42,8 @@
     "advanced_title": "Advanced Level",
     "locked_body": "Coming soon",
     "subject_label": "Subject",
-    "coming_soon": "Coming Soon"
+    "coming_soon": "Coming Soon",
+    "no_lessons": "No lessons in this subject yet."
   },
   "courses": {
     "title": "Courses",

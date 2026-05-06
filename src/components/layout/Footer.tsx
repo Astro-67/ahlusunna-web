@@ -208,7 +208,7 @@ export function Footer() {
               {content.description}
             </p>
 
-            <blockquote className="mt-6 max-w-md rounded-2xl border border-accent/20 bg-white/[0.04] p-5">
+            <blockquote className="mt-6 max-w-md rounded-2xl border border-accent/20 bg-white/4 p-5">
               <p className="font-arabic text-xl leading-relaxed text-white/90">
                 {content.quote}
               </p>

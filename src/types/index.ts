@@ -4,7 +4,7 @@ export type ContentType = 'text' | 'video' | 'audio'
 
 export type LevelId = 'awali' | 'kati' | 'endelea'
 
-export type SubjectId = 'quran' | 'hadith' | 'fiqhi' | 'tawhidi' | 'sira'
+export type SubjectId = 'quran' | 'hadith' | 'fiqhi' | 'tawhidi' | 'sira' | 'adhkar'
 
 export type UserRole = 'public' | 'learner' | 'moderator' | 'admin'
 
