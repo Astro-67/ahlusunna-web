@@ -6,7 +6,7 @@ import type {
   Subject,
   SubjectId,
   TiptapDocument,
-  User,
+  User, Course, Module, Media 
 } from '#/types'
 
 const doc = (heading: string, body: string, quote?: string): TiptapDocument => ({
@@ -780,3 +780,199 @@ export const checkLessonAccess = (
   }
   return { allowed: true }
 }
+
+// ============================================
+// Additional mock data (merged from mockData.ts)
+// ============================================
+
+
+export const courses: Course[] = [
+  {
+    id: 'quran-intro',
+    slug: 'introduction-to-quran',
+    title: { sw: "Utangulizi wa Qur'an", ar: 'مقدمة في القرآن الكريم', en: 'Introduction to the Quran' },
+    description: {
+      sw: 'Kursi ya msingi inayohusu misingi ya masomo ya Qur\'an.',
+      ar: 'دورة أساسية تغطي أساسيات دراسة القرآن.',
+      en: 'A foundational course covering the basics of Quranic study.',
+    },
+    subjectId: 'quran',
+    levelId: 'awali',
+    order: 1,
+    thumbnail: '/thumbnails/quran-intro.jpg',
+    status: 'active',
+  },
+  {
+    id: 'quran-tajweed',
+    slug: 'quranic-tajweed',
+    title: { sw: 'Makosa ya Tajwid', ar: 'أحكام التجويد', en: 'Quranic Tajweed' },
+    description: {
+      sw: 'Master kanuni sahihi za kusoma Qur\'an.',
+      ar: 'أتقن القواعد الصحيحة لتلاوة القرآن.',
+      en: 'Master the rules of proper Quranic recitation.',
+    },
+    subjectId: 'quran',
+    levelId: 'awali',
+    order: 2,
+    thumbnail: '/thumbnails/tajweed.jpg',
+    status: 'active',
+  },
+  {
+    id: 'hadith-intro',
+    slug: 'introduction-to-hadith',
+    title: { sw: 'Utangulizi wa Hadith', ar: 'مقدمة في الحديث', en: 'Introduction to Hadith' },
+    description: {
+      sw: 'Jifunze misingi ya sayansi za Hadith.',
+      ar: 'تعلم أساسيات علوم الحديث.',
+      en: 'Learn the basics of Hadith sciences.',
+    },
+    subjectId: 'hadith',
+    levelId: 'awali',
+    order: 1,
+    thumbnail: '/thumbnails/hadith-intro.jpg',
+    status: 'active',
+  },
+  {
+    id: 'fiqh-purification',
+    slug: 'rules-of-purification',
+    title: { sw: 'Sheria za Tahara', ar: 'أحكام الطهارة', en: 'Rules of Purification' },
+    description: {
+      sw: 'Jifunze kanuni muhimu za wudu na ghusl.',
+      ar: 'تعلم القواعد الأساسية للوضوء والغسل.',
+      en: 'Learn the essential rules of wudu and ghusl.',
+    },
+    subjectId: 'fiqhi',
+    levelId: 'awali',
+    order: 1,
+    thumbnail: '/thumbnails/tahara.jpg',
+    status: 'active',
+  },
+  {
+    id: 'tawhid-meaning',
+    slug: 'meaning-of-tawhid',
+    title: { sw: 'Maana ya Tawhid', ar: 'معنى التوحيد', en: 'Meaning of Tawhid' },
+    description: {
+      sw: 'Elewa dhana ya msingi ya tauhid.',
+      ar: 'افهم المفهوم الأساسي للتوحيد.',
+      en: 'Understand the fundamental concept of Tawhid.',
+    },
+    subjectId: 'tawhidi',
+    levelId: 'awali',
+    order: 1,
+    thumbnail: '/thumbnails/tawhid-intro.jpg',
+    status: 'active',
+  },
+  {
+    id: 'sirah-birth',
+    slug: 'birth-of-prophet',
+    title: { sw: 'Kuzaliwa kwa Mtume', ar: 'مولد النبي', en: 'Birth of the Prophet' },
+    description: {
+      sw: 'Jifunze kuzaliwa kwake baraka cha Mtume.',
+      ar: 'ادرس الميلاد المبارك للنبي.',
+      en: 'Study the blessed birth of the Prophet.',
+    },
+    subjectId: 'sira',
+    levelId: 'awali',
+    order: 1,
+    thumbnail: '/thumbnails/birth.jpg',
+    status: 'active',
+  },
+]
+
+export const modules: Module[] = [
+  {
+    id: 'quran-intro-m1',
+    slug: 'what-is-quran',
+    title: { sw: "Qur'an Ni Nini?", ar: 'ما هو القرآن؟', en: 'What is the Quran?' },
+    description: {
+      sw: 'Utangulizi wa uelewa wa Qur\'an Mtakatifu.',
+      ar: 'مقدمة في فهم القرآن الكريم.',
+      en: 'Introduction to understanding the Holy Quran.',
+    },
+    courseId: 'quran-intro',
+    order: 1,
+    status: 'active',
+  },
+  {
+    id: 'quran-intro-m2',
+    slug: 'revelation-of-quran',
+    title: { sw: 'Uvio wa Qur\'an', ar: 'نزول القرآن', en: 'Revelation of the Quran' },
+    description: {
+      sw: 'Jinsi Qur\'an ilivyoteremshwa.',
+      ar: 'كيف نزل القرآن.',
+      en: 'How the Quran was revealed.',
+    },
+    courseId: 'quran-intro',
+    order: 2,
+    status: 'active',
+  },
+  {
+    id: 'hadith-intro-m1',
+    slug: 'what-is-hadith',
+    title: { sw: 'Hadith Ni Nini?', ar: 'ما هو الحديث؟', en: 'What is Hadith?' },
+    description: {
+      sw: 'Utangulizi wa sayansi ya Hadith.',
+      ar: 'مقدمة في علم الحديث.',
+      en: 'Introduction to the science of Hadith.',
+    },
+    courseId: 'hadith-intro',
+    order: 1,
+    status: 'active',
+  },
+]
+
+export const media: Media[] = [
+  {
+    id: 'media-1',
+    type: 'image',
+    url: '/images/quran-pattern.jpg',
+    thumbnail: '/thumbnails/quran-pattern-thumb.jpg',
+    title: { sw: 'Mfano wa Qur\'an', ar: 'نمط قرآني', en: 'Quranic Pattern' },
+    description: {
+      sw: 'Mfano wa kijiometria ya Kiislamu.',
+      ar: 'نمط هندسي إسلامي.',
+      en: 'Decorative Islamic geometric pattern.',
+    },
+    mimeType: 'image/jpeg',
+    size: 245000,
+  },
+]
+
+export const getAdminStats = () => ({
+  totalLessons: lessons.length,
+  totalCourses: courses.length,
+  totalSubjects: subjects.length,
+  totalUsers: mockUsers.length,
+  publishedLessons: lessons.filter((l) => l.status === 'published').length,
+  draftLessons: lessons.filter((l) => l.status === 'draft').length,
+  recentLessons: lessons.slice(0, 5),
+})
+
+// ============================================
+// Tags
+// ============================================
+
+export type TagType = 'subject' | 'topic' | 'difficulty'
+
+export interface Tag {
+  id: string
+  slug: string
+  name: { sw: string; ar: string; en: string }
+  type: TagType
+}
+
+export const tags: Tag[] = [
+  { id: 'quran', slug: 'quran', name: { sw: "Qur'an", ar: 'القرآن', en: "Qur'an" }, type: 'subject' },
+  { id: 'hadith', slug: 'hadith', name: { sw: 'Hadith', ar: 'الحديث', en: 'Hadith' }, type: 'subject' },
+  { id: 'fiqh', slug: 'fiqh', name: { sw: 'Fiqhi', ar: 'الفقه', en: 'Fiqh' }, type: 'subject' },
+  { id: 'tawhid', slug: 'tawhid', name: { sw: 'Tawhidi', ar: 'التوحيد', en: 'Tawhid' }, type: 'subject' },
+  { id: 'sirah', slug: 'sirah', name: { sw: 'Sira', ar: 'السيرة', en: 'Sirah' }, type: 'subject' },
+  { id: 'basics', slug: 'basics', name: { sw: 'Misingi', ar: 'الأساسيات', en: 'Basics' }, type: 'topic' },
+  { id: 'foundations', slug: 'foundations', name: { sw: 'Msingi', ar: 'الأسس', en: 'Foundations' }, type: 'topic' },
+  { id: 'tajweed', slug: 'tajweed', name: { sw: 'Tajwid', ar: 'التجويد', en: 'Tajweed' }, type: 'topic' },
+  { id: 'prayer', slug: 'prayer', name: { sw: 'Sala', ar: 'الصلاة', en: 'Prayer' }, type: 'topic' },
+  { id: 'monotheism', slug: 'monotheism', name: { sw: 'Tauhid', ar: 'التوحيد', en: 'Monotheism' }, type: 'topic' },
+  { id: 'beginner', slug: 'beginner', name: { sw: 'Awali', ar: 'مبتدئ', en: 'Beginner' }, type: 'difficulty' },
+  { id: 'intermediate', slug: 'intermediate', name: { sw: 'Kati', ar: 'متوسط', en: 'Intermediate' }, type: 'difficulty' },
+  { id: 'advanced', slug: 'advanced', name: { sw: 'JuU', ar: 'متقدم', en: 'Advanced' }, type: 'difficulty' },
+]

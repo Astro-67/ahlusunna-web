@@ -84,7 +84,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     ).length
     const intermediateProgress = intermediateLessons.length > 0 ? (completedIntermediate / intermediateLessons.length) : 0
 
-    let nextAccess = [...currentUser.levelAccess]
+    const nextAccess = [...currentUser.levelAccess]
 
     if (beginnerProgress >= 0.7 && !nextAccess.includes('kati')) {
       nextAccess.push('kati')
@@ -97,7 +97,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (nextAccess.length !== currentUser.levelAccess.length) {
       return {
         ...currentUser,
-        levelAccess: nextAccess as LevelId[],
+        levelAccess: nextAccess,
       }
     }
 

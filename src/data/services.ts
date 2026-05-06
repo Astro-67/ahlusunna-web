@@ -4,18 +4,22 @@ import type {
   Course,
   Module,
   Lesson,
-  Tag,
   User,
   AdminStats,
   LevelId,
   SubjectId,
 } from '#/types'
+import type { Tag } from '#/data/seed'
 import {
   levels,
   subjects,
   lessons,
+  courses,
+  modules,
+  tags,
+  mockUsers,
+  getAdminStats,
 } from '#/data/seed'
-import { tags, users as mockUsers } from '#/data/mockData'
 
 export const levelService = {
   getAll: (): Level[] => levels.filter(l => l.status === 'active'),
@@ -44,25 +48,32 @@ export const subjectService = {
 }
 
 export const courseService = {
-  getAll: (): Course[] => [],
+  getAll: (): Course[] => courses.filter(c => c.status === 'active'),
 
-  getById: (_id: string): Course | undefined => undefined,
+  getById: (id: string): Course | undefined =>
+    courses.find(c => c.id === id),
 
-  getBySlug: (_slug: string): Course | undefined => undefined,
+  getBySlug: (slug: string): Course | undefined =>
+    courses.find(c => c.slug === slug),
 
-  getBySubject: (_subjectId: SubjectId): Course[] => [],
+  getBySubject: (subjectId: SubjectId): Course[] =>
+    courses.filter(c => c.subjectId === subjectId && c.status === 'active'),
 
-  getByLevel: (_levelId: LevelId): Course[] => [],
+  getByLevel: (levelId: LevelId): Course[] =>
+    courses.filter(c => c.levelId === levelId && c.status === 'active'),
 
-  getFeatured: (_limit = 4): Course[] => [],
+  getFeatured: (limit = 4): Course[] =>
+    courses.filter(c => c.status === 'active').slice(0, limit),
 }
 
 export const moduleService = {
-  getAll: (): Module[] => [],
+  getAll: (): Module[] => modules.filter(m => m.status === 'active'),
 
-  getById: (_id: string): Module | undefined => undefined,
+  getById: (id: string): Module | undefined =>
+    modules.find(m => m.id === id),
 
-  getByCourse: (_courseId: string): Module[] => [],
+  getByCourse: (courseId: string): Module[] =>
+    modules.filter(m => m.courseId === courseId && m.status === 'active'),
 }
 
 export const lessonService = {
@@ -120,15 +131,7 @@ export const userService = {
 }
 
 export const adminService = {
-  getStats: (): AdminStats => ({
-    totalLessons: lessons.length,
-    totalCourses: 0,
-    totalSubjects: subjects.length,
-    totalUsers: mockUsers.length,
-    publishedLessons: lessons.filter(l => l.status === 'published').length,
-    draftLessons: lessons.filter(l => l.status === 'draft').length,
-    recentLessons: lessons.slice(0, 5),
-  }),
+  getStats: (): AdminStats => getAdminStats(),
 
   getRecentLessons: (limit = 5): Lesson[] =>
     lessons.slice(0, limit),

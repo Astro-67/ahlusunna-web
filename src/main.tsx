@@ -2,9 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 
+import { QueryClientProvider } from '#/contexts/QueryClientContext'
 import { AudioPlayerProvider } from '#/contexts/AudioPlayerContext'
-import { AuthProvider, useAuth  } from '#/contexts/AuthContext'
-import type {AuthContextValue} from '#/contexts/AuthContext';
+import { AuthProvider, useAuth } from '#/contexts/AuthContext'
+import type { AuthContextValue } from '#/contexts/AuthContext'
 import { LanguageProvider } from '#/contexts/LanguageContext'
 import '#/i18n/config'
 import './styles.css'
@@ -38,13 +39,15 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <React.StrictMode>
-      <LanguageProvider>
-        <AuthProvider>
-          <AudioPlayerProvider>
-            <AppRouter />
-          </AudioPlayerProvider>
-        </AuthProvider>
-      </LanguageProvider>
+      <QueryClientProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            <AudioPlayerProvider>
+              <AppRouter />
+            </AudioPlayerProvider>
+          </AuthProvider>
+        </LanguageProvider>
+      </QueryClientProvider>
     </React.StrictMode>,
   )
 }

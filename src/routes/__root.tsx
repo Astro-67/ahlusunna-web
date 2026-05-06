@@ -1,10 +1,9 @@
-import { Outlet, createRootRouteWithContext, useRouterState } from '@tanstack/react-router'
+import { Outlet, createRootRouteWithContext, useRouterState, Link  } from '@tanstack/react-router'
 
 import { PersistentAudioPlayer } from '#/components/audio/PersistentAudioPlayer'
 import { Footer } from '#/components/layout/Footer'
 import { Navbar } from '#/components/layout/Navbar'
 import type { AuthContextValue } from '#/contexts/AuthContext'
-import { Link } from '@tanstack/react-router'
 
 interface RouterContext {
   auth: AuthContextValue

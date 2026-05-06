@@ -48,7 +48,7 @@ export function ContentManager() {
     if (editingLesson) {
       setLessons((currentLessons) =>
         currentLessons.map((lesson) =>
-          lesson.id === editingLesson.id ? ({ ...lesson, ...data } as Lesson) : lesson,
+          lesson.id === editingLesson.id ? ({ ...lesson, ...data }) : lesson,
         ),
       )
     } else {
