@@ -95,22 +95,22 @@ export function IslamicDivider({ className, variant = 'simple', color = '#C9A84C
   const variants = {
     simple: (
       <div className={cn('flex items-center gap-3', className)}>
-        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-40" />
+        <div className="h-px flex-1 bg-linear-to-r from-transparent via-accent to-transparent opacity-40" />
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="shrink-0">
           <path d="M10 2L12 8H18L13 12L15 18L10 14L5 18L7 12L2 8H8L10 2Z" fill={color} />
         </svg>
-        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-40" />
+        <div className="h-px flex-1 bg-linear-to-r from-transparent via-accent to-transparent opacity-40" />
       </div>
     ),
     ornate: (
       <div className={cn('flex items-center justify-center gap-4', className)}>
-        <div className="h-px w-20 bg-gradient-to-r from-transparent to-accent opacity-50" />
+        <div className="h-px w-20 bg-linear-to-r from-transparent to-accent opacity-50" />
         <svg width="32" height="12" viewBox="0 0 32 12" fill="none">
           <path d="M16 6L8 2L2 6L8 10L16 6Z" fill={color} />
           <path d="M16 6L24 2L30 6L24 10L16 6Z" fill={color} />
           <circle cx="16" cy="6" r="2" fill={color} />
         </svg>
-        <div className="h-px w-20 bg-gradient-to-l from-transparent to-accent opacity-50" />
+        <div className="h-px w-20 bg-linear-to-l from-transparent to-accent opacity-50" />
       </div>
     ),
     geometric: (
@@ -125,7 +125,7 @@ export function IslamicDivider({ className, variant = 'simple', color = '#C9A84C
     ),
     floral: (
       <div className={cn('flex items-center justify-center gap-3', className)}>
-        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
+        <div className="h-px flex-1 bg-linear-to-r from-transparent via-accent/50 to-transparent" />
         <div className="flex items-center gap-1">
           <svg width="8" height="8" viewBox="0 0 8 8" fill={color}>
             <circle cx="4" cy="4" r="2" />
@@ -137,7 +137,7 @@ export function IslamicDivider({ className, variant = 'simple', color = '#C9A84C
             <circle cx="4" cy="4" r="2" />
           </svg>
         </div>
-        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
+        <div className="h-px flex-1 bg-linear-to-r from-transparent via-accent/50 to-transparent" />
       </div>
     ),
   }
@@ -200,7 +200,7 @@ export function BorderOrnament({
   return (
     <div
       className={cn(
-        'absolute h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent',
+        'absolute h-px bg-linear-to-r from-transparent via-accent/40 to-transparent',
         position === 'both' ? 'top-0 inset-x-0' : position === 'top' ? 'top-0 inset-x-0' : 'bottom-0 inset-x-0',
         className,
       )}
@@ -219,7 +219,7 @@ export function DomeSilhouette({ className, color = '#C9A84C', side = 'right' }:
     <svg
       viewBox="0 0 200 120"
       fill="none"
-      className={cn('absolute top-0 h-full w-auto', side === 'right' ? 'end-0' : 'start-0', className)}
+      className={cn('absolute top-0 h-full w-auto', side === 'right' ? 'inset-e-0' : 'inset-s-0', className)}
       style={{ opacity: 0.12 }}
     >
       <path

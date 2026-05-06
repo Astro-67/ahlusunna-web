@@ -1,0 +1,198 @@
+{
+  "subject": {
+    "id": "a1b2c3d4-0001-0000-0000-000000000001",
+    "slug": "fiqhi",
+    "name_sw": "Fiqhi",
+    "name_ar": "الفقه",
+    "name_en": "Islamic Jurisprudence",
+    "description_sw": "Misingi ya sheria za Kiislamu — usafi, Swala, Saumu na zaidi",
+    "description_ar": "أحكام الفقه الإسلامي — الطهارة والصلاة والصيام وغيرها",
+    "description_en": "Foundations of Islamic law — purification, prayer, fasting and more",
+    "icon_key": "fiqhi",
+    "order": 3
+  },
+  "level": {
+    "id": "a1b2c3d4-0000-0000-0000-000000000001",
+    "slug": "beginner",
+    "name_sw": "Hatua ya Awali",
+    "name_en": "Beginner",
+    "requires_auth": false,
+    "order": 1
+  },
+  "topics": [
+    {
+      "id": "topic-001",
+      "slug": "taharah",
+      "order": 1,
+      "name_sw": "Twahara",
+      "name_ar": "الطهارة",
+      "name_en": "Purification",
+      "description_sw": "Misingi ya usafi katika Uislamu",
+      "description_ar": "أحكام الطهارة في الإسلام",
+      "description_en": "The foundations of Islamic purification",
+      "subtopics": [
+        {
+          "id": "subtopic-001-01",
+          "slug": "aina-za-najisi",
+          "order": 1,
+          "name_sw": "Aina za Najisi",
+          "name_ar": "أنواع النجاسات",
+          "name_en": "Types of Impurity",
+          "description_sw": "Aina za najisi na jinsi ya kuzitakasa",
+          "description_ar": "أنواع النجاسات وكيفية تطهيرها",
+          "description_en": "The types of impurity and how to purify them",
+          "lessons": [
+            {
+              "id": "lesson-001-01-01",
+              "slug": "aina-za-najisi-maana",
+              "order": 1,
+              "status": "PUBLISHED",
+              "title_sw": "Maana na Aina za Najisi",
+              "title_ar": "معنى النجاسة وأنواعها",
+              "title_en": "Meaning and Types of Impurity",
+              "body_sw": "Katika Uislamu, najisi ni uchafu wa kimwili ambao unazuia mtu kufanya ibada kama vile Swala. Kuelewa aina za najisi ni muhimu ili mtu aweze kujitakasa ipasavyo.\n\nAllah Mtukufu amesema: \"Hakika Allah anawapenda wenye kutubu na anawapenda wenye kujitakasa.\" (Al-Baqarah 2:222)\n\nAYA YA QURANI:\nإِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ\n(Al-Baqarah 2:222)\n\nAINА TATU ZA NAJISI:\n\n1. Najisi Mughalladha (Nzito) — Hii ni najisi ngumu zaidi. Inajumuisha mate ya mbwa na nguruwe. Husafishwa kwa kunawa mara saba, mara moja kwa udongo.\n\n2. Najisi Mutawassita (Wastani) — Hii ndiyo kawaida ya najisi, kama vile mkojo, damu, na kinyesi. Husafishwa kwa maji tu hadi athari zitoweke.\n\n3. Najisi Mukhaffafa (Nyepesi) — Hii ndiyo najisi nyepesi zaidi. Mfano ni mkojo wa mtoto mchanga wa kiume ambaye bado hajala chakula chochote isipokuwa maziwa ya mama. Husafishwa kwa kunyunyiza maji tu.\n\nJINSI YA KUSAFISHA NAJISI:\nIli mahali au kitu kiwe safi tena, sharti maji yaendeshwe juu ya najisi mpaka athari (rangi, harufu, ladha) zitoweke. Iwapo athari zimekauka na hazionekani, inakuwa ya kutosha kunawa mara moja kwa maji mengi.",
+              "body_ar": "النجاسة في الإسلام هي كل عين حكم الشرع بنجاستها، وتمنع صحة الصلاة عند الإخلال بإزالتها. ومعرفة أنواع النجاسات واجبة على كل مسلم ليؤدي عباداته على الوجه الصحيح.\n\nقال الله تعالى:\nإِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ\n(البقرة: ٢٢٢)\n\nأنواع النجاسات الثلاثة:\n\n١. النجاسة المغلَّظة — وهي أشد أنواع النجاسة، كولوغ الكلب والخنزير في الإناء. وتُطهَّر بالغسل سبع مرات إحداها بالتراب.\n\n٢. النجاسة المتوسطة — كالبول والدم والغائط. وتُطهَّر بإزالة عينها بالماء حتى تذهب الرائحة واللون والطعم.\n\n٣. النجاسة المخففة — وهي بول الغلام الرضيع الذي لم يأكل الطعام. يكفي في تطهيرها النضح والرش بالماء.\n\nكيفية التطهير:\nيجب إزالة عين النجاسة ولونها وريحها وطعمها. فإن زالت العين وبقي اللون أو الريح العسير إزالته، عُفي عنه. ويُصبّ الماء على موضع النجاسة حتى يُحكم بزوالها.",
+              "body_en": "In Islam, impurity (najasah) refers to physical filth that prevents a person from performing worship such as prayer. Understanding the types of impurity is essential for every Muslim to maintain proper ritual cleanliness.\n\nAllah says: \"Indeed, Allah loves those who repent and loves those who purify themselves.\" (Al-Baqarah 2:222)\n\nQURANIC VERSE:\nإِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ\n(Al-Baqarah 2:222)\n\nTHE THREE TYPES OF IMPURITY:\n\n1. Heavy Impurity (Mughalladha) — The most severe type, including the saliva of dogs and pigs. Purified by washing seven times, once with soil mixed into the water.\n\n2. Medium Impurity (Mutawassita) — The common type: urine, blood, feces. Purified by removing it completely with water until no trace of color, smell, or taste remains.\n\n3. Light Impurity (Mukhaffafa) — The mildest type, such as the urine of a male infant who has not yet eaten solid food. Purified simply by sprinkling water over the area.\n\nHOW TO PURIFY IMPURITY:\nThe substance, color, smell, and taste of the impurity must all be removed. If the substance is gone but a trace of color or smell remains that is difficult to remove, it is pardoned. Water is poured over the affected area until the impurity is judged to be fully gone.",
+              "media": [],
+              "estimated_read_minutes": 5
+            }
+          ]
+        },
+        {
+          "id": "subtopic-001-02",
+          "slug": "wudhu",
+          "order": 2,
+          "name_sw": "Wudhu",
+          "name_ar": "الوضوء",
+          "name_en": "Ablution",
+          "description_sw": "Jinsi ya kufanya wudhu sahihi na mambo yanayouvunja",
+          "description_ar": "كيفية الوضوء الصحيح ونواقضه",
+          "description_en": "How to perform correct ablution and what invalidates it",
+          "lessons": [
+            {
+              "id": "lesson-001-02-01",
+              "slug": "wudhu-nguzo",
+              "order": 1,
+              "status": "PUBLISHED",
+              "title_sw": "Nguzo na Sunna za Wudhu",
+              "title_ar": "فرائض الوضوء وسننه",
+              "title_en": "Obligatory Acts and Sunnahs of Wudhu",
+              "body_sw": "Wudhu ni ibada ya kujisafisha kwa maji kabla ya Swala na ibada nyingine. Ni sharti la Swala kuwa sahihi.\n\nMtume ﷺ amesema: \"Swala haikubaliwa bila wudhu.\" (Muslim)\n\nHADITHI:\nلَا تُقْبَلُ صَلَاةٌ بِغَيْرِ طُهُورٍ\n(رواه مسلم)\n\nNGUZO ZA WUDHU (FARDHI):\n\n1. Nia — Kukusudia moyoni kufanya wudhu kwa ajili ya Allah.\n2. Kuosha uso — Kutoka kwenye mwanzo wa nywele hadi chini ya kidevu, na kutoka sikio hadi sikio.\n3. Kuosha mikono — Hadi viwiko, pamoja na viwiko vyenyewe.\n4. Kupangusa kichwa — Hata sehemu ndogo ya kichwa.\n5. Kuosha miguu — Hadi vifundo, pamoja na vifundo vyenyewe.\n6. Mpangilio (Tartib) — Kufuata mfuatano ulio hapo juu.\n\nMAMBO YANAYOVUNJA WUDHU:\n\n- Kutoka chochote njia za mbele au nyuma\n- Kulala usingizi mzito\n- Kupoteza fahamu\n- Kugusana ngozi kwa shahwa (katika madhehebu mingine)",
+              "body_ar": "الوضوء هو التطهر بالماء الطهور على صفة مخصوصة، وهو شرط لصحة الصلاة.\n\nقال النبي ﷺ:\nلَا تُقْبَلُ صَلَاةٌ بِغَيْرِ طُهُورٍ\n(رواه مسلم)\n\nفرائض الوضوء:\n\n١. النية — أن يقصد بقلبه رفع الحدث أو استباحة الصلاة.\n٢. غسل الوجه — من منابت شعر الرأس إلى الذقن، وما بين الأذنين.\n٣. غسل اليدين — مع المرفقين.\n٤. مسح الرأس — ولو بعضه.\n٥. غسل الرجلين — مع الكعبين.\n٦. الترتيب — الالتزام بهذا الترتيب المذكور.\n\nنواقض الوضوء:\n\n- الخارج من السبيلين\n- زوال العقل بنوم أو إغماء أو سُكر\n- لمس الذَّكر باليد على رأي جمهور العلماء",
+              "body_en": "Wudhu (ablution) is the act of ritual purification with water before performing prayer and other acts of worship. It is a condition for the validity of prayer.\n\nThe Prophet ﷺ said: \"No prayer is accepted without purification.\" (Muslim)\n\nHADITH:\nلَا تُقْبَلُ صَلَاةٌ بِغَيْرِ طُهُورٍ\n(Narrated by Muslim)\n\nOBLIGATORY ACTS OF WUDHU:\n\n1. Intention (Niyyah) — Intending in the heart to perform wudhu for the sake of Allah.\n2. Washing the face — From the hairline to the chin, and from ear to ear.\n3. Washing the arms — Up to and including the elbows.\n4. Wiping the head — Even a small part is sufficient.\n5. Washing the feet — Up to and including the ankles.\n6. Order (Tartib) — Performing the steps in the sequence listed above.\n\nWHAT INVALIDATES WUDHU:\n\n- Anything exiting from the front or back passage\n- Deep sleep or loss of consciousness\n- Touching the private parts with the hand (according to the majority of scholars)",
+              "media": [],
+              "estimated_read_minutes": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "topic-002",
+      "slug": "swala",
+      "order": 2,
+      "name_sw": "Swala",
+      "name_ar": "الصلاة",
+      "name_en": "Prayer",
+      "description_sw": "Nguzo ya pili ya Uislamu — jinsi ya kuswali",
+      "description_ar": "الركن الثاني من أركان الإسلام — أحكام الصلاة",
+      "description_en": "The second pillar of Islam — how to perform prayer",
+      "subtopics": [
+        {
+          "id": "subtopic-002-01",
+          "slug": "wakati-wa-swala",
+          "order": 1,
+          "name_sw": "Wakati wa Swala",
+          "name_ar": "أوقات الصلاة",
+          "name_en": "Prayer Times",
+          "description_sw": "Swala tano za faradhi na nyakati zake",
+          "description_ar": "الصلوات الخمس المفروضة وأوقاتها",
+          "description_en": "The five obligatory prayers and their times",
+          "lessons": [
+            {
+              "id": "lesson-002-01-01",
+              "slug": "swala-tano-nyakati",
+              "order": 1,
+              "status": "PUBLISHED",
+              "title_sw": "Swala Tano na Nyakati Zake",
+              "title_ar": "الصلوات الخمس وأوقاتها",
+              "title_en": "The Five Prayers and Their Times",
+              "body_sw": "Allah Mtukufu amefanya Swala kuwa faradhi mara tano kwa siku. Kila Swala ina wakati wake maalum ambao hauruhusiwi kupita bila kuswali bila sababu ya kisheria.\n\nAllah amesema: \"Hakika Swala imekuwa faradhi kwa waumini kwa nyakati maalum.\" (An-Nisa 4:103)\n\nAYA YA QURANI:\nإِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَوْقُوتًا\n(النساء: ١٠٣)\n\nSWALA TANO NA NYAKATI ZAKE:\n\n1. Swala ya Alfajiri (Fajr) — Huanza kutoka mapambazuko ya kweli (alfajiri ya pili) hadi jua linapochomoza. Rakaa: 2.\n\n2. Swala ya Adhuhuri (Dhuhr) — Huanza jua linapopita katikati ya angani hadi kivuli cha kitu kiwe sawa na kitu chenyewe. Rakaa: 4.\n\n3. Swala ya Alasiri (Asr) — Huanza baada ya wakati wa Adhuhuri kuisha hadi jua linapokuwa na rangi ya njano. Rakaa: 4.\n\n4. Swala ya Magharibi (Maghrib) — Huanza jua linapotua hadi usiku wa kweli unapoingia. Rakaa: 3.\n\n5. Swala ya Isha (Isha) — Huanza usiku wa kweli unapoingia hadi alfajiri. Wakati bora ni kabla ya usiku wa manane. Rakaa: 4.",
+              "body_ar": "فرض الله تعالى الصلوات الخمس في اليوم والليلة، ولكل صلاة وقت محدد لا يجوز تأخيرها عنه بغير عذر شرعي.\n\nقال الله تعالى:\nإِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَوْقُوتًا\n(النساء: ١٠٣)\n\nالصلوات الخمس وأوقاتها:\n\n١. صلاة الفجر — يبدأ وقتها بطلوع الفجر الصادق وينتهي بطلوع الشمس. ركعتان.\n\n٢. صلاة الظهر — يبدأ وقتها بزوال الشمس عن كبد السماء وينتهي حين يصير ظل الشيء مثله. أربع ركعات.\n\n٣. صلاة العصر — يبدأ وقتها بعد انتهاء وقت الظهر وينتهي بغروب الشمس. أربع ركعات.\n\n٤. صلاة المغرب — يبدأ وقتها بغروب الشمس وينتهي بمغيب الشفق الأحمر. ثلاث ركعات.\n\n٥. صلاة العشاء — يبدأ وقتها بمغيب الشفق الأحمر وينتهي بطلوع الفجر، والأفضل قبل منتصف الليل. أربع ركعات.",
+              "body_en": "Allah has made the five daily prayers obligatory upon every Muslim. Each prayer has a specific time window, and it is not permissible to delay a prayer beyond its time without a valid legal reason.\n\nAllah says: \"Indeed, prayer has been decreed upon the believers at specified times.\" (An-Nisa 4:103)\n\nQURANIC VERSE:\nإِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَوْقُوتًا\n(An-Nisa 4:103)\n\nTHE FIVE PRAYERS AND THEIR TIMES:\n\n1. Fajr (Dawn Prayer) — Begins at true dawn and ends at sunrise. 2 rakaat.\n\n2. Dhuhr (Midday Prayer) — Begins when the sun passes its zenith and ends when the shadow of an object equals its height. 4 rakaat.\n\n3. Asr (Afternoon Prayer) — Begins after Dhuhr time ends and ends at sunset. 4 rakaat.\n\n4. Maghrib (Sunset Prayer) — Begins at sunset and ends when the red twilight disappears. 3 rakaat.\n\n5. Isha (Night Prayer) — Begins when the red twilight disappears and ends at dawn. The preferred time is before midnight. 4 rakaat.",
+              "media": [],
+              "estimated_read_minutes": 5
+            }
+          ]
+        },
+        {
+          "id": "subtopic-002-02",
+          "slug": "nguzo-za-swala",
+          "order": 2,
+          "name_sw": "Nguzo za Swala",
+          "name_ar": "أركان الصلاة",
+          "name_en": "Pillars of Prayer",
+          "description_sw": "Mambo muhimu ambayo Swala haifai bila yake",
+          "description_ar": "الأعمال التي لا تصح الصلاة إلا بها",
+          "description_en": "The essential acts without which prayer is invalid",
+          "lessons": [
+            {
+              "id": "lesson-002-02-01",
+              "slug": "nguzo-za-swala-orodha",
+              "order": 1,
+              "status": "PUBLISHED",
+              "title_sw": "Nguzo Kumi za Swala",
+              "title_ar": "أركان الصلاة العشرة",
+              "title_en": "The Ten Pillars of Prayer",
+              "body_sw": "Nguzo za Swala ni mambo ambayo Swala haiwezi kuwa sahihi bila yake. Ikiwa nguzo moja itaachwa — kwa makusudi au kwa kusahau — Swala haifai na lazima irudiwe.\n\nNGUZO KUU ZA SWALA:\n\n1. Kusimama (kwa mwenye uwezo) — Swala ya faradhi lazima isaliwe wima. Mgonjwa anaweza kukaa au kulala.\n2. Takbiratul Ihram — Kusema \"Allahu Akbar\" mwanzoni mwa Swala huku ukinyanyua mikono.\n3. Kusoma Al-Fatiha — Katika kila rakaa. Haijuzu Swala bila Al-Fatiha.\n4. Rukuu — Kuinamisha mgongo hadi mikono ifike magoti.\n5. Kusimama baada ya Rukuu — Kurudi wima kikamilifu.\n6. Sujudi mara mbili — Katika kila rakaa, kuwezesha paji la uso, pua, mikono miwili, magoti mawili, na vidole vya miguu kugusa ardhi.\n7. Kukaa kati ya sijda mbili — Kukaa kwa utulivu kati ya sijda mbili.\n8. Tashahhud ya Mwisho — Kusoma tashahhud katika kukaa kwa mwisho.\n9. Salamu za Kumaliza — Kusema \"Assalamu Alaykum wa Rahmatullah\" pande zote mbili.\n10. Utulivu (Tuma'ninah) — Kutulia katika kila nguzo bila kukimbia.",
+              "body_ar": "أركان الصلاة هي الأعمال التي لا تصح الصلاة إلا بها، فإن ترك المصلي ركناً عمداً أو سهواً بطلت صلاته ووجب عليه إعادتها.\n\nأركان الصلاة:\n\n١. القيام — مع القدرة في الفريضة. والعاجز يصلي قاعداً أو على جنبه.\n٢. تكبيرة الإحرام — قول \"الله أكبر\" مع رفع اليدين في أول الصلاة.\n٣. قراءة الفاتحة — في كل ركعة. لا تصح الصلاة بدونها.\n٤. الركوع — الانحناء حتى تصل اليدان إلى الركبتين.\n٥. الاعتدال من الركوع — الرفع والاستواء قائماً.\n٦. السجود مرتين — في كل ركعة، مع تمكين الجبهة والأنف واليدين والركبتين وأطراف القدمين من الأرض.\n٧. الجلسة بين السجدتين — الجلوس مطمئناً بين السجدتين.\n٨. التشهد الأخير — قراءته في الجلوس الأخير.\n٩. التسليم — قول \"السلام عليكم ورحمة الله\" عن اليمين والشمال.\n١٠. الطمأنينة — السكون في كل ركن.",
+              "body_en": "The pillars of prayer are the essential actions without which the prayer is invalid. If any pillar is omitted — whether deliberately or by forgetfulness — the prayer is void and must be repeated.\n\nTHE PILLARS OF PRAYER:\n\n1. Standing upright — Required in obligatory prayer for those who are able. The ill may sit or lie down.\n2. Opening Takbir — Saying \"Allahu Akbar\" while raising the hands at the beginning.\n3. Reciting Al-Fatiha — In every rakah. The prayer is not valid without it.\n4. Bowing (Ruku) — Bending until the hands reach the knees.\n5. Rising from Ruku — Returning to a full upright position.\n6. Two prostrations (Sujud) — In every rakah, with the forehead, nose, both palms, both knees, and toes touching the ground.\n7. Sitting between the two prostrations — Sitting with calmness between the two sujud.\n8. Final Tashahhud — Reciting it while seated at the end of the prayer.\n9. Closing Salaam — Saying \"Assalamu Alaykum wa Rahmatullah\" to both sides.\n10. Calmness (Tuma'ninah) — Stillness in every pillar, without rushing.",
+              "media": [],
+              "estimated_read_minutes": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "topic-003",
+      "slug": "saumu",
+      "order": 3,
+      "name_sw": "Saumu",
+      "name_ar": "الصيام",
+      "name_en": "Fasting",
+      "description_sw": "Nguzo ya nne ya Uislamu — hukumu za Saumu",
+      "description_ar": "الركن الرابع من أركان الإسلام — أحكام الصيام",
+      "description_en": "The fourth pillar of Islam — rules of fasting",
+      "subtopics": [
+        {
+          "id": "subtopic-003-01",
+          "slug": "masharti-ya-saumu",
+          "order": 1,
+          "name_sw": "Masharti ya Saumu",
+          "name_ar": "شروط الصيام",
+          "name_en": "Conditions of Fasting",
+          "description_sw": "Masharti ya Saumu kuwa sahihi na mambo yanayoivunja",
+          "description_ar": "شروط صحة الصيام ومفطراته",
+          "description_en": "Conditions for a valid fast and what breaks it",
+          "lessons": [
+            {
+              "id": "lesson-003-01-01",
+              "slug": "masharti-ya-saumu-hukumu",
+              "order": 1,
+              "status": "PUBLISHED",
+              "title_sw": "Masharti ya Saumu na Mambo Yanayoivunja",
+              "title_ar": "شروط الصيام ومفطراته",
+              "title_en": "Conditions of Fasting and What Breaks It",
+              "body_sw": "Saumu ya Ramadhani ni faradhi kwa kila Mwislamu mwenye akili timamu, aliyefikia umri wa balehe, na mwenye uwezo wa kufunga.\n\nAllah amesema: \"Enyi mlioamini! Mmeandikiwa kufunga kama walivyoandikiwa waliokuwa kabla yenu, ili mpate kumcha Mungu.\" (Al-Baqarah 2:183)\n\nAYA YA QURANI:\nيَا أَيُّهَا الَّذِينَ آمَنُوا كُتِبَ عَلَيْكُمُ الصِّيَامُ كَمَا كُتِبَ عَلَى الَّذِينَ مِن قَبْلِكُمْ لَعَلَّكُمْ تَتَّقُونَ\n(البقرة: ١٨٣)\n\nMASHARTI YA SAUMU KUWA SAHIHI:\n\n1. Uislamu — Saumu haifai kwa asiye Mwislamu.\n2. Akili — Mwendawazimu hafungiwi.\n3. Ubalehe — Mtoto ambaye hajafika balehe hafungiwi kwa lazima, lakini anapendelezwa kufundishwa.\n4. Nia — Lazima ikusudie kufunga usiku au mapema asubuhi kabla ya alfajiri.\n5. Kutokuwa na udhuru — Mgonjwa na msafiri wana ruhusa ya kuvunja, na wafidie baadaye.\n\nMAMBO YANAYOVUNJA SAUMU:\n\n- Kula au kunywa kwa makusudi\n- Kujamiiana wakati wa mchana\n- Kutoa damu nyingi kwa hiari (kama ku-donate damu)\n- Hedhi au nifasi",
+              "body_ar": "صيام رمضان فرض على كل مسلم بالغ عاقل قادر على الصيام.\n\nقال الله تعالى:\nيَا أَيُّهَا الَّذِينَ آمَنُوا كُتِبَ عَلَيْكُمُ الصِّيَامُ كَمَا كُتِبَ عَلَى الَّذِينَ مِن قَبْلِكُمْ لَعَلَّكُمْ تَتَّقُونَ\n(البقرة: ١٨٣)\n\nشروط صحة الصيام:\n\n١. الإسلام — لا يصح الصيام من غير المسلم.\n٢. العقل — لا يجب الصيام على المجنون.\n٣. البلوغ — لا يجب على الصبي، لكن يُستحب تعويده.\n٤. النية — لا بد من تبييت النية من الليل لصيام الفريضة.\n٥. الخلو من الموانع — كالحيض والنفاس والمرض الشديد والسفر.\n\nمفطرات الصيام:\n\n- الأكل والشرب عمداً\n- الجماع في نهار رمضان\n- الاستقاءة عمداً\n- الحيض والنفاس",
+              "body_en": "The fast of Ramadan is obligatory upon every Muslim who is sane, has reached puberty, and is physically able to fast.\n\nAllah says: \"O you who believe! Fasting has been prescribed for you as it was prescribed for those before you, so that you may become God-conscious.\" (Al-Baqarah 2:183)\n\nQURANIC VERSE:\nيَا أَيُّهَا الَّذِينَ آمَنُوا كُتِبَ عَلَيْكُمُ الصِّيَامُ كَمَا كُتِبَ عَلَى الَّذِينَ مِن قَبْلِكُمْ لَعَلَّكُمْ تَتَّقُونَ\n(Al-Baqarah 2:183)\n\nCONDITIONS FOR THE FAST TO BE VALID:\n\n1. Islam — Fasting is not valid from a non-Muslim.\n2. Sanity — The insane person is not obligated to fast.\n3. Puberty — Not obligatory for children, but they should be encouraged to practice.\n4. Intention (Niyyah) — Must be made before dawn for an obligatory fast.\n5. Freedom from exemptions — The ill and travelers may break their fast and make it up later.\n\nWHAT INVALIDATES THE FAST:\n\n- Eating or drinking deliberately\n- Sexual intercourse during daylight hours\n- Deliberately vomiting\n- Menstruation or post-natal bleeding",
+              "media": [],
+              "estimated_read_minutes": 5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
