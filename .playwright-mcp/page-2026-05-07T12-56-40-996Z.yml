@@ -1,0 +1,138 @@
+- generic [ref=e3]:
+  - navigation "Primary" [ref=e4]:
+    - generic [ref=e5]:
+      - link "Ahlusunna home" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Ahlusunna Islamic Learning" [ref=e7]
+      - button "Menyu" [ref=e9] [cursor=pointer]:
+        - img
+  - main [ref=e10]:
+    - main [ref=e12]:
+      - generic [ref=e13]:
+        - heading "Hatua ya Awali — Masomo" [level=1] [ref=e14]
+        - paragraph [ref=e15]: Chagua somo unalotaka kujifunza
+      - generic [ref=e16]:
+        - button "Hatua ya Awali" [ref=e17] [cursor=pointer]
+        - button "Hatua ya Kati" [disabled] [ref=e18]:
+          - img [ref=e19]
+          - text: Hatua ya Kati
+        - button "Kuendelea" [disabled] [ref=e22]:
+          - img [ref=e23]
+          - text: Kuendelea
+      - generic [ref=e26]:
+        - link "Qur'an القرآن الكريم Masomo 3" [ref=e27] [cursor=pointer]:
+          - /url: /subjects/quran
+          - img [ref=e28]
+          - heading "Qur'an" [level=3] [ref=e30]
+          - paragraph [ref=e31]: القرآن الكريم
+          - generic [ref=e32]: Masomo 3
+        - link "Hadith الحديث الشريف Masomo 3" [ref=e33] [cursor=pointer]:
+          - /url: /subjects/hadith
+          - img [ref=e34]
+          - heading "Hadith" [level=3] [ref=e37]
+          - paragraph [ref=e38]: الحديث الشريف
+          - generic [ref=e39]: Masomo 3
+        - link "Fiqhi الفقه الإسلامي Masomo 5" [ref=e40] [cursor=pointer]:
+          - /url: /subjects/fiqhi
+          - img [ref=e41]
+          - heading "Fiqhi" [level=3] [ref=e45]
+          - paragraph [ref=e46]: الفقه الإسلامي
+          - generic [ref=e47]: Masomo 5
+        - link "Tawhidi التوحيد Masomo 3" [ref=e48] [cursor=pointer]:
+          - /url: /subjects/tawhidi
+          - img [ref=e49]
+          - heading "Tawhidi" [level=3] [ref=e52]
+          - paragraph [ref=e53]: التوحيد
+          - generic [ref=e54]: Masomo 3
+        - link "Sira السيرة النبوية Masomo 3" [ref=e55] [cursor=pointer]:
+          - /url: /subjects/sira
+          - img [ref=e56]
+          - heading "Sira" [level=3] [ref=e59]
+          - paragraph [ref=e60]: السيرة النبوية
+          - generic [ref=e61]: Masomo 3
+        - link "Adhkar الأذكار والأدعية Masomo 4" [ref=e62] [cursor=pointer]:
+          - /url: /subjects/adhkar
+          - img [ref=e63]
+          - heading "Adhkar" [level=3] [ref=e65]
+          - paragraph [ref=e66]: الأذكار والأدعية
+          - generic [ref=e67]: Masomo 4
+  - contentinfo [ref=e68]:
+    - generic [ref=e69]:
+      - generic [ref=e70]:
+        - heading "Jifunze Uislamu kwa Mpangilio na Uelewa" [level=2] [ref=e72]
+        - link "Anza Kujifunza" [ref=e74] [cursor=pointer]:
+          - /url: /
+          - text: Anza Kujifunza
+          - img [ref=e75]
+      - generic [ref=e79]:
+        - generic [ref=e80]:
+          - img "Ahlusunna" [ref=e82]
+          - paragraph [ref=e83]: Ahlusunna ni jukwaa la kujifunza Uislamu kwa mpangilio, linalowasaidia Waislamu kusoma Qur'an, Hadith, Fiqhi, Tawhidi, na Sira kupitia masomo yaliyo wazi, sauti, na video — kuanzia maarifa ya msingi hadi ufahamu wa kina zaidi.
+          - blockquote [ref=e84]:
+            - paragraph [ref=e85]: Kutafuta elimu ni njia ya kheri.
+        - generic [ref=e86]:
+          - heading "Kurasa Muhimu" [level=3] [ref=e87]
+          - list [ref=e88]:
+            - listitem [ref=e89]:
+              - link "Nyumbani" [ref=e90] [cursor=pointer]:
+                - /url: /
+                - text: Nyumbani
+            - listitem [ref=e92]:
+              - link "Masomo" [ref=e93] [cursor=pointer]:
+                - /url: "#"
+                - text: Masomo
+            - listitem [ref=e95]:
+              - link "Kuhusu" [ref=e96] [cursor=pointer]:
+                - /url: "#"
+                - text: Kuhusu
+            - listitem [ref=e98]:
+              - link "Wasiliana" [ref=e99] [cursor=pointer]:
+                - /url: "#"
+                - text: Wasiliana
+        - generic [ref=e101]:
+          - heading "Masomo" [level=3] [ref=e102]
+          - list [ref=e103]:
+            - listitem [ref=e104]:
+              - link "Qur'an" [ref=e105] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e106]
+                - text: Qur'an
+            - listitem [ref=e108]:
+              - link "Hadith" [ref=e109] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e110]
+                - text: Hadith
+            - listitem [ref=e112]:
+              - link "Fiqhi" [ref=e113] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e114]
+                - text: Fiqhi
+            - listitem [ref=e116]:
+              - link "Tawhidi" [ref=e117] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e118]
+                - text: Tawhidi
+            - listitem [ref=e120]:
+              - link "Sira" [ref=e121] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e122]
+                - text: Sira
+        - generic [ref=e124]:
+          - heading "Mawasiliano" [level=3] [ref=e125]
+          - generic [ref=e126]:
+            - link "info@ahlusunna.info" [ref=e127] [cursor=pointer]:
+              - /url: mailto:info@ahlusunna.info
+              - img [ref=e129]
+              - generic [ref=e132]: info@ahlusunna.info
+            - generic [ref=e133]:
+              - img [ref=e135]
+              - generic [ref=e138]: Zanzibar, Tanzania
+            - link "Msaada wa WhatsApp" [ref=e139] [cursor=pointer]:
+              - /url: https://wa.me/255777810700
+              - img [ref=e141]
+              - generic [ref=e143]: Msaada wa WhatsApp
+      - generic [ref=e144]:
+        - paragraph [ref=e145]: © 2026 Ahlusunna. Haki zote zimehifadhiwa.
+        - paragraph [ref=e146]:
+          - text: Imejengwa kwa ajili ya Ummah
+          - img [ref=e147]

@@ -6,14 +6,19 @@ interface ArabicBlockProps {
 export function ArabicBlock({ text, citation }: ArabicBlockProps) {
   return (
     <figure
-      className="my-8 border-l-4 border-l-accent bg-accent/5 px-6 py-5"
-      style={{ borderInlineStart: '4px solid var(--accent)', borderLeft: 'unset' }}
+      className="my-8"
+      style={{
+        background: '#F4EFE6',
+        borderInlineStart: '4px solid #C9A84C',
+        padding: '20px 24px',
+        borderRadius: 0,
+      }}
     >
       <p
         lang="ar"
         dir="rtl"
-        className="font-arabic text-[24px] font-bold leading-[2] text-foreground md:text-[26px]"
-        style={{ fontSize: 'clamp(24px, 3.5vw, 28px)' }}
+        className="font-arabic text-right"
+        style={{ fontSize: '26px', lineHeight: '2.0', color: '#1B4332' }}
       >
         {text.split('\n').map((line, idx) => (
           <span key={idx} className="block">
@@ -24,7 +29,7 @@ export function ArabicBlock({ text, citation }: ArabicBlockProps) {
       {citation && (
         <figcaption
           dir="rtl"
-          className="mt-3 font-arabic text-[14px] font-medium leading-[1.6] text-accent/90"
+          className="mt-3 font-arabic text-[14px] font-medium leading-[1.6] text-accent/90 text-right"
         >
           {citation}
         </figcaption>

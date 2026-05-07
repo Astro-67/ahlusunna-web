@@ -1,20 +1,24 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { useMemo } from 'react'
 import {
-  ArrowLeft,
-  ArrowRight,
-  BookOpen,
-  Check,
+  ChevronLeft,
   ChevronRight,
+  Clock,
+  FileText,
+  Headphones,
+  PlayCircle,
 } from 'lucide-react'
 
-import { Button } from '#/components/ui/button'
-import { EmptyState } from '#/components/shared/EmptyState'
+import { InPageAudioBar } from '#/components/lesson-reader/InPageAudioBar'
+import { LessonBody } from '#/components/lesson-reader/LessonBody'
+import { RightRailTOC } from '#/components/lesson-reader/RightRailTOC'
+import { parseLessonBody } from '#/components/lesson-reader/parseLessonBody'
 import { lessonService, courseService, subjectService } from '#/data/services'
-import { isLessonCompleted, checkLessonAccess } from '#/data/seed'
-import { useAuth } from '#/hooks/useAuth'
+import { checkLessonAccess } from '#/data/seed'
 import { useLanguage } from '#/hooks/useLanguage'
 import { cn } from '#/lib/utils'
 import type { Language } from '#/types'
+import type { TiptapDocument, TiptapNode } from '#/types'
 
 export const Route = createFileRoute('/lesson/$slug')({
   component: LessonPage,
@@ -28,418 +32,334 @@ export const Route = createFileRoute('/lesson/$slug')({
   },
 })
 
-const pageCopy: Record<Language, {
-  breadcrumbHome: string
-  breadcrumbSubjects: string
-  markComplete: string
-  completed: string
-  previousLesson: string
-  nextLesson: string
-  relatedLessons: string
-  noPrevLesson: string
-  noNextLesson: string
-  lessonOf: string
-  readTime: string
-  minutes: string
-}> = {
-  en: {
-    breadcrumbHome: 'Home',
-    breadcrumbSubjects: 'Subjects',
-    markComplete: 'Mark as Complete',
-    completed: 'Completed',
-    previousLesson: 'Previous Lesson',
-    nextLesson: 'Next Lesson',
-    relatedLessons: 'In This Subject',
-    noPrevLesson: 'No previous lesson',
-    noNextLesson: 'No next lesson',
-    lessonOf: 'Lesson from',
-    readTime: 'Read time',
-    minutes: 'min',
-  },
-  sw: {
-    breadcrumbHome: 'Nyumbani',
-    breadcrumbSubjects: 'Masomo',
-    markComplete: 'Tia Alama Imekamilika',
-    completed: 'Imekamilika',
-    previousLesson: 'Somo Lililotangulia',
-    nextLesson: 'Somo Lifuatalo',
-    relatedLessons: 'Masomo Katika Somo Hili',
-    noPrevLesson: 'Hakuna somo la awali',
-    noNextLesson: 'Hakuna somo lifuatalo',
-    lessonOf: 'Somo kutoka',
-    readTime: 'Muda wa kusoma',
-    minutes: 'dakika',
-  },
-  ar: {
-    breadcrumbHome: 'الرئيسية',
-    breadcrumbSubjects: 'المواد',
-    markComplete: 'وضع علامة مكتمل',
-    completed: 'مكتمل',
-    previousLesson: 'الدرس السابق',
-    nextLesson: 'الدرس التالي',
-    relatedLessons: 'دروس هذا الموضوع',
-    noPrevLesson: 'لا يوجد درس سابق',
-    noNextLesson: 'لا يوجد درس تالٍ',
-    lessonOf: 'درس من',
-    readTime: 'وقت القراءة',
-    minutes: 'دقيقة',
-  },
+function extractNodeText(node: TiptapNode): string {
+  if (node.text) return node.text
+  if (!node.content) return ''
+  return node.content.map(extractNodeText).join('')
 }
 
-// Convert Tiptap JSON to text blocks for display
-function parseLessonContent(doc: unknown): { heading: string; body: string; quote: string } | null {
-  if (!doc || typeof doc !== 'object') return null
-  const d = doc as { content?: Array<{ type?: string; content?: Array<{ type?: string; text?: string; content?: Array<{ text?: string }> }> }> }
-  if (!d.content) return null
-
-  let heading = ''
-  let body = ''
-  let quote = ''
-
-  for (const block of d.content) {
-    if (block.type === 'heading' && block.content) {
-      heading = block.content.map((c) => c.text ?? '').join('')
-    } else if (block.type === 'paragraph' && block.content) {
-      const text = block.content.map((c) => c.text ?? '').join('')
-      body += (body ? '\n\n' : '') + text
-    } else if (block.type === 'blockquote' && block.content) {
-      for (const qBlock of block.content) {
-        if (qBlock.content) {
-          quote = qBlock.content.map((c) => c.text ?? '').join('')
-        }
+function tiptapDocToText(doc: TiptapDocument): string {
+  const parts: string[] = []
+  for (const node of doc.content) {
+    if (node.type === 'heading') {
+      const text = extractNodeText(node)
+      if (text) parts.push(text.toUpperCase() + ':')
+    } else if (node.type === 'paragraph') {
+      const text = extractNodeText(node)
+      if (text) parts.push(text)
+    } else if (node.type === 'blockquote') {
+      for (const child of node.content ?? []) {
+        const text = extractNodeText(child)
+        if (text) parts.push(text)
       }
     }
   }
-
-  return { heading, body, quote }
+  return parts.join('\n\n')
 }
 
-// Check if text is Arabic
-function isArabicText(text: string): boolean {
-  return /[\u0600-\u06FF]/.test(text)
+const copy: Record<Language, {
+  level: string
+  prevLesson: string
+  nextLesson: string
+  moreIn: string
+  readMinutes: (n: number) => string
+  published: string
+  text: string
+}> = {
+  sw: {
+    level: 'Hatua ya Awali',
+    prevLesson: 'Somo Lililotangulia',
+    nextLesson: 'Somo Lifuatalo',
+    moreIn: 'Masomo Mengine',
+    readMinutes: (n) => `Dakika ${n} za Kusoma`,
+    published: 'Imechapishwa',
+    text: 'Maandishi',
+  },
+  ar: {
+    level: 'المستوى المبتدئ',
+    prevLesson: 'الدرس السابق',
+    nextLesson: 'الدرس التالي',
+    moreIn: 'دروس أخرى',
+    readMinutes: (n) => `${n} دقائق للقراءة`,
+    published: 'منشور',
+    text: 'نص',
+  },
+  en: {
+    level: 'Beginner Level',
+    prevLesson: 'Previous Lesson',
+    nextLesson: 'Next Lesson',
+    moreIn: 'More Lessons',
+    readMinutes: (n) => `${n} min read`,
+    published: 'Published',
+    text: 'Text',
+  },
 }
 
 function LessonPage() {
   const { slug } = Route.useParams()
-  const { user, updateProgress } = useAuth()
   const { currentLang } = useLanguage()
-  const copy = pageCopy[currentLang]
   const isRtl = currentLang === 'ar'
+  const c = copy[currentLang]
 
   const lesson = lessonService.getBySlug(slug)
-  const isCompleted = isLessonCompleted(user, slug)
-
   const subject = lesson ? subjectService.getById(lesson.subjectId) : null
   const course = lesson ? courseService.getById(lesson.courseId) : null
-  const siblingLessons = lesson ? lessonService.getByCourse(lesson.courseId) : []
-  
-  const currentIndex = siblingLessons.findIndex(l => l.slug === slug)
-  const prevLesson = currentIndex > 0 ? siblingLessons[currentIndex - 1] : null
-  const nextLesson = currentIndex < siblingLessons.length - 1 ? siblingLessons[currentIndex + 1] : null
+
+  const allSubjectCourses = lesson
+    ? courseService.getBySubject(lesson.subjectId).sort((a, b) => a.order - b.order)
+    : []
+  const allSubjectLessons = allSubjectCourses.flatMap((co) =>
+    lessonService.getByCourse(co.id).sort((a, b) => a.order - b.order),
+  )
+
+  const currentIndex = allSubjectLessons.findIndex((l) => l.slug === slug)
+  const prevLesson = currentIndex > 0 ? allSubjectLessons[currentIndex - 1] : null
+  const nextLesson =
+    currentIndex < allSubjectLessons.length - 1
+      ? allSubjectLessons[currentIndex + 1]
+      : null
+  const siblings = allSubjectLessons.filter((l) => l.slug !== slug)
+
+  const activeDoc =
+    lesson?.content[currentLang] ?? lesson?.content.sw ?? null
+  const bodyText = useMemo(
+    () => (activeDoc ? tiptapDocToText(activeDoc) : ''),
+    [activeDoc],
+  )
+  const parsed = useMemo(() => parseLessonBody(bodyText), [bodyText])
 
   if (!lesson) {
     return (
-      <div className="container-main py-16">
-        <EmptyState
-          title="Somo halijapatikana"
-          description="Somo unalotafuta halipo." icon={undefined}        />
-        <div className="mt-6 text-center">
-          <Link to="/subjects" className="text-primary hover:underline">
-            ← Rudi kwa Masomo
-          </Link>
-        </div>
+      <div className="mx-auto max-w-[1120px] px-6 py-16 text-center">
+        <p className="text-muted-foreground">Somo halijapatikana.</p>
+        <Link
+          to="/subjects"
+          className="mt-4 inline-block text-primary hover:underline"
+        >
+          ← Rudi kwa Masomo
+        </Link>
       </div>
     )
   }
 
-  const handleMarkComplete = () => {
-    if (!isCompleted) {
-      updateProgress(slug)
-    }
-  }
-
-  const content = parseLessonContent(lesson.content[currentLang])
-  const readMinutes = parseInt(lesson.duration.split(':')[0]) || 10
+  const readMinutes = parseInt(lesson.duration.split(':')[0]) || 5
+  const lessonTitle = lesson.title[currentLang] ?? lesson.title.sw
+  const arabicTitle = currentLang !== 'ar' ? lesson.title.ar : null
+  const courseTitle = course?.title[currentLang] ?? course?.title.sw ?? ''
+  const subjectName = subject?.name[currentLang] ?? subject?.name.sw ?? ''
 
   return (
-    <div className="bg-muted/20" dir={isRtl ? 'rtl' : 'ltr'}>
-      {/* Main Container - Extra Wide for Better Readability */}
-      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-        
+    <div className="bg-background" lang={currentLang} dir={isRtl ? 'rtl' : 'ltr'}>
+      <div className="mx-auto max-w-[1120px] px-6 pt-10 pb-24">
+
         {/* Breadcrumb */}
-        <nav className="mb-8 flex items-center gap-2 text-sm" aria-label="Breadcrumb">
-          <Link to="/" className="text-muted-foreground transition-colors hover:text-primary">
-            {copy.breadcrumbHome}
-          </Link>
-          <span className="text-muted-foreground/40">›</span>
-          <Link to="/subjects" className="text-muted-foreground transition-colors hover:text-primary">
-            {copy.breadcrumbSubjects}
-          </Link>
+        <nav
+          className="mb-8 flex flex-wrap items-center gap-2 text-[14px] font-medium text-muted-foreground"
+          aria-label="Breadcrumb"
+        >
+          <span>{c.level}</span>
+          <span className="text-accent">•</span>
           {subject && (
             <>
-              <span className="text-muted-foreground/40">›</span>
               <Link
                 to="/subjects/$slug"
                 params={{ slug: subject.slug }}
-                className="text-muted-foreground transition-colors hover:text-primary"
+                className="transition-colors hover:text-accent focus-visible:outline-[3px] focus-visible:outline-accent focus-visible:outline-offset-2"
               >
-                {subject.name[currentLang]}
+                {subjectName}
               </Link>
+              <span className="text-accent">•</span>
             </>
           )}
+          <span>{courseTitle}</span>
+          <span className="text-accent">•</span>
+          <span className="font-semibold text-foreground">{lessonTitle}</span>
         </nav>
 
-        {/* Main Lesson Card */}
-        <article className="overflow-hidden rounded-lg border border-border bg-white shadow-sm">
-          
-          {/* Header */}
-          <header className="border-b border-border bg-linear-to-r from-primary/5 to-transparent px-6 py-8 sm:px-10 sm:py-12">
-            {/* Subject & Course Label */}
-            <div className="mb-4 flex items-center gap-2 text-sm text-muted-foreground">
-              <BookOpen className="size-4" />
-              <span>{course?.title[currentLang]}</span>
-              <span className="text-primary/40">•</span>
-              <span>{copy.readTime}: {readMinutes} {copy.minutes}</span>
-            </div>
+        {/* Lesson Header */}
+        <header className="mb-10 text-center">
+          <h1 className="font-display text-[44px] leading-[1.1] text-primary mb-4">
+            {lessonTitle}
+          </h1>
 
-            {/* Title - Large and Clear */}
-            <h1 className="font-decorative text-3xl font-bold leading-tight text-foreground sm:text-4xl lg:text-5xl">
-              {lesson.title[currentLang]}
-            </h1>
-            
-            {/* Arabic Title */}
-            {lesson.title.ar && (
-              <p 
-                className="mt-3 font-arabic text-2xl text-accent sm:text-3xl" 
-                dir="rtl" 
-                lang="ar"
+          {arabicTitle && (
+            <p
+              className="font-arabic text-[28px] text-accent mb-6"
+              dir="rtl"
+              lang="ar"
+            >
+              {arabicTitle}
+            </p>
+          )}
+
+          {/* Metadata badges */}
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
+            <span className="inline-flex items-center gap-1.5 border border-border px-3 py-1.5 text-[12px] text-muted-foreground">
+              <FileText aria-hidden size={13} strokeWidth={2} />
+              {c.text}
+            </span>
+            <span className="inline-flex items-center gap-1.5 border border-border px-3 py-1.5 text-[12px] text-muted-foreground">
+              <Clock aria-hidden size={13} strokeWidth={2} />
+              {c.readMinutes(readMinutes)}
+            </span>
+            {lesson.status === 'published' && (
+              <span className="inline-flex items-center gap-1.5 border border-border px-3 py-1.5 text-[12px] text-muted-foreground">
+                {c.published}
+              </span>
+            )}
+          </div>
+
+          {/* Gold rule */}
+          <div className="mx-auto h-[2px] w-[120px] bg-accent" />
+        </header>
+
+        {/* Content Layout */}
+        <div className="flex flex-col lg:flex-row lg:items-start gap-10">
+
+          {/* Reading Column */}
+          <article className="flex-1 min-w-0 max-w-[720px] mx-auto lg:mx-0">
+
+            {/* Video */}
+            {lesson.videoUrl && (
+              <div
+                className="mb-8 w-full"
+                style={{ border: '1px solid #E5E0D8', borderRadius: 0 }}
               >
-                {lesson.title.ar}
-              </p>
+                <div className="relative aspect-video w-full">
+                  <iframe
+                    src={lesson.videoUrl}
+                    title={lessonTitle}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    className="absolute inset-0 h-full w-full"
+                  />
+                </div>
+              </div>
             )}
 
-            {/* English Title (if not current lang) */}
-            {currentLang !== 'en' && lesson.title.en && (
-              <p 
-                className="mt-2 text-lg text-muted-foreground" 
-                lang="en"
-              >
-                {lesson.title.en}
-              </p>
+            {/* In-page audio bar (fixed on mobile, inline on desktop lg+) */}
+            {lesson.audioSrc && (
+              <div className="mb-8">
+                <InPageAudioBar src={lesson.audioSrc} title={lessonTitle} />
+              </div>
             )}
-          </header>
 
-          {/* Content - Large Readable Text */}
-          <div className="px-6 py-8 sm:px-10 sm:py-10">
-            
-            {/* Main Content Body */}
-            {content && (
-              <>
-                {/* Lesson Body - Extra large font for readability */}
-                <div 
-                  className={cn(
-                    "text-xl leading-relaxed text-foreground sm:text-2xl",
-                    isRtl && "text-right font-arabic leading-loose"
-                  )}
-                  style={{ fontSize: 'clamp(20px, 2.8vw, 26px)', lineHeight: '2' }}
+            {/* Lesson body */}
+            <LessonBody body={bodyText} />
+
+            {/* Prev / Next navigation */}
+            <nav
+              aria-label="Lesson navigation"
+              className="mt-16 border-t border-border pt-8 flex flex-col sm:flex-row gap-3"
+            >
+              {prevLesson ? (
+                <Link
+                  to="/lesson/$slug"
+                  params={{ slug: prevLesson.slug }}
+                  className="group flex flex-1 items-center gap-3 h-[48px] px-5 bg-sidebar text-primary-foreground transition-colors hover:bg-primary-dark focus-visible:outline-[3px] focus-visible:outline-accent focus-visible:outline-offset-2"
                 >
-                  {/* Handle different content types */}
-                  {content.body.split('\n\n').map((paragraph, i) => {
-                    const isArabic = isArabicText(paragraph)
-                    
-                    // Check if this is a Quranic verse (starts with special markers)
-                    const isVerse = paragraph.startsWith('بِسْمِ') || 
-                                   paragraph.startsWith('قُلْ') ||
-                                   paragraph.startsWith('يَا أَيُّهَا') ||
-                                   paragraph.startsWith('إِنَّ') ||
-                                   paragraph.includes('ﷺ') ||
-                                   paragraph.includes(' BK')
+                  <ChevronLeft
+                    aria-hidden
+                    size={20}
+                    strokeWidth={2}
+                    className={cn(isRtl && 'rotate-180')}
+                  />
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.1em] opacity-70">
+                      {c.prevLesson}
+                    </div>
+                    <div className="text-[13px] font-medium line-clamp-1">
+                      {prevLesson.title[currentLang] ?? prevLesson.title.sw}
+                    </div>
+                  </div>
+                </Link>
+              ) : (
+                <div
+                  className="flex flex-1 items-center h-[48px] px-5 bg-sidebar text-primary-foreground"
+                  style={{ opacity: 0.4 }}
+                >
+                  <span className="text-[13px]">{c.prevLesson}</span>
+                </div>
+              )}
 
-                    if (isVerse || isArabic) {
-                      return (
-                        <p 
-                          key={i} 
-                          className={cn(
-                            "mb-8 font-arabic text-center text-2xl text-primary sm:text-3xl",
-                            !isArabic && "font-arabic"
-                          )}
-                          dir="rtl" 
-                          lang="ar"
-                        >
-                          {paragraph}
-                        </p>
-                      )
-                    }
+              {nextLesson ? (
+                <Link
+                  to="/lesson/$slug"
+                  params={{ slug: nextLesson.slug }}
+                  className={cn(
+                    'group flex flex-1 items-center justify-end gap-3 h-[48px] px-5 bg-sidebar text-primary-foreground transition-colors hover:bg-primary-dark focus-visible:outline-[3px] focus-visible:outline-accent focus-visible:outline-offset-2',
+                  )}
+                >
+                  <div className="min-w-0 flex-1 text-end">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.1em] opacity-70">
+                      {c.nextLesson}
+                    </div>
+                    <div className="text-[13px] font-medium line-clamp-1">
+                      {nextLesson.title[currentLang] ?? nextLesson.title.sw}
+                    </div>
+                  </div>
+                  <ChevronRight
+                    aria-hidden
+                    size={20}
+                    strokeWidth={2}
+                    className={cn(isRtl && 'rotate-180')}
+                  />
+                </Link>
+              ) : (
+                <div
+                  className="flex flex-1 items-center justify-end h-[48px] px-5 bg-sidebar text-primary-foreground"
+                  style={{ opacity: 0.4 }}
+                >
+                  <span className="text-[13px]">{c.nextLesson}</span>
+                </div>
+              )}
+            </nav>
 
+            {/* Siblings strip */}
+            {siblings.length > 0 && (
+              <section className="mt-16 border-t border-border pt-8">
+                <h3 className="font-display text-[24px] text-sidebar mb-6">
+                  {c.moreIn} — {courseTitle}
+                </h3>
+
+                {/* Mobile: horizontal scroll snap; Desktop: 2-col grid */}
+                <div className="flex gap-4 overflow-x-auto pb-2 snap-x scrollbar-none lg:grid lg:grid-cols-2 lg:overflow-visible lg:pb-0">
+                  {siblings.map((s) => {
+                    const sibCourse = courseService.getById(s.courseId)
+                    const sibCourseTitle =
+                      sibCourse?.title[currentLang] ?? sibCourse?.title.sw ?? ''
                     return (
-                      <p 
-                        key={i} 
-                        className="mb-8"
-                        lang={currentLang === 'ar' ? 'ar' : currentLang === 'en' ? 'en' : 'sw'}
+                      <Link
+                        key={s.id}
+                        to="/lesson/$slug"
+                        params={{ slug: s.slug }}
+                        className="group shrink-0 w-[260px] lg:w-auto flex flex-col gap-2 border border-border bg-card p-5 snap-start transition-all duration-200 hover:border-accent hover:-translate-y-[2px] focus-visible:outline-[3px] focus-visible:outline-accent focus-visible:outline-offset-2"
+                        style={{ borderRadius: '4px' }}
                       >
-                        {paragraph}
-                      </p>
+                        <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
+                          <FileText aria-hidden size={11} strokeWidth={2} className="text-primary" />
+                          {s.audioSrc && (
+                            <Headphones aria-hidden size={11} strokeWidth={2} className="text-accent" />
+                          )}
+                          {s.videoUrl && (
+                            <PlayCircle aria-hidden size={11} strokeWidth={2} className="text-accent" />
+                          )}
+                          <span className="ml-auto font-medium">{s.duration}</span>
+                        </div>
+                        <h4 className="font-display text-[18px] leading-[1.3] text-sidebar line-clamp-2 transition-colors group-hover:text-accent-dark">
+                          {s.title[currentLang] ?? s.title.sw}
+                        </h4>
+                        <p className="text-[12px] text-muted-foreground">{sibCourseTitle}</p>
+                      </Link>
                     )
                   })}
                 </div>
-
-                {/* Quranic Quote/Verse Block */}
-                {content.quote && (
-                  <div className="mt-12 overflow-hidden rounded-xl border-2 border-accent/30 bg-linear-to-r from-accent/5 to-accent/10">
-                    <div className="flex items-center gap-3 border-b-2 border-accent/20 bg-accent/10 px-8 py-4">
-                      <BookOpen className="size-6 text-accent" />
-                      <span className="font-arabic text-base font-medium text-accent" dir="rtl">
-                        {currentLang === 'ar' ? 'آية' : currentLang === 'sw' ? 'Aya' : 'Verse'}
-                      </span>
-                    </div>
-                    <blockquote 
-                      className="px-8 py-10 text-center font-arabic text-3xl leading-loose text-primary sm:text-4xl lg:text-5xl"
-                      dir="rtl"
-                      lang="ar"
-                    >
-                      {content.quote}
-                    </blockquote>
-                  </div>
-                )}
-              </>
+              </section>
             )}
+          </article>
 
-            {/* Fallback if no content */}
-            {!content && (
-              <div className="text-center text-muted-foreground">
-                <BookOpen className="mx-auto mb-4 size-12 text-primary/30" />
-                <p>Maudhui yatakuja hivi karibuni.</p>
-              </div>
-            )}
-          </div>
-
-          {/* Mark Complete Button */}
-          {user && (
-            <div className="border-t-2 border-border px-6 py-8 sm:px-10">
-              <Button
-                onClick={handleMarkComplete}
-                variant={isCompleted ? 'default' : 'outline'}
-                className={cn(
-                  "w-full py-8 text-xl font-semibold tracking-wide sm:text-2xl",
-                  isCompleted && "bg-primary"
-                )}
-                disabled={isCompleted}
-              >
-                {isCompleted ? (
-                  <>
-                    <Check className="mr-4 size-7" />
-                    {copy.completed}
-                  </>
-                ) : (
-                  <>
-                    <Check className="mr-4 size-7" />
-                    {copy.markComplete}
-                  </>
-                )}
-              </Button>
-            </div>
-          )}
-        </article>
-
-        {/* Prev/Next Navigation */}
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          {prevLesson ? (
-            <Button
-              asChild
-              variant="outline"
-              className="h-auto flex-col items-start py-4 text-start sm:items-center"
-            >
-              <Link to="/lesson/$slug" params={{ slug: prevLesson.slug }}>
-                <div className="mb-1 flex items-center gap-2 text-xs text-muted-foreground">
-                  <ArrowLeft className="size-4" />
-                  {copy.previousLesson}
-                </div>
-                <div className="flex items-center gap-2">
-                  <ChevronRight className="size-5 text-primary" />
-                  <span className="font-medium">{prevLesson.title[currentLang]}</span>
-                </div>
-              </Link>
-            </Button>
-          ) : (
-            <div className="flex items-center gap-2 rounded-lg border border-border bg-white/50 px-4 py-4 text-sm text-muted-foreground sm:col-span-2">
-              <ArrowLeft className="size-4" />
-              {copy.noPrevLesson}
-            </div>
-          )}
-
-          {nextLesson ? (
-            <Button
-              asChild
-              variant="outline"
-              className="h-auto flex-col items-end py-4 text-end sm:col-start-2 sm:items-center"
-            >
-              <Link to="/lesson/$slug" params={{ slug: nextLesson.slug }}>
-                <div className="mb-1 flex items-center gap-2 text-xs text-muted-foreground">
-                  {copy.nextLesson}
-                  <ArrowRight className="size-4" />
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="font-medium">{nextLesson.title[currentLang]}</span>
-                  <ChevronRight className="size-5 text-primary" />
-                </div>
-              </Link>
-            </Button>
-          ) : (
-            <div className="flex items-center justify-end gap-2 rounded-lg border border-border bg-white/50 px-4 py-4 text-sm text-muted-foreground sm:col-span-2 sm:col-start-1 sm:justify-start">
-              {copy.noNextLesson}
-              <ArrowRight className="size-4" />
-            </div>
-          )}
-        </div>
-
-        {/* Sibling Lessons */}
-        {siblingLessons.length > 1 && (
-          <div className="mt-10">
-            <h3 className="mb-4 font-decorative text-lg font-bold text-foreground">
-              {copy.relatedLessons}
-            </h3>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {siblingLessons.map((sibling, index) => {
-                const isCurrent = sibling.slug === slug
-                return (
-                  <Link
-                    key={sibling.id}
-                    to="/lesson/$slug"
-                    params={{ slug: sibling.slug }}
-                    className={cn(
-                      "group flex items-center gap-3 rounded-lg border px-4 py-4 transition-all hover:border-primary/50",
-                      isCurrent
-                        ? "border-primary bg-primary/5"
-                        : "border-border bg-white hover:bg-muted/30"
-                    )}
-                  >
-                    <span className={cn(
-                      "flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-bold",
-                      isCurrent ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
-                    )}>
-                      {index + 1}
-                    </span>
-                    <span className={cn(
-                      "flex-1 text-sm transition-colors",
-                      isCurrent ? "font-medium text-primary" : "text-foreground group-hover:text-primary"
-                    )}>
-                      {sibling.title[currentLang]}
-                    </span>
-                    {isLessonCompleted(user, sibling.slug) && (
-                      <Check className="size-4 text-accent" />
-                    )}
-                  </Link>
-                )
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* Back Link */}
-        <div className="mt-10 text-center">
-          <Link to="/subjects" className="text-sm text-muted-foreground transition-colors hover:text-primary">
-            ← {currentLang === 'ar' ? 'العودة للمواد' : currentLang === 'sw' ? 'Rudi kwa Masomo' : 'Back to Subjects'}
-          </Link>
+          {/* Right rail TOC — desktop only */}
+          <RightRailTOC headings={parsed.headings} />
         </div>
       </div>
     </div>

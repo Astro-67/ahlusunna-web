@@ -1,0 +1,231 @@
+- generic [ref=e3]:
+  - navigation "Primary" [ref=e4]:
+    - generic [ref=e5]:
+      - link "Ahlusunna home" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Ahlusunna Islamic Learning" [ref=e7]
+      - generic [ref=e8]:
+        - link "Nyumbani" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - link "Kuhusu" [ref=e10] [cursor=pointer]:
+          - /url: /about
+        - link "Wasiliana" [ref=e11] [cursor=pointer]:
+          - /url: /contact
+        - link "Masomo" [ref=e12] [cursor=pointer]:
+          - /url: /subjects
+      - generic [ref=e13]:
+        - button "🇹🇿 SW" [ref=e16] [cursor=pointer]:
+          - img [ref=e17]
+          - generic [ref=e22]: 🇹🇿
+          - generic [ref=e23]: SW
+          - img [ref=e24]
+        - link "Ingia" [ref=e26] [cursor=pointer]:
+          - /url: /login
+  - main [ref=e27]:
+    - generic [ref=e29]:
+      - navigation "Breadcrumb" [ref=e30]:
+        - generic [ref=e31]: Hatua ya Awali
+        - generic [ref=e32]: •
+        - link "Adhkar" [ref=e33] [cursor=pointer]:
+          - /url: /subjects/adhkar
+        - generic [ref=e34]: •
+        - generic [ref=e35]: Adhkar za Asubuhi na Jioni
+        - generic [ref=e36]: •
+        - generic [ref=e37]: Adhkar za Asubuhi
+      - generic [ref=e38]:
+        - heading "Adhkar za Asubuhi" [level=1] [ref=e39]
+        - paragraph [ref=e40]: أذكار الصباح
+        - generic [ref=e41]:
+          - generic [ref=e42]:
+            - img [ref=e43]
+            - text: Maandishi
+          - generic [ref=e46]:
+            - img [ref=e47]
+            - text: Dakika 12 za Kusoma
+          - generic [ref=e50]: Imechapishwa
+      - generic [ref=e52]:
+        - article [ref=e53]:
+          - iframe [ref=e56]:
+            - generic [active] [ref=f1e1]:
+              - generic "YouTube Video Player" [ref=f1e3]
+              - generic [ref=f1e5]:
+                - generic:
+                  - generic:
+                    - button "Play video" [ref=f1e10] [cursor=pointer]:
+                      - generic [ref=f1e13]:
+                        - img
+                    - button "Hide player controls" [ref=f1e14] [cursor=pointer]
+                    - generic [ref=f1e16]:
+                      - generic [ref=f1e21]:
+                        - generic [ref=f1e22]:
+                          - link "Surat Al-Fatihah (The Opener) | Mishary Rashid Alafasy | مشاري بن راشد العفاسي | سورة الفاتحة" [ref=f1e23] [cursor=pointer]:
+                            - /url: https://www.youtube.com/watch?v=ZYaZ6Odbx_Y
+                          - link "AYAT" [ref=f1e24] [cursor=pointer]:
+                            - /url: /channel/UCmr7s-S9m-0BKrOr7red8rA
+                            - generic [ref=f1e25]: AYAT
+                        - generic [ref=f1e26]:
+                          - button "thumbnail-image" [ref=f1e27] [cursor=pointer]:
+                            - img "thumbnail-image" [ref=f1e28]
+                          - generic [ref=f1e30]:
+                            - generic: AYAT
+                            - generic: 1.94M subscribers
+                      - generic [ref=f1e31]:
+                        - button "Share" [ref=f1e34] [cursor=pointer]:
+                          - generic [ref=f1e38]:
+                            - img
+                        - link "Watch on YouTube" [ref=f1e45] [cursor=pointer]:
+                          - /url: https://www.youtube.com/watch?v=ZYaZ6Odbx_Y
+                          - generic [ref=f1e48]:
+                            - text: Watch on
+                            - img [ref=f1e50]:
+                              - generic [ref=f1e52]:
+                                - img
+          - generic [ref=e59]:
+            - generic [ref=e60]:
+              - img [ref=e61]
+              - generic [ref=e65]: Adhkar za Asubuhi
+            - generic [ref=e66]:
+              - button "Rudi nyuma sekunde 15" [ref=e67] [cursor=pointer]:
+                - img [ref=e68]
+                - generic [ref=e71]: 15s
+              - button "Cheza" [ref=e72] [cursor=pointer]:
+                - img [ref=e73]
+              - button "Nenda mbele sekunde 15" [ref=e75] [cursor=pointer]:
+                - img [ref=e76]
+                - generic [ref=e79]: 15s
+              - generic [ref=e80]:
+                - generic [ref=e81]: 0:00
+                - slider "Skali ya muda" [ref=e82] [cursor=pointer]
+                - generic [ref=e84]: 0:00
+              - 'button "Mwendo wa kucheza: 1x" [ref=e85] [cursor=pointer]': 1x
+          - generic [ref=e86]:
+            - heading "ADHKAR ZA ASUBUHI" [level=3] [ref=e87]
+            - paragraph [ref=e88]: "Baada ya Swala ya Alfajiri, Muislamu hupendekezwa kusoma adhkar za asubuhi: Ayatul Kursi, Sura Al-Ikhlas mara tatu, Sura Al-Falaq mara tatu, na Sura An-Nas mara tatu. Pia ni vyema kusema 'Subhanallah, Alhamdulillah, Allahu Akbar' mara 33 kila moja."
+            - figure [ref=e89]:
+              - paragraph [ref=e90]:
+                - generic [ref=e91]: أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ
+          - navigation "Lesson navigation" [ref=e92]:
+            - generic [ref=e94]: Somo Lililotangulia
+            - link "Somo Lifuatalo Adhkar za Jioni" [ref=e95] [cursor=pointer]:
+              - /url: /lesson/adhkar-za-jioni
+              - generic [ref=e96]:
+                - generic [ref=e97]: Somo Lifuatalo
+                - generic [ref=e98]: Adhkar za Jioni
+              - img [ref=e99]
+          - generic [ref=e101]:
+            - heading "Masomo Mengine — Adhkar za Asubuhi na Jioni" [level=3] [ref=e102]
+            - generic [ref=e103]:
+              - link "11:00 Adhkar za Jioni Adhkar za Asubuhi na Jioni" [ref=e104] [cursor=pointer]:
+                - /url: /lesson/adhkar-za-jioni
+                - generic [ref=e105]:
+                  - img [ref=e106]
+                  - img [ref=e109]
+                  - img [ref=e111]
+                  - generic [ref=e114]: 11:00
+                - heading "Adhkar za Jioni" [level=4] [ref=e115]
+                - paragraph [ref=e116]: Adhkar za Asubuhi na Jioni
+              - link "8:00 Dua za Kula na Kunywa Adhkar za Shughuli za Kila Siku" [ref=e117] [cursor=pointer]:
+                - /url: /lesson/dua-za-kula-na-kunywa
+                - generic [ref=e118]:
+                  - img [ref=e119]
+                  - img [ref=e122]
+                  - img [ref=e124]
+                  - generic [ref=e127]: 8:00
+                - heading "Dua za Kula na Kunywa" [level=4] [ref=e128]
+                - paragraph [ref=e129]: Adhkar za Shughuli za Kila Siku
+              - link "9:00 Dua za Kulala na Kuamka Adhkar za Shughuli za Kila Siku" [ref=e130] [cursor=pointer]:
+                - /url: /lesson/dua-za-kulala-na-kuamka
+                - generic [ref=e131]:
+                  - img [ref=e132]
+                  - img [ref=e135]
+                  - img [ref=e137]
+                  - generic [ref=e140]: 9:00
+                - heading "Dua za Kulala na Kuamka" [level=4] [ref=e141]
+                - paragraph [ref=e142]: Adhkar za Shughuli za Kila Siku
+        - complementary [ref=e143]:
+          - navigation "Yaliyomo Hapa" [ref=e144]:
+            - heading "Yaliyomo Hapa" [level=2] [ref=e145]
+            - list [ref=e146]:
+              - listitem [ref=e147]:
+                - link "ADHKAR ZA ASUBUHI" [ref=e148] [cursor=pointer]:
+                  - /url: "#adhkar-za-asubuhi"
+  - contentinfo [ref=e149]:
+    - generic [ref=e150]:
+      - generic [ref=e151]:
+        - heading "Jifunze Uislamu kwa Mpangilio na Uelewa" [level=2] [ref=e153]
+        - link "Anza Kujifunza" [ref=e155] [cursor=pointer]:
+          - /url: /
+          - text: Anza Kujifunza
+          - img [ref=e156]
+      - generic [ref=e160]:
+        - generic [ref=e161]:
+          - img "Ahlusunna" [ref=e163]
+          - paragraph [ref=e164]: Ahlusunna ni jukwaa la kujifunza Uislamu kwa mpangilio, linalowasaidia Waislamu kusoma Qur'an, Hadith, Fiqhi, Tawhidi, na Sira kupitia masomo yaliyo wazi, sauti, na video — kuanzia maarifa ya msingi hadi ufahamu wa kina zaidi.
+          - blockquote [ref=e165]:
+            - paragraph [ref=e166]: Kutafuta elimu ni njia ya kheri.
+        - generic [ref=e167]:
+          - heading "Kurasa Muhimu" [level=3] [ref=e168]
+          - list [ref=e169]:
+            - listitem [ref=e170]:
+              - link "Nyumbani" [ref=e171] [cursor=pointer]:
+                - /url: /
+                - text: Nyumbani
+            - listitem [ref=e173]:
+              - link "Masomo" [ref=e174] [cursor=pointer]:
+                - /url: "#"
+                - text: Masomo
+            - listitem [ref=e176]:
+              - link "Kuhusu" [ref=e177] [cursor=pointer]:
+                - /url: "#"
+                - text: Kuhusu
+            - listitem [ref=e179]:
+              - link "Wasiliana" [ref=e180] [cursor=pointer]:
+                - /url: "#"
+                - text: Wasiliana
+        - generic [ref=e182]:
+          - heading "Masomo" [level=3] [ref=e183]
+          - list [ref=e184]:
+            - listitem [ref=e185]:
+              - link "Qur'an" [ref=e186] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e187]
+                - text: Qur'an
+            - listitem [ref=e189]:
+              - link "Hadith" [ref=e190] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e191]
+                - text: Hadith
+            - listitem [ref=e193]:
+              - link "Fiqhi" [ref=e194] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e195]
+                - text: Fiqhi
+            - listitem [ref=e197]:
+              - link "Tawhidi" [ref=e198] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e199]
+                - text: Tawhidi
+            - listitem [ref=e201]:
+              - link "Sira" [ref=e202] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e203]
+                - text: Sira
+        - generic [ref=e205]:
+          - heading "Mawasiliano" [level=3] [ref=e206]
+          - generic [ref=e207]:
+            - link "info@ahlusunna.info" [ref=e208] [cursor=pointer]:
+              - /url: mailto:info@ahlusunna.info
+              - img [ref=e210]
+              - generic [ref=e213]: info@ahlusunna.info
+            - generic [ref=e214]:
+              - img [ref=e216]
+              - generic [ref=e219]: Zanzibar, Tanzania
+            - link "Msaada wa WhatsApp" [ref=e220] [cursor=pointer]:
+              - /url: https://wa.me/255777810700
+              - img [ref=e222]
+              - generic [ref=e224]: Msaada wa WhatsApp
+      - generic [ref=e225]:
+        - paragraph [ref=e226]: © 2026 Ahlusunna. Haki zote zimehifadhiwa.
+        - paragraph [ref=e227]:
+          - text: Imejengwa kwa ajili ya Ummah
+          - img [ref=e228]

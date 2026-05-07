@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ahlusunna - Lesson Reader</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&amp;family=Inter:wght@400;500;600&amp;family=Newsreader:wght@400;500;600;700&amp;family=Scheherazade+New:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-container-highest": "#e2e3e0",
+            "surface-container-high": "#e8e8e5",
+            "surface-container": "#eeeeeb",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed": "#331111",
+            "surface-container-low": "#f3f4f1",
+            "primary-foreground": "#FAF7F0",
+            "accent": "#C9A84C",
+            "success": "#2D6A4F",
+            "inverse-primary": "#a5d0b9",
+            "sidebar-border": "rgba(201, 168, 76, 0.2)",
+            "on-primary-fixed": "#002114",
+            "warning": "#D4A373",
+            "muted-foreground": "#6B7280",
+            "primary-container": "#1b4332",
+            "on-primary-container": "#86af99",
+            "primary-fixed": "#c1ecd4",
+            "on-surface-variant": "#414844",
+            "inverse-surface": "#2f312f",
+            "destructive": "#9B2335",
+            "inverse-on-surface": "#f0f1ee",
+            "tertiary-fixed-dim": "#f5b7b4",
+            "outline-variant": "#c1c8c2",
+            "surface-container-lowest": "#ffffff",
+            "border": "#E5E0D8",
+            "muted": "#F4EFE6",
+            "secondary-container": "#e4dfd7",
+            "primary": "#012d1d",
+            "card": "#FFFFFF",
+            "secondary-fixed": "#e7e2da",
+            "tertiary-fixed": "#ffdad8",
+            "surface-variant": "#e2e3e0",
+            "surface-tint": "#3f6653",
+            "on-error-container": "#93000a",
+            "accent-foreground": "#1C1C1C",
+            "tertiary-container": "#5a302f",
+            "outline": "#717973",
+            "on-secondary-fixed-variant": "#494741",
+            "on-secondary-container": "#65625c",
+            "on-surface": "#1a1c1a",
+            "error-container": "#ffdad6",
+            "tertiary": "#401b1b",
+            "secondary": "#615e58",
+            "on-primary": "#ffffff",
+            "on-error": "#ffffff",
+            "error": "#ba1a1a",
+            "surface-dim": "#dadad7",
+            "on-tertiary-container": "#d29895",
+            "background": "#FAF7F0",
+            "accent-dark": "#B8973A",
+            "sidebar": "#1B4332",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-fixed-variant": "#673a39",
+            "foreground": "#1C1C1C",
+            "on-primary-fixed-variant": "#274e3d",
+            "surface-bright": "#f9faf6",
+            "primary-dark": "#143828",
+            "on-secondary-fixed": "#1d1c17",
+            "primary-fixed-dim": "#a5d0b9",
+            "secondary-fixed-dim": "#cac6be",
+            "surface": "#f9faf6",
+            "on-background": "#1a1c1a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0px",
+            "lg": "0px",
+            "xl": "0px",
+            "full": "0px"
+          },
+          "spacing": {
+            "comfortable": "20px",
+            "spacious": "40px",
+            "dramatic": "80px",
+            "tight": "8px",
+            "base": "4px",
+            "max-page-width": "1280px",
+            "max-content-width": "65ch"
+          },
+          "fontFamily": {
+            "h1": ["Amiri", "Newsreader"],
+            "body": ["Inter"],
+            "label": ["Inter"],
+            "h2": ["Amiri", "Newsreader"],
+            "arabic-body": ["Amiri", "Scheherazade New"],
+            "h3": ["Amiri", "Newsreader"],
+            "display": ["Amiri", "Newsreader"],
+            "body-lg": ["Inter"],
+            "body-sm": ["Inter"]
+          },
+          "fontSize": {
+            "h1": ["44px", { "lineHeight": "1.1", "letterSpacing": "-0.025em", "fontWeight": "400" }],
+            "body": ["18px", { "lineHeight": "1.75", "fontWeight": "400" }],
+            "label": ["11px", { "lineHeight": "1.4", "letterSpacing": "0.14em", "fontWeight": "600" }],
+            "h2": ["32px", { "lineHeight": "1.2", "fontWeight": "400" }],
+            "arabic-body": ["20px", { "lineHeight": "1.8", "fontWeight": "400" }],
+            "h3": ["24px", { "lineHeight": "1.2", "fontWeight": "400" }],
+            "display": ["64px", { "lineHeight": "1.05", "letterSpacing": "-0.05em", "fontWeight": "400" }],
+            "body-lg": ["20px", { "lineHeight": "1.75", "fontWeight": "400" }],
+            "body-sm": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-foreground antialiased font-body pt-[64px]">
+<!-- TopNavBar -->
+<nav class="bg-surface/96 dark:bg-surface/96 backdrop-blur-md border-b border-sidebar-border shadow-sm dark:shadow-none fixed top-0 left-0 w-full z-50 flex justify-between items-center px-comfortable h-[64px] max-w-max-page-width mx-auto">
+<div class="flex items-center gap-comfortable">
+<a class="font-h2 text-h2 font-black text-primary dark:text-primary-fixed tracking-tight hover:text-accent dark:hover:text-accent-dark transition-all" href="#">Ahlusunna</a>
+<div class="hidden md:flex items-center gap-comfortable ml-spacious">
+<a class="font-body text-body text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Library</a>
+<a class="font-body text-body text-primary dark:text-primary-fixed font-bold border-b-2 border-accent pb-1 scale-[0.98] transition-transform duration-200" href="#">My Studies</a>
+<a class="font-body text-body text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Scholars</a>
+<a class="font-body text-body text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">About</a>
+</div>
+</div>
+<div class="flex items-center gap-comfortable">
+<button class="text-primary dark:text-primary-fixed hover:text-accent dark:hover:text-accent-dark transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+<button class="text-primary dark:text-primary-fixed hover:text-accent dark:hover:text-accent-dark transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+</button>
+</div>
+</nav>
+<!-- Main Lesson Content -->
+<main class="max-w-[1120px] mx-auto px-comfortable pt-spacious pb-dramatic">
+<!-- Header Section -->
+<header class="text-center mb-spacious">
+<div class="flex items-center justify-center gap-tight text-body-sm font-body text-muted-foreground mb-comfortable">
+<span>Hatua ya Awali</span>
+<span class="text-accent">•</span>
+<span>Fiqhi</span>
+<span class="text-accent">•</span>
+<span>Twahara</span>
+<span class="text-accent">•</span>
+<span class="text-primary">Maana na Aina za Najisi</span>
+</div>
+<h1 class="font-h1 text-h1 text-primary-container mb-tight">Maana na Aina za Najisi</h1>
+<h2 class="font-arabic-body text-arabic-body text-accent mb-comfortable" dir="rtl">معنى النجاسة وأنواعها</h2>
+<div class="flex items-center justify-center gap-comfortable mb-spacious">
+<span class="flex items-center gap-base font-label text-label border border-outline px-2 py-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">description</span> Maandishi
+        </span>
+<span class="flex items-center gap-base font-label text-label border border-outline px-2 py-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">schedule</span> Dakika 5 za Kusoma
+        </span>
+<span class="flex items-center gap-base font-label text-label border border-outline px-2 py-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]">check</span> Imechapishwa
+        </span>
+</div>
+<div class="w-[120px] h-[2px] bg-accent mx-auto"></div>
+</header>
+<!-- Content Layout -->
+<div class="flex flex-col md:flex-row gap-spacious">
+<!-- Reading Body -->
+<article class="flex-1 max-w-max-content-width mx-auto md:mx-0">
+<div class="font-body text-body text-foreground space-y-comfortable">
+<p>
+            Najisi katika Uislamu inarejelea uchafu wa kiroho na kimwili ambao unamzuia Muislamu kutekeleza baadhi ya ibada kama vile swala na kutufu Al-Kaaba mpaka pale atakapojisafisha (kujitwahirisha). Ni muhimu sana kwa kila Muislamu kuelewa aina za najisi na namna ya kuziondoa.
+          </p>
+<div class="bg-muted border-l-[4px] border-accent p-comfortable my-spacious" dir="rtl">
+<p class="font-arabic-body text-[26px] leading-[2.0] text-primary-container text-center">
+              إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ وَيُحِبُّ الْمُتَطَهِّرِينَ
+            </p>
+</div>
+<p>
+            Qur'an na Sunnah zimeweka wazi umuhimu wa usafi. Aya hapo juu inasisitiza kuwa Allah anawapenda wale wanaotubia na wanaojitakasa.
+          </p>
+<h3 class="font-h3 text-h3 text-primary-container uppercase mt-spacious mb-comfortable">Aina Tatu Za Najisi:</h3>
+<div class="space-y-comfortable pl-comfortable">
+<div class="flex gap-comfortable">
+<span class="font-h3 text-accent font-bold">1.</span>
+<div>
+<strong class="font-body-lg text-primary-container block mb-tight">Najisi Nzito (Mughalladha)</strong>
+<p>Hii ni najisi inayo tokana na mbwa au nguruwe. Ikiwa kitu chochote kitagusana na mate, jasho au mkojo wa wanyama hawa, kinatakiwa kuoshwa mara saba, moja wapo ikiwa na udongo.</p>
+</div>
+</div>
+<div class="flex gap-comfortable">
+<span class="font-h3 text-accent font-bold">2.</span>
+<div>
+<strong class="font-body-lg text-primary-container block mb-tight">Najisi Nyepesi (Mukhaffafa)</strong>
+<p>Hii ni mkojo wa mtoto wa kiume mchanga ambaye hajala chakula chochote isipokuwa maziwa ya mama yake. Kutwahirisha kwake ni kwa kunyunyizia maji tu kwenye eneo lililo najisika.</p>
+</div>
+</div>
+<div class="flex gap-comfortable">
+<span class="font-h3 text-accent font-bold">3.</span>
+<div>
+<strong class="font-body-lg text-primary-container block mb-tight">Najisi ya Kati (Mutawassita)</strong>
+<p>Hizi ni najisi zingine zote zilizobaki, kama vile mkojo wa mtu mzima, damu, kinyesi, n.k. Hizi huondolewa kwa kuosha eneo lililo najisika kwa maji mpaka rangi, harufu na ladha ya najisi hiyo iondoke.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation -->
+<div class="flex justify-between items-center mt-dramatic border-t border-border pt-comfortable">
+<button class="h-[48px] px-comfortable bg-primary-container text-primary-foreground font-body text-body-sm flex items-center gap-tight hover:bg-primary-dark transition-colors">
+<span class="material-symbols-outlined">arrow_left</span>
+            Somo Lililotangulia
+          </button>
+<button class="h-[48px] px-comfortable bg-primary-container text-primary-foreground font-body text-body-sm flex items-center gap-tight hover:bg-primary-dark transition-colors">
+            Somo Lifuatalo
+            <span class="material-symbols-outlined">arrow_right</span>
+</button>
+</div>
+</article>
+<!-- TOC Sidebar -->
+<aside class="hidden md:block w-[240px] shrink-0">
+<div class="sticky top-[104px] bg-card border border-border p-comfortable shadow-[0_4px_20px_rgba(27,67,50,0.05)]">
+<h4 class="font-label text-label text-muted-foreground uppercase mb-comfortable tracking-widest">Maudhui</h4>
+<ul class="space-y-tight font-body text-body-sm">
+<li><a class="text-primary-container hover:text-accent transition-colors block py-1 border-l-2 border-accent pl-tight font-medium" href="#">Utangulizi</a></li>
+<li><a class="text-secondary hover:text-accent transition-colors block py-1 border-l-2 border-transparent pl-tight" href="#">Dalili za Kiquran</a></li>
+<li><a class="text-secondary hover:text-accent transition-colors block py-1 border-l-2 border-transparent pl-tight" href="#">Aina za Najisi</a></li>
+<li><a class="text-secondary hover:text-accent transition-colors block py-1 border-l-2 border-transparent pl-tight" href="#">Namna ya Kujitwahirisha</a></li>
+</ul>
+</div>
+</aside>
+</div>
+<!-- Siblings Strip -->
+<section class="mt-dramatic pt-spacious border-t border-border">
+<h3 class="font-h3 text-h3 text-primary-container mb-comfortable">Masomo Mengine — Twahara</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-comfortable">
+<!-- Card 1 -->
+<div class="bg-card border border-border p-comfortable hover:border-accent hover:-translate-y-[2px] transition-all shadow-[0_2px_10px_rgba(27,67,50,0.03)] cursor-pointer group">
+<div class="flex gap-tight mb-tight">
+<span class="font-label text-label border border-outline px-1 py-0.5 text-on-surface-variant uppercase">Somo 2</span>
+</div>
+<h4 class="font-h3 text-body-lg text-primary-container group-hover:text-accent-dark transition-colors">Maana ya Twahara na Umuhimu Wake</h4>
+</div>
+<!-- Card 2 -->
+<div class="bg-card border border-border p-comfortable hover:border-accent hover:-translate-y-[2px] transition-all shadow-[0_2px_10px_rgba(27,67,50,0.03)] cursor-pointer group">
+<div class="flex gap-tight mb-tight">
+<span class="font-label text-label border border-outline px-1 py-0.5 text-on-surface-variant uppercase">Somo 4</span>
+</div>
+<h4 class="font-h3 text-body-lg text-primary-container group-hover:text-accent-dark transition-colors">Aina za Maji Yanayofaa kwa Twahara</h4>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-primary dark:bg-primary-dark w-full py-dramatic px-comfortable flex flex-col items-center gap-comfortable mt-dramatic">
+<div class="font-h3 text-h3 text-accent dark:text-accent-dark">Ahlusunna</div>
+<div class="flex gap-comfortable flex-wrap justify-center">
+<a class="font-label text-label text-on-primary-container/80 hover:text-accent transition-colors" href="#">Curriculum</a>
+<a class="font-label text-label text-on-primary-container/80 hover:text-accent transition-colors" href="#">Manuscripts</a>
+<a class="font-label text-label text-on-primary-container/80 hover:text-accent transition-colors" href="#">Terms of Service</a>
+<a class="font-label text-label text-on-primary-container/80 hover:text-accent transition-colors" href="#">Privacy Policy</a>
+</div>
+<p class="font-body-sm text-body-sm text-on-primary dark:text-on-primary-fixed mt-comfortable opacity-60">© 2024 Ahlusunna. Preserving Scholarly Heritage.</p>
+</footer>
+</body></html>

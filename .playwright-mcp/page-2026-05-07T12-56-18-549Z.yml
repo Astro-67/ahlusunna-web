@@ -1,0 +1,154 @@
+- generic [ref=e3]:
+  - navigation "Primary" [ref=e4]:
+    - generic [ref=e5]:
+      - link "Ahlusunna home" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Ahlusunna Islamic Learning" [ref=e7]
+      - generic [ref=e8]:
+        - link "الرئيسية" [ref=e185] [cursor=pointer]:
+          - /url: /
+        - link "عن المنصة" [ref=e186] [cursor=pointer]:
+          - /url: /about
+        - link "تواصل" [ref=e187] [cursor=pointer]:
+          - /url: /contact
+        - link "الدروس" [ref=e188] [cursor=pointer]:
+          - /url: /subjects
+          - text: الدروس
+      - generic [ref=e14]:
+        - button "🇴🇲 AR" [ref=e190] [cursor=pointer]:
+          - img [ref=e18]
+          - generic [ref=e23]: 🇴🇲
+          - generic [ref=e24]: AR
+          - img [ref=e25]
+        - link "دخول" [ref=e191] [cursor=pointer]:
+          - /url: /login
+  - main [ref=e28]:
+    - main [ref=e30]:
+      - generic [ref=e31]:
+        - heading "المستوى المبتدئ — المواد" [level=1] [ref=e192]
+        - paragraph [ref=e33]: اختر المادة التي تريد تعلمها
+      - generic [ref=e34]:
+        - button "المستوى المبتدئ" [ref=e193] [cursor=pointer]
+        - button "المستوى المتوسط" [disabled] [ref=e194]:
+          - img [ref=e37]
+          - text: المستوى المتوسط
+        - button "المستوى المتقدم" [disabled] [ref=e195]:
+          - img [ref=e41]
+          - text: المستوى المتقدم
+      - generic [ref=e44]:
+        - link "القرآن الكريم القرآن الكريم 3 دروس" [ref=e196] [cursor=pointer]:
+          - /url: /subjects/quran
+          - img [ref=e46]
+          - heading "القرآن الكريم" [level=3] [ref=e197]
+          - paragraph [ref=e49]: القرآن الكريم
+          - generic [ref=e50]: 3 دروس
+        - link "الحديث الشريف الحديث الشريف 3 دروس" [ref=e198] [cursor=pointer]:
+          - /url: /subjects/hadith
+          - img [ref=e52]
+          - heading "الحديث الشريف" [level=3] [ref=e199]
+          - paragraph [ref=e56]: الحديث الشريف
+          - generic [ref=e57]: 3 دروس
+        - link "الفقه الإسلامي الفقه الإسلامي 5 دروس" [ref=e200] [cursor=pointer]:
+          - /url: /subjects/fiqhi
+          - img [ref=e59]
+          - heading "الفقه الإسلامي" [level=3] [ref=e201]
+          - paragraph [ref=e64]: الفقه الإسلامي
+          - generic [ref=e65]: 5 دروس
+        - link "التوحيد التوحيد 3 دروس" [ref=e202] [cursor=pointer]:
+          - /url: /subjects/tawhidi
+          - img [ref=e67]
+          - heading "التوحيد" [level=3] [ref=e203]
+          - paragraph [ref=e71]: التوحيد
+          - generic [ref=e72]: 3 دروس
+        - link "السيرة النبوية السيرة النبوية 3 دروس" [ref=e204] [cursor=pointer]:
+          - /url: /subjects/sira
+          - img [ref=e74]
+          - heading "السيرة النبوية" [level=3] [ref=e205]
+          - paragraph [ref=e78]: السيرة النبوية
+          - generic [ref=e79]: 3 دروس
+        - link "الأذكار والأدعية الأذكار والأدعية 4 دروس" [ref=e206] [cursor=pointer]:
+          - /url: /subjects/adhkar
+          - img [ref=e81]
+          - heading "الأذكار والأدعية" [level=3] [ref=e207]
+          - paragraph [ref=e84]: الأذكار والأدعية
+          - generic [ref=e85]: 4 دروس
+  - contentinfo [ref=e86]:
+    - generic [ref=e87]:
+      - generic [ref=e88]:
+        - heading "تعلم إسلامي منظم لكل مسلم" [level=2] [ref=e208]
+        - link "ابدأ التعلم" [ref=e209] [cursor=pointer]:
+          - /url: /
+          - text: ابدأ التعلم
+          - img [ref=e93]
+      - generic [ref=e97]:
+        - generic [ref=e98]:
+          - img "Ahlusunna" [ref=e100]
+          - paragraph [ref=e101]: أهل السنة هي منصة تعليمية إسلامية منظمة تساعد المسلمين على دراسة القرآن والحديث والفقه والتوحيد والسيرة من خلال دروس واضحة وصوت وفيديو — من المعرفة الأساسية إلى الفهم الأعمق.
+          - blockquote [ref=e102]:
+            - paragraph [ref=e103]: طلب العلم طريق إلى الخير.
+        - generic [ref=e104]:
+          - heading "روابط مهمة" [level=3] [ref=e210]
+          - list [ref=e106]:
+            - listitem [ref=e107]:
+              - link "الرئيسية" [ref=e211] [cursor=pointer]:
+                - /url: /
+                - text: الرئيسية
+            - listitem [ref=e110]:
+              - link "المواد" [ref=e212] [cursor=pointer]:
+                - /url: "#"
+                - text: المواد
+            - listitem [ref=e113]:
+              - link "عن المنصة" [ref=e213] [cursor=pointer]:
+                - /url: "#"
+                - text: عن المنصة
+            - listitem [ref=e116]:
+              - link "اتصل بنا" [ref=e214] [cursor=pointer]:
+                - /url: "#"
+                - text: اتصل بنا
+        - generic [ref=e119]:
+          - heading "المواد" [level=3] [ref=e215]
+          - list [ref=e121]:
+            - listitem [ref=e216]:
+              - link "القرآن" [ref=e217] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e218]
+                - text: القرآن
+            - listitem [ref=e220]:
+              - link "الحديث" [ref=e221] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e222]
+                - text: الحديث
+            - listitem [ref=e224]:
+              - link "الفقه" [ref=e225] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e226]
+                - text: الفقه
+            - listitem [ref=e228]:
+              - link "التوحيد" [ref=e229] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e230]
+                - text: التوحيد
+            - listitem [ref=e232]:
+              - link "السيرة" [ref=e233] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e234]
+                - text: السيرة
+        - generic [ref=e142]:
+          - heading "التواصل" [level=3] [ref=e236]
+          - generic [ref=e144]:
+            - link "info@ahlusunna.info" [ref=e145] [cursor=pointer]:
+              - /url: mailto:info@ahlusunna.info
+              - img [ref=e147]
+              - generic [ref=e150]: info@ahlusunna.info
+            - generic [ref=e151]:
+              - img [ref=e153]
+              - generic [ref=e156]: زنجبار، تنزانيا
+            - link "دعم واتساب" [ref=e237] [cursor=pointer]:
+              - /url: https://wa.me/255777810700
+              - img [ref=e159]
+              - generic [ref=e161]: دعم واتساب
+      - generic [ref=e162]:
+        - paragraph [ref=e163]: © 2026 Ahlusunna. جميع الحقوق محفوظة.
+        - paragraph [ref=e164]:
+          - text: بُنيت لخدمة الأمة
+          - img [ref=e165]

@@ -1,0 +1,224 @@
+- generic [ref=e3]:
+  - navigation "Primary" [ref=e4]:
+    - generic [ref=e5]:
+      - link "Ahlusunna home" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Ahlusunna Islamic Learning" [ref=e7]
+      - generic [ref=e8]:
+        - link "Nyumbani" [ref=e9] [cursor=pointer]:
+          - /url: /
+        - link "Kuhusu" [ref=e10] [cursor=pointer]:
+          - /url: /about
+        - link "Wasiliana" [ref=e11] [cursor=pointer]:
+          - /url: /contact
+        - link "Masomo" [ref=e12] [cursor=pointer]:
+          - /url: /subjects
+          - text: Masomo
+      - generic [ref=e14]:
+        - button "🇹🇿 SW" [ref=e17] [cursor=pointer]:
+          - img [ref=e18]
+          - generic [ref=e23]: 🇹🇿
+          - generic [ref=e24]: SW
+          - img [ref=e25]
+        - link "Ingia" [ref=e27] [cursor=pointer]:
+          - /url: /login
+  - main [ref=e28]:
+    - generic [ref=e29]:
+      - navigation "Breadcrumb" [ref=e31]:
+        - link "Hatua ya Awali" [ref=e32] [cursor=pointer]:
+          - /url: /subjects
+        - img [ref=e33]
+        - generic [ref=e35]: Fiqhi
+      - generic [ref=e37]:
+        - img [ref=e39]
+        - generic [ref=e43]:
+          - generic [ref=e44]:
+            - heading "Fiqhi" [level=1] [ref=e45]
+            - generic [ref=e46]: الفقه الإسلامي
+          - paragraph [ref=e47]: Sheria na kanuni za Uislamu zinazosimamia maisha ya kila siku ya Muislamu.
+          - paragraph [ref=e48]: 5 masomo
+      - generic [ref=e49]:
+        - generic [ref=e50]:
+          - heading "Twahara — الطهارة" [level=2] [ref=e53]:
+            - text: Twahara
+            - generic [ref=e54]: — الطهارة
+          - generic [ref=e57]:
+            - 'link "1 Aina za Najisi Katika Uislamu, najisi ni uchafu wa kimwili unaozuia mtu kufanya ibada kama Swala. Aina kuu tatu: (1) Najisi Mughalladha… Maandishi 16:00 Video" [ref=e58] [cursor=pointer]':
+              - /url: /lesson/aina-za-najisi
+              - generic [ref=e59]:
+                - generic [ref=e60]: "1"
+                - generic [ref=e61]:
+                  - heading "Aina za Najisi" [level=3] [ref=e62]
+                  - paragraph [ref=e63]: "Katika Uislamu, najisi ni uchafu wa kimwili unaozuia mtu kufanya ibada kama Swala. Aina kuu tatu: (1) Najisi Mughalladha…"
+                  - generic [ref=e64]:
+                    - generic [ref=e65]:
+                      - img [ref=e66]
+                      - text: Maandishi
+                    - generic [ref=e69]:
+                      - img [ref=e70]
+                      - text: 16:00
+                    - generic [ref=e72]:
+                      - img [ref=e73]
+                      - text: Video
+                - img [ref=e76]
+            - 'link "2 Wudhu Wudhu ni ibada ya kujisafisha kwa maji kabla ya Swala. Nguzo zake sita: (1) Nia, (2) Kuosha uso, (3) Kuosha mikono hadi … Maandishi 18:00 Video" [ref=e78] [cursor=pointer]':
+              - /url: /lesson/wudhu
+              - generic [ref=e79]:
+                - generic [ref=e80]: "2"
+                - generic [ref=e81]:
+                  - heading "Wudhu" [level=3] [ref=e82]
+                  - paragraph [ref=e83]: "Wudhu ni ibada ya kujisafisha kwa maji kabla ya Swala. Nguzo zake sita: (1) Nia, (2) Kuosha uso, (3) Kuosha mikono hadi …"
+                  - generic [ref=e84]:
+                    - generic [ref=e85]:
+                      - img [ref=e86]
+                      - text: Maandishi
+                    - generic [ref=e89]:
+                      - img [ref=e90]
+                      - text: 18:00
+                    - generic [ref=e92]:
+                      - img [ref=e93]
+                      - text: Video
+                - img [ref=e96]
+        - generic [ref=e98]:
+          - heading "Swala — الصلاة" [level=2] [ref=e101]:
+            - text: Swala
+            - generic [ref=e102]: — الصلاة
+          - generic [ref=e105]:
+            - 'link "1 Swala Tano na Nyakati Zake Swala tano za faradhi: (1) Alfajiri (Fajr) — kutoka mapambazuko hadi jua kuchomoza, rakaa 2. (2) Adhuhuri (Dhuhr) — jua … Maandishi 20:00 Video" [ref=e106] [cursor=pointer]':
+              - /url: /lesson/wakati-wa-swala
+              - generic [ref=e107]:
+                - generic [ref=e108]: "1"
+                - generic [ref=e109]:
+                  - heading "Swala Tano na Nyakati Zake" [level=3] [ref=e110]
+                  - paragraph [ref=e111]: "Swala tano za faradhi: (1) Alfajiri (Fajr) — kutoka mapambazuko hadi jua kuchomoza, rakaa 2. (2) Adhuhuri (Dhuhr) — jua …"
+                  - generic [ref=e112]:
+                    - generic [ref=e113]:
+                      - img [ref=e114]
+                      - text: Maandishi
+                    - generic [ref=e117]:
+                      - img [ref=e118]
+                      - text: 20:00
+                    - generic [ref=e120]:
+                      - img [ref=e121]
+                      - text: Video
+                - img [ref=e124]
+            - 'link "2 Nguzo Kumi za Swala Nguzo za Swala: (1) Kusimama, (2) Takbiratul Ihram, (3) Kusoma Al-Fatiha, (4) Rukuu, (5) Kusimama baada ya Rukuu, (6) Su… Maandishi 24:00 Video" [ref=e126] [cursor=pointer]':
+              - /url: /lesson/nguzo-za-swala
+              - generic [ref=e127]:
+                - generic [ref=e128]: "2"
+                - generic [ref=e129]:
+                  - heading "Nguzo Kumi za Swala" [level=3] [ref=e130]
+                  - paragraph [ref=e131]: "Nguzo za Swala: (1) Kusimama, (2) Takbiratul Ihram, (3) Kusoma Al-Fatiha, (4) Rukuu, (5) Kusimama baada ya Rukuu, (6) Su…"
+                  - generic [ref=e132]:
+                    - generic [ref=e133]:
+                      - img [ref=e134]
+                      - text: Maandishi
+                    - generic [ref=e137]:
+                      - img [ref=e138]
+                      - text: 24:00
+                    - generic [ref=e140]:
+                      - img [ref=e141]
+                      - text: Video
+                - img [ref=e144]
+        - generic [ref=e146]:
+          - heading "Saumu — الصيام" [level=2] [ref=e149]:
+            - text: Saumu
+            - generic [ref=e150]: — الصيام
+          - 'link "1 Masharti ya Saumu na Mambo Yanayoivunja Masharti ya Saumu: (1) Uislamu, (2) Akili, (3) Ubalehe, (4) Nia kabla ya alfajiri, (5) Kutokuwa na udhuru kama ugonjwa a… Maandishi 17:00 Video" [ref=e154] [cursor=pointer]':
+            - /url: /lesson/masharti-ya-saumu
+            - generic [ref=e155]:
+              - generic [ref=e156]: "1"
+              - generic [ref=e157]:
+                - heading "Masharti ya Saumu na Mambo Yanayoivunja" [level=3] [ref=e158]
+                - paragraph [ref=e159]: "Masharti ya Saumu: (1) Uislamu, (2) Akili, (3) Ubalehe, (4) Nia kabla ya alfajiri, (5) Kutokuwa na udhuru kama ugonjwa a…"
+                - generic [ref=e160]:
+                  - generic [ref=e161]:
+                    - img [ref=e162]
+                    - text: Maandishi
+                  - generic [ref=e165]:
+                    - img [ref=e166]
+                    - text: 17:00
+                  - generic [ref=e168]:
+                    - img [ref=e169]
+                    - text: Video
+              - img [ref=e172]
+  - contentinfo [ref=e174]:
+    - generic [ref=e175]:
+      - generic [ref=e176]:
+        - heading "Jifunze Uislamu kwa Mpangilio na Uelewa" [level=2] [ref=e178]
+        - link "Anza Kujifunza" [ref=e180] [cursor=pointer]:
+          - /url: /
+          - text: Anza Kujifunza
+          - img [ref=e181]
+      - generic [ref=e185]:
+        - generic [ref=e186]:
+          - img "Ahlusunna" [ref=e188]
+          - paragraph [ref=e189]: Ahlusunna ni jukwaa la kujifunza Uislamu kwa mpangilio, linalowasaidia Waislamu kusoma Qur'an, Hadith, Fiqhi, Tawhidi, na Sira kupitia masomo yaliyo wazi, sauti, na video — kuanzia maarifa ya msingi hadi ufahamu wa kina zaidi.
+          - blockquote [ref=e190]:
+            - paragraph [ref=e191]: Kutafuta elimu ni njia ya kheri.
+        - generic [ref=e192]:
+          - heading "Kurasa Muhimu" [level=3] [ref=e193]
+          - list [ref=e194]:
+            - listitem [ref=e195]:
+              - link "Nyumbani" [ref=e196] [cursor=pointer]:
+                - /url: /
+                - text: Nyumbani
+            - listitem [ref=e198]:
+              - link "Masomo" [ref=e199] [cursor=pointer]:
+                - /url: "#"
+                - text: Masomo
+            - listitem [ref=e201]:
+              - link "Kuhusu" [ref=e202] [cursor=pointer]:
+                - /url: "#"
+                - text: Kuhusu
+            - listitem [ref=e204]:
+              - link "Wasiliana" [ref=e205] [cursor=pointer]:
+                - /url: "#"
+                - text: Wasiliana
+        - generic [ref=e207]:
+          - heading "Masomo" [level=3] [ref=e208]
+          - list [ref=e209]:
+            - listitem [ref=e210]:
+              - link "Qur'an" [ref=e211] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e212]
+                - text: Qur'an
+            - listitem [ref=e214]:
+              - link "Hadith" [ref=e215] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e216]
+                - text: Hadith
+            - listitem [ref=e218]:
+              - link "Fiqhi" [ref=e219] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e220]
+                - text: Fiqhi
+            - listitem [ref=e222]:
+              - link "Tawhidi" [ref=e223] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e224]
+                - text: Tawhidi
+            - listitem [ref=e226]:
+              - link "Sira" [ref=e227] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e228]
+                - text: Sira
+        - generic [ref=e230]:
+          - heading "Mawasiliano" [level=3] [ref=e231]
+          - generic [ref=e232]:
+            - link "info@ahlusunna.info" [ref=e233] [cursor=pointer]:
+              - /url: mailto:info@ahlusunna.info
+              - img [ref=e235]
+              - generic [ref=e238]: info@ahlusunna.info
+            - generic [ref=e239]:
+              - img [ref=e241]
+              - generic [ref=e244]: Zanzibar, Tanzania
+            - link "Msaada wa WhatsApp" [ref=e245] [cursor=pointer]:
+              - /url: https://wa.me/255777810700
+              - img [ref=e247]
+              - generic [ref=e249]: Msaada wa WhatsApp
+      - generic [ref=e250]:
+        - paragraph [ref=e251]: © 2026 Ahlusunna. Haki zote zimehifadhiwa.
+        - paragraph [ref=e252]:
+          - text: Imejengwa kwa ajili ya Ummah
+          - img [ref=e253]
