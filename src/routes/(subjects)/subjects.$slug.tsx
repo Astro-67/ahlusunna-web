@@ -84,10 +84,8 @@ function SubjectDetailPage() {
   }
 
   const SubjectIcon = subjectIconMap[subject.id] ?? BookOpen
-  const subjectName = subject.name[currentLang] ?? subject.name.sw
-  const subjectDesc = subject.description[currentLang] ?? subject.description.sw
-
-  // Total lesson count for this subject
+  const subjectName = subject.name[currentLang]
+  const subjectDesc = subject.description[currentLang]
   const allLessons = lessonService.getBySubject(subject.id)
 
   return (
@@ -172,7 +170,7 @@ function SubjectDetailPage() {
           const courseLessons = lessonService
             .getByCourse(course.id)
             .sort((a, b) => a.order - b.order)
-          const courseTitle = course.title[currentLang] ?? course.title.sw
+          const courseTitle = course.title[currentLang]
           const courseAr = course.title.ar
 
           return (
@@ -193,18 +191,16 @@ function SubjectDetailPage() {
                     )}
                   </h2>
                 </div>
-                <div className="flex-grow h-px bg-border relative">
+                <div className="grow h-px bg-border relative">
                   <div className="absolute top-1/2 left-0 w-16 h-0.5 bg-accent -translate-y-1/2" />
                 </div>
               </div>
 
               <div className="space-y-3">
                 {courseLessons.map((lesson, idx) => {
-                  const lessonTitle = lesson.title[currentLang] ?? lesson.title.sw
-                  const lessonDesc =
-                    typeof lesson.content[currentLang]?.content?.[1]?.content?.[0]?.text === 'string'
-                      ? (lesson.content[currentLang].content[1].content![0].text as string).slice(0, 120) + '…'
-                      : ''
+                  const lessonTitle = lesson.title[currentLang]
+                  const nodeText = lesson.content[currentLang].content[1]?.content?.[0]?.text
+                  const lessonDesc = typeof nodeText === 'string' ? nodeText.slice(0, 120) + '…' : ''
 
                   return (
                     <Link
@@ -226,7 +222,7 @@ function SubjectDetailPage() {
                           {idx + 1}
                         </div>
 
-                        <div className="flex-grow min-w-0 pr-8">
+                        <div className="grow min-w-0 pr-8">
                           <h3 className="text-[18px] font-bold text-foreground mb-1 group-hover:text-sidebar transition-colors line-clamp-2">
                             {lessonTitle}
                           </h3>

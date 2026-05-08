@@ -76,7 +76,7 @@ function SubjectsPage() {
       lang={currentLang}
       dir={isRtl ? 'rtl' : 'ltr'}
     >
-      <main className="flex-grow flex flex-col items-center py-10 px-5 md:px-10 w-full max-w-[1280px] mx-auto">
+      <main className="grow flex flex-col items-center py-10 px-5 md:px-10 w-full max-w-7xl mx-auto">
 
         {/* Page header */}
         <div className="w-full text-center mb-8">
@@ -123,7 +123,7 @@ function SubjectsPage() {
           {subjects.map((subject) => {
             const SubjectIcon = subjectIconMap[subject.id] ?? BookOpen
             const lessonCount = lessonService.getBySubject(subject.id).length
-            const name = subject.name[currentLang] ?? subject.name.sw
+            const name = subject.name[currentLang]
 
             return (
               <Link
@@ -133,7 +133,7 @@ function SubjectsPage() {
                 className={cn(
                   'group flex flex-col items-center justify-center aspect-square bg-white border border-border p-4',
                   'transition-all duration-200',
-                  'hover:border-2 hover:border-sidebar hover:-translate-y-[2px]',
+                  'hover:border-2 hover:border-sidebar hover:-translate-y-0.5',
                   'hover:shadow-[0_8px_30px_rgba(27,67,50,0.1)]',
                   'shadow-[0_4px_20px_rgba(27,67,50,0.05)]',
                   'focus-visible:outline-[3px] focus-visible:outline-accent focus-visible:outline-offset-2',

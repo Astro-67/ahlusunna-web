@@ -105,7 +105,7 @@ export function Logo({
 export function LogoNavbar({ className }: { className?: string }) {
   return (
     <img
-      src="/Logos/Logo-with-no-background/horizontal-logo-with-border.png"
+      src="/Logos/Logo-with-no-background/logo-with-book.png"
       alt="Ahlusunna Islamic Learning"
       className={cn(
         'h-16 w-auto object-contain object-left sm:h-20 lg:h-24',
@@ -133,7 +133,7 @@ export function LogoFooter({ className }: { className?: string }) {
   return (
     <div className={cn('flex items-center gap-3', className)}>
       <img
-        src={LOGO_PATHS.full}
+        src="/Logos/Logo-with-no-background/logo-white-version.png"
         alt="Ahlusunna"
         className="h-14 w-auto object-contain"
       />

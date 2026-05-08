@@ -154,17 +154,17 @@ export function Footer() {
 
   const quickLinks = [
     { label: content.home, to: '/' },
-    { label: content.subjects, to: '#' },
-    { label: content.about, to: '#' },
-    { label: content.contact, to: '#' },
+    { label: content.subjects, to: '/subjects' },
+    { label: content.about, to: '/about' },
+    { label: content.contact, to: '/contact' },
   ]
 
   const subjectLinks = [
-    content.quran,
-    content.hadith,
-    content.fiqhi,
-    content.tawhidi,
-    content.sira,
+    { label: content.quran, href: '/subjects/quran' },
+    { label: content.hadith, href: '/subjects/hadith' },
+    { label: content.fiqhi, href: '/subjects/fiqhi' },
+    { label: content.tawhidi, href: '/subjects/tawhidi' },
+    { label: content.sira, href: '/subjects/sira' },
   ]
 
   return (
@@ -198,9 +198,9 @@ export function Footer() {
           <div className="lg:col-span-5">
             <div className="mb-6 inline-flex rounded-2xl backdrop-blur-sm border border-accent/25">
               <img
-                src="/Logos/Logo-with-no-background/horizontal-logo-with-border-for-green-bg.png"
+                src="/Logos/Logo-with-no-background/logo-white-version.png"
                 alt="Ahlusunna"
-                className="h-32 w-auto object-contain"
+                className="h-24 w-auto object-contain"
               />
             </div>
 
@@ -232,13 +232,13 @@ export function Footer() {
             <FooterHeading>{content.learning}</FooterHeading>
             <ul className="space-y-3">
               {subjectLinks.map((subject) => (
-                <li key={subject}>
+                <li key={subject.label}>
                   <a
-                    href="#"
+                    href={subject.href}
                     className="inline-flex items-center gap-2 text-sm text-primary-foreground/70 transition-colors duration-200 hover:text-accent"
                   >
                     <BookOpen className="size-4 text-accent/80" />
-                    {subject}
+                    {subject.label}
                   </a>
                 </li>
               ))}

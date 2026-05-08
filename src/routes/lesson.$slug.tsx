@@ -17,8 +17,7 @@ import { lessonService, courseService, subjectService } from '#/data/services'
 import { checkLessonAccess } from '#/data/seed'
 import { useLanguage } from '#/hooks/useLanguage'
 import { cn } from '#/lib/utils'
-import type { Language } from '#/types'
-import type { TiptapDocument, TiptapNode } from '#/types'
+import type { Language, TiptapDocument, TiptapNode } from '#/types'
 
 export const Route = createFileRoute('/lesson/$slug')({
   component: LessonPage,
@@ -130,7 +129,7 @@ function LessonPage() {
 
   if (!lesson) {
     return (
-      <div className="mx-auto max-w-[1120px] px-6 py-16 text-center">
+      <div className="mx-auto max-w-280 px-6 py-16 text-center">
         <p className="text-muted-foreground">Somo halijapatikana.</p>
         <Link
           to="/subjects"
@@ -143,14 +142,14 @@ function LessonPage() {
   }
 
   const readMinutes = parseInt(lesson.duration.split(':')[0]) || 5
-  const lessonTitle = lesson.title[currentLang] ?? lesson.title.sw
+  const lessonTitle = lesson.title[currentLang]
   const arabicTitle = currentLang !== 'ar' ? lesson.title.ar : null
-  const courseTitle = course?.title[currentLang] ?? course?.title.sw ?? ''
-  const subjectName = subject?.name[currentLang] ?? subject?.name.sw ?? ''
+  const courseTitle = course?.title[currentLang] ?? ''
+  const subjectName = subject?.name[currentLang] ?? ''
 
   return (
     <div className="bg-background" lang={currentLang} dir={isRtl ? 'rtl' : 'ltr'}>
-      <div className="mx-auto max-w-[1120px] px-6 pt-10 pb-24">
+      <div className="mx-auto max-w-280 px-6 pt-10 pb-24">
 
         {/* Breadcrumb */}
         <nav
@@ -210,14 +209,14 @@ function LessonPage() {
           </div>
 
           {/* Gold rule */}
-          <div className="mx-auto h-[2px] w-[120px] bg-accent" />
+          <div className="mx-auto h-0.5 w-30 bg-accent" />
         </header>
 
         {/* Content Layout */}
         <div className="flex flex-col lg:flex-row lg:items-start gap-10">
 
           {/* Reading Column */}
-          <article className="flex-1 min-w-0 max-w-[720px] mx-auto lg:mx-0">
+          <article className="flex-1 min-w-0 max-w-180 mx-auto lg:mx-0">
 
             {/* Video */}
             {lesson.videoUrl && (
@@ -256,7 +255,7 @@ function LessonPage() {
                 <Link
                   to="/lesson/$slug"
                   params={{ slug: prevLesson.slug }}
-                  className="group flex flex-1 items-center gap-3 h-[48px] px-5 bg-sidebar text-primary-foreground transition-colors hover:bg-primary-dark focus-visible:outline-[3px] focus-visible:outline-accent focus-visible:outline-offset-2"
+                  className="group flex flex-1 items-center gap-3 h-12 px-5 bg-sidebar text-primary-foreground transition-colors hover:bg-primary-dark focus-visible:outline-[3px] focus-visible:outline-accent focus-visible:outline-offset-2"
                 >
                   <ChevronLeft
                     aria-hidden
@@ -265,17 +264,17 @@ function LessonPage() {
                     className={cn(isRtl && 'rotate-180')}
                   />
                   <div className="min-w-0 flex-1">
-                    <div className="text-[10px] font-bold uppercase tracking-[0.1em] opacity-70">
+                    <div className="text-[10px] font-bold uppercase tracking-widest opacity-70">
                       {c.prevLesson}
                     </div>
                     <div className="text-[13px] font-medium line-clamp-1">
-                      {prevLesson.title[currentLang] ?? prevLesson.title.sw}
+                      {prevLesson.title[currentLang]}
                     </div>
                   </div>
                 </Link>
               ) : (
                 <div
-                  className="flex flex-1 items-center h-[48px] px-5 bg-sidebar text-primary-foreground"
+                  className="flex flex-1 items-center h-12 px-5 bg-sidebar text-primary-foreground"
                   style={{ opacity: 0.4 }}
                 >
                   <span className="text-[13px]">{c.prevLesson}</span>
@@ -287,15 +286,15 @@ function LessonPage() {
                   to="/lesson/$slug"
                   params={{ slug: nextLesson.slug }}
                   className={cn(
-                    'group flex flex-1 items-center justify-end gap-3 h-[48px] px-5 bg-sidebar text-primary-foreground transition-colors hover:bg-primary-dark focus-visible:outline-[3px] focus-visible:outline-accent focus-visible:outline-offset-2',
+                    'group flex flex-1 items-center justify-end gap-3 h-12 px-5 bg-sidebar text-primary-foreground transition-colors hover:bg-primary-dark focus-visible:outline-[3px] focus-visible:outline-accent focus-visible:outline-offset-2',
                   )}
                 >
                   <div className="min-w-0 flex-1 text-end">
-                    <div className="text-[10px] font-bold uppercase tracking-[0.1em] opacity-70">
+                    <div className="text-[10px] font-bold uppercase tracking-widest opacity-70">
                       {c.nextLesson}
                     </div>
                     <div className="text-[13px] font-medium line-clamp-1">
-                      {nextLesson.title[currentLang] ?? nextLesson.title.sw}
+                      {nextLesson.title[currentLang]}
                     </div>
                   </div>
                   <ChevronRight
@@ -307,7 +306,7 @@ function LessonPage() {
                 </Link>
               ) : (
                 <div
-                  className="flex flex-1 items-center justify-end h-[48px] px-5 bg-sidebar text-primary-foreground"
+                  className="flex flex-1 items-center justify-end h-12 px-5 bg-sidebar text-primary-foreground"
                   style={{ opacity: 0.4 }}
                 >
                   <span className="text-[13px]">{c.nextLesson}</span>
@@ -333,7 +332,7 @@ function LessonPage() {
                         key={s.id}
                         to="/lesson/$slug"
                         params={{ slug: s.slug }}
-                        className="group shrink-0 w-[260px] lg:w-auto flex flex-col gap-2 border border-border bg-card p-5 snap-start transition-all duration-200 hover:border-accent hover:-translate-y-[2px] focus-visible:outline-[3px] focus-visible:outline-accent focus-visible:outline-offset-2"
+                        className="group shrink-0 w-65 lg:w-auto flex flex-col gap-2 border border-border bg-card p-5 snap-start transition-all duration-200 hover:border-accent hover:-translate-y-0.5 focus-visible:outline-[3px] focus-visible:outline-accent focus-visible:outline-offset-2"
                         style={{ borderRadius: '4px' }}
                       >
                         <div className="flex items-center gap-2 text-[11px] text-muted-foreground">
@@ -347,7 +346,7 @@ function LessonPage() {
                           <span className="ml-auto font-medium">{s.duration}</span>
                         </div>
                         <h4 className="font-display text-[18px] leading-[1.3] text-sidebar line-clamp-2 transition-colors group-hover:text-accent-dark">
-                          {s.title[currentLang] ?? s.title.sw}
+                          {s.title[currentLang]}
                         </h4>
                         <p className="text-[12px] text-muted-foreground">{sibCourseTitle}</p>
                       </Link>

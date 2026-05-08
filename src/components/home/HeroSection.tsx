@@ -8,27 +8,13 @@ import {
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { useMediaQuery } from '#/hooks/useMediaQuery'
 
 import { Button } from '#/components/ui/button'
 import { useAuth } from '#/hooks/useAuth'
 import { useLanguage } from '#/hooks/useLanguage'
 import { cn } from '#/lib/utils'
 import type { Language } from '#/types'
-
-const heroImages = [
-  {
-    src: '/Hero-images/hero5.png',
-    alt: 'Open Quran on a wooden rehal with the green dome of Masjid an-Nabawi',
-  },
-  {
-    src: '/Hero-images/hero1.png',
-    alt: 'Islamic learning subjects shown through ornate arch artwork',
-  },
-  {
-    src: '/Hero-images/hero3.png',
-    alt: 'Digital Islamic learning on laptop and tablet screens',
-  },
-]
 
 const heroCopy: Record<
   Language,
@@ -232,16 +218,59 @@ export function HeroSection() {
   const [paused, setPaused] = useState(false)
   const [showLoginPrompt, setShowLoginPrompt] = useState(false)
   const copy = heroCopy[currentLang]
+  const isRtl = currentLang === 'ar'
 
+  // Only autoplay on desktop (md+)
+  const isDesktop = useMediaQuery('(min-width: 768px)')
+
+  const ltrHeroImages = [
+    {
+      src: '/Hero-images/hero5.png',
+      alt: 'Open Quran on a wooden rehal with the green dome of Masjid an-Nabawi',
+    },
+    {
+      src: '/Hero-images/hero1.png',
+      alt: 'Islamic learning subjects shown through ornate arch artwork',
+    },
+    {
+      src: '/Hero-images/hero3.png',
+      alt: 'Digital Islamic learning on laptop and tablet screens',
+    },
+  ]
+
+  const rtlHeroImages = [
+    {
+      src: '/Rtl-Hero-images/rtl-hero1.png',
+      alt: 'Islamic learning imagery suited for RTL layout',
+    },
+    {
+      src: '/Rtl-Hero-images/rtl-hero2.png',
+      alt: 'Islamic learning imagery suited for RTL layout',
+    },
+    {
+      src: '/Rtl-Hero-images/rtl-hero3.png',
+      alt: 'Islamic learning imagery suited for RTL layout',
+    },
+  ]
+
+  const heroImages = isRtl ? rtlHeroImages : ltrHeroImages
+
+  // Reset carousel when language changes
   useEffect(() => {
-    if (paused) return
+    setActiveIndex(0)
+  }, [currentLang])
+
+  // Autoplay interval - only on desktop
+  useEffect(() => {
+    // Don't autoplay on mobile or when paused
+    if (!isDesktop || paused || heroImages.length <= 1) return
 
     const interval = window.setInterval(() => {
       setActiveIndex((index) => (index + 1) % heroImages.length)
     }, AUTOPLAY_MS)
 
     return () => window.clearInterval(interval)
-  }, [paused])
+  }, [paused, heroImages.length, isDesktop])
 
   const handleLevelClick = (level: typeof levels[0], e: React.MouseEvent) => {
     if (level.isLocked && !isAuthenticated) {
@@ -270,8 +299,8 @@ export function HeroSection() {
       <section
         id="home"
         className="relative isolate min-h-[calc(100svh-3.5rem)] overflow-hidden bg-primary text-primary-foreground sm:min-h-[calc(100svh-4rem)] lg:min-h-[calc(100svh-76px)]"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
+        onMouseEnter={() => isDesktop && setPaused(true)}
+        onMouseLeave={() => isDesktop && setPaused(false)}
       >
         <div
           className="absolute inset-0 -z-10"
@@ -284,13 +313,17 @@ export function HeroSection() {
               src={image.src}
               alt={image.alt}
               className={cn(
-                'absolute inset-0 size-full object-cover object-[58%_center] transition-opacity duration-1000 ease-in-out sm:object-center',
+                'absolute inset-0 size-full object-cover transition-opacity duration-1000 ease-in-out',
+                isRtl ? 'object-left' : 'object-[58%_center] sm:object-center',
                 index === activeIndex ? 'opacity-100' : 'opacity-0',
               )}
               loading={index === 0 ? 'eager' : 'lazy'}
             />
           ))}
-          <div className="absolute inset-0 bg-linear-to-b from-primary via-primary/90 to-primary/45 sm:bg-linear-to-r sm:from-primary sm:via-primary/90 sm:to-primary/30" />
+          <div className={cn(
+              'absolute inset-0 bg-linear-to-b from-primary via-primary/90 to-primary/45 sm:bg-linear-to-r sm:from-primary sm:via-primary/90 sm:to-primary/30',
+              isRtl && 'sm:bg-linear-to-l sm:from-primary sm:via-primary/90 sm:to-primary/30'
+            )} />
           <div className="absolute inset-0 bg-black/20" />
           <div className="absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-primary/90 to-transparent sm:h-40" />
         </div>
