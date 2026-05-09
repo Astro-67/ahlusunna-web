@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Dome -->
+  <path d="M16 2C11 2 7 7 5 12C3 17 2 25 2 28H30V25C30 17 29 7 27 12C25 7 21 2 16 2Z" fill="#1B4332"/>
+  <!-- Base -->
+  <rect x="1" y="24" width="30" height="4" fill="#1B4332"/>
+  <!-- Gold accent on top -->
+  <rect x="14" y="0" width="4" height="3" rx="1" fill="#C9A84C"/>
+  <!-- Gold circle in dome -->
+  <circle cx="16" cy="12" r="3" fill="none" stroke="#C9A84C" stroke-width="1.5"/>
+</svg>
