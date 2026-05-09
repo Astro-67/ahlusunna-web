@@ -3,6 +3,7 @@ import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 
+import { LogoNavbar } from '#/components/common/Logo'
 import { useAuth } from '#/hooks/useAuth'
 import { useLanguage } from '#/hooks/useLanguage'
 import { cn } from '#/lib/utils'
@@ -64,20 +65,35 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
 
   return (
     <div className="w-full">
-      <div className="mb-8">
-        <Link to="/" className="inline-block mb-3">
-          <img
-            src="/Ahlusunna-logo.png"
-            alt="Ahlusunna"
-            className="h-24 w-auto"
-          />
+      {/* Logo — centered above the title */}
+      <div className="mb-7 flex justify-center">
+        <Link
+          to="/"
+          className="transition-opacity duration-200 hover:opacity-85"
+          aria-label="Ahlusunna home"
+        >
+          <LogoNavbar />
         </Link>
-        <h2 className="mb-2 text-[24px] font-bold text-foreground">
+      </div>
+
+      {/* Heading — centered */}
+      <div className="mb-8 text-center">
+        <div className="mb-1.5 flex items-center justify-center gap-2">
+          <span className="h-px w-5 bg-accent" />
+          <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-accent">
+            {currentLang === 'sw' ? 'Jisajili' : currentLang === 'ar' ? 'التسجيل' : 'Sign up'}
+          </span>
+          <span className="h-px w-5 bg-accent" />
+        </div>
+        <h2 className="font-decorative text-[26px] font-semibold leading-[1.1] tracking-tight text-foreground sm:text-[30px]">
           {t('auth.register_title')}
         </h2>
-        <p className="text-[13px] text-muted-foreground">
+        <p className="mt-1.5 text-[12.5px] leading-snug text-muted-foreground sm:text-[13px]">
           {t('auth.has_account')}{' '}
-          <Link to="/login" className="text-primary font-semibold hover:underline">
+          <Link
+            to="/login"
+            className="font-semibold text-primary underline-offset-4 transition-colors hover:text-accent hover:underline"
+          >
             {t('navigation.login')}
           </Link>
         </p>

@@ -3,6 +3,7 @@ import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 
+import { LogoNavbar } from '#/components/common/Logo'
 import { useAuth } from '#/hooks/useAuth'
 import { useLanguage } from '#/hooks/useLanguage'
 import { cn } from '#/lib/utils'
@@ -19,12 +20,6 @@ const forgotCopy: Record<'sw' | 'en' | 'ar', string> = {
   ar: 'نسيت كلمة المرور؟',
 }
 
-const demoCopy: Record<'sw' | 'en' | 'ar', { tag: string; admin: string; mod: string; learner: string }> = {
-  sw: { tag: 'Akaunti za Demo', admin: 'Msimamizi', mod: 'Mratibu', learner: 'Mwanafunzi' },
-  en: { tag: 'Demo Accounts', admin: 'Admin', mod: 'Moderator', learner: 'Learner' },
-  ar: { tag: 'حسابات تجريبية', admin: 'مشرف', mod: 'منسق', learner: 'طالب' },
-}
-
 export function LoginForm({ onSuccess, redirect: _redirect }: LoginFormProps) {
   const navigate = useNavigate()
   const { login } = useAuth()
@@ -37,7 +32,6 @@ export function LoginForm({ onSuccess, redirect: _redirect }: LoginFormProps) {
   const [isLoading, setIsLoading] = useState(false)
 
   const isRtl = currentLang === 'ar'
-  const demo = demoCopy[currentLang]
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -81,45 +75,38 @@ export function LoginForm({ onSuccess, redirect: _redirect }: LoginFormProps) {
         }
       `}</style>
 
-      {/* Heading + Brand — text first, logo after */}
-      <div
-        className={cn(
-          'mb-10 flex items-center gap-3',
-          isRtl && 'flex-row-reverse',
-        )}
-      >
-        <div className="min-w-0 flex-1">
-          <div className={cn('mb-1.5 flex items-center gap-2', isRtl && 'flex-row-reverse')}>
-            <span className="h-px w-5 bg-accent" />
-            <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-accent">
-              {currentLang === 'sw' ? 'Ingia' : currentLang === 'ar' ? 'دخول' : 'Sign in'}
-            </span>
-          </div>
-          <h2 className="font-decorative text-[26px] font-semibold leading-[1.1] tracking-tight text-foreground sm:text-[30px]">
-            {t('auth.login_title')}
-          </h2>
-          <p className="mt-1.5 text-[12.5px] leading-snug text-muted-foreground sm:text-[13px]">
-            {t('auth.no_account')}{' '}
-            <Link
-              to="/register"
-              className="font-semibold text-primary underline-offset-4 transition-colors hover:text-accent hover:underline"
-            >
-              {t('navigation.register')}
-            </Link>
-          </p>
-        </div>
-
+      {/* Logo — centered above the title */}
+      <div className="mb-7 flex justify-center">
         <Link
           to="/"
-          className="shrink-0 transition-opacity duration-200 hover:opacity-85"
+          className="transition-opacity duration-200 hover:opacity-85"
           aria-label="Ahlusunna home"
         >
-          <img
-            src="/Logos/Logo-with-no-background/horizontal-logo-with-border.png"
-            alt="Ahlusunna"
-            className="h-16 w-auto object-contain sm:h-20"
-          />
+          <LogoNavbar />
         </Link>
+      </div>
+
+      {/* Heading — centered */}
+      <div className="mb-8 text-center">
+        <div className="mb-1.5 flex items-center justify-center gap-2">
+          <span className="h-px w-5 bg-accent" />
+          <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-accent">
+            {currentLang === 'sw' ? 'Ingia' : currentLang === 'ar' ? 'دخول' : 'Sign in'}
+          </span>
+          <span className="h-px w-5 bg-accent" />
+        </div>
+        <h2 className="font-decorative text-[26px] font-semibold leading-[1.1] tracking-tight text-foreground sm:text-[30px]">
+          {t('auth.login_title')}
+        </h2>
+        <p className="mt-1.5 text-[12.5px] leading-snug text-muted-foreground sm:text-[13px]">
+          {t('auth.no_account')}{' '}
+          <Link
+            to="/register"
+            className="font-semibold text-primary underline-offset-4 transition-colors hover:text-accent hover:underline"
+          >
+            {t('navigation.register')}
+          </Link>
+        </p>
       </div>
 
       {error && (
@@ -221,35 +208,6 @@ export function LoginForm({ onSuccess, redirect: _redirect }: LoginFormProps) {
           />
         </button>
       </form>
-
-      {/* Demo accounts */}
-      <div className="mt-10 border border-border bg-muted/40 p-5">
-        <div className={cn('mb-4 flex items-center gap-3', isRtl && 'flex-row-reverse')}>
-          <span className="h-px flex-1 bg-accent/40" />
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent">
-            {demo.tag}
-          </span>
-          <span className="h-px flex-1 bg-accent/40" />
-        </div>
-        <div className="space-y-2 text-[12px] text-muted-foreground">
-          <DemoRow role={demo.admin} email="admin@ahlusunna.info" pass="admin123" />
-          <DemoRow role={demo.mod} email="moderator@ahlusunna.info" pass="mod123" />
-          <DemoRow role={demo.learner} email="mwanafunzi@ahlusunna.info" pass="user123" />
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function DemoRow({ role, email, pass }: { role: string; email: string; pass: string }) {
-  return (
-    <div className="grid grid-cols-[5.5rem_1fr] items-center gap-3 font-mono text-[11.5px]">
-      <span className="border-s-2 border-accent ps-2 font-sans text-[11px] font-semibold uppercase tracking-[0.08em] text-foreground">
-        {role}
-      </span>
-      <span className="truncate text-muted-foreground">
-        {email} · {pass}
-      </span>
     </div>
   )
 }

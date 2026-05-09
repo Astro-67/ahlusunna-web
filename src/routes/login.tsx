@@ -143,21 +143,6 @@ function LoginPage() {
         <CornerOrnament className="absolute left-6 top-6 size-14 text-accent/50 lg:left-10 lg:top-10 lg:size-20" />
         <CornerOrnament className="absolute bottom-6 right-6 size-14 rotate-180 text-accent/50 lg:bottom-10 lg:right-10 lg:size-20" />
 
-        {/* Logo */}
-        <div className="relative z-10">
-          <Link
-            to="/"
-            className="inline-block transition-opacity duration-200 hover:opacity-90"
-            aria-label="Ahlusunna home"
-          >
-            <img
-              src="/Logos/Logo-with-no-background/horizontal-logo-with-border-for-green-bg.png"
-              alt="Ahlusunna Islamic Learning"
-              className="h-20 w-auto object-contain object-left sm:h-24 lg:h-28"
-            />
-          </Link>
-        </div>
-
         {/* Headline block */}
         <div className="relative z-10 mt-10 lg:mt-14 max-w-xl">
           <div className="mb-4 inline-flex items-center gap-3">
@@ -227,10 +212,10 @@ function LoginPage() {
         {/* Hairline ornaments framing the form column */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-12 start-0 hidden w-px bg-gradient-to-b from-transparent via-accent/25 to-transparent lg:block"
+          className="pointer-events-none absolute inset-y-12 inset-s-0 hidden w-px bg-linear-to-b from-transparent via-accent/25 to-transparent lg:block"
         />
 
-        <div className="mx-auto w-full max-w-[440px]">
+        <div className="mx-auto w-full max-w-110">
           <LoginForm redirect={search.redirect} />
 
           {/* Back home link */}
