@@ -10,12 +10,12 @@ interface AdminSidebarProps {
 }
 
 export function AdminSidebar({ isCollapsed }: AdminSidebarProps) {
-  const { user, logout, isAdmin, isModerator } = useAuth()
+  const { user, logout, isAdmin, isModerator, isAuthor } = useAuth()
   const { t, currentLang } = useLanguage()
   const routerState = useRouterState()
   const navigate = useNavigate()
 
-  const roleLabel = isAdmin ? t('admin.role_admin') : isModerator ? t('admin.role_moderator') : t('admin.role_learner')
+  const roleLabel = isAdmin ? t('admin.role_admin') : isModerator ? t('admin.role_moderator') : isAuthor ? t('admin.role_author') : t('admin.role_learner')
   const isRtl = currentLang === 'ar'
 
   const getInitials = (name?: string) => {

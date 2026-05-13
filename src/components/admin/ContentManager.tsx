@@ -5,11 +5,13 @@ import { ContentForm } from '#/components/admin/ContentForm'
 import { Button } from '#/components/ui/button'
 import { lessons as seedLessons, subjects } from '#/data/seed'
 import { useLanguage } from '#/hooks/useLanguage'
+import { useAuth } from '#/hooks/useAuth'
 import type { Lesson, LessonStatus } from '#/types'
 import { cn } from '#/lib/utils'
 
 export function ContentManager() {
   const { t, currentLang } = useLanguage()
+  const { canPublishContent, canCreateContent } = useAuth()
   const [lessons, setLessons] = useState(seedLessons)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedSubject, setSelectedSubject] = useState<string>('all')
@@ -91,9 +93,12 @@ export function ContentManager() {
     } else if (status === 'draft') {
       className += " bg-background border-border text-muted-foreground"
       label = t('admin.status_draft')
-    } else if (status === 'under_review') {
+    } else if (status === 'pending_review') {
       className += " bg-accent/10 border-accent/40 text-[#8a6f1f]"
       label = t('admin.status_review')
+    } else if (status === 'needs_revision') {
+      className += " bg-[#D97706]/10 border-[#D97706]/30 text-[#D97706]"
+      label = t('admin.status_revision')
     } else if (status === 'archived') {
       className += " bg-[#9B2C2C]/10 border-[#9B2C2C]/30 text-[#9B2C2C]"
       label = t('admin.status_archived')
@@ -126,6 +131,8 @@ export function ContentManager() {
             type="button"
             variant="accent"
             className="h-[38px] px-5"
+            disabled={!canCreateContent}
+            title={canCreateContent ? t('admin.add_lesson') : 'Only authors can create lessons'}
             onClick={() => {
               setEditingLesson(null)
               setIsFormOpen(true)
@@ -160,7 +167,8 @@ export function ContentManager() {
           <option value="all">{t('admin.all_status_filter')}</option>
           <option value="published">{t('admin.status_published')}</option>
           <option value="draft">{t('admin.status_draft')}</option>
-          <option value="under_review">{t('admin.status_review')}</option>
+          <option value="pending_review">{t('admin.status_review')}</option>
+          <option value="needs_revision">{t('admin.status_revision')}</option>
           <option value="archived">{t('admin.status_archived')}</option>
         </select>
       </div>
@@ -202,7 +210,7 @@ export function ContentManager() {
                   </td>
                   <td className="p-[14px_18px] text-right">
                     <div className="flex items-center justify-end gap-2">
-                      {lesson.status !== 'published' && (
+                      {canPublishContent && lesson.status !== 'published' && (
                         <button
                           type="button"
                           onClick={() => handleUpdateStatus(lesson.id, 'published')}
@@ -211,7 +219,7 @@ export function ContentManager() {
                           {t('admin.publish_btn')}
                         </button>
                       )}
-                      {lesson.status === 'published' && (
+                      {canPublishContent && lesson.status === 'published' && (
                         <button
                           type="button"
                           onClick={() => handleUpdateStatus(lesson.id, 'archived')}

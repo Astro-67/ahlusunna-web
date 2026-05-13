@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ahlusunna - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&amp;family=Inter:wght@400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500;1,6..72,600;1,6..72,700&amp;family=Scheherazade+New:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#d29895",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#274e3d",
+                        "surface": "#f9faf6",
+                        "secondary": "#615e58",
+                        "surface-container": "#eeeeeb",
+                        "on-tertiary-fixed-variant": "#673a39",
+                        "error-container": "#ffdad6",
+                        "on-background": "#1a1c1a",
+                        "on-error": "#ffffff",
+                        "primary-dark": "#143828",
+                        "accent": "#C9A84C",
+                        "on-surface": "#1a1c1a",
+                        "surface-container-lowest": "#ffffff",
+                        "muted-foreground": "#6B7280",
+                        "on-secondary-fixed-variant": "#494741",
+                        "success": "#2D6A4F",
+                        "foreground": "#1C1C1C",
+                        "accent-dark": "#B8973A",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#331111",
+                        "secondary-fixed": "#e7e2da",
+                        "surface-dim": "#dadad7",
+                        "inverse-primary": "#a5d0b9",
+                        "on-primary-fixed": "#002114",
+                        "surface-bright": "#f9faf6",
+                        "accent-foreground": "#1C1C1C",
+                        "border": "#E5E0D8",
+                        "tertiary-fixed": "#ffdad8",
+                        "on-secondary-container": "#65625c",
+                        "warning": "#D4A373",
+                        "surface-tint": "#3f6653",
+                        "surface-variant": "#e2e3e0",
+                        "on-error-container": "#93000a",
+                        "background": "#FAF7F0",
+                        "inverse-on-surface": "#f0f1ee",
+                        "sidebar-border": "rgba(201, 168, 76, 0.2)",
+                        "tertiary": "#401b1b",
+                        "tertiary-container": "#5a302f",
+                        "sidebar": "#1B4332",
+                        "outline-variant": "#c1c8c2",
+                        "tertiary-fixed-dim": "#f5b7b4",
+                        "primary-fixed": "#c1ecd4",
+                        "secondary-fixed-dim": "#cac6be",
+                        "surface-container-low": "#f3f4f1",
+                        "on-tertiary": "#ffffff",
+                        "card": "#FFFFFF",
+                        "inverse-surface": "#2f312f",
+                        "primary-fixed-dim": "#a5d0b9",
+                        "primary": "#012d1d",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#86af99",
+                        "primary-container": "#1b4332",
+                        "outline": "#717973",
+                        "on-surface-variant": "#414844",
+                        "primary-foreground": "#FAF7F0",
+                        "surface-container-highest": "#e2e3e0",
+                        "on-secondary-fixed": "#1d1c17",
+                        "secondary-container": "#e4dfd7",
+                        "destructive": "#9B2335",
+                        "surface-container-high": "#e8e8e5",
+                        "muted": "#F4EFE6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "tight": "8px",
+                        "spacious": "40px",
+                        "max-content-width": "65ch",
+                        "max-page-width": "1280px",
+                        "dramatic": "80px",
+                        "comfortable": "20px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "label": ["Inter"],
+                        "body": ["Inter"],
+                        "display": ["Amiri", "Newsreader"],
+                        "body-sm": ["Inter"],
+                        "arabic-body": ["Amiri", "Scheherazade New"],
+                        "h3": ["Amiri", "Newsreader"],
+                        "h2": ["Amiri", "Newsreader"],
+                        "h1": ["Amiri", "Newsreader"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label": ["11px", { "lineHeight": "1.4", "letterSpacing": "0.14em", "fontWeight": "600" }],
+                        "body": ["18px", { "lineHeight": "1.75", "fontWeight": "400" }],
+                        "display": ["64px", { "lineHeight": "1.05", "letterSpacing": "-0.05em", "fontWeight": "400" }],
+                        "body-sm": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "arabic-body": ["20px", { "lineHeight": "1.8", "fontWeight": "400" }],
+                        "h3": ["24px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "h2": ["32px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "h1": ["44px", { "lineHeight": "1.1", "letterSpacing": "-0.025em", "fontWeight": "400" }],
+                        "body-lg": ["20px", { "lineHeight": "1.75", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen flex font-body text-on-background">
+<!-- Sidebar -->
+<aside class="w-[264px] bg-sidebar flex flex-col fixed inset-y-0 left-0 z-40">
+<!-- SECTION 1: Logo Lockup Header -->
+<div class="h-[140px] bg-[#0F2A1F] flex items-center justify-center border-b border-white/10 shrink-0">
+<img alt="Ahlusunna Logo" class="h-24 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCm1SZFtxxfbBqy8odnTCLz5yDcUpDypnjH3-ni-bJGivQ_YLIpQFJFN_4qsR9ruyfGmKmA8eyyI6XgX-VakTC9JAx6yRjGTdbPeKPl48PA-WskgLpn-KBAMCeT6EuVzLEs7KbASOcOwEr243gfbT5b0FX4cM6wwp-F3qPZflpvKVDMK4pQYEvafE_gcm3atWUo00LO-vcR1564shHAoQ5QPfkpZY_-Bpg_1v1AkN_CPzN9cbzI5uTF8RTJP76n1Ak-rQ7S8TcJdw"/>
+</div>
+<!-- SECTION 2: Role Label -->
+<div class="h-[44px] flex items-center px-6 border-b border-white/10 shrink-0">
+<div class="w-1.5 h-1.5 bg-accent mr-2 shrink-0"></div>
+<span class="font-label text-label text-accent uppercase">DASHIBODI YA MWANDISHI</span>
+</div>
+<!-- SECTION 3: Navigation -->
+<nav class="flex-1 py-4 flex flex-col gap-1 overflow-y-auto">
+<a class="flex items-center px-6 py-3 bg-white/10 border-l-4 border-accent relative group" href="#">
+<span class="material-symbols-outlined text-on-primary mr-3 text-[20px]" data-weight="fill" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-body-sm text-body-sm text-on-primary font-semibold">Dashibodi</span>
+</a>
+<a class="flex items-center px-6 py-3 border-l-4 border-transparent hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-surface-variant group-hover:text-on-primary transition-colors mr-3 text-[20px]">menu_book</span>
+<span class="font-body-sm text-body-sm text-surface-variant group-hover:text-on-primary transition-colors">Masomo Yangu</span>
+</a>
+<a class="flex items-center px-6 py-3 border-l-4 border-transparent bg-accent/10 hover:bg-accent/20 transition-colors group" href="#">
+<span class="material-symbols-outlined text-accent mr-3 text-[20px]">add_circle</span>
+<span class="font-body-sm text-body-sm text-[#E8C870]">Somo Jipya</span>
+</a>
+<a class="flex items-center px-6 py-3 border-l-4 border-transparent hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-surface-variant group-hover:text-on-primary transition-colors mr-3 text-[20px]">folder_open</span>
+<span class="font-body-sm text-body-sm text-surface-variant group-hover:text-on-primary transition-colors">Maktaba ya Faili</span>
+</a>
+<a class="flex items-center px-6 py-3 border-l-4 border-transparent hover:bg-white/5 transition-colors group" href="#">
+<span class="material-symbols-outlined text-surface-variant group-hover:text-on-primary transition-colors mr-3 text-[20px]">person</span>
+<span class="font-body-sm text-body-sm text-surface-variant group-hover:text-on-primary transition-colors">Wasifu</span>
+</a>
+</nav>
+<!-- SECTION 4: Footer -->
+<div class="p-4 border-t border-white/10 shrink-0">
+<div class="bg-white/5 p-3 rounded-DEFAULT mb-3 flex items-center">
+<div class="w-10 h-10 rounded-full bg-accent text-primary flex items-center justify-center font-display text-h3 font-bold shrink-0">A</div>
+<div class="ml-3 overflow-hidden">
+<p class="font-body-sm text-body-sm text-on-primary truncate">Asha Juma</p>
+<p class="font-label text-label text-accent truncate">Mwandishi</p>
+</div>
+</div>
+<button class="w-full flex items-center justify-center px-4 py-2 text-surface-variant hover:text-on-primary transition-colors font-body-sm text-body-sm group">
+<span class="material-symbols-outlined mr-2 text-[20px]">logout</span>
+                Toka
+            </button>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="ml-[264px] flex-1 flex flex-col min-h-screen">
+<!-- Topbar -->
+<header class="h-[64px] bg-card border-b border-border flex items-center justify-between px-8 sticky top-0 z-30 shrink-0">
+<h1 class="font-display text-[20px] text-primary">Dashibodi</h1>
+<div class="flex items-center gap-6">
+<!-- Date -->
+<span class="font-body-sm text-body-sm text-secondary hidden md:block">Jumatano · 13 Mei 2026</span>
+<!-- Language Switcher -->
+<div class="flex bg-surface-container-low border border-border p-0.5 rounded-none">
+<button class="px-3 py-1 text-sm font-medium bg-card border border-border shadow-sm rounded-none text-primary">SW</button>
+<button class="px-3 py-1 text-sm font-medium text-secondary hover:text-primary rounded-none transition-colors">AR</button>
+<button class="px-3 py-1 text-sm font-medium text-secondary hover:text-primary rounded-none transition-colors">EN</button>
+</div>
+<!-- Notifications -->
+<button class="relative text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-accent ring-2 ring-card"></span>
+</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 p-8">
+<div class="w-full max-w-5xl mx-auto h-[480px] border-2 border-dashed border-outline-variant/50 flex flex-col items-center justify-center text-center p-8">
+<h2 class="font-display text-h3 text-secondary mb-2">Eneo la Maudhui ya Ukurasa</h2>
+<p class="font-body text-body-sm text-outline">Maudhui yatabadilika kulingana na ukurasa</p>
+</div>
+</main>
+</div>
+</body></html>

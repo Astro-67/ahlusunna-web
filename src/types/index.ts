@@ -6,11 +6,11 @@ export type LevelId = 'awali' | 'kati' | 'endelea'
 
 export type SubjectId = 'quran' | 'hadith' | 'fiqhi' | 'tawhidi' | 'sira' | 'adhkar'
 
-export type UserRole = 'public' | 'learner' | 'moderator' | 'admin'
+export type UserRole = 'public' | 'student' | 'author' | 'moderator' | 'admin'
 
 export type AudioType = 'lecture' | 'recitation'
 
-export type LessonStatus = 'draft' | 'under_review' | 'published' | 'archived'
+export type LessonStatus = 'draft' | 'pending_review' | 'needs_revision' | 'published' | 'archived'
 
 export type ContentStatus = 'active' | 'inactive'
 

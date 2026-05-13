@@ -6,6 +6,7 @@ import { mockUsers as seedUsers, mockContacts } from '#/data/seed'
 import { useState } from 'react'
 import { useLanguage } from '#/hooks/useLanguage'
 import { cn } from '#/lib/utils'
+import type { UserRole } from '#/types'
 
 export const Route = createFileRoute('/(admin)/admin/')({
   component: AdminDashboardPage,
@@ -31,10 +32,14 @@ function AdminDashboardPage() {
 
   const filteredUsers = roleFilter === 'all' ? users : users.filter(u => u.role === roleFilter)
 
-  const handleToggleUserRole = (userId: string) => {
+
+
+  const availableRoles: UserRole[] = ['student', 'author', 'moderator', 'admin']
+
+  const handleRoleChange = (userId: string, newRole: UserRole) => {
     setUsers(users.map(u => {
       if (u.id === userId) {
-        return { ...u, role: u.role === 'admin' ? 'learner' : 'admin' }
+        return { ...u, role: newRole }
       }
       return u
     }))
@@ -54,7 +59,7 @@ function AdminDashboardPage() {
     
     if (type === 'user') {
       if (status === 'admin') className += " bg-[#1B4332] border-[#1B4332] text-[#FAF7F0]"
-      else if (status === 'learner') className += " bg-background border-border text-foreground"
+      else if (status === 'student') className += " bg-background border-border text-foreground"
       else className += " bg-accent/10 border-accent/40 text-[#8a6f1f]"
     } else {
       if (status === 'new') className += " bg-accent/20 border-accent text-[#8a6f1f]"
@@ -64,7 +69,8 @@ function AdminDashboardPage() {
 
     const labelMap: Record<string, string> = {
       admin: t('admin.role_admin'),
-      learner: t('admin.role_learner'),
+      student: t('admin.role_learner'),
+      author: t('admin.role_author'),
       moderator: t('admin.role_moderator'),
       new: t('admin.new_messages'),
       read: t('admin.is_read')
@@ -89,7 +95,7 @@ function AdminDashboardPage() {
               <UserCheck size={16} className="text-primary" /> {t('admin.users_label')}
             </h3>
             <div className="flex gap-2">
-               {['all', 'admin', 'learner'].map(role => (
+               {['all', 'admin', 'moderator', 'author', 'student'].map(role => (
                  <button 
                    key={role}
                    onClick={() => handleRoleFilter(role)}
@@ -121,12 +127,17 @@ function AdminDashboardPage() {
                       <StatusPill status={u.role} type="user" />
                     </td>
                     <td className={cn("p-[12px_18px]", isRtl ? "text-left" : "text-right")}>
-                      <button 
-                        onClick={() => handleToggleUserRole(u.id)}
-                        className="text-[11px] font-semibold text-primary hover:underline"
+                      <select
+                        value={u.role}
+                        onChange={(e) => handleRoleChange(u.id, e.target.value as UserRole)}
+                        className="text-[11px] font-semibold bg-transparent border border-border px-2 py-1 text-primary hover:border-primary cursor-pointer"
                       >
-                        {u.role === 'admin' ? t('admin.demote') : t('admin.make_admin')}
-                      </button>
+                        {availableRoles.map(role => (
+                          <option key={role} value={role}>
+                            {role}
+                          </option>
+                        ))}
+                      </select>
                     </td>
                   </tr>
                 ))}

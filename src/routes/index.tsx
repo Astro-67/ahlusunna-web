@@ -13,7 +13,9 @@ export const Route = createFileRoute('/')({
         throw redirect({ to: '/admin' })
       } else if (context.auth.user.role === 'moderator') {
         throw redirect({ to: '/moderator' })
-      } else if (context.auth.user.role === 'learner') {
+      } else if (context.auth.user.role === 'author') {
+        throw redirect({ to: '/author' })
+      } else if (context.auth.user.role === 'student') {
         throw redirect({ to: '/subjects' })
       }
     }

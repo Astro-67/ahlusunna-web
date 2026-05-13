@@ -5160,7 +5160,7 @@ export const mockUsers: User[] = [
   {
     id: 'user-1',
     name: 'Sh. Hamad',
-    email: 'admin@ahlusunna.info',
+    email: 'admin@ahlusunna.com',
     role: 'admin',
     progress: [],
     levelAccess: ['awali', 'kati', 'endelea'],
@@ -5169,7 +5169,7 @@ export const mockUsers: User[] = [
   {
     id: 'user-2',
     name: 'Sh. Khalid',
-    email: 'moderator@ahlusunna.info',
+    email: 'moderator@ahlusunna.com',
     role: 'moderator',
     progress: [],
     levelAccess: ['awali', 'kati', 'endelea'],
@@ -5177,9 +5177,18 @@ export const mockUsers: User[] = [
   },
   {
     id: 'user-3',
-    name: 'Asha Juma',
-    email: 'mwanafunzi@ahlusunna.info',
-    role: 'learner',
+    name: 'Ustadh Ali',
+    email: 'author@ahlusunna.com',
+    role: 'author',
+    progress: [],
+    levelAccess: ['awali', 'kati', 'endelea'],
+    createdAt: '2025-06-01'
+  },
+  {
+    id: 'user-4',
+    name: 'Fatma Juma',
+    email: 'student@ahlusunna.com',
+    role: 'student',
     progress: ['quran-ni-nini', 'aina-za-najisi', 'wudhu'],
     levelAccess: ['awali'],
     createdAt: '2026-03-10'
@@ -5187,9 +5196,10 @@ export const mockUsers: User[] = [
 ]
 
 export const mockCredentials: Record<string, string> = {
-  'admin@ahlusunna.info': 'admin123',
-  'moderator@ahlusunna.info': 'mod123',
-  'mwanafunzi@ahlusunna.info': 'user123',
+  'admin@ahlusunna.com': 'password',
+  'moderator@ahlusunna.com': 'password',
+  'author@ahlusunna.com': 'password',
+  'student@ahlusunna.com': 'password',
 }
 
 // ============================================

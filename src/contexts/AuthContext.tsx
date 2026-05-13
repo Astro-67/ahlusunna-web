@@ -16,8 +16,12 @@ export interface AuthContextValue {
   isAuthenticated: boolean
   isAdmin: boolean
   isModerator: boolean
-  isLearner: boolean
+  isAuthor: boolean
+  isStudent: boolean
+  isLearner: boolean  // alias kept for backward compat during migration
   isLoading: boolean
+  canCreateContent: boolean
+  canPublishContent: boolean
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>
   register: (
     name: string,
@@ -146,7 +150,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         id: `user-${Date.now()}`,
         name: name.trim(),
         email: normalizedEmail,
-        role: 'learner',
+        role: 'student',
         levelAccess: ['awali', 'kati'] satisfies LevelId[],
         progress: [],
         createdAt: new Date().toISOString().split('T')[0],
@@ -207,8 +211,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       isAuthenticated: Boolean(user),
       isAdmin: user?.role === 'admin',
       isModerator: user?.role === 'moderator',
-      isLearner: user?.role === 'learner',
+      isAuthor: user?.role === 'author',
+      isStudent: user?.role === 'student',
+      isLearner: user?.role === 'student', // alias kept for backward compat during migration
       isLoading: false,
+      canCreateContent: user?.role === 'author',
+      canPublishContent: user?.role === 'moderator' || user?.role === 'admin',
       login,
       register,
       logout,
