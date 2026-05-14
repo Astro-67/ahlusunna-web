@@ -54,9 +54,11 @@ export function LoginForm({ onSuccess, redirect: _redirect }: LoginFormProps) {
         }
 
         if (loggedInUser.role === 'admin') {
-          void navigate({ to: '/admin' })
+          void navigate({ to: '/dashboard/admin' })
         } else if (loggedInUser.role === 'moderator') {
-          void navigate({ to: '/moderator' })
+          void navigate({ to: '/dashboard/moderator' })
+        } else if (loggedInUser.role === 'author') {
+          void navigate({ to: '/dashboard/author' })
         } else {
           void navigate({ to: '/subjects' })
         }

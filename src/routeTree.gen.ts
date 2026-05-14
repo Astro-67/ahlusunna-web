@@ -11,20 +11,20 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SubjectsRouteImport } from './routes/subjects'
 import { Route as RegisterRouteImport } from './routes/register'
-import { Route as ModeratorRouteImport } from './routes/moderator'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as ContactRouteImport } from './routes/contact'
-import { Route as AuthorRouteImport } from './routes/author'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LessonSlugRouteImport } from './routes/lesson.$slug'
 import { Route as learnerProgressRouteImport } from './routes/(learner)/progress'
-import { Route as adminAdminIndexRouteImport } from './routes/(admin)/admin.index'
+import { Route as DashboardModeratorIndexRouteImport } from './routes/dashboard/moderator/index'
+import { Route as DashboardAuthorIndexRouteImport } from './routes/dashboard/author/index'
+import { Route as DashboardAdminIndexRouteImport } from './routes/dashboard/admin/index'
+import { Route as DashboardAdminContentRouteImport } from './routes/dashboard/admin/content'
 import { Route as subjectsSubjectsSlugRouteImport } from './routes/(subjects)/subjects.$slug'
 import { Route as learnerSubjectsIntermediateRouteImport } from './routes/(learner)/subjects.intermediate'
 import { Route as learnerSubjectsAdvancedRouteImport } from './routes/(learner)/subjects.advanced'
-import { Route as adminAdminContentRouteImport } from './routes/(admin)/admin.content'
 
 const SubjectsRoute = SubjectsRouteImport.update({
   id: '/subjects',
@@ -34,11 +34,6 @@ const SubjectsRoute = SubjectsRouteImport.update({
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ModeratorRoute = ModeratorRouteImport.update({
-  id: '/moderator',
-  path: '/moderator',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -54,11 +49,6 @@ const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthorRoute = AuthorRouteImport.update({
-  id: '/author',
-  path: '/author',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -81,9 +71,24 @@ const learnerProgressRoute = learnerProgressRouteImport.update({
   path: '/progress',
   getParentRoute: () => rootRouteImport,
 } as any)
-const adminAdminIndexRoute = adminAdminIndexRouteImport.update({
-  id: '/(admin)/admin/',
-  path: '/admin/',
+const DashboardModeratorIndexRoute = DashboardModeratorIndexRouteImport.update({
+  id: '/dashboard/moderator/',
+  path: '/dashboard/moderator/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardAuthorIndexRoute = DashboardAuthorIndexRouteImport.update({
+  id: '/dashboard/author/',
+  path: '/dashboard/author/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardAdminIndexRoute = DashboardAdminIndexRouteImport.update({
+  id: '/dashboard/admin/',
+  path: '/dashboard/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardAdminContentRoute = DashboardAdminContentRouteImport.update({
+  id: '/dashboard/admin/content',
+  path: '/dashboard/admin/content',
   getParentRoute: () => rootRouteImport,
 } as any)
 const subjectsSubjectsSlugRoute = subjectsSubjectsSlugRouteImport.update({
@@ -102,141 +107,136 @@ const learnerSubjectsAdvancedRoute = learnerSubjectsAdvancedRouteImport.update({
   path: '/subjects/advanced',
   getParentRoute: () => rootRouteImport,
 } as any)
-const adminAdminContentRoute = adminAdminContentRouteImport.update({
-  id: '/(admin)/admin/content',
-  path: '/admin/content',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/author': typeof AuthorRoute
   '/contact': typeof ContactRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
-  '/moderator': typeof ModeratorRoute
   '/register': typeof RegisterRoute
   '/subjects': typeof SubjectsRoute
   '/progress': typeof learnerProgressRoute
   '/lesson/$slug': typeof LessonSlugRoute
-  '/admin/content': typeof adminAdminContentRoute
   '/subjects/advanced': typeof learnerSubjectsAdvancedRoute
   '/subjects/intermediate': typeof learnerSubjectsIntermediateRoute
   '/subjects/$slug': typeof subjectsSubjectsSlugRoute
-  '/admin/': typeof adminAdminIndexRoute
+  '/dashboard/admin/content': typeof DashboardAdminContentRoute
+  '/dashboard/admin/': typeof DashboardAdminIndexRoute
+  '/dashboard/author/': typeof DashboardAuthorIndexRoute
+  '/dashboard/moderator/': typeof DashboardModeratorIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/author': typeof AuthorRoute
   '/contact': typeof ContactRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
-  '/moderator': typeof ModeratorRoute
   '/register': typeof RegisterRoute
   '/subjects': typeof SubjectsRoute
   '/progress': typeof learnerProgressRoute
   '/lesson/$slug': typeof LessonSlugRoute
-  '/admin/content': typeof adminAdminContentRoute
   '/subjects/advanced': typeof learnerSubjectsAdvancedRoute
   '/subjects/intermediate': typeof learnerSubjectsIntermediateRoute
   '/subjects/$slug': typeof subjectsSubjectsSlugRoute
-  '/admin': typeof adminAdminIndexRoute
+  '/dashboard/admin/content': typeof DashboardAdminContentRoute
+  '/dashboard/admin': typeof DashboardAdminIndexRoute
+  '/dashboard/author': typeof DashboardAuthorIndexRoute
+  '/dashboard/moderator': typeof DashboardModeratorIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/author': typeof AuthorRoute
   '/contact': typeof ContactRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
-  '/moderator': typeof ModeratorRoute
   '/register': typeof RegisterRoute
   '/subjects': typeof SubjectsRoute
   '/(learner)/progress': typeof learnerProgressRoute
   '/lesson/$slug': typeof LessonSlugRoute
-  '/(admin)/admin/content': typeof adminAdminContentRoute
   '/(learner)/subjects/advanced': typeof learnerSubjectsAdvancedRoute
   '/(learner)/subjects/intermediate': typeof learnerSubjectsIntermediateRoute
   '/(subjects)/subjects/$slug': typeof subjectsSubjectsSlugRoute
-  '/(admin)/admin/': typeof adminAdminIndexRoute
+  '/dashboard/admin/content': typeof DashboardAdminContentRoute
+  '/dashboard/admin/': typeof DashboardAdminIndexRoute
+  '/dashboard/author/': typeof DashboardAuthorIndexRoute
+  '/dashboard/moderator/': typeof DashboardModeratorIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
-    | '/author'
     | '/contact'
     | '/forgot-password'
     | '/login'
-    | '/moderator'
     | '/register'
     | '/subjects'
     | '/progress'
     | '/lesson/$slug'
-    | '/admin/content'
     | '/subjects/advanced'
     | '/subjects/intermediate'
     | '/subjects/$slug'
-    | '/admin/'
+    | '/dashboard/admin/content'
+    | '/dashboard/admin/'
+    | '/dashboard/author/'
+    | '/dashboard/moderator/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
-    | '/author'
     | '/contact'
     | '/forgot-password'
     | '/login'
-    | '/moderator'
     | '/register'
     | '/subjects'
     | '/progress'
     | '/lesson/$slug'
-    | '/admin/content'
     | '/subjects/advanced'
     | '/subjects/intermediate'
     | '/subjects/$slug'
-    | '/admin'
+    | '/dashboard/admin/content'
+    | '/dashboard/admin'
+    | '/dashboard/author'
+    | '/dashboard/moderator'
   id:
     | '__root__'
     | '/'
     | '/about'
-    | '/author'
     | '/contact'
     | '/forgot-password'
     | '/login'
-    | '/moderator'
     | '/register'
     | '/subjects'
     | '/(learner)/progress'
     | '/lesson/$slug'
-    | '/(admin)/admin/content'
     | '/(learner)/subjects/advanced'
     | '/(learner)/subjects/intermediate'
     | '/(subjects)/subjects/$slug'
-    | '/(admin)/admin/'
+    | '/dashboard/admin/content'
+    | '/dashboard/admin/'
+    | '/dashboard/author/'
+    | '/dashboard/moderator/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  AuthorRoute: typeof AuthorRoute
   ContactRoute: typeof ContactRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
-  ModeratorRoute: typeof ModeratorRoute
   RegisterRoute: typeof RegisterRoute
   SubjectsRoute: typeof SubjectsRoute
   learnerProgressRoute: typeof learnerProgressRoute
   LessonSlugRoute: typeof LessonSlugRoute
-  adminAdminContentRoute: typeof adminAdminContentRoute
   learnerSubjectsAdvancedRoute: typeof learnerSubjectsAdvancedRoute
   learnerSubjectsIntermediateRoute: typeof learnerSubjectsIntermediateRoute
   subjectsSubjectsSlugRoute: typeof subjectsSubjectsSlugRoute
-  adminAdminIndexRoute: typeof adminAdminIndexRoute
+  DashboardAdminContentRoute: typeof DashboardAdminContentRoute
+  DashboardAdminIndexRoute: typeof DashboardAdminIndexRoute
+  DashboardAuthorIndexRoute: typeof DashboardAuthorIndexRoute
+  DashboardModeratorIndexRoute: typeof DashboardModeratorIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -253,13 +253,6 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/moderator': {
-      id: '/moderator'
-      path: '/moderator'
-      fullPath: '/moderator'
-      preLoaderRoute: typeof ModeratorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -281,13 +274,6 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/author': {
-      id: '/author'
-      path: '/author'
-      fullPath: '/author'
-      preLoaderRoute: typeof AuthorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -318,11 +304,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof learnerProgressRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(admin)/admin/': {
-      id: '/(admin)/admin/'
-      path: '/admin'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof adminAdminIndexRouteImport
+    '/dashboard/moderator/': {
+      id: '/dashboard/moderator/'
+      path: '/dashboard/moderator'
+      fullPath: '/dashboard/moderator/'
+      preLoaderRoute: typeof DashboardModeratorIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/author/': {
+      id: '/dashboard/author/'
+      path: '/dashboard/author'
+      fullPath: '/dashboard/author/'
+      preLoaderRoute: typeof DashboardAuthorIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/admin/': {
+      id: '/dashboard/admin/'
+      path: '/dashboard/admin'
+      fullPath: '/dashboard/admin/'
+      preLoaderRoute: typeof DashboardAdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/admin/content': {
+      id: '/dashboard/admin/content'
+      path: '/dashboard/admin/content'
+      fullPath: '/dashboard/admin/content'
+      preLoaderRoute: typeof DashboardAdminContentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/(subjects)/subjects/$slug': {
@@ -346,33 +353,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof learnerSubjectsAdvancedRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(admin)/admin/content': {
-      id: '/(admin)/admin/content'
-      path: '/admin/content'
-      fullPath: '/admin/content'
-      preLoaderRoute: typeof adminAdminContentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  AuthorRoute: AuthorRoute,
   ContactRoute: ContactRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
-  ModeratorRoute: ModeratorRoute,
   RegisterRoute: RegisterRoute,
   SubjectsRoute: SubjectsRoute,
   learnerProgressRoute: learnerProgressRoute,
   LessonSlugRoute: LessonSlugRoute,
-  adminAdminContentRoute: adminAdminContentRoute,
   learnerSubjectsAdvancedRoute: learnerSubjectsAdvancedRoute,
   learnerSubjectsIntermediateRoute: learnerSubjectsIntermediateRoute,
   subjectsSubjectsSlugRoute: subjectsSubjectsSlugRoute,
-  adminAdminIndexRoute: adminAdminIndexRoute,
+  DashboardAdminContentRoute: DashboardAdminContentRoute,
+  DashboardAdminIndexRoute: DashboardAdminIndexRoute,
+  DashboardAuthorIndexRoute: DashboardAuthorIndexRoute,
+  DashboardModeratorIndexRoute: DashboardModeratorIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

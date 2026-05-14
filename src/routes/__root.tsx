@@ -44,7 +44,7 @@ function NotFoundComponent() {
 
 function RootComponent() {
   const pathname = useRouterState({ select: (state) => state.location.pathname })
-  const isDashboardRoute = pathname.startsWith('/admin') || pathname.startsWith('/moderator')
+  const isDashboardRoute = pathname.startsWith('/dashboard/')
 
   if (isDashboardRoute) {
     return <Outlet />

@@ -10,11 +10,11 @@ export const Route = createFileRoute('/')({
   beforeLoad: ({ context }) => {
     if (context.auth.isAuthenticated && context.auth.user) {
       if (context.auth.user.role === 'admin') {
-        throw redirect({ to: '/admin' })
+        throw redirect({ to: '/dashboard/admin' })
       } else if (context.auth.user.role === 'moderator') {
-        throw redirect({ to: '/moderator' })
+        throw redirect({ to: '/dashboard/moderator' })
       } else if (context.auth.user.role === 'author') {
-        throw redirect({ to: '/author' })
+        throw redirect({ to: '/dashboard/author' })
       } else if (context.auth.user.role === 'student') {
         throw redirect({ to: '/subjects' })
       }

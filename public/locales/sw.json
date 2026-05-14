@@ -12,6 +12,30 @@
     "progress": "Maendeleo",
     "content": "Maudhui"
   },
+  "dashboard": {
+    "role": {
+      "author": "Mwandishi",
+      "moderator": "Msimamizi wa Maudhui",
+      "admin": "Msimamizi Mkuu"
+    },
+    "nav": {
+      "home": "Dashibodi",
+      "my_lessons": "Masomo Yangu",
+      "new_lesson": "Somo Jipya",
+      "media": "Maktaba ya Faili",
+      "profile": "Wasifu",
+      "logout": "Toka",
+      "review_queue": "Foleni ya Ukaguzi",
+      "all_lessons": "Masomo Yote",
+      "users": "Watumiaji",
+      "contact": "Ujumbe wa Mawasiliano",
+      "content_oversight": "Ukaguzi wa Maudhui",
+      "settings": "Mipangilio"
+    },
+    "topbar": {
+      "notifications": "Arifa"
+    }
+  },
   "home": {
     "hero_title": "Kujifunza Uislamu kwa Mpangilio kwa Kila Muislamu",
     "hero_subtitle": "Jifunze Qur'an, Hadith, Fiqhi, Tawhidi, na Sira kupitia masomo mengi, video, na sauti.",

@@ -196,7 +196,7 @@ export function Navbar() {
                   <div className="py-1">
                     {isAdmin && (
                       <Link
-                        to="/admin"
+                        to="/dashboard/admin"
                         className="flex items-center gap-3 px-4 py-2.5 text-sm text-foreground transition-colors hover:bg-secondary"
                         role="menuitem"
                       >

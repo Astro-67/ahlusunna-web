@@ -12,6 +12,30 @@
     "progress": "Progress",
     "content": "Content"
   },
+  "dashboard": {
+    "role": {
+      "author": "Author",
+      "moderator": "Content Moderator",
+      "admin": "Administrator"
+    },
+    "nav": {
+      "home": "Dashboard",
+      "my_lessons": "My Lessons",
+      "new_lesson": "New Lesson",
+      "media": "Media Library",
+      "profile": "Profile",
+      "logout": "Logout",
+      "review_queue": "Review Queue",
+      "all_lessons": "All Lessons",
+      "users": "Users",
+      "contact": "Contact Messages",
+      "content_oversight": "Content Oversight",
+      "settings": "Settings"
+    },
+    "topbar": {
+      "notifications": "Notifications"
+    }
+  },
   "home": {
     "hero_title": "Structured Islamic Learning for Every Muslim",
     "hero_subtitle": "Study Qur'an, Hadith, Fiqh, Tawhid, and Sirah through organized lessons, videos, and audio.",
